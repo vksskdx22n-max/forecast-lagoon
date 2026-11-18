@@ -1,0 +1,87 @@
+name: Previsione e verifica
+
+on:
+  schedule:
+    - cron: "17 15 * * *"      # ogni giorno alle 15:17 UTC (16:17 ora solare), dopo il bollettino CPSM delle 13:30
+  workflow_dispatch:
+    inputs:
+      data:
+        description: "Giorno della previsione AAAA-MM-GG (vuoto = domani)"
+        required: false
+      da:
+        description: "Ora inizio (vuoto = 05:00)"
+        required: false
+      a:
+        description: "Ora fine (vuoto = 12:00)"
+        required: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: previsione
+  cancel-in-progress: false
+
+env:
+  TZ: Europe/Rome
+  PYTHONUNBUFFERED: "1"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Controllo dei file dati
+        run: |
+          ANNO=$(date +%Y)
+          for f in "marea_astronomica_${ANNO}.json" correnti_laguna.json verifica_archivio.json; do
+            [ -f "$f" ] || { echo "::error::Manca $f nel repository: caricalo (vedi README)"; exit 1; }
+          done
+
+      - name: Previsione (con la verifica dei giorni conclusi)
+        env:
+          DATA_IN: ${{ github.event.inputs.data }}
+          DA_IN: ${{ github.event.inputs.da }}
+          A_IN: ${{ github.event.inputs.a }}
+        run: |
+          DATA="${DATA_IN:-$(date -d tomorrow +%F)}"
+          python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire
+
+      - name: Pagine per GitHub Pages
+        run: python3 build_site.py
+
+      - name: Salvataggio di archivio e previsioni nel repository
+        run: |
+          git config user.name "forecast-lagoon-bot"
+          git config user.email "forecast-lagoon-bot@users.noreply.github.com"
+          git add verifica_archivio.json Previsioni/*.json Previsioni/*.html 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Nessuna modifica da salvare."
+          else
+            git commit -m "Previsione e verifica $(date +%F)"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

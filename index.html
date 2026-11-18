@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Forecast Lagoon</title>
+<style>
+:root{--v:#2e9e5b;--g:#e0a800;--r:#d6453d;--n:#6b7280}
+*{box-sizing:border-box}body{margin:0;font:16px/1.4 -apple-system,system-ui,sans-serif;background:#f4f6f8;color:#14202b}
+header{background:#12324a;color:#fff;padding:18px 16px}header h1{margin:0;font-size:20px}header p{margin:4px 0 0;font-size:13px;opacity:.8}
+main{max-width:680px;margin:0 auto;padding:12px}
+.card{background:#fff;border-radius:12px;padding:14px;margin:10px 0;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.top{border-left:8px solid var(--n)}.top.verde{border-color:var(--v)}.top.giallo{border-color:var(--g)}.top.rosso{border-color:var(--r)}
+.t{font-weight:600;font-size:17px}.s{font-size:13px;color:#4b5563;margin-top:2px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+a.b{display:inline-block;padding:9px 14px;border-radius:9px;background:#12324a;color:#fff;text-decoration:none;font-size:14px}
+a.b.alt{background:#e5eaf0;color:#12324a}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;background:var(--n)}
+.dot.verde{background:var(--v)}.dot.giallo{background:var(--g)}.dot.rosso{background:var(--r)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-top:1px solid #eef1f4}
+.row:first-child{border-top:0}.row a{color:#12324a;font-size:14px;margin-left:10px}
+footer{max-width:680px;margin:0 auto;padding:6px 14px 24px;font-size:12px;color:#6b7280}
+</style>
+</head>
+<body>
+<header><h1>Forecast Lagoon</h1><p id="sott">Previsione e verifica meteo-marina · Laguna di Venezia</p></header>
+<main id="app"><div class="card">Caricamento…</div></main>
+<footer id="piede"></footer>
+<script>
+const app=document.getElementById('app');
+function el(tag,attr,...figli){const e=document.createElement(tag);for(const k in(attr||{})){if(k==='cls')e.className=attr[k];else if(k==='href')e.href=attr[k];else e.setAttribute(k,attr[k])}
+ for(const f of figli){if(f==null)continue;e.append(f.nodeType?f:document.createTextNode(f))}return e}
+function btn(testo,url,alt){return el('a',{cls:'b'+(alt?' alt':''),href:url},testo)}
+fetch('index.json',{cache:'no-store'}).then(r=>r.json()).then(D=>{
+ app.textContent='';
+ if(!D.voci.length){app.append(el('div',{cls:'card'},'Nessuna previsione ancora pubblicata.'));return}
+ const u=D.voci[0];
+ const c=el('div',{cls:'card top '+(u.colore||'')},
+  el('div',{cls:'t'},el('span',{cls:'dot '+(u.colore||'')}),u.titolo||u.data),
+  el('div',{cls:'s'},'Finestra '+(u.finestra||'')+(u.colore?' · semaforo '+u.colore:'')+' · generata '+(u.generato||'')));
+ const b=el('div',{cls:'btns'});
+ if(u.previsione)b.append(btn('Previsione',u.previsione));
+ if(u.previsione_pdf)b.append(btn('PDF',u.previsione_pdf,true));
+ if(u.verifica)b.append(btn('Verifica'+(u.verifica_provvisoria?' (provvisoria)':''),u.verifica,true));
+ c.append(b);app.append(c);
+ if(D.voci.length>1){
+  const l=el('div',{cls:'card'},el('div',{cls:'t'},'Giorni precedenti'));
+  D.voci.slice(1).forEach(v=>{
+   const r=el('div',{cls:'row'},el('span',null,el('span',{cls:'dot '+(v.colore||'')}),(v.titolo||v.data)+' · '+(v.finestra||'')));
+   const a=el('span');
+   if(v.previsione)a.append(el('a',{href:v.previsione},'previsione'));
+   if(v.verifica)a.append(el('a',{href:v.verifica},'verifica'));
+   r.append(a);l.append(r)});
+  app.append(l)}
+ document.getElementById('piede').textContent='Sito v'+D.versione_sito+' · aggiornato (UTC) '+D.aggiornato_utc.replace('T',' ');
+}).catch(e=>{app.textContent='';app.append(el('div',{cls:'card'},'Impossibile leggere index.json: '+e))});
+</script>
+</body>
+</html>

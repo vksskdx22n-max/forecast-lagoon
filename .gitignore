@@ -1,0 +1,5 @@
+__pycache__/
+Previsioni/*.pdf
+Previsioni/*.png
+site/
+diario_pesca_MASTER.json
