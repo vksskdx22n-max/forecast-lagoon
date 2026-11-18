@@ -1,0 +1,5684 @@
+{
+ "versione": "1.20",
+ "stazione": "Malamocco Porto",
+ "zona": "Malamocco",
+ "ore": [
+  {
+   "data": "2026-10-30",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto",
+   "generato": "2026-10-29 18:55",
+   "anticipo_h": 12.1,
+   "prev": {
+    "stima": 14.2,
+    "d2": 12.0,
+    "i2": 11.5,
+    "ec": 5.9,
+    "raff": 15.4,
+    "dir_g": 32,
+    "corr": 2.2,
+    "raff_d2": 15.4
+   },
+   "mis": {
+    "media": 12.6,
+    "raff": 15.6,
+    "dir_g": 27,
+    "n": 12
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-30",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto",
+   "generato": "2026-10-29 18:55",
+   "anticipo_h": 13.1,
+   "prev": {
+    "stima": 14.5,
+    "d2": 12.3,
+    "i2": 12.1,
+    "ec": 6.1,
+    "raff": 15.9,
+    "dir_g": 33,
+    "corr": 2.2,
+    "raff_d2": 15.9
+   },
+   "mis": {
+    "media": 13.3,
+    "raff": 15.4,
+    "dir_g": 32,
+    "n": 12
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-30",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto",
+   "generato": "2026-10-29 18:55",
+   "anticipo_h": 14.1,
+   "prev": {
+    "stima": 14.3,
+    "d2": 12.1,
+    "i2": 12.6,
+    "ec": 6.4,
+    "raff": 15.9,
+    "dir_g": 30,
+    "corr": 2.2,
+    "raff_d2": 15.9
+   },
+   "mis": {
+    "media": 12.9,
+    "raff": 16.1,
+    "dir_g": 32,
+    "n": 12
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-30",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto",
+   "generato": "2026-10-29 18:55",
+   "anticipo_h": 15.1,
+   "prev": {
+    "stima": 14.3,
+    "d2": 12.1,
+    "i2": 11.7,
+    "ec": 6.2,
+    "raff": 15.6,
+    "dir_g": 33,
+    "corr": 2.2,
+    "raff_d2": 15.6
+   },
+   "mis": {
+    "media": 14.8,
+    "raff": 19.2,
+    "dir_g": 41,
+    "n": 12
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-30",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto",
+   "generato": "2026-10-29 18:55",
+   "anticipo_h": 16.1,
+   "prev": {
+    "stima": 13.6,
+    "d2": 11.4,
+    "i2": 10.9,
+    "ec": 5.9,
+    "raff": 15.4,
+    "dir_g": 48,
+    "corr": 2.2,
+    "raff_d2": 15.4
+   },
+   "mis": {
+    "media": 13.5,
+    "raff": 19.2,
+    "dir_g": 44,
+    "n": 12
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-31",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca)",
+   "generato": "2026-10-30 17:19",
+   "anticipo_h": 13.7,
+   "prev": {
+    "stima": 12.5,
+    "d2": 10.3,
+    "i2": 14.0,
+    "ec": 4.3,
+    "raff": 13.4,
+    "dir_g": 15,
+    "corr": 2.2,
+    "raff_d2": 13.4
+   },
+   "mis": {
+    "media": 12.3,
+    "raff": 15.6,
+    "dir_g": 47,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 12.3
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-31",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca)",
+   "generato": "2026-10-30 17:19",
+   "anticipo_h": 14.7,
+   "prev": {
+    "stima": 13.1,
+    "d2": 10.9,
+    "i2": 11.5,
+    "ec": 4.3,
+    "raff": 14.2,
+    "dir_g": 22,
+    "corr": 2.2,
+    "raff_d2": 14.2
+   },
+   "mis": {
+    "media": 13.2,
+    "raff": 15.7,
+    "dir_g": 36,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 13.2
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-31",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca)",
+   "generato": "2026-10-30 17:19",
+   "anticipo_h": 15.7,
+   "prev": {
+    "stima": 12.0,
+    "d2": 9.8,
+    "i2": 10.3,
+    "ec": 4.4,
+    "raff": 14.0,
+    "dir_g": 35,
+    "corr": 2.2,
+    "raff_d2": 14.0
+   },
+   "mis": {
+    "media": 12.4,
+    "raff": 15.7,
+    "dir_g": 43,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 12.4
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-31",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca)",
+   "generato": "2026-10-30 17:19",
+   "anticipo_h": 16.7,
+   "prev": {
+    "stima": 11.8,
+    "d2": 9.6,
+    "i2": 9.9,
+    "ec": 4.3,
+    "raff": 13.2,
+    "dir_g": 42,
+    "corr": 2.2,
+    "raff_d2": 13.2
+   },
+   "mis": {
+    "media": 12.1,
+    "raff": 15.6,
+    "dir_g": 42,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 12.1
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-31",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca)",
+   "generato": "2026-10-30 17:19",
+   "anticipo_h": 17.7,
+   "prev": {
+    "stima": 11.4,
+    "d2": 9.2,
+    "i2": 10.7,
+    "ec": 3.9,
+    "raff": 12.8,
+    "dir_g": 48,
+    "corr": 2.2,
+    "raff_d2": 12.8
+   },
+   "mis": {
+    "media": 11.1,
+    "raff": 14.8,
+    "dir_g": 46,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 11.1
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-31",
+   "ora": "07:00",
+   "zona": "Pellestrina",
+   "stazione": "Chioggia Porto (interna, ~5 km a sud: approssimazione)",
+   "generato": "2026-10-30 17:19",
+   "anticipo_h": 13.7,
+   "prev": {
+    "stima": 13.9,
+    "d2": 11.7,
+    "i2": 15.2,
+    "ec": 4.3,
+    "raff": 16.5,
+    "dir_g": 18,
+    "corr": 2.2,
+    "raff_d2": 16.5
+   },
+   "mis": {
+    "media": 12.3,
+    "raff": 25.5,
+    "dir_g": 57,
+    "n": 12,
+    "stazioni": {
+     "Chioggia Porto": 12.3
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-31",
+   "ora": "08:00",
+   "zona": "Pellestrina",
+   "stazione": "Chioggia Porto (interna, ~5 km a sud: approssimazione)",
+   "generato": "2026-10-30 17:19",
+   "anticipo_h": 14.7,
+   "prev": {
+    "stima": 14.4,
+    "d2": 12.2,
+    "i2": 12.6,
+    "ec": 4.3,
+    "raff": 16.9,
+    "dir_g": 27,
+    "corr": 2.2,
+    "raff_d2": 16.9
+   },
+   "mis": {
+    "media": 15.7,
+    "raff": 24.9,
+    "dir_g": 73,
+    "n": 12,
+    "stazioni": {
+     "Chioggia Porto": 15.7
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-31",
+   "ora": "09:00",
+   "zona": "Pellestrina",
+   "stazione": "Chioggia Porto (interna, ~5 km a sud: approssimazione)",
+   "generato": "2026-10-30 17:19",
+   "anticipo_h": 15.7,
+   "prev": {
+    "stima": 15.4,
+    "d2": 13.2,
+    "i2": 10.9,
+    "ec": 4.4,
+    "raff": 18.5,
+    "dir_g": 47,
+    "corr": 2.2,
+    "raff_d2": 18.5
+   },
+   "mis": {
+    "media": 12.9,
+    "raff": 20.0,
+    "dir_g": 62,
+    "n": 12,
+    "stazioni": {
+     "Chioggia Porto": 12.9
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-31",
+   "ora": "10:00",
+   "zona": "Pellestrina",
+   "stazione": "Chioggia Porto (interna, ~5 km a sud: approssimazione)",
+   "generato": "2026-10-30 17:19",
+   "anticipo_h": 16.7,
+   "prev": {
+    "stima": 16.6,
+    "d2": 14.4,
+    "i2": 10.9,
+    "ec": 4.3,
+    "raff": 19.8,
+    "dir_g": 55,
+    "corr": 2.2,
+    "raff_d2": 19.8
+   },
+   "mis": {
+    "media": 16.0,
+    "raff": 23.1,
+    "dir_g": 85,
+    "n": 12,
+    "stazioni": {
+     "Chioggia Porto": 16.0
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-10-31",
+   "ora": "11:00",
+   "zona": "Pellestrina",
+   "stazione": "Chioggia Porto (interna, ~5 km a sud: approssimazione)",
+   "generato": "2026-10-30 17:19",
+   "anticipo_h": 17.7,
+   "prev": {
+    "stima": 16.7,
+    "d2": 14.5,
+    "i2": 14.8,
+    "ec": 3.9,
+    "raff": 21.0,
+    "dir_g": 59,
+    "corr": 2.2,
+    "raff_d2": 21.0
+   },
+   "mis": {
+    "media": 13.8,
+    "raff": 19.4,
+    "dir_g": 84,
+    "n": 12,
+    "stazioni": {
+     "Chioggia Porto": 13.8
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-10-31 16:58",
+   "anticipo_h": 14.0,
+   "prev": {
+    "stima": 17.0,
+    "d2": 14.8,
+    "i2": 15.4,
+    "ec": 4.7,
+    "raff": 19.2,
+    "dir_g": 51,
+    "corr": 2.2,
+    "raff_d2": 19.2
+   },
+   "mis": {
+    "media": 12.9,
+    "raff": 18.1,
+    "dir_g": 56,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 12.9
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-10-31 16:58",
+   "anticipo_h": 15.0,
+   "prev": {
+    "stima": 15.1,
+    "d2": 12.9,
+    "i2": 18.1,
+    "ec": 4.8,
+    "raff": 19.0,
+    "dir_g": 43,
+    "corr": 2.2,
+    "raff_d2": 19.0
+   },
+   "mis": {
+    "media": 14.3,
+    "raff": 18.9,
+    "dir_g": 51,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.3
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-10-31 16:58",
+   "anticipo_h": 16.0,
+   "prev": {
+    "stima": 16.6,
+    "d2": 14.4,
+    "i2": 16.1,
+    "ec": 4.7,
+    "raff": 19.2,
+    "dir_g": 40,
+    "corr": 2.2,
+    "raff_d2": 19.2
+   },
+   "mis": {
+    "media": 16.2,
+    "raff": 23.3,
+    "dir_g": 52,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 16.2
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-10-31 16:58",
+   "anticipo_h": 17.0,
+   "prev": {
+    "stima": 15.6,
+    "d2": 13.4,
+    "i2": 13.6,
+    "ec": 5.0,
+    "raff": 18.3,
+    "dir_g": 36,
+    "corr": 2.2,
+    "raff_d2": 18.3
+   },
+   "mis": {
+    "media": 15.9,
+    "raff": 19.8,
+    "dir_g": 47,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 15.9
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-10-31 16:58",
+   "anticipo_h": 18.0,
+   "prev": {
+    "stima": 17.1,
+    "d2": 14.9,
+    "i2": 12.8,
+    "ec": 5.8,
+    "raff": 19.4,
+    "dir_g": 50,
+    "corr": 2.2,
+    "raff_d2": 19.4
+   },
+   "mis": {
+    "media": 14.3,
+    "raff": 19.0,
+    "dir_g": 37,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.3
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "07:00",
+   "zona": "Bocca · Alberoni",
+   "stazione": "media Diga Sud Lido + Diga Sud Chioggia (stima, non misura alla bocca)",
+   "generato": "2026-10-31 16:58",
+   "anticipo_h": 14.0,
+   "prev": {
+    "stima": 17.1,
+    "d2": 14.9,
+    "i2": 15.2,
+    "ec": 4.7,
+    "raff": 22.0,
+    "dir_g": 48,
+    "corr": 2.2,
+    "raff_d2": 22.0
+   },
+   "mis": {
+    "media": 12.4,
+    "raff": 20.0,
+    "dir_g": 37,
+    "n": 12,
+    "stazioni": {
+     "Diga Sud Lido": 9.8,
+     "Diga Sud Chioggia": 15.0
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "08:00",
+   "zona": "Bocca · Alberoni",
+   "stazione": "media Diga Sud Lido + Diga Sud Chioggia (stima, non misura alla bocca)",
+   "generato": "2026-10-31 16:58",
+   "anticipo_h": 15.0,
+   "prev": {
+    "stima": 15.3,
+    "d2": 13.1,
+    "i2": 17.5,
+    "ec": 4.8,
+    "raff": 22.0,
+    "dir_g": 41,
+    "corr": 2.2,
+    "raff_d2": 22.0
+   },
+   "mis": {
+    "media": 14.2,
+    "raff": 24.7,
+    "dir_g": 38,
+    "n": 12,
+    "stazioni": {
+     "Diga Sud Lido": 10.7,
+     "Diga Sud Chioggia": 17.6
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "09:00",
+   "zona": "Bocca · Alberoni",
+   "stazione": "media Diga Sud Lido + Diga Sud Chioggia (stima, non misura alla bocca)",
+   "generato": "2026-10-31 16:58",
+   "anticipo_h": 16.0,
+   "prev": {
+    "stima": 16.0,
+    "d2": 13.8,
+    "i2": 15.9,
+    "ec": 4.7,
+    "raff": 21.2,
+    "dir_g": 39,
+    "corr": 2.2,
+    "raff_d2": 21.2
+   },
+   "mis": {
+    "media": 15.9,
+    "raff": 27.0,
+    "dir_g": 44,
+    "n": 12,
+    "stazioni": {
+     "Diga Sud Lido": 11.7,
+     "Diga Sud Chioggia": 20.2
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "10:00",
+   "zona": "Bocca · Alberoni",
+   "stazione": "media Diga Sud Lido + Diga Sud Chioggia (stima, non misura alla bocca)",
+   "generato": "2026-10-31 16:58",
+   "anticipo_h": 17.0,
+   "prev": {
+    "stima": 15.1,
+    "d2": 12.9,
+    "i2": 13.0,
+    "ec": 5.0,
+    "raff": 19.8,
+    "dir_g": 36,
+    "corr": 2.2,
+    "raff_d2": 19.8
+   },
+   "mis": {
+    "media": 15.1,
+    "raff": 24.3,
+    "dir_g": 44,
+    "n": 12,
+    "stazioni": {
+     "Diga Sud Lido": 12.4,
+     "Diga Sud Chioggia": 17.9
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "11:00",
+   "zona": "Bocca · Alberoni",
+   "stazione": "media Diga Sud Lido + Diga Sud Chioggia (stima, non misura alla bocca)",
+   "generato": "2026-10-31 16:58",
+   "anticipo_h": 18.0,
+   "prev": {
+    "stima": 17.3,
+    "d2": 15.1,
+    "i2": 12.4,
+    "ec": 5.8,
+    "raff": 22.0,
+    "dir_g": 52,
+    "corr": 2.2,
+    "raff_d2": 22.0
+   },
+   "mis": {
+    "media": 15.4,
+    "raff": 21.8,
+    "dir_g": 42,
+    "n": 12,
+    "stazioni": {
+     "Diga Sud Lido": 14.1,
+     "Diga Sud Chioggia": 16.7
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-01 18:08",
+   "anticipo_h": 12.9,
+   "prev": {
+    "stima": 12.8,
+    "d2": 10.6,
+    "i2": 15.2,
+    "ec": 7.1,
+    "raff": 15.0,
+    "dir_g": 31,
+    "corr": 2.2,
+    "raff_d2": 15.0
+   },
+   "mis": {
+    "media": 15.1,
+    "raff": 21.0,
+    "dir_g": 55,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 15.1
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-01 18:08",
+   "anticipo_h": 13.9,
+   "prev": {
+    "stima": 12.3,
+    "d2": 10.1,
+    "i2": 16.1,
+    "ec": 6.9,
+    "raff": 14.2,
+    "dir_g": 25,
+    "corr": 2.2,
+    "raff_d2": 14.2
+   },
+   "mis": {
+    "media": 14.0,
+    "raff": 19.4,
+    "dir_g": 13,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.0
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-01 18:08",
+   "anticipo_h": 14.9,
+   "prev": {
+    "stima": 11.8,
+    "d2": 9.6,
+    "i2": 16.1,
+    "ec": 6.3,
+    "raff": 13.2,
+    "dir_g": 24,
+    "corr": 2.2,
+    "raff_d2": 13.2
+   },
+   "mis": {
+    "media": 13.9,
+    "raff": 18.9,
+    "dir_g": 38,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 13.9
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-01 18:08",
+   "anticipo_h": 15.9,
+   "prev": {
+    "stima": 14.3,
+    "d2": 12.1,
+    "i2": 14.0,
+    "ec": 5.9,
+    "raff": 15.7,
+    "dir_g": 35,
+    "corr": 2.2,
+    "raff_d2": 15.7
+   },
+   "mis": {
+    "media": 13.4,
+    "raff": 16.5,
+    "dir_g": 52,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 13.4
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-01 18:08",
+   "anticipo_h": 16.9,
+   "prev": {
+    "stima": 18.6,
+    "d2": 16.4,
+    "i2": 17.7,
+    "ec": 5.6,
+    "raff": 22.7,
+    "dir_g": 48,
+    "corr": 2.2,
+    "raff_d2": 22.7
+   },
+   "mis": {
+    "media": 14.8,
+    "raff": 22.9,
+    "dir_g": 61,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.8
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-02 15:03",
+   "anticipo_h": 15.9,
+   "prev": {
+    "stima": 13.5,
+    "d2": 11.3,
+    "i2": 20.2,
+    "ec": 6.2,
+    "raff": 16.1,
+    "dir_g": 19,
+    "corr": 2.2,
+    "raff_d2": 16.1
+   },
+   "mis": {
+    "media": 17.0,
+    "raff": 25.5,
+    "dir_g": 66,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 17.0
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-02 15:03",
+   "anticipo_h": 16.9,
+   "prev": {
+    "stima": 12.7,
+    "d2": 12.0,
+    "i2": 15.6,
+    "ec": 6.0,
+    "raff": 17.7,
+    "dir_g": 23,
+    "corr": 0.7,
+    "raff_d2": 17.7
+   },
+   "mis": {
+    "media": 14.7,
+    "raff": 21.6,
+    "dir_g": 36,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.7
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-02 15:03",
+   "anticipo_h": 17.9,
+   "prev": {
+    "stima": 12.7,
+    "d2": 12.0,
+    "i2": 15.7,
+    "ec": 5.5,
+    "raff": 18.9,
+    "dir_g": 31,
+    "corr": 0.7,
+    "raff_d2": 18.9
+   },
+   "mis": {
+    "media": 14.0,
+    "raff": 19.0,
+    "dir_g": 28,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.0
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-02 15:03",
+   "anticipo_h": 18.9,
+   "prev": {
+    "stima": 14.1,
+    "d2": 13.4,
+    "i2": 19.2,
+    "ec": 5.2,
+    "raff": 20.6,
+    "dir_g": 40,
+    "corr": 0.7,
+    "raff_d2": 20.6
+   },
+   "mis": {
+    "media": 14.2,
+    "raff": 27.4,
+    "dir_g": 36,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.2
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-02 15:03",
+   "anticipo_h": 19.9,
+   "prev": {
+    "stima": 18.8,
+    "d2": 18.1,
+    "i2": 20.2,
+    "ec": 5.3,
+    "raff": 20.2,
+    "dir_g": 58,
+    "corr": 0.7,
+    "raff_d2": 20.2
+   },
+   "mis": {
+    "media": 17.9,
+    "raff": 25.9,
+    "dir_g": 67,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 17.9
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-03 17:49",
+   "anticipo_h": 13.2,
+   "prev": {
+    "stima": 14.7,
+    "d2": 13.6,
+    "i2": 16.3,
+    "ec": 8.0,
+    "raff": 18.3,
+    "dir_g": 42,
+    "corr": 1.1,
+    "raff_d2": 18.3
+   },
+   "mis": {
+    "media": 16.2,
+    "raff": 19.4,
+    "dir_g": 41,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 16.2
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-03 17:49",
+   "anticipo_h": 14.2,
+   "prev": {
+    "stima": 14.4,
+    "d2": 12.8,
+    "i2": 16.9,
+    "ec": 8.6,
+    "raff": 18.1,
+    "dir_g": 39,
+    "corr": 1.6,
+    "raff_d2": 18.1
+   },
+   "mis": {
+    "media": 16.3,
+    "raff": 20.8,
+    "dir_g": 45,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 16.3
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-03 17:49",
+   "anticipo_h": 15.2,
+   "prev": {
+    "stima": 14.6,
+    "d2": 13.3,
+    "i2": 16.3,
+    "ec": 9.5,
+    "raff": 17.5,
+    "dir_g": 39,
+    "corr": 1.3,
+    "raff_d2": 17.5
+   },
+   "mis": {
+    "media": 16.1,
+    "raff": 19.2,
+    "dir_g": 42,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 16.1
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-03 17:49",
+   "anticipo_h": 16.2,
+   "prev": {
+    "stima": 14.6,
+    "d2": 13.2,
+    "i2": 15.7,
+    "ec": 10.1,
+    "raff": 17.7,
+    "dir_g": 40,
+    "corr": 1.4,
+    "raff_d2": 17.7
+   },
+   "mis": {
+    "media": 14.3,
+    "raff": 20.6,
+    "dir_g": 54,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.3
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-03 17:49",
+   "anticipo_h": 17.2,
+   "prev": {
+    "stima": 14.4,
+    "d2": 12.8,
+    "i2": 14.2,
+    "ec": 10.3,
+    "raff": 17.7,
+    "dir_g": 47,
+    "corr": 1.6,
+    "raff_d2": 17.7
+   },
+   "mis": {
+    "media": 16.7,
+    "raff": 21.4,
+    "dir_g": 49,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 16.7
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-04 20:18",
+   "anticipo_h": 10.7,
+   "prev": {
+    "stima": 13.9,
+    "d2": 11.2,
+    "i2": 11.9,
+    "ec": 6.4,
+    "raff": 15.0,
+    "dir_g": 30,
+    "corr": 2.7,
+    "raff_d2": 15.0
+   },
+   "mis": {
+    "media": 14.6,
+    "raff": 18.1,
+    "dir_g": 43,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.6
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-04 20:18",
+   "anticipo_h": 11.7,
+   "prev": {
+    "stima": 13.7,
+    "d2": 10.9,
+    "i2": 11.7,
+    "ec": 6.5,
+    "raff": 15.2,
+    "dir_g": 35,
+    "corr": 2.8,
+    "raff_d2": 15.2
+   },
+   "mis": {
+    "media": 15.7,
+    "raff": 20.2,
+    "dir_g": 38,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 15.7
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-04 20:18",
+   "anticipo_h": 12.7,
+   "prev": {
+    "stima": 13.2,
+    "d2": 10.0,
+    "i2": 12.1,
+    "ec": 6.9,
+    "raff": 14.6,
+    "dir_g": 33,
+    "corr": 3.2,
+    "raff_d2": 14.6
+   },
+   "mis": {
+    "media": 13.2,
+    "raff": 16.5,
+    "dir_g": 38,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 13.2
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-04 20:18",
+   "anticipo_h": 13.7,
+   "prev": {
+    "stima": 13.2,
+    "d2": 10.0,
+    "i2": 12.2,
+    "ec": 6.8,
+    "raff": 13.6,
+    "dir_g": 37,
+    "corr": 3.2,
+    "raff_d2": 13.6
+   },
+   "mis": {
+    "media": 14.0,
+    "raff": 17.5,
+    "dir_g": 42,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.0
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-04 20:18",
+   "anticipo_h": 14.7,
+   "prev": {
+    "stima": 11.5,
+    "d2": 8.3,
+    "i2": 10.5,
+    "ec": 6.2,
+    "raff": 13.4,
+    "dir_g": 41,
+    "corr": 3.2,
+    "raff_d2": 13.4
+   },
+   "mis": {
+    "media": 12.7,
+    "raff": 16.1,
+    "dir_g": 38,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 12.7
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-05 17:42",
+   "anticipo_h": 13.3,
+   "prev": {
+    "stima": 8.9,
+    "d2": 6.1,
+    "i2": 8.9,
+    "ec": 4.1,
+    "raff": 10.7,
+    "dir_g": 17,
+    "raff_d2": 8.0,
+    "corr": 2.8
+   },
+   "mis": {
+    "media": 11.0,
+    "raff": 13.6,
+    "dir_g": 36,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 11.0
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-05 17:42",
+   "anticipo_h": 14.3,
+   "prev": {
+    "stima": 10.0,
+    "d2": 6.9,
+    "i2": 8.7,
+    "ec": 4.0,
+    "raff": 10.9,
+    "dir_g": 11,
+    "raff_d2": 8.2,
+    "corr": 3.1
+   },
+   "mis": {
+    "media": 10.6,
+    "raff": 12.6,
+    "dir_g": 26,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 10.6
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-05 17:42",
+   "anticipo_h": 15.3,
+   "prev": {
+    "stima": 10.2,
+    "d2": 7.1,
+    "i2": 8.2,
+    "ec": 3.9,
+    "raff": 11.4,
+    "dir_g": 8,
+    "raff_d2": 8.7,
+    "corr": 3.1
+   },
+   "mis": {
+    "media": 10.9,
+    "raff": 13.0,
+    "dir_g": 24,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 10.9
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-05 17:42",
+   "anticipo_h": 16.3,
+   "prev": {
+    "stima": 10.2,
+    "d2": 7.1,
+    "i2": 8.6,
+    "ec": 4.0,
+    "raff": 12.6,
+    "dir_g": 9,
+    "raff_d2": 9.9,
+    "corr": 3.1
+   },
+   "mis": {
+    "media": 9.6,
+    "raff": 11.9,
+    "dir_g": 18,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 9.6
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-05 17:42",
+   "anticipo_h": 17.3,
+   "prev": {
+    "stima": 9.6,
+    "d2": 6.6,
+    "i2": 7.0,
+    "ec": 3.9,
+    "raff": 12.6,
+    "dir_g": 21,
+    "raff_d2": 9.9,
+    "corr": 3.0
+   },
+   "mis": {
+    "media": 9.0,
+    "raff": 10.9,
+    "dir_g": 18,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 9.0
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-06 19:14",
+   "anticipo_h": 11.8,
+   "prev": {
+    "stima": 15.4,
+    "d2": 14.0,
+    "i2": 14.8,
+    "ec": 8.9,
+    "raff": 22.8,
+    "dir_g": 37,
+    "raff_d2": 20.0,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 16.9,
+    "raff": 20.6,
+    "dir_g": 28,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 16.9
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-06 19:14",
+   "anticipo_h": 12.8,
+   "prev": {
+    "stima": 14.9,
+    "d2": 13.0,
+    "i2": 13.8,
+    "ec": 9.1,
+    "raff": 21.1,
+    "dir_g": 26,
+    "raff_d2": 18.3,
+    "corr": 1.9
+   },
+   "mis": {
+    "media": 17.7,
+    "raff": 22.0,
+    "dir_g": 32,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 17.7
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-06 19:14",
+   "anticipo_h": 13.8,
+   "prev": {
+    "stima": 15.4,
+    "d2": 14.0,
+    "i2": 13.6,
+    "ec": 9.1,
+    "raff": 20.7,
+    "dir_g": 35,
+    "raff_d2": 17.9,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 18.8,
+    "raff": 22.5,
+    "dir_g": 38,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 18.8
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-06 19:14",
+   "anticipo_h": 14.8,
+   "prev": {
+    "stima": 16.2,
+    "d2": 14.8,
+    "i2": 12.8,
+    "ec": 9.2,
+    "raff": 22.0,
+    "dir_g": 34,
+    "raff_d2": 19.2,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 20.1,
+    "raff": 25.1,
+    "dir_g": 42,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 20.1
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-06 19:14",
+   "anticipo_h": 15.8,
+   "prev": {
+    "stima": 15.9,
+    "d2": 14.5,
+    "i2": 10.7,
+    "ec": 9.8,
+    "raff": 21.7,
+    "dir_g": 35,
+    "raff_d2": 18.9,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 19.6,
+    "raff": 26.2,
+    "dir_g": 43,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 19.6
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "N–E (bora)"
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-07 12:55",
+   "anticipo_h": 18.1,
+   "prev": {
+    "stima": 8.3,
+    "d2": 5.6,
+    "i2": 8.2,
+    "ec": 3.3,
+    "raff": 9.9,
+    "dir_g": 340,
+    "raff_d2": 7.2,
+    "corr": 2.7
+   },
+   "mis": {
+    "media": 7.0,
+    "raff": 10.1,
+    "dir_g": 8,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 7.0
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-07 12:55",
+   "anticipo_h": 19.1,
+   "prev": {
+    "stima": 7.1,
+    "d2": 4.8,
+    "i2": 7.8,
+    "ec": 3.2,
+    "raff": 9.5,
+    "dir_g": 339,
+    "raff_d2": 7.2,
+    "corr": 2.3
+   },
+   "mis": {
+    "media": 6.1,
+    "raff": 8.2,
+    "dir_g": 22,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 6.1
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-07 12:55",
+   "anticipo_h": 20.1,
+   "prev": {
+    "stima": 8.3,
+    "d2": 5.6,
+    "i2": 6.6,
+    "ec": 3.3,
+    "raff": 9.1,
+    "dir_g": 346,
+    "raff_d2": 6.4,
+    "corr": 2.7
+   },
+   "mis": {
+    "media": 6.4,
+    "raff": 8.9,
+    "dir_g": 9,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 6.4
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-07 12:55",
+   "anticipo_h": 21.1,
+   "prev": {
+    "stima": 8.4,
+    "d2": 5.7,
+    "i2": 7.2,
+    "ec": 3.0,
+    "raff": 9.1,
+    "dir_g": 342,
+    "raff_d2": 6.4,
+    "corr": 2.7
+   },
+   "mis": {
+    "media": 6.2,
+    "raff": 8.6,
+    "dir_g": 21,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 6.2
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-07 12:55",
+   "anticipo_h": 22.1,
+   "prev": {
+    "stima": 5.6,
+    "d2": 4.2,
+    "i2": 4.5,
+    "ec": 1.9,
+    "raff": 8.0,
+    "dir_g": 338,
+    "raff_d2": 6.6,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 6.6,
+    "raff": 8.4,
+    "dir_g": 33,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 6.6
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-08 20:53",
+   "anticipo_h": 10.1,
+   "prev": {
+    "stima": 3.4,
+    "d2": 3.2,
+    "i2": 4.5,
+    "ec": 2.9,
+    "raff": 4.5,
+    "dir_g": 346,
+    "raff_d2": 4.3,
+    "corr": 0.2
+   },
+   "mis": {
+    "media": 3.9,
+    "raff": 6.0,
+    "dir_g": 355,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 3.9
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-08 20:53",
+   "anticipo_h": 11.1,
+   "prev": {
+    "stima": 5.6,
+    "d2": 4.2,
+    "i2": 4.3,
+    "ec": 2.8,
+    "raff": 7.0,
+    "dir_g": 326,
+    "raff_d2": 5.6,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 3.7,
+    "raff": 6.0,
+    "dir_g": 346,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 3.7
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-08 20:53",
+   "anticipo_h": 12.1,
+   "prev": {
+    "stima": 6.1,
+    "d2": 4.4,
+    "i2": 4.7,
+    "ec": 2.5,
+    "raff": 7.5,
+    "dir_g": 337,
+    "raff_d2": 5.8,
+    "corr": 1.7
+   },
+   "mis": {
+    "media": 2.9,
+    "raff": 4.7,
+    "dir_g": 49,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 2.9
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-08 20:53",
+   "anticipo_h": 13.1,
+   "prev": {
+    "stima": 6.4,
+    "d2": 4.5,
+    "i2": 5.2,
+    "ec": 2.2,
+    "raff": 7.9,
+    "dir_g": 2,
+    "raff_d2": 6.0,
+    "corr": 1.9
+   },
+   "mis": {
+    "media": 2.8,
+    "raff": 4.5,
+    "dir_g": 29,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 2.8
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-08 20:53",
+   "anticipo_h": 14.1,
+   "prev": {
+    "stima": 5.8,
+    "d2": 4.3,
+    "i2": 4.9,
+    "ec": 1.7,
+    "raff": 7.5,
+    "dir_g": 5,
+    "raff_d2": 6.0,
+    "corr": 1.5
+   },
+   "mis": {
+    "media": 6.6,
+    "raff": 9.1,
+    "dir_g": 9,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 6.6
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-09 16:53",
+   "anticipo_h": 14.1,
+   "prev": {
+    "stima": 6.1,
+    "d2": 4.9,
+    "i2": 6.4,
+    "ec": 2.5,
+    "raff": 9.0,
+    "dir_g": 351,
+    "raff_d2": 6.8,
+    "corr": 1.2
+   },
+   "mis": {
+    "media": 6.6,
+    "raff": 8.4,
+    "dir_g": 332,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 6.6
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-09 16:53",
+   "anticipo_h": 15.1,
+   "prev": {
+    "stima": 5.8,
+    "d2": 4.7,
+    "i2": 6.0,
+    "ec": 2.5,
+    "raff": 9.0,
+    "dir_g": 5,
+    "raff_d2": 6.8,
+    "corr": 1.1
+   },
+   "mis": {
+    "media": 7.0,
+    "raff": 9.7,
+    "dir_g": 326,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 7.0
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-09 16:53",
+   "anticipo_h": 16.1,
+   "prev": {
+    "stima": 6.5,
+    "d2": 5.1,
+    "i2": 5.4,
+    "ec": 2.5,
+    "raff": 9.0,
+    "dir_g": 7,
+    "raff_d2": 6.8,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 6.6,
+    "raff": 8.4,
+    "dir_g": 322,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 6.6
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-09 16:53",
+   "anticipo_h": 17.1,
+   "prev": {
+    "stima": 7.5,
+    "d2": 5.7,
+    "i2": 5.2,
+    "ec": 2.3,
+    "raff": 9.6,
+    "dir_g": 342,
+    "raff_d2": 7.4,
+    "corr": 1.8
+   },
+   "mis": {
+    "media": 5.3,
+    "raff": 8.0,
+    "dir_g": 324,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 5.3
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-09 16:53",
+   "anticipo_h": 18.1,
+   "prev": {
+    "stima": 7.0,
+    "d2": 5.4,
+    "i2": 3.3,
+    "ec": 1.7,
+    "raff": 9.8,
+    "dir_g": 339,
+    "raff_d2": 7.6,
+    "corr": 1.6
+   },
+   "mis": {
+    "media": 4.4,
+    "raff": 6.0,
+    "dir_g": 310,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 4.4
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-10 16:06",
+   "anticipo_h": 14.9,
+   "prev": {
+    "stima": 3.7,
+    "d2": 3.0,
+    "i2": 1.6,
+    "ec": 2.2,
+    "raff": 6.5,
+    "dir_g": 281,
+    "raff_d2": 5.8,
+    "corr": 0.7
+   },
+   "mis": {
+    "media": 5.3,
+    "raff": 8.4,
+    "dir_g": 246,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 5.3
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente"
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-10 16:06",
+   "anticipo_h": 15.9,
+   "prev": {
+    "stima": 3.2,
+    "d2": 2.5,
+    "i2": 2.5,
+    "ec": 1.7,
+    "raff": 4.2,
+    "dir_g": 266,
+    "raff_d2": 3.5,
+    "corr": 0.7
+   },
+   "mis": {
+    "media": 4.6,
+    "raff": 7.2,
+    "dir_g": 266,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 4.6
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente"
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-10 16:06",
+   "anticipo_h": 16.9,
+   "prev": {
+    "stima": 3.3,
+    "d2": 2.6,
+    "i2": 3.9,
+    "ec": 1.4,
+    "raff": 5.2,
+    "dir_g": 261,
+    "raff_d2": 4.5,
+    "corr": 0.7
+   },
+   "mis": {
+    "media": 5.7,
+    "raff": 8.0,
+    "dir_g": 250,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 5.7
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente"
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-10 16:06",
+   "anticipo_h": 17.9,
+   "prev": {
+    "stima": 3.6,
+    "d2": 2.9,
+    "i2": 4.7,
+    "ec": 1.2,
+    "raff": 5.0,
+    "dir_g": 274,
+    "raff_d2": 4.3,
+    "corr": 0.7
+   },
+   "mis": {
+    "media": 3.9,
+    "raff": 8.2,
+    "dir_g": 279,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 3.9
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente"
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-10 16:06",
+   "anticipo_h": 18.9,
+   "prev": {
+    "stima": 1.9,
+    "d2": 1.2,
+    "i2": 4.7,
+    "ec": 1.0,
+    "raff": 5.2,
+    "dir_g": 252,
+    "raff_d2": 4.5,
+    "corr": 0.7
+   },
+   "mis": {
+    "media": 2.9,
+    "raff": 5.1,
+    "dir_g": 248,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 2.9
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente"
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-11 18:17",
+   "anticipo_h": 12.7,
+   "prev": {
+    "stima": 4.2,
+    "d2": 3.3,
+    "i2": 5.2,
+    "ec": 2.8,
+    "raff": 7.4,
+    "dir_g": 17,
+    "raff_d2": 5.6,
+    "corr": 0.9
+   },
+   "mis": {
+    "media": 4.2,
+    "raff": 6.4,
+    "dir_g": 244,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 4.2
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale"
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-11 18:17",
+   "anticipo_h": 13.7,
+   "prev": {
+    "stima": 6.1,
+    "d2": 4.7,
+    "i2": 6.2,
+    "ec": 3.6,
+    "raff": 8.2,
+    "dir_g": 45,
+    "raff_d2": 5.4,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 4.0,
+    "raff": 6.6,
+    "dir_g": 330,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 4.0
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Bora"
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-11 18:17",
+   "anticipo_h": 14.7,
+   "prev": {
+    "stima": 4.5,
+    "d2": 3.5,
+    "i2": 7.2,
+    "ec": 4.8,
+    "raff": 9.4,
+    "dir_g": 27,
+    "raff_d2": 6.6,
+    "corr": 1.0
+   },
+   "mis": {
+    "media": 6.2,
+    "raff": 9.3,
+    "dir_g": 18,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 6.2
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Bora"
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-11 18:17",
+   "anticipo_h": 15.7,
+   "prev": {
+    "stima": 7.1,
+    "d2": 5.3,
+    "i2": 8.0,
+    "ec": 5.6,
+    "raff": 10.0,
+    "dir_g": 36,
+    "raff_d2": 7.2,
+    "corr": 1.8
+   },
+   "mis": {
+    "media": 9.7,
+    "raff": 12.2,
+    "dir_g": 34,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 9.7
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Bora"
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-11 18:17",
+   "anticipo_h": 16.7,
+   "prev": {
+    "stima": 10.4,
+    "d2": 7.3,
+    "i2": 8.9,
+    "ec": 5.4,
+    "raff": 11.7,
+    "dir_g": 34,
+    "raff_d2": 8.9,
+    "corr": 3.1
+   },
+   "mis": {
+    "media": 9.6,
+    "raff": 12.1,
+    "dir_g": 44,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 9.6
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Bora"
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-12 16:36",
+   "anticipo_h": 14.4,
+   "prev": {
+    "stima": 7.6,
+    "d2": 5.6,
+    "i2": 7.6,
+    "ec": 1.5,
+    "raff": 12.5,
+    "dir_g": 226,
+    "raff_d2": 10.5,
+    "corr": 2.0
+   },
+   "mis": {
+    "media": 5.1,
+    "raff": 7.2,
+    "dir_g": 281,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 5.1
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente",
+   "sem_prev": "rosso",
+   "sem_mis": "verde"
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-12 16:36",
+   "anticipo_h": 15.4,
+   "prev": {
+    "stima": 7.6,
+    "d2": 5.6,
+    "i2": 5.6,
+    "ec": 2.4,
+    "raff": 9.6,
+    "dir_g": 214,
+    "raff_d2": 7.6,
+    "corr": 2.0
+   },
+   "mis": {
+    "media": 7.6,
+    "raff": 13.0,
+    "dir_g": 227,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 7.6
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente",
+   "sem_prev": "giallo",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-12 16:36",
+   "anticipo_h": 16.4,
+   "prev": {
+    "stima": 1.5,
+    "d2": 0.6,
+    "i2": 4.7,
+    "ec": 7.3,
+    "raff": 8.6,
+    "dir_g": 360,
+    "raff_d2": 6.8,
+    "corr": 0.9
+   },
+   "mis": {
+    "media": 5.8,
+    "raff": 8.0,
+    "dir_g": 293,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 5.8
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale",
+   "sem_prev": "verde",
+   "sem_mis": "verde"
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-12 16:36",
+   "anticipo_h": 17.4,
+   "prev": {
+    "stima": 5.9,
+    "d2": 4.5,
+    "i2": 12.1,
+    "ec": 11.0,
+    "raff": 8.4,
+    "dir_g": 34,
+    "raff_d2": 5.6,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 4.9,
+    "raff": 10.5,
+    "dir_g": 1,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 4.9
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Bora",
+   "sem_prev": "verde",
+   "sem_mis": "verde"
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-12 16:36",
+   "anticipo_h": 18.4,
+   "prev": {
+    "stima": 10.0,
+    "d2": 7.1,
+    "i2": 16.1,
+    "ec": 11.9,
+    "raff": 12.2,
+    "dir_g": 74,
+    "raff_d2": 9.3,
+    "corr": 2.9
+   },
+   "mis": {
+    "media": 9.4,
+    "raff": 17.1,
+    "dir_g": 59,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 9.4
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Levante–Scirocco",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-13 16:46",
+   "anticipo_h": 14.2,
+   "prev": {
+    "stima": 16.2,
+    "d2": 14.2,
+    "i2": 12.2,
+    "ec": 6.3,
+    "raff": 20.8,
+    "dir_g": 44,
+    "raff_d2": 17.9,
+    "corr": 2.0
+   },
+   "mis": {
+    "media": 15.6,
+    "raff": 19.4,
+    "dir_g": 32,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 15.6
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-13 16:46",
+   "anticipo_h": 15.2,
+   "prev": {
+    "stima": 15.5,
+    "d2": 13.2,
+    "i2": 11.7,
+    "ec": 6.5,
+    "raff": 21.0,
+    "dir_g": 41,
+    "raff_d2": 18.1,
+    "corr": 2.3
+   },
+   "mis": {
+    "media": 14.3,
+    "raff": 17.5,
+    "dir_g": 37,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.3
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-13 16:46",
+   "anticipo_h": 16.2,
+   "prev": {
+    "stima": 15.4,
+    "d2": 13.1,
+    "i2": 11.7,
+    "ec": 6.5,
+    "raff": 20.0,
+    "dir_g": 42,
+    "raff_d2": 17.1,
+    "corr": 2.3
+   },
+   "mis": {
+    "media": 13.4,
+    "raff": 17.5,
+    "dir_g": 47,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 13.4
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-13 16:46",
+   "anticipo_h": 17.2,
+   "prev": {
+    "stima": 14.8,
+    "d2": 12.1,
+    "i2": 10.9,
+    "ec": 6.3,
+    "raff": 19.4,
+    "dir_g": 42,
+    "raff_d2": 16.5,
+    "corr": 2.7
+   },
+   "mis": {
+    "media": 13.8,
+    "raff": 17.3,
+    "dir_g": 49,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 13.8
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-13 16:46",
+   "anticipo_h": 18.2,
+   "prev": {
+    "stima": 14.2,
+    "d2": 11.3,
+    "i2": 10.7,
+    "ec": 6.1,
+    "raff": 18.5,
+    "dir_g": 46,
+    "raff_d2": 15.6,
+    "corr": 2.9
+   },
+   "mis": {
+    "media": 15.5,
+    "raff": 19.4,
+    "dir_g": 46,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 15.5
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-14 16:57",
+   "anticipo_h": 14.1,
+   "prev": {
+    "stima": 7.3,
+    "d2": 5.4,
+    "i2": 10.1,
+    "ec": 5.8,
+    "raff": 9.0,
+    "dir_g": 15,
+    "raff_d2": 7.0,
+    "corr": 1.9
+   },
+   "mis": {
+    "media": 13.5,
+    "raff": 16.7,
+    "dir_g": 32,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 13.5
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale",
+   "sem_prev": "giallo",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-14 16:57",
+   "anticipo_h": 15.1,
+   "prev": {
+    "stima": 9.0,
+    "d2": 6.5,
+    "i2": 10.3,
+    "ec": 5.8,
+    "raff": 10.4,
+    "dir_g": 10,
+    "raff_d2": 8.4,
+    "corr": 2.5
+   },
+   "mis": {
+    "media": 10.6,
+    "raff": 13.0,
+    "dir_g": 39,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 10.6
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Tramontana–Maestrale",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-14 16:57",
+   "anticipo_h": 16.1,
+   "prev": {
+    "stima": 10.3,
+    "d2": 7.3,
+    "i2": 9.5,
+    "ec": 6.0,
+    "raff": 11.5,
+    "dir_g": 11,
+    "raff_d2": 9.5,
+    "corr": 3.0
+   },
+   "mis": {
+    "media": 10.7,
+    "raff": 13.2,
+    "dir_g": 24,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 10.7
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Tramontana–Maestrale",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-14 16:57",
+   "anticipo_h": 17.1,
+   "prev": {
+    "stima": 12.9,
+    "d2": 9.5,
+    "i2": 9.9,
+    "ec": 5.9,
+    "raff": 14.2,
+    "dir_g": 9,
+    "raff_d2": 12.2,
+    "corr": 3.4
+   },
+   "mis": {
+    "media": 10.2,
+    "raff": 13.4,
+    "dir_g": 15,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 10.2
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Tramontana–Maestrale",
+   "sem_prev": "rosso",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-14 16:57",
+   "anticipo_h": 18.1,
+   "prev": {
+    "stima": 13.0,
+    "d2": 9.6,
+    "i2": 8.9,
+    "ec": 5.2,
+    "raff": 14.8,
+    "dir_g": 13,
+    "raff_d2": 12.8,
+    "corr": 3.4
+   },
+   "mis": {
+    "media": 9.4,
+    "raff": 12.2,
+    "dir_g": 8,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 9.4
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Tramontana–Maestrale",
+   "sem_prev": "rosso",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-15 17:55",
+   "anticipo_h": 13.1,
+   "prev": {
+    "stima": 7.2,
+    "d2": 5.2,
+    "i2": 6.4,
+    "ec": 3.7,
+    "raff": 9.6,
+    "dir_g": 290,
+    "raff_d2": 7.6,
+    "corr": 2.0
+   },
+   "mis": {
+    "media": 4.3,
+    "raff": 6.8,
+    "dir_g": 314,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 4.3
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente",
+   "sem_prev": "giallo",
+   "sem_mis": "verde"
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-15 17:55",
+   "anticipo_h": 14.1,
+   "prev": {
+    "stima": 9.2,
+    "d2": 6.6,
+    "i2": 6.2,
+    "ec": 2.9,
+    "raff": 11.5,
+    "dir_g": 289,
+    "raff_d2": 8.9,
+    "corr": 2.6
+   },
+   "mis": {
+    "media": 8.0,
+    "raff": 13.4,
+    "dir_g": 286,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 8.0
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Libeccio–Ponente",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-15 17:55",
+   "anticipo_h": 15.1,
+   "prev": {
+    "stima": 9.8,
+    "d2": 7.0,
+    "i2": 5.6,
+    "ec": 2.1,
+    "raff": 12.3,
+    "dir_g": 283,
+    "raff_d2": 9.5,
+    "corr": 2.8
+   },
+   "mis": {
+    "media": 9.4,
+    "raff": 13.2,
+    "dir_g": 281,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 9.4
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Libeccio–Ponente",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-15 17:55",
+   "anticipo_h": 16.1,
+   "prev": {
+    "stima": 10.1,
+    "d2": 7.2,
+    "i2": 4.9,
+    "ec": 2.3,
+    "raff": 12.6,
+    "dir_g": 275,
+    "raff_d2": 9.7,
+    "corr": 2.9
+   },
+   "mis": {
+    "media": 8.1,
+    "raff": 10.5,
+    "dir_g": 271,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 8.1
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Libeccio–Ponente",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-15 17:55",
+   "anticipo_h": 17.1,
+   "prev": {
+    "stima": 10.3,
+    "d2": 7.4,
+    "i2": 5.8,
+    "ec": 3.6,
+    "raff": 12.6,
+    "dir_g": 273,
+    "raff_d2": 9.7,
+    "corr": 2.9
+   },
+   "mis": {
+    "media": 8.6,
+    "raff": 11.9,
+    "dir_g": 265,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 8.6
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Libeccio–Ponente",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-16 16:36",
+   "anticipo_h": 14.4,
+   "prev": {
+    "stima": 8.3,
+    "d2": 6.2,
+    "i2": 6.2,
+    "ec": 3.7,
+    "raff": 11.2,
+    "dir_g": 5,
+    "raff_d2": 9.5,
+    "corr": 2.1
+   },
+   "mis": {
+    "media": 7.2,
+    "raff": 10.5,
+    "dir_g": 11,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 7.2
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Tramontana–Maestrale",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-16 16:36",
+   "anticipo_h": 15.4,
+   "prev": {
+    "stima": 7.6,
+    "d2": 5.7,
+    "i2": 3.5,
+    "ec": 3.7,
+    "raff": 10.1,
+    "dir_g": 10,
+    "raff_d2": 8.4,
+    "corr": 1.9
+   },
+   "mis": {
+    "media": 6.8,
+    "raff": 10.3,
+    "dir_g": 22,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 6.8
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Tramontana–Maestrale",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-16 16:36",
+   "anticipo_h": 16.4,
+   "prev": {
+    "stima": 8.0,
+    "d2": 6.0,
+    "i2": 2.3,
+    "ec": 3.7,
+    "raff": 10.1,
+    "dir_g": 13,
+    "raff_d2": 8.4,
+    "corr": 2.0
+   },
+   "mis": {
+    "media": 7.1,
+    "raff": 10.1,
+    "dir_g": 29,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 7.1
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Tramontana–Maestrale",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-16 16:36",
+   "anticipo_h": 17.4,
+   "prev": {
+    "stima": 8.6,
+    "d2": 6.4,
+    "i2": 5.6,
+    "ec": 3.5,
+    "raff": 10.3,
+    "dir_g": 358,
+    "raff_d2": 8.6,
+    "corr": 2.2
+   },
+   "mis": {
+    "media": 8.5,
+    "raff": 11.1,
+    "dir_g": 25,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 8.5
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Tramontana–Maestrale",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-16 16:36",
+   "anticipo_h": 18.4,
+   "prev": {
+    "stima": 8.4,
+    "d2": 6.3,
+    "i2": 5.2,
+    "ec": 3.0,
+    "raff": 10.4,
+    "dir_g": 11,
+    "raff_d2": 8.7,
+    "corr": 2.1
+   },
+   "mis": {
+    "media": 9.1,
+    "raff": 11.7,
+    "dir_g": 20,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 9.1
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Tramontana–Maestrale",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "07:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-17 16:28",
+   "anticipo_h": 14.5,
+   "prev": {
+    "stima": 5.2,
+    "d2": 3.8,
+    "i2": 6.2,
+    "ec": 1.6,
+    "raff": 8.2,
+    "dir_g": 246,
+    "raff_d2": 5.8,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 3.8,
+    "raff": 7.0,
+    "dir_g": 309,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 3.8
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente",
+   "sem_prev": "verde",
+   "sem_mis": "verde"
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "08:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-17 16:28",
+   "anticipo_h": 15.5,
+   "prev": {
+    "stima": 5.0,
+    "d2": 3.6,
+    "i2": 6.0,
+    "ec": 1.8,
+    "raff": 7.6,
+    "dir_g": 248,
+    "raff_d2": 5.2,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 4.6,
+    "raff": 8.0,
+    "dir_g": 342,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 4.6
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente",
+   "sem_prev": "verde",
+   "sem_mis": "verde"
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "09:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-17 16:28",
+   "anticipo_h": 16.5,
+   "prev": {
+    "stima": 5.3,
+    "d2": 3.9,
+    "i2": 4.9,
+    "ec": 2.2,
+    "raff": 7.8,
+    "dir_g": 276,
+    "raff_d2": 5.4,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 3.9,
+    "raff": 7.2,
+    "dir_g": 303,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 3.9
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente",
+   "sem_prev": "verde",
+   "sem_mis": "verde"
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "10:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-17 16:28",
+   "anticipo_h": 17.5,
+   "prev": {
+    "stima": 5.5,
+    "d2": 4.1,
+    "i2": 5.1,
+    "ec": 2.6,
+    "raff": 8.8,
+    "dir_g": 265,
+    "raff_d2": 6.4,
+    "corr": 1.4
+   },
+   "mis": {
+    "media": 5.8,
+    "raff": 9.9,
+    "dir_g": 299,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 5.8
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente",
+   "sem_prev": "verde",
+   "sem_mis": "verde"
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "11:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-17 16:28",
+   "anticipo_h": 18.5,
+   "prev": {
+    "stima": 6.6,
+    "d2": 4.9,
+    "i2": 6.2,
+    "ec": 2.5,
+    "raff": 9.2,
+    "dir_g": 277,
+    "raff_d2": 6.8,
+    "corr": 1.7
+   },
+   "mis": {
+    "media": 4.6,
+    "raff": 7.2,
+    "dir_g": 319,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 4.6
+    }
+   },
+   "fascia_d2": "sotto 6",
+   "settore_d2": "Libeccio–Ponente",
+   "sem_prev": "giallo",
+   "sem_mis": "verde"
+  }
+ ],
+ "previsioni": [
+  {
+   "chiave": "2026-10-30 07:00–11:30",
+   "file": "previsione_30-10-2026_v1.3.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-10-30 17:47"
+  },
+  {
+   "chiave": "2026-10-31 07:00–11:30",
+   "file": "previsione_31-10-2026_v1.4.json",
+   "esito": "verificata, 10 ore",
+   "verificata": "2026-10-31 12:27"
+  },
+  {
+   "chiave": "2026-11-01 07:00–11:30",
+   "file": "previsione_01-11-2026_0700-1130_v1.13.json",
+   "esito": "verificata, 10 ore",
+   "verificata": "2026-11-01 12:44"
+  },
+  {
+   "chiave": "2026-11-02 07:00–11:30",
+   "file": "previsione_02-11-2026_0700-1130_v1.17.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-02 12:15"
+  },
+  {
+   "chiave": "2026-11-03 07:00–11:30",
+   "file": "previsione_03-11-2026_0700-1130_v1.17.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-03 15:01"
+  },
+  {
+   "chiave": "2026-11-04 07:00–11:30",
+   "file": "previsione_04-11-2026_0700-1130_v1.18.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-04 15:30"
+  },
+  {
+   "chiave": "2026-11-05 07:00–11:30",
+   "file": "previsione_05-11-2026_0700-1130_v1.19.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-05 12:53"
+  },
+  {
+   "chiave": "2026-11-06 07:00–11:30",
+   "file": "previsione_06-11-2026_0700-1130_v1.20.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-06 15:39"
+  },
+  {
+   "chiave": "2026-11-07 07:00–11:30",
+   "file": "previsione_07-11-2026_0700-1130_v1.20.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-07 12:28"
+  },
+  {
+   "chiave": "2026-11-08 07:00–11:30",
+   "file": "previsione_08-11-2026_0700-1130_centro_v1.21.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-08 18:33"
+  },
+  {
+   "chiave": "2026-11-08 07:00–11:30 centro",
+   "file": "previsione_08-11-2026_0700-1130_centro_v1.21.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-08 18:40"
+  },
+  {
+   "chiave": "2026-11-09 07:00–11:30",
+   "file": "previsione_09-11-2026_0700-1130_v1.23.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-09 16:28"
+  },
+  {
+   "chiave": "2026-11-10 07:00–11:30",
+   "file": "previsione_10-11-2026_0700-1130_v1.23.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-10 15:19"
+  },
+  {
+   "chiave": "2026-11-11 07:00–11:30",
+   "file": "previsione_11-11-2026_0700-1130_v1.25.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-11 18:03"
+  },
+  {
+   "chiave": "2026-11-12 07:00–11:30",
+   "file": "previsione_12-11-2026_0700-1130_v1.25.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-12 16:01"
+  },
+  {
+   "chiave": "2026-11-13 07:00–11:30",
+   "file": "previsione_13-11-2026_0700-1130_v1.26.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-13 16:17"
+  },
+  {
+   "chiave": "2026-11-14 07:00–11:30",
+   "file": "previsione_14-11-2026_0700-1130_v1.26.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-14 16:39"
+  },
+  {
+   "chiave": "2026-11-15 07:00–11:30",
+   "file": "previsione_15-11-2026_0700-1130_v1.27.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-15 17:41"
+  },
+  {
+   "chiave": "2026-11-16 07:00–11:30",
+   "file": "previsione_16-11-2026_0700-1130_v1.28.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-16 16:17"
+  },
+  {
+   "chiave": "2026-11-17 07:00–11:30",
+   "file": "previsione_17-11-2026_0700-1130_v1.30.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-17 16:23"
+  },
+  {
+   "chiave": "2026-11-18 07:00–11:30",
+   "file": "previsione_18-11-2026_0700-1130_v1.30.json",
+   "esito": "verificata, 5 ore",
+   "verificata": "2026-11-18 18:21"
+  }
+ ],
+ "onda": [
+  {
+   "data": "2026-11-01",
+   "ora": "07:00",
+   "prev": 0.54,
+   "mis": 0.92,
+   "vento_prev": 17.9,
+   "vento_mis": 17.9,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "08:00",
+   "prev": 0.64,
+   "mis": 0.86,
+   "vento_prev": 17.7,
+   "vento_mis": 20.5,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "09:00",
+   "prev": 0.72,
+   "mis": 1.16,
+   "vento_prev": 15.6,
+   "vento_mis": 23.7,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "10:00",
+   "prev": 0.82,
+   "mis": 1.24,
+   "vento_prev": 15.8,
+   "vento_mis": 18.5,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-01",
+   "ora": "11:00",
+   "prev": 0.9,
+   "mis": 1.31,
+   "vento_prev": 19.5,
+   "vento_mis": 17.9,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "07:00",
+   "prev": 1.0,
+   "mis": 1.64,
+   "vento_prev": 17.9,
+   "vento_mis": 30.6,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "08:00",
+   "prev": 1.0,
+   "mis": 1.61,
+   "vento_prev": 17.2,
+   "vento_mis": 23.6,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "09:00",
+   "prev": 0.98,
+   "mis": 1.43,
+   "vento_prev": 16.6,
+   "vento_mis": 22.0,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "10:00",
+   "prev": 0.98,
+   "mis": 1.41,
+   "vento_prev": 16.3,
+   "vento_mis": 24.9,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "11:00",
+   "prev": 0.96,
+   "mis": 1.49,
+   "vento_prev": 19.5,
+   "vento_mis": 28.5,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "07:00",
+   "prev": 1.02,
+   "mis": 1.92,
+   "vento_prev": 24.2,
+   "vento_mis": 34.2,
+   "dir_mis": "ENE"
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "08:00",
+   "prev": 1.02,
+   "mis": 1.89,
+   "vento_prev": 23.4,
+   "vento_mis": 33.5,
+   "dir_mis": "ENE"
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "09:00",
+   "prev": 1.0,
+   "mis": 1.8,
+   "vento_prev": 24.0,
+   "vento_mis": 31.2,
+   "dir_mis": "ENE"
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "10:00",
+   "prev": 1.0,
+   "mis": 1.75,
+   "vento_prev": 24.4,
+   "vento_mis": 27.9,
+   "dir_mis": "ENE"
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "11:00",
+   "prev": 1.0,
+   "mis": 1.54,
+   "vento_prev": 22.2,
+   "vento_mis": 25.8,
+   "dir_mis": "ENE"
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "07:00",
+   "prev": 0.9,
+   "mis": 1.14,
+   "vento_prev": 16.6,
+   "vento_mis": 14.7,
+   "dir_mis": "ENE"
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "08:00",
+   "prev": 0.88,
+   "mis": 1.06,
+   "vento_prev": 15.2,
+   "vento_mis": 14.6,
+   "dir_mis": "ENE"
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "09:00",
+   "prev": 0.84,
+   "mis": 1.04,
+   "vento_prev": 14.5,
+   "vento_mis": 15.3,
+   "dir_mis": "ENE"
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "10:00",
+   "prev": 0.82,
+   "mis": 1.03,
+   "vento_prev": 13.1,
+   "vento_mis": 14.8,
+   "dir_mis": "ENE"
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "11:00",
+   "prev": 0.8,
+   "mis": 1.02,
+   "vento_prev": 12.2,
+   "vento_mis": 15.3,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "07:00",
+   "prev": 0.58,
+   "mis": 0.92,
+   "vento_prev": 14.5,
+   "vento_mis": 16.6,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "08:00",
+   "prev": 0.56,
+   "mis": 0.94,
+   "vento_prev": 13.7,
+   "vento_mis": 16.3,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "09:00",
+   "prev": 0.52,
+   "mis": 0.88,
+   "vento_prev": 13.3,
+   "vento_mis": 15.3,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "11:00",
+   "prev": 0.48,
+   "mis": 0.78,
+   "vento_prev": 12.7,
+   "vento_mis": 14.7,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "07:00",
+   "prev": 0.24,
+   "mis": 0.61,
+   "vento_prev": 7.5,
+   "vento_mis": 12.1,
+   "dir_mis": "NNE"
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "08:00",
+   "prev": 0.24,
+   "mis": 0.6,
+   "vento_prev": 9.2,
+   "vento_mis": 10.2,
+   "dir_mis": "NNE"
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "09:00",
+   "prev": 0.22,
+   "mis": 0.56,
+   "vento_prev": 9.6,
+   "vento_mis": 12.0,
+   "dir_mis": "NNE"
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "10:00",
+   "prev": 0.22,
+   "mis": 0.55,
+   "vento_prev": 9.4,
+   "vento_mis": 9.8,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "11:00",
+   "prev": 0.2,
+   "mis": 0.5,
+   "vento_prev": 8.1,
+   "vento_mis": 9.9,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "07:00",
+   "prev": 0.84,
+   "mis": 0.94,
+   "vento_prev": 18.3,
+   "vento_mis": 19.3,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "08:00",
+   "prev": 0.84,
+   "mis": 0.95,
+   "vento_prev": 17.0,
+   "vento_mis": 20.7,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "09:00",
+   "prev": 0.84,
+   "mis": 0.96,
+   "vento_prev": 17.3,
+   "vento_mis": 20.6,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "10:00",
+   "prev": 0.84,
+   "mis": 1.07,
+   "vento_prev": 19.1,
+   "vento_mis": 23.2,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "11:00",
+   "prev": 0.84,
+   "mis": 1.07,
+   "vento_prev": 21.7,
+   "vento_mis": 21.6,
+   "dir_mis": "NE"
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "07:00",
+   "prev": 0.26,
+   "mis": 0.49,
+   "vento_prev": 7.8,
+   "vento_mis": 8.7,
+   "dir_mis": "NNE",
+   "dir_mis_g": 31,
+   "dir_mis_txt": "31° NNE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "08:00",
+   "prev": 0.24,
+   "mis": 0.47,
+   "vento_prev": 7.5,
+   "vento_mis": 7.5,
+   "dir_mis": "NNE",
+   "dir_mis_g": 22,
+   "dir_mis_txt": "22° NNE",
+   "nome_mis": "Tramontana"
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "09:00",
+   "prev": 0.24,
+   "mis": 0.4,
+   "vento_prev": 7.9,
+   "vento_mis": 8.0,
+   "dir_mis": "NNE",
+   "dir_mis_g": 21,
+   "dir_mis_txt": "21° NNE",
+   "nome_mis": "Tramontana"
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "10:00",
+   "prev": 0.22,
+   "mis": 0.39,
+   "vento_prev": 7.7,
+   "vento_mis": 5.0,
+   "dir_mis": "N",
+   "dir_mis_g": 2,
+   "dir_mis_txt": "2° N",
+   "nome_mis": "Tramontana"
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "11:00",
+   "prev": 0.2,
+   "mis": 0.36,
+   "vento_prev": 5.7,
+   "vento_mis": 6.4,
+   "dir_mis": "NNE",
+   "dir_mis_g": 24,
+   "dir_mis_txt": "24° NNE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "07:00",
+   "prev": 0.08,
+   "mis": 0.11,
+   "vento_prev": 2.9,
+   "vento_mis": 2.8,
+   "dir_mis": "NNE",
+   "dir_mis_g": 16,
+   "dir_mis_txt": "16° NNE",
+   "nome_mis": "Tramontana"
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "08:00",
+   "prev": 0.08,
+   "mis": 0.12,
+   "vento_prev": 3.3,
+   "vento_mis": 2.1,
+   "dir_mis": "NNE",
+   "dir_mis_g": 22,
+   "dir_mis_txt": "22° NNE",
+   "nome_mis": "Tramontana"
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "09:00",
+   "prev": 0.06,
+   "mis": 0.14,
+   "vento_prev": 4.5,
+   "vento_mis": 2.6,
+   "dir_mis": "NNE",
+   "dir_mis_g": 27,
+   "dir_mis_txt": "27° NNE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "10:00",
+   "prev": 0.06,
+   "mis": 0.14,
+   "vento_prev": 5.8,
+   "vento_mis": 3.4,
+   "dir_mis": "ENE",
+   "dir_mis_g": 61,
+   "dir_mis_txt": "61° ENE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "11:00",
+   "prev": 0.06,
+   "mis": 0.11,
+   "vento_prev": 5.8,
+   "vento_mis": 5.4,
+   "dir_mis": "NE",
+   "dir_mis_g": 45,
+   "dir_mis_txt": "45° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "07:00",
+   "prev": 0.22,
+   "mis": 0.38,
+   "vento_prev": 6.1,
+   "vento_mis": 6.6,
+   "dir_mis": "NNO",
+   "dir_mis_g": 330,
+   "dir_mis_txt": "330° NNO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "08:00",
+   "prev": 0.22,
+   "mis": 0.37,
+   "vento_prev": 6.6,
+   "vento_mis": 6.9,
+   "dir_mis": "NNO",
+   "dir_mis_g": 328,
+   "dir_mis_txt": "328° NNO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "09:00",
+   "prev": 0.22,
+   "mis": 0.36,
+   "vento_prev": 6.6,
+   "vento_mis": 7.1,
+   "dir_mis": "NNO",
+   "dir_mis_g": 327,
+   "dir_mis_txt": "327° NNO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "10:00",
+   "prev": 0.22,
+   "mis": 0.37,
+   "vento_prev": 7.4,
+   "vento_mis": 5.9,
+   "dir_mis": "NO",
+   "dir_mis_g": 325,
+   "dir_mis_txt": "325° NO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "11:00",
+   "prev": 0.22,
+   "mis": 0.38,
+   "vento_prev": 6.8,
+   "vento_mis": 5.5,
+   "dir_mis": "NO",
+   "dir_mis_g": 317,
+   "dir_mis_txt": "317° NO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "07:00",
+   "prev": 0.32,
+   "mis": 0.66,
+   "vento_prev": 3.5,
+   "vento_mis": 4.8,
+   "dir_mis": "O",
+   "dir_mis_g": 266,
+   "dir_mis_txt": "266° O",
+   "nome_mis": "Ponente"
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "08:00",
+   "prev": 0.3,
+   "mis": 0.59,
+   "vento_prev": 2.7,
+   "vento_mis": 4.5,
+   "dir_mis": "ONO",
+   "dir_mis_g": 283,
+   "dir_mis_txt": "283° ONO",
+   "nome_mis": "Ponente"
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "09:00",
+   "prev": 0.3,
+   "mis": 0.54,
+   "vento_prev": 2.3,
+   "vento_mis": 4.5,
+   "dir_mis": "O",
+   "dir_mis_g": 273,
+   "dir_mis_txt": "273° O",
+   "nome_mis": "Ponente"
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "10:00",
+   "prev": 0.28,
+   "mis": 0.54,
+   "vento_prev": 3.8,
+   "vento_mis": 4.9,
+   "dir_mis": "ONO",
+   "dir_mis_g": 298,
+   "dir_mis_txt": "298° ONO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "11:00",
+   "prev": 0.26,
+   "mis": 0.47,
+   "vento_prev": 3.3,
+   "vento_mis": 3.3,
+   "dir_mis": "ONO",
+   "dir_mis_g": 293,
+   "dir_mis_txt": "293° ONO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "07:00",
+   "prev": 0.24,
+   "mis": 0.24,
+   "vento_prev": 3.7,
+   "vento_mis": 3.4,
+   "dir_mis": "ONO",
+   "dir_mis_g": 293,
+   "dir_mis_txt": "293° ONO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "08:00",
+   "prev": 0.24,
+   "mis": 0.24,
+   "vento_prev": 2.5,
+   "vento_mis": 5.2,
+   "dir_mis": "NNO",
+   "dir_mis_g": 327,
+   "dir_mis_txt": "327° NNO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "09:00",
+   "prev": 0.22,
+   "mis": 0.25,
+   "vento_prev": 5.1,
+   "vento_mis": 5.3,
+   "dir_mis": "NNE",
+   "dir_mis_g": 28,
+   "dir_mis_txt": "28° NNE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "10:00",
+   "prev": 0.22,
+   "mis": 0.3,
+   "vento_prev": 4.3,
+   "vento_mis": 9.5,
+   "dir_mis": "NE",
+   "dir_mis_g": 35,
+   "dir_mis_txt": "35° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "11:00",
+   "prev": 0.22,
+   "mis": 0.35,
+   "vento_prev": 6.2,
+   "vento_mis": 11.8,
+   "dir_mis": "NE",
+   "dir_mis_g": 43,
+   "dir_mis_txt": "43° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "07:00",
+   "prev": 0.5,
+   "mis": 1.08,
+   "vento_prev": 6.4,
+   "vento_mis": 7.2,
+   "dir_mis": "ONO",
+   "dir_mis_g": 285,
+   "dir_mis_txt": "285° ONO",
+   "nome_mis": "Ponente"
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "08:00",
+   "prev": 0.48,
+   "mis": 1.0,
+   "vento_prev": 8.3,
+   "vento_mis": 3.6,
+   "dir_mis": "O",
+   "dir_mis_g": 279,
+   "dir_mis_txt": "279° O",
+   "nome_mis": "Ponente"
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "09:00",
+   "prev": 0.46,
+   "mis": 0.91,
+   "vento_prev": 3.3,
+   "vento_mis": 7.0,
+   "dir_mis": "N",
+   "dir_mis_g": 4,
+   "dir_mis_txt": "4° N",
+   "nome_mis": "Tramontana"
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "10:00",
+   "prev": 0.44,
+   "mis": 0.86,
+   "vento_prev": 5.4,
+   "vento_mis": 21.1,
+   "dir_mis": "ENE",
+   "dir_mis_g": 57,
+   "dir_mis_txt": "57° ENE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "11:00",
+   "prev": 0.6,
+   "mis": 1.03,
+   "vento_prev": 18.5,
+   "vento_mis": 26.5,
+   "dir_mis": "ENE",
+   "dir_mis_g": 57,
+   "dir_mis_txt": "57° ENE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "07:00",
+   "prev": 0.76,
+   "mis": 1.27,
+   "vento_prev": 18.4,
+   "vento_mis": 21.5,
+   "dir_mis": "ENE",
+   "dir_mis_g": 58,
+   "dir_mis_txt": "58° ENE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "08:00",
+   "prev": 0.76,
+   "mis": 1.16,
+   "vento_prev": 19.8,
+   "vento_mis": 19.9,
+   "dir_mis": "NE",
+   "dir_mis_g": 56,
+   "dir_mis_txt": "56° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "09:00",
+   "prev": 0.78,
+   "mis": 1.04,
+   "vento_prev": 20.1,
+   "vento_mis": 17.3,
+   "dir_mis": "NE",
+   "dir_mis_g": 47,
+   "dir_mis_txt": "47° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "10:00",
+   "prev": 0.78,
+   "mis": 1.09,
+   "vento_prev": 18.8,
+   "vento_mis": 17.7,
+   "dir_mis": "NE",
+   "dir_mis_g": 45,
+   "dir_mis_txt": "45° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "11:00",
+   "prev": 0.74,
+   "mis": 1.04,
+   "vento_prev": 17.5,
+   "vento_mis": 17.4,
+   "dir_mis": "NE",
+   "dir_mis_g": 44,
+   "dir_mis_txt": "44° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "07:00",
+   "prev": 0.32,
+   "mis": 0.69,
+   "vento_prev": 4.3,
+   "vento_mis": 14.3,
+   "dir_mis": "NNE",
+   "dir_mis_g": 32,
+   "dir_mis_txt": "32° NNE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "08:00",
+   "prev": 0.34,
+   "mis": 0.68,
+   "vento_prev": 6.2,
+   "vento_mis": 13.2,
+   "dir_mis": "NE",
+   "dir_mis_g": 41,
+   "dir_mis_txt": "41° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "09:00",
+   "prev": 0.36,
+   "mis": 0.62,
+   "vento_prev": 8.1,
+   "vento_mis": 11.3,
+   "dir_mis": "NE",
+   "dir_mis_g": 42,
+   "dir_mis_txt": "42° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "10:00",
+   "prev": 0.38,
+   "mis": 0.58,
+   "vento_prev": 10.0,
+   "vento_mis": 9.6,
+   "dir_mis": "NNE",
+   "dir_mis_g": 27,
+   "dir_mis_txt": "27° NNE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "11:00",
+   "prev": 0.38,
+   "mis": 0.53,
+   "vento_prev": 11.1,
+   "vento_mis": 8.9,
+   "dir_mis": "NNE",
+   "dir_mis_g": 21,
+   "dir_mis_txt": "21° NNE",
+   "nome_mis": "Tramontana"
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "07:00",
+   "prev": 0.12,
+   "mis": 0.17,
+   "vento_prev": 4.8,
+   "vento_mis": 5.7,
+   "dir_mis": "NNO",
+   "dir_mis_g": 332,
+   "dir_mis_txt": "332° NNO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "08:00",
+   "prev": 0.12,
+   "mis": 0.16,
+   "vento_prev": 7.6,
+   "vento_mis": 7.0,
+   "dir_mis": "NO",
+   "dir_mis_g": 320,
+   "dir_mis_txt": "320° NO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "09:00",
+   "prev": 0.14,
+   "mis": 0.18,
+   "vento_prev": 7.1,
+   "vento_mis": 8.5,
+   "dir_mis": "ONO",
+   "dir_mis_g": 300,
+   "dir_mis_txt": "300° ONO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "10:00",
+   "prev": 0.14,
+   "mis": 0.23,
+   "vento_prev": 9.2,
+   "vento_mis": 8.4,
+   "dir_mis": "ONO",
+   "dir_mis_g": 284,
+   "dir_mis_txt": "284° ONO",
+   "nome_mis": "Ponente"
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "11:00",
+   "prev": 0.14,
+   "mis": 0.28,
+   "vento_prev": 9.1,
+   "vento_mis": 10.0,
+   "dir_mis": "O",
+   "dir_mis_g": 270,
+   "dir_mis_txt": "270° O",
+   "nome_mis": "Ponente"
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "07:00",
+   "prev": 0.14,
+   "mis": 0.18,
+   "vento_prev": 7.0,
+   "vento_mis": 4.4,
+   "dir_mis": "NNE",
+   "dir_mis_g": 13,
+   "dir_mis_txt": "13° NNE",
+   "nome_mis": "Tramontana"
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "08:00",
+   "prev": 0.14,
+   "mis": 0.2,
+   "vento_prev": 5.4,
+   "vento_mis": 6.0,
+   "dir_mis": "NNE",
+   "dir_mis_g": 23,
+   "dir_mis_txt": "23° NNE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "09:00",
+   "prev": 0.12,
+   "mis": 0.2,
+   "vento_prev": 5.7,
+   "vento_mis": 5.9,
+   "dir_mis": "NNE",
+   "dir_mis_g": 26,
+   "dir_mis_txt": "26° NNE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "10:00",
+   "prev": 0.12,
+   "mis": 0.2,
+   "vento_prev": 5.9,
+   "vento_mis": 7.4,
+   "dir_mis": "NNE",
+   "dir_mis_g": 25,
+   "dir_mis_txt": "25° NNE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "11:00",
+   "prev": 0.14,
+   "mis": 0.2,
+   "vento_prev": 6.3,
+   "vento_mis": 6.7,
+   "dir_mis": "NE",
+   "dir_mis_g": 36,
+   "dir_mis_txt": "36° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "07:00",
+   "prev": 0.22,
+   "mis": 0.38,
+   "vento_prev": 4.6,
+   "vento_mis": 5.4,
+   "dir_mis": "ONO",
+   "dir_mis_g": 289,
+   "dir_mis_txt": "289° ONO",
+   "nome_mis": "Ponente"
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "08:00",
+   "prev": 0.2,
+   "mis": 0.35,
+   "vento_prev": 4.3,
+   "vento_mis": 5.2,
+   "dir_mis": "NO",
+   "dir_mis_g": 313,
+   "dir_mis_txt": "313° NO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "09:00",
+   "prev": 0.2,
+   "mis": 0.36,
+   "vento_prev": 4.7,
+   "vento_mis": 4.0,
+   "dir_mis": "ONO",
+   "dir_mis_g": 294,
+   "dir_mis_txt": "294° ONO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "10:00",
+   "prev": 0.18,
+   "mis": 0.37,
+   "vento_prev": 5.8,
+   "vento_mis": 5.4,
+   "dir_mis": "ONO",
+   "dir_mis_g": 298,
+   "dir_mis_txt": "298° ONO",
+   "nome_mis": "Maestrale"
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "11:00",
+   "prev": 0.18,
+   "mis": 0.37,
+   "vento_prev": 6.5,
+   "vento_mis": 4.8,
+   "dir_mis": "NO",
+   "dir_mis_g": 311,
+   "dir_mis_txt": "311° NO",
+   "nome_mis": "Maestrale"
+  }
+ ],
+ "aria": [
+  {
+   "data": "2026-11-02",
+   "ora": "07:00",
+   "mare_prev": 14.7,
+   "mestre_prev": 7.4,
+   "acqua_prev": 12.7,
+   "piatt_mis": 14.7,
+   "cavalli_mis": 11.7
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "08:00",
+   "mare_prev": 14.6,
+   "mestre_prev": 7.7,
+   "acqua_prev": 12.8,
+   "piatt_mis": 14.8,
+   "cavalli_mis": 11.2
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "09:00",
+   "mare_prev": 14.7,
+   "mestre_prev": 9.8,
+   "acqua_prev": 13.2,
+   "piatt_mis": 14.7,
+   "cavalli_mis": 12.5
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "10:00",
+   "mare_prev": 14.7,
+   "mestre_prev": 12.0,
+   "acqua_prev": 14.4,
+   "piatt_mis": 14.8,
+   "cavalli_mis": 13.4
+  },
+  {
+   "data": "2026-11-02",
+   "ora": "11:00",
+   "mare_prev": 15.3,
+   "mestre_prev": 14.0,
+   "acqua_prev": 15.2,
+   "piatt_mis": 14.9,
+   "cavalli_mis": 15.6
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "07:00",
+   "mare_prev": 14.7,
+   "mestre_prev": 7.2,
+   "acqua_prev": 12.0,
+   "piatt_mis": 13.5,
+   "cavalli_mis": 11.4
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "08:00",
+   "mare_prev": 14.5,
+   "mestre_prev": 7.5,
+   "acqua_prev": 12.3,
+   "piatt_mis": 13.5,
+   "cavalli_mis": 11.1
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "09:00",
+   "mare_prev": 14.5,
+   "mestre_prev": 8.9,
+   "acqua_prev": 13.2,
+   "piatt_mis": 13.5,
+   "cavalli_mis": 11.9
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "10:00",
+   "mare_prev": 14.5,
+   "mestre_prev": 11.1,
+   "acqua_prev": 13.7,
+   "piatt_mis": 13.6,
+   "cavalli_mis": 13.2
+  },
+  {
+   "data": "2026-11-03",
+   "ora": "11:00",
+   "mare_prev": 14.6,
+   "mestre_prev": 12.8,
+   "acqua_prev": 13.9,
+   "piatt_mis": 13.5,
+   "cavalli_mis": 14.7
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "07:00",
+   "mare_prev": 14.0,
+   "mestre_prev": 8.5,
+   "acqua_prev": 12.1,
+   "piatt_mis": 13.4,
+   "cavalli_mis": 10.9
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "08:00",
+   "mare_prev": 14.0,
+   "mestre_prev": 8.9,
+   "acqua_prev": 12.1,
+   "piatt_mis": 13.4,
+   "cavalli_mis": 11.4
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "09:00",
+   "mare_prev": 14.1,
+   "mestre_prev": 10.3,
+   "acqua_prev": 12.4,
+   "piatt_mis": 13.4,
+   "cavalli_mis": 12.4
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "10:00",
+   "mare_prev": 14.2,
+   "mestre_prev": 12.1,
+   "acqua_prev": 12.8,
+   "piatt_mis": 13.3,
+   "cavalli_mis": 13.2
+  },
+  {
+   "data": "2026-11-04",
+   "ora": "11:00",
+   "mare_prev": 14.3,
+   "mestre_prev": 13.5,
+   "acqua_prev": 13.4,
+   "piatt_mis": 13.4,
+   "cavalli_mis": 13.9
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "07:00",
+   "mare_prev": 12.2,
+   "mestre_prev": 5.7,
+   "acqua_prev": 10.9,
+   "piatt_mis": 11.9,
+   "cavalli_mis": 9.3
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "08:00",
+   "mare_prev": 12.2,
+   "mestre_prev": 6.1,
+   "acqua_prev": 11.2,
+   "piatt_mis": 11.6,
+   "cavalli_mis": 9.8
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "09:00",
+   "mare_prev": 12.2,
+   "mestre_prev": 7.8,
+   "acqua_prev": 11.4,
+   "piatt_mis": 11.7,
+   "cavalli_mis": 11.9
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "10:00",
+   "mare_prev": 12.7,
+   "mestre_prev": 10.5,
+   "acqua_prev": 12.0,
+   "piatt_mis": 11.9,
+   "cavalli_mis": 13.2
+  },
+  {
+   "data": "2026-11-05",
+   "ora": "11:00",
+   "mare_prev": 13.2,
+   "mestre_prev": 12.8,
+   "acqua_prev": 12.5,
+   "piatt_mis": 12.3,
+   "cavalli_mis": 14.2
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "07:00",
+   "mare_prev": 12.0,
+   "mestre_prev": 4.7,
+   "acqua_prev": 10.3,
+   "piatt_mis": 10.9,
+   "cavalli_mis": 8.0
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "08:00",
+   "mare_prev": 11.9,
+   "mestre_prev": 5.0,
+   "acqua_prev": 10.2,
+   "piatt_mis": 11.0,
+   "cavalli_mis": 8.8
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "09:00",
+   "mare_prev": 11.8,
+   "mestre_prev": 6.8,
+   "acqua_prev": 10.2,
+   "piatt_mis": 10.7,
+   "cavalli_mis": 10.3
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "10:00",
+   "mare_prev": 12.0,
+   "mestre_prev": 9.3,
+   "acqua_prev": 10.4,
+   "piatt_mis": 11.3,
+   "cavalli_mis": 12.1
+  },
+  {
+   "data": "2026-11-06",
+   "ora": "11:00",
+   "mare_prev": 12.4,
+   "mestre_prev": 11.7,
+   "acqua_prev": 11.4,
+   "piatt_mis": 11.6,
+   "cavalli_mis": 13.8
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "07:00",
+   "mare_prev": 12.0,
+   "mestre_prev": 8.5,
+   "acqua_prev": 10.9,
+   "piatt_mis": 11.5,
+   "cavalli_mis": 9.9
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "08:00",
+   "mare_prev": 11.8,
+   "mestre_prev": 8.7,
+   "acqua_prev": 10.7,
+   "piatt_mis": 11.6,
+   "cavalli_mis": 10.1
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "09:00",
+   "mare_prev": 11.8,
+   "mestre_prev": 9.1,
+   "acqua_prev": 10.8,
+   "piatt_mis": 11.5,
+   "cavalli_mis": 10.2
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "10:00",
+   "mare_prev": 12.1,
+   "mestre_prev": 9.5,
+   "acqua_prev": 11.0,
+   "piatt_mis": 11.5,
+   "cavalli_mis": 10.3
+  },
+  {
+   "data": "2026-11-07",
+   "ora": "11:00",
+   "mare_prev": 12.7,
+   "mestre_prev": 9.9,
+   "acqua_prev": 11.1,
+   "piatt_mis": 11.2,
+   "cavalli_mis": 10.5
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "07:00",
+   "mare_prev": 11.6,
+   "mestre_prev": 5.1,
+   "acqua_prev": 6.8,
+   "piatt_mis": 11.0,
+   "cavalli_mis": 9.4
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "08:00",
+   "mare_prev": 11.5,
+   "mestre_prev": 5.1,
+   "acqua_prev": 7.0,
+   "piatt_mis": 10.9,
+   "cavalli_mis": 9.7
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "09:00",
+   "mare_prev": 11.5,
+   "mestre_prev": 6.7,
+   "acqua_prev": 7.9,
+   "piatt_mis": 10.8,
+   "cavalli_mis": 10.3
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "10:00",
+   "mare_prev": 11.7,
+   "mestre_prev": 8.5,
+   "acqua_prev": 9.3,
+   "piatt_mis": 10.8,
+   "cavalli_mis": 10.9
+  },
+  {
+   "data": "2026-11-08",
+   "ora": "11:00",
+   "mare_prev": 12.0,
+   "mestre_prev": 10.6,
+   "acqua_prev": 10.5,
+   "piatt_mis": 11.4,
+   "cavalli_mis": 11.7
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "07:00",
+   "mare_prev": 12.1,
+   "mestre_prev": 5.1,
+   "acqua_prev": 9.8,
+   "piatt_mis": 11.4,
+   "cavalli_mis": 9.2
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "08:00",
+   "mare_prev": 12.2,
+   "mestre_prev": 5.1,
+   "acqua_prev": 9.7,
+   "piatt_mis": 11.6,
+   "cavalli_mis": 8.9
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "09:00",
+   "mare_prev": 12.0,
+   "mestre_prev": 6.5,
+   "acqua_prev": 9.6,
+   "piatt_mis": 12.1,
+   "cavalli_mis": 9.7
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "10:00",
+   "mare_prev": 11.9,
+   "mestre_prev": 8.3,
+   "acqua_prev": 10.2,
+   "piatt_mis": 12.4,
+   "cavalli_mis": 10.8
+  },
+  {
+   "data": "2026-11-09",
+   "ora": "11:00",
+   "mare_prev": 12.2,
+   "mestre_prev": 10.5,
+   "acqua_prev": 10.9,
+   "piatt_mis": 12.4,
+   "cavalli_mis": 11.0
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "07:00",
+   "mare_prev": 11.6,
+   "mestre_prev": 8.7,
+   "acqua_prev": 10.2,
+   "piatt_mis": 9.9,
+   "cavalli_mis": 9.7
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "08:00",
+   "mare_prev": 11.5,
+   "mestre_prev": 8.7,
+   "acqua_prev": 10.1,
+   "piatt_mis": 10.0,
+   "cavalli_mis": 9.7
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "09:00",
+   "mare_prev": 11.6,
+   "mestre_prev": 8.8,
+   "acqua_prev": 10.2,
+   "piatt_mis": 10.0,
+   "cavalli_mis": 9.8
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "10:00",
+   "mare_prev": 11.6,
+   "mestre_prev": 9.0,
+   "acqua_prev": 10.2,
+   "piatt_mis": 10.1,
+   "cavalli_mis": 10.0
+  },
+  {
+   "data": "2026-11-10",
+   "ora": "11:00",
+   "mare_prev": 11.4,
+   "mestre_prev": 9.4,
+   "acqua_prev": 10.2,
+   "piatt_mis": 10.1,
+   "cavalli_mis": 10.3
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "07:00",
+   "mare_prev": 12.1,
+   "mestre_prev": 9.8,
+   "acqua_prev": 10.8,
+   "piatt_mis": 11.5,
+   "cavalli_mis": 11.1
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "08:00",
+   "mare_prev": 12.3,
+   "mestre_prev": 9.9,
+   "acqua_prev": 10.8,
+   "piatt_mis": 11.4,
+   "cavalli_mis": 11.1
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "09:00",
+   "mare_prev": 12.4,
+   "mestre_prev": 10.4,
+   "acqua_prev": 11.0,
+   "piatt_mis": 11.5,
+   "cavalli_mis": 11.4
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "10:00",
+   "mare_prev": 12.3,
+   "mestre_prev": 10.9,
+   "acqua_prev": 11.0,
+   "piatt_mis": 11.3,
+   "cavalli_mis": 11.5
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "11:00",
+   "mare_prev": 12.3,
+   "mestre_prev": 11.4,
+   "acqua_prev": 11.1,
+   "piatt_mis": 11.4,
+   "cavalli_mis": 12.0
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "07:00",
+   "mare_prev": 13.4,
+   "mestre_prev": 11.1,
+   "acqua_prev": 12.0,
+   "piatt_mis": 12.2,
+   "cavalli_mis": 12.1
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "08:00",
+   "mare_prev": 13.7,
+   "mestre_prev": 11.2,
+   "acqua_prev": 12.2,
+   "piatt_mis": 12.1,
+   "cavalli_mis": 12.2
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "09:00",
+   "mare_prev": 13.9,
+   "mestre_prev": 11.4,
+   "acqua_prev": 12.3,
+   "piatt_mis": 12.2,
+   "cavalli_mis": 12.2
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "10:00",
+   "mare_prev": 14.1,
+   "mestre_prev": 11.7,
+   "acqua_prev": 12.4,
+   "piatt_mis": 12.3,
+   "cavalli_mis": 12.2
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "11:00",
+   "mare_prev": 14.3,
+   "mestre_prev": 12.0,
+   "acqua_prev": 12.6,
+   "piatt_mis": 12.6,
+   "cavalli_mis": 12.3
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "07:00",
+   "mare_prev": 13.7,
+   "mestre_prev": 13.1,
+   "acqua_prev": 12.9,
+   "piatt_mis": 12.8,
+   "cavalli_mis": 13.1
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "08:00",
+   "mare_prev": 13.7,
+   "mestre_prev": 12.9,
+   "acqua_prev": 12.9,
+   "piatt_mis": 13.6,
+   "cavalli_mis": 13.6
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "09:00",
+   "mare_prev": 13.9,
+   "mestre_prev": 13.1,
+   "acqua_prev": 12.9,
+   "piatt_mis": 13.9,
+   "cavalli_mis": 13.4
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "10:00",
+   "mare_prev": 14.4,
+   "mestre_prev": 13.3,
+   "acqua_prev": 13.2,
+   "piatt_mis": 14.0,
+   "cavalli_mis": 13.6
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "11:00",
+   "mare_prev": 15.3,
+   "mestre_prev": 14.2,
+   "acqua_prev": 14.1,
+   "piatt_mis": 14.0,
+   "cavalli_mis": 13.5
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "07:00",
+   "mare_prev": 12.0,
+   "mestre_prev": 4.5,
+   "acqua_prev": 10.2,
+   "piatt_mis": 11.1,
+   "cavalli_mis": 7.0
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "08:00",
+   "mare_prev": 12.1,
+   "mestre_prev": 4.7,
+   "acqua_prev": 9.9,
+   "piatt_mis": 10.8,
+   "cavalli_mis": 7.5
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "09:00",
+   "mare_prev": 12.0,
+   "mestre_prev": 6.0,
+   "acqua_prev": 10.0,
+   "piatt_mis": 10.5,
+   "cavalli_mis": 8.9
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "10:00",
+   "mare_prev": 11.9,
+   "mestre_prev": 8.1,
+   "acqua_prev": 10.2,
+   "piatt_mis": 10.3,
+   "cavalli_mis": 10.1
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "11:00",
+   "mare_prev": 11.8,
+   "mestre_prev": 9.8,
+   "acqua_prev": 10.8,
+   "piatt_mis": 10.3,
+   "cavalli_mis": 11.5
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "07:00",
+   "mare_prev": 10.1,
+   "mestre_prev": 5.1,
+   "acqua_prev": 8.9,
+   "piatt_mis": 8.7,
+   "cavalli_mis": 6.6
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "08:00",
+   "mare_prev": 10.1,
+   "mestre_prev": 5.3,
+   "acqua_prev": 9.0,
+   "piatt_mis": 8.9,
+   "cavalli_mis": 7.0
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "09:00",
+   "mare_prev": 10.2,
+   "mestre_prev": 5.8,
+   "acqua_prev": 8.9,
+   "piatt_mis": 9.4,
+   "cavalli_mis": 7.7
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "10:00",
+   "mare_prev": 10.2,
+   "mestre_prev": 6.6,
+   "acqua_prev": 8.8,
+   "piatt_mis": 9.4,
+   "cavalli_mis": 8.7
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "11:00",
+   "mare_prev": 10.1,
+   "mestre_prev": 7.5,
+   "acqua_prev": 9.1,
+   "piatt_mis": 9.2,
+   "cavalli_mis": 9.3
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "07:00",
+   "mare_prev": 9.6,
+   "mestre_prev": 6.9,
+   "acqua_prev": 8.6,
+   "piatt_mis": 7.7,
+   "cavalli_mis": 8.1
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "08:00",
+   "mare_prev": 9.6,
+   "mestre_prev": 6.9,
+   "acqua_prev": 8.4,
+   "piatt_mis": 8.1,
+   "cavalli_mis": 8.3
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "09:00",
+   "mare_prev": 9.4,
+   "mestre_prev": 7.2,
+   "acqua_prev": 8.4,
+   "piatt_mis": 8.3,
+   "cavalli_mis": 8.4
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "10:00",
+   "mare_prev": 9.3,
+   "mestre_prev": 7.9,
+   "acqua_prev": 8.5,
+   "piatt_mis": 8.2,
+   "cavalli_mis": 8.8
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "11:00",
+   "mare_prev": 9.4,
+   "mestre_prev": 8.9,
+   "acqua_prev": 8.9,
+   "piatt_mis": 8.2,
+   "cavalli_mis": 9.1
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "07:00",
+   "mare_prev": 11.0,
+   "mestre_prev": 6.3,
+   "acqua_prev": 9.5,
+   "piatt_mis": 9.7,
+   "cavalli_mis": 8.4
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "08:00",
+   "mare_prev": 11.1,
+   "mestre_prev": 6.6,
+   "acqua_prev": 9.5,
+   "piatt_mis": 9.6,
+   "cavalli_mis": 8.6
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "09:00",
+   "mare_prev": 11.1,
+   "mestre_prev": 7.3,
+   "acqua_prev": 9.5,
+   "piatt_mis": 9.8,
+   "cavalli_mis": 8.8
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "10:00",
+   "mare_prev": 11.1,
+   "mestre_prev": 8.1,
+   "acqua_prev": 9.6,
+   "piatt_mis": 9.8,
+   "cavalli_mis": 8.9
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "11:00",
+   "mare_prev": 11.0,
+   "mestre_prev": 8.7,
+   "acqua_prev": 9.7,
+   "piatt_mis": 10.0,
+   "cavalli_mis": 9.2
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "07:00",
+   "mare_prev": 9.7,
+   "mestre_prev": 7.7,
+   "acqua_prev": 8.8,
+   "piatt_mis": 8.9,
+   "cavalli_mis": 9.0
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "08:00",
+   "mare_prev": 9.8,
+   "mestre_prev": 7.8,
+   "acqua_prev": 8.9,
+   "piatt_mis": 8.9,
+   "cavalli_mis": 9.1
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "09:00",
+   "mare_prev": 9.9,
+   "mestre_prev": 8.1,
+   "acqua_prev": 9.0,
+   "piatt_mis": 9.0,
+   "cavalli_mis": 9.3
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "10:00",
+   "mare_prev": 10.0,
+   "mestre_prev": 8.6,
+   "acqua_prev": 8.9,
+   "piatt_mis": 9.2,
+   "cavalli_mis": 9.6
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "11:00",
+   "mare_prev": 10.1,
+   "mestre_prev": 9.2,
+   "acqua_prev": 9.1,
+   "piatt_mis": 9.0,
+   "cavalli_mis": 9.9
+  }
+ ],
+ "pioggia": [
+  {
+   "data": "2026-11-11",
+   "ora": "07:00",
+   "prob_D2": 15,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": false
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "08:00",
+   "prob_D2": 25,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.2,
+   "oss": false
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "09:00",
+   "prob_D2": 25,
+   "prob_EC": 2,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": false
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "10:00",
+   "prob_D2": 40,
+   "prob_EC": 6,
+   "mm_D2": 0.1,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": true
+  },
+  {
+   "data": "2026-11-11",
+   "ora": "11:00",
+   "prob_D2": 35,
+   "prob_EC": 16,
+   "mm_D2": 0.1,
+   "mm_2i": 0.0,
+   "mm_EC": 0.2,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.4,
+   "oss": false
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "07:00",
+   "prob_D2": 100,
+   "prob_EC": 90,
+   "mm_D2": 1.0,
+   "mm_2i": 1.4,
+   "mm_EC": 0.5,
+   "cavalli_mm": 0.2,
+   "piatt_mm": 0.4,
+   "oss": null
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "08:00",
+   "prob_D2": 100,
+   "prob_EC": 97,
+   "mm_D2": 0.4,
+   "mm_2i": 0.5,
+   "mm_EC": 0.8,
+   "cavalli_mm": 0.2,
+   "piatt_mm": 0.2,
+   "oss": null
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "09:00",
+   "prob_D2": 100,
+   "prob_EC": 99,
+   "mm_D2": 2.1,
+   "mm_2i": 0.3,
+   "mm_EC": 0.8,
+   "cavalli_mm": 0.2,
+   "piatt_mm": 0.2,
+   "oss": null
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "10:00",
+   "prob_D2": 100,
+   "prob_EC": 100,
+   "mm_D2": 1.2,
+   "mm_2i": 0.6,
+   "mm_EC": 0.8,
+   "cavalli_mm": 0.2,
+   "piatt_mm": 1.2,
+   "oss": null
+  },
+  {
+   "data": "2026-11-12",
+   "ora": "11:00",
+   "prob_D2": 100,
+   "prob_EC": 100,
+   "mm_D2": 1.5,
+   "mm_2i": 1.2,
+   "mm_EC": 0.9,
+   "cavalli_mm": 2.0,
+   "piatt_mm": 1.8,
+   "oss": null
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "07:00",
+   "prob_D2": 70,
+   "prob_EC": 76,
+   "mm_D2": 0.4,
+   "mm_2i": 0.0,
+   "mm_EC": 0.1,
+   "cavalli_mm": 0.4,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "08:00",
+   "prob_D2": 80,
+   "prob_EC": 81,
+   "mm_D2": 0.1,
+   "mm_2i": 0.2,
+   "mm_EC": 0.4,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "09:00",
+   "prob_D2": 85,
+   "prob_EC": 87,
+   "mm_D2": 0.1,
+   "mm_2i": 0.3,
+   "mm_EC": 0.4,
+   "cavalli_mm": 0.6,
+   "piatt_mm": 0.6,
+   "oss": null
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "10:00",
+   "prob_D2": 90,
+   "prob_EC": 90,
+   "mm_D2": 0.1,
+   "mm_2i": 3.2,
+   "mm_EC": 0.4,
+   "cavalli_mm": 2.0,
+   "piatt_mm": 2.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-13",
+   "ora": "11:00",
+   "prob_D2": 80,
+   "prob_EC": 87,
+   "mm_D2": 0.2,
+   "mm_2i": 1.0,
+   "mm_EC": 0.5,
+   "cavalli_mm": 2.2,
+   "piatt_mm": 6.2,
+   "oss": null
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "07:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "08:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "09:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "10:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-14",
+   "ora": "11:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "07:00",
+   "prob_D2": 25,
+   "prob_EC": 8,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "08:00",
+   "prob_D2": 20,
+   "prob_EC": 9,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "09:00",
+   "prob_D2": 15,
+   "prob_EC": 10,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "10:00",
+   "prob_D2": 10,
+   "prob_EC": 10,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-15",
+   "ora": "11:00",
+   "prob_D2": 10,
+   "prob_EC": 10,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "07:00",
+   "prob_D2": 50,
+   "prob_EC": 47,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.2,
+   "cavalli_mm": 0.4,
+   "piatt_mm": 0.4,
+   "oss": null
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "08:00",
+   "prob_D2": 25,
+   "prob_EC": 47,
+   "mm_D2": 0.0,
+   "mm_2i": 0.1,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "09:00",
+   "prob_D2": 5,
+   "prob_EC": 42,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "10:00",
+   "prob_D2": 0,
+   "prob_EC": 35,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-16",
+   "ora": "11:00",
+   "prob_D2": 0,
+   "prob_EC": 24,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "07:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "08:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "09:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "10:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "11:00",
+   "prob_D2": 15,
+   "prob_EC": 3,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.1,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "07:00",
+   "prob_D2": 0,
+   "prob_EC": 2,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "08:00",
+   "prob_D2": 0,
+   "prob_EC": 2,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "09:00",
+   "prob_D2": 0,
+   "prob_EC": 2,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "10:00",
+   "prob_D2": 0,
+   "prob_EC": 2,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "11:00",
+   "prob_D2": 0,
+   "prob_EC": 1,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  }
+ ],
+ "livello": [
+  {
+   "data": "2026-11-17",
+   "ora": "07:00",
+   "mis": 86,
+   "astro": 53,
+   "prev": 81,
+   "fonte": "previsione CPSM",
+   "eta_h": 22
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "08:00",
+   "mis": 88,
+   "astro": 50,
+   "prev": 85,
+   "fonte": "previsione CPSM",
+   "eta_h": 22
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "09:00",
+   "mis": 84,
+   "astro": 46,
+   "prev": 84,
+   "fonte": "previsione CPSM",
+   "eta_h": 22
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "10:00",
+   "mis": 79,
+   "astro": 41,
+   "prev": 81,
+   "fonte": "previsione CPSM",
+   "eta_h": 22
+  },
+  {
+   "data": "2026-11-17",
+   "ora": "11:00",
+   "mis": 75,
+   "astro": 38,
+   "prev": 74,
+   "fonte": "previsione CPSM",
+   "eta_h": 22
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "07:00",
+   "mis": 88,
+   "astro": 60,
+   "prev": 109,
+   "fonte": "previsione CPSM",
+   "eta_h": 22
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "08:00",
+   "mis": 88,
+   "astro": 56,
+   "prev": 105,
+   "fonte": "previsione CPSM",
+   "eta_h": 22
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "09:00",
+   "mis": 82,
+   "astro": 49,
+   "prev": 98,
+   "fonte": "previsione CPSM",
+   "eta_h": 22
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "10:00",
+   "mis": 71,
+   "astro": 41,
+   "prev": 90,
+   "fonte": "previsione CPSM",
+   "eta_h": 22
+  },
+  {
+   "data": "2026-11-18",
+   "ora": "11:00",
+   "mis": 60,
+   "astro": 34,
+   "prev": 80,
+   "fonte": "previsione CPSM",
+   "eta_h": 22
+  }
+ ]
+}
