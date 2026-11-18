@@ -22,3 +22,9 @@ jobs:
           for k, v in M.items():
               print(k, len(v), "righe", v[0]["t"] if v else "-", "->", v[-1]["t"] if v else "-")
           PY
+      - name: Diagnosi proxy /misure
+        run: |
+          U=https://fd-cpsm-proxy.ennioweb.workers.dev/misure/Malamocco_Porto
+          echo "== con Origin"; curl -sS -i --compressed -m 30 -H "Origin: https://vksskdx22n-max.github.io" "$U" | head -c 900; echo
+          echo "== senza Origin"; curl -sS -i --compressed -m 30 "$U" | head -c 900; echo
+          echo "== con User-Agent browser"; curl -sS -i --compressed -m 30 -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Safari/605.1.15" "$U" | head -c 900; echo
