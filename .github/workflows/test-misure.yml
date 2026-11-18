@@ -1,0 +1,14 @@
+name: Test lettura misure
+on: workflow_dispatch
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pagine temporeale del Comune
+        run: |
+          for p in Malamocco_Porto Palazzo_Cavalli Piattaforma; do
+            echo "== $p"
+            curl -sS --compressed -m 30 -o /tmp/$p.html -w "HTTP %{http_code}, %{size_download} byte\n" "https://www.comune.venezia.it/sites/default/files/publicCPSM2/stazioni/temporeale/$p.html" || echo "ERRORE curl"
+          done
+          echo "== proxy previsione CPSM"
+          curl -sS -m 30 -o /dev/null -w "HTTP %{http_code}\n" -H "Origin: https://vksskdx22n-max.github.io" https://fd-cpsm-proxy.ennioweb.workers.dev/previsione || echo "ERRORE curl"
