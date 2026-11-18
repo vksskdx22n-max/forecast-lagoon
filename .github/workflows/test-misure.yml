@@ -13,3 +13,12 @@ jobs:
           done
           echo "== proxy previsione CPSM"
           curl -sS -m 30 -o /dev/null -w "HTTP %{http_code}\n" -H "Origin: https://vksskdx22n-max.github.io" https://fd-cpsm-proxy.ennioweb.workers.dev/previsione || echo "ERRORE curl"
+      - uses: actions/checkout@v4
+      - name: fd_verifica legge le misure (via proxy)
+        run: |
+          python3 - <<'PY'
+          import fd_verifica as FV
+          M = FV.scarica_misure()
+          for k, v in M.items():
+              print(k, len(v), "righe", v[0]["t"] if v else "-", "->", v[-1]["t"] if v else "-")
+          PY
