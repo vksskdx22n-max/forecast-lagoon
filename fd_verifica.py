@@ -48,8 +48,10 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>_v1
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.21"
+VERSIONE = "1.22"
 URL_BASE = "https://www.comune.venezia.it/sites/default/files/publicCPSM2/stazioni/temporeale/"
+URL_PROXY = "https://fd-cpsm-proxy.ennioweb.workers.dev/misure/"      # v1.22: il Comune blocca i server di GitHub; il proxy Cloudflare no
+ORIGINE_PROXY = "https://vksskdx22n-max.github.io"
 PAGINE = {"Malamocco Porto": "Malamocco_Porto", "Palazzo Cavalli": "Palazzo_Cavalli",
           "Piattaforma CNR": "Piattaforma"}
 ZONE = {  # zona della previsione -> (stazioni mediate, descrizione)
@@ -215,14 +217,18 @@ def scarica_misure(html_dir=None):
             txt = open(p, encoding="utf-8", errors="replace").read() if os.path.exists(p) else ""
         else:
             # alcune pagine CPSM arrivano compresse (gzip): --compressed e, per sicurezza, decompressione a mano
-            r = subprocess.run(["curl", "-s", "--compressed", "-m", "30", URL_BASE + pagina + ".html"], capture_output=True)
-            b = r.stdout if r.returncode == 0 else b""
-            if b[:2] == b"\x1f\x8b":
-                try:
-                    b = gzip.decompress(b)
-                except OSError:
-                    b = b""
-            txt = b.decode("utf-8", errors="replace")
+            txt = ""
+            for url, extra in ((URL_PROXY + pagina, ["-H", "Origin: " + ORIGINE_PROXY]), (URL_BASE + pagina + ".html", [])):   # v1.22: prima il proxy, poi il sito diretto
+                r = subprocess.run(["curl", "-s", "--compressed", "-m", "30", *extra, url], capture_output=True)
+                b = r.stdout if r.returncode == 0 else b""
+                if b[:2] == b"\x1f\x8b":
+                    try:
+                        b = gzip.decompress(b)
+                    except OSError:
+                        b = b""
+                txt = b.decode("utf-8", errors="replace")
+                if "<th" in txt:                  # pagina vera (non la pagina di controllo anti-bot)
+                    break
         M[nome] = leggi_pagina(txt)
     return M
 
