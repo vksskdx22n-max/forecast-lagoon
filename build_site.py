@@ -112,6 +112,18 @@ def sintesi(P, giorno):
         if fascia and fascia[0] - MARGINE_MAREA_MIN <= minuti <= fascia[1] + MARGINE_MAREA_MIN:
             est.append({"tipo": e.get("tipo"), "ora": e["ora"][-5:], "cm": e["cm"], "min": minuti})
     s["marea_estremali"] = est
+    # pioggia ora per ora (mm nell'ora e probabilita' per modello) e totali della finestra
+    Me = P.get("meteo") or {}
+    po = Me.get("pioggia_ore") or []
+    s["pioggia_ore"] = po
+    tot = {}
+    for mod in ("D2", "2i", "EC"):
+        val = [r.get("mm_" + mod) for r in po if isinstance(r.get("mm_" + mod), (int, float))]
+        tot[mod] = round(sum(val), 1) if val else None
+    s["pioggia_tot"] = tot
+    prob = [r.get(k) for r in po for k in ("prob_D2", "prob_EC") if isinstance(r.get(k), (int, float))]
+    s["pioggia_prob_max"] = max(prob) if prob else None
+    s["pioggia_max_oraria"] = Me.get("pioggia")
     V = P.get("verdetto") or {}
     s["andamento"] = V.get("andamento_txt")
     s["andamento_fasce"] = V.get("andamento")
