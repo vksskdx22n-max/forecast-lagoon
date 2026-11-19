@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_verifica.py v1.19 — verifica automatica delle previsioni di fd_previsione (Fishing Diary).
+"""fd_verifica.py v1.23 — verifica automatica delle previsioni di fd_previsione (Fishing Diary).
 
 Confronta il vento previsto per zona con le misure CPSM e accumula gli errori in verifica_archivio.json.
 fd_previsione (>= 1.9) usa l'archivio per la correzione di ICON-D2 per zona, fascia di vento previsto
@@ -10,6 +10,13 @@ Zone verificate (stazioni CPSM, pagine "temporeale" con le ultime 24 ore):
   San Leonardo · Melison, Fisolo, Bocca · Alberoni -> non verificate: usano la correzione di Malamocco · Valgrande
   (dal 01/11/2026 riferimenti validi solo Malamocco Porto e Piattaforma: le dighe di Lido e Chioggia
    differiscono fino a 8 nodi tra loro e la loro media non rappresenta Alberoni)
+  Laguna Nord (v1.23) -> Laguna Nord (Saline, interna)          previsto = media dei 4 punti di calcolo dell'area nord
+  Laguna Sud  (v1.23) -> Chioggia Porto (interna)               previsto = media dei 4 punti di calcolo dell'area sud
+    (stessa media del semaforo della previsione). Verifica di CONTROLLO: fd_previsione non applica correzioni a nord e sud,
+    le ore servono a decidere le correzioni future. Stazioni diverse da Diga Sud Lido e Diga Sud Chioggia (sulle dighe, escluse).
+    Sensore fermo: a Laguna Nord e Chioggia Porto le letture da 5 min con vento medio 0,0 e raffica 0,0 vengono scartate
+    (stesso criterio dell'analisi storica 19/08-18/11); l'ora vale solo con almeno 10 letture valide su 12.
+  Area della previsione (v1.23): campo "area" del JSON (centro, nord, sud); senza campo = centro.
 Onda in mare aperto -> Piattaforma CNR (altezza significativa), confrontata con il modello Open-Meteo Marine
   (cella diversa: confronto indicativo).
 
@@ -44,19 +51,25 @@ Semaforo misurato (v1.19): ora per ora dalla sola media oraria (soglie 6 e 12 no
   Verdetto = colore piu' frequente nelle ore, a parita' quello che viene prima (stessa regola di fd_previsione 1.27+).
   La raffica di picco su 5 minuti resta come informazione. Confronto ora per ora con il colore previsto della zona.
 
-Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>_v1.19.html / .pdf
+Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_nord|_sud]_v1.23.html / .pdf
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.22"
+VERSIONE = "1.23"
 URL_BASE = "https://www.comune.venezia.it/sites/default/files/publicCPSM2/stazioni/temporeale/"
 URL_PROXY = "https://fd-cpsm-proxy.ennioweb.workers.dev/misure/"      # v1.22: il Comune blocca i server di GitHub; il proxy Cloudflare no
 ORIGINE_PROXY = "https://vksskdx22n-max.github.io"
 PAGINE = {"Malamocco Porto": "Malamocco_Porto", "Palazzo Cavalli": "Palazzo_Cavalli",
-          "Piattaforma CNR": "Piattaforma"}
+          "Piattaforma CNR": "Piattaforma", "Laguna Nord": "Laguna_Nord", "Chioggia Porto": "Chioggia_Porto"}   # v1.23: + Laguna Nord, Chioggia Porto
 ZONE = {  # zona della previsione -> (stazioni mediate, descrizione)
     "Malamocco · Valgrande": (["Malamocco Porto"], "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)"),
+    "Laguna Nord": (["Laguna Nord"], "Laguna Nord (Saline, interna, 45,4956 N 12,4720 E)"),          # v1.23
+    "Laguna Sud": (["Chioggia Porto"], "Chioggia Porto (interna, 45,2325 N 12,2806 E)"),             # v1.23
 }
+# v1.23: zone che non sono nel JSON della previsione ma si ricavano dalla media dei punti di calcolo dell'area
+ZONE_MEDIA = {"Laguna Nord": "nord", "Laguna Sud": "sud"}
+# v1.23: stazioni con il sensore del vento che a volte resta fermo a zero: lettura scartata se vento medio e raffica sono 0,0
+STAZ_FILTRO_ZERO = {"Laguna Nord", "Chioggia Porto"}
 # zone senza stazione di verifica valida: usano la correzione di Malamocco · Valgrande
 CORR_DA = {"San Leonardo · Melison": "Malamocco · Valgrande", "Fisolo": "Malamocco · Valgrande", "Bocca · Alberoni": "Malamocco · Valgrande"}
 # nomi delle zone nelle previsioni e nell'archivio fino a fd_previsione 1.11 / fd_verifica 1.5
@@ -230,6 +243,11 @@ def scarica_misure(html_dir=None):
                 if "<th" in txt:                  # pagina vera (non la pagina di controllo anti-bot)
                     break
         M[nome] = leggi_pagina(txt)
+        if nome in STAZ_FILTRO_ZERO:            # v1.23: sensore fermo -> lettura senza vento (le altre colonne restano)
+            for r in M[nome]:
+                if r.get("vel") == 0 and r.get("max") == 0:
+                    r["vel"] = r["max"] = r["dir"] = None
+                    r["zero"] = True
     return M
 
 
@@ -487,28 +505,70 @@ def riepilogo(A):
 
 
 # ------------------------------------------------------------------ previsioni da verificare
+def area_di(P, nome_file=""):
+    """v1.23: area della previsione dal campo "area" del JSON; altrimenti dal nome del file; altrimenti centro."""
+    if P.get("area"):
+        return P["area"]
+    m = re.search(r"_\d{4}-\d{4}_([a-z]+)_v[\d.]+\.json$", nome_file)
+    return m.group(1) if m else "centro"
+
+
+def _media(xs, d=1):
+    xs = [x for x in xs if x is not None]
+    return round(statistics.mean(xs), d) if xs else None
+
+
+def righe_zona(P, zona):
+    """Righe orarie del vento previsto per una zona di verifica. v1.23: per Laguna Nord e Laguna Sud media dei punti di
+    calcolo dell'area (stessa media del semaforo); un'ora con un punto senza ICON-D2 vale come ripiego."""
+    if zona in P["vento"]:
+        return P["vento"][zona]
+    if ZONE_MEDIA.get(zona) != P.get("_area"):
+        return None
+    punti = [z for z in (P.get("zone_vento") or []) if z in P["vento"]]
+    if not punti:
+        return None
+    out = []
+    for rs in zip(*(P["vento"][z] for z in punti)):
+        if len({r["ora"] for r in rs}) != 1:
+            return None
+        if any(r.get("d2") is None or r.get("ripiego") for r in rs):
+            out.append({"ora": rs[0]["ora"], "d2": None, "ripiego": True})
+            continue
+        dirs = [r["dir_g"] for r in rs if r.get("dir_g") is not None]
+        st, d2 = _media(r["stima"] for r in rs), _media(r["d2"] for r in rs)
+        out.append({"ora": rs[0]["ora"], "stima": st, "d2": d2,
+                    "i2": _media(r.get("i2") for r in rs) if all(r.get("i2") is not None for r in rs) else None,
+                    "ec": _media(r.get("ec") for r in rs) if all(r.get("ec") is not None for r in rs) else None,
+                    "raff": _media(r.get("raff") for r in rs), "raff_d2": _media(r.get("raff_d2", r.get("raff")) for r in rs),
+                    "corr": round(st - d2, 1), "dir_g": round(media_dir(dirs)) if dirs else None, "punti": punti})
+    return out
+
+
 def leggi_previsioni(cartella):
     scelte = {}
     for f in glob.glob(os.path.join(cartella, CARTELLA, "previsione_*.json")):
         try:
             P = json.load(open(f, encoding="utf-8"))
             P["vento"] = {ALIAS.get(z, z): r for z, r in P["vento"].items()}
+            P["_area"] = area_di(P, f)
             g = dt.datetime.strptime(re.search(r"previsione_(\d\d-\d\d-\d{4})", f).group(1), "%d-%m-%Y").date()
             da_s, a_s = P["finestra"].replace("-", "–").split("–")
             tz = tz_italia(g)
             da = dt.datetime.combine(g, dt.time.fromisoformat(da_s), tz)
             a = dt.datetime.combine(g, dt.time.fromisoformat(a_s), tz)
             gen = dt.datetime.strptime(P["generato"], "%d/%m/%Y %H:%M").replace(tzinfo=tz_italia(g))
-            if not any(z in P["vento"] for z in ZONE):
+            if not any(righe_zona(P, z) for z in ZONE):
                 continue
         except Exception:
             continue
         if gen > da:
             continue
-        # v1.14: l'area fa parte della chiave (prima sud e centro dello stesso giorno e finestra erano una sola previsione)
-        m_ar = re.search(r"_\d{4}-\d{4}_([a-z]+)_v[\d.]+\.json$", f)
-        area = m_ar.group(1) if m_ar else "sud"
-        chiave = f"{g.isoformat()} {P['finestra']}" + ("" if area == "sud" else f" {area}")
+        # v1.14: l'area fa parte della chiave. v1.23: area dal JSON (prima: dal nome del file, e senza nome valeva "sud",
+        # che era il vecchio nome del centro: centro e sud dello stesso giorno sarebbero finiti sulla stessa chiave).
+        # Il centro resta senza suffisso, come le chiavi gia' in archivio.
+        area = P["_area"]
+        chiave = f"{g.isoformat()} {P['finestra']}" + ("" if area == "centro" else f" {area}")
         if chiave not in scelte or gen > scelte[chiave]["gen"]:
             scelte[chiave] = {"file": os.path.basename(f), "giorno": g, "da": da, "a": a, "gen": gen, "P": P, "area": area, "chiave": chiave}
     return scelte
@@ -530,15 +590,20 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
     if inizio is None:
         return [f"fd_verifica v{VERSIONE}: pagine CPSM non raggiungibili, verifica rinviata"]
     log = []
-    for v in sorted(pend, key=lambda x: (x["da"], x["area"] != "sud")):
+    for v in sorted(pend, key=lambda x: (x["da"], x["area"] != "centro")):
         P, chiave = v["P"], v["chiave"]
         risultati, ore_tot, onda_v, aria_v = [], [], [], []
         n_rip, n_d2 = 0, 0                      # v1.17: ore di ripiego (senza ICON-D2) e ore con ICON-D2
+        zeri = {}                               # v1.23: letture a zero scartate nella finestra, per stazione
         for zona in ZONE:
-            if zona not in P["vento"]:
+            rz = righe_zona(P, zona)
+            if not rz:
                 continue
+            for s in ZONE[zona][0]:
+                if s in STAZ_FILTRO_ZERO:
+                    zeri[s] = sum(1 for x in M.get(s, []) if x.get("zero") and v["da"] - dt.timedelta(minutes=30) <= x["t"] < v["a"] + dt.timedelta(minutes=30))
             ore_z = []
-            for r in P["vento"][zona]:
+            for r in rz:
                 if r.get("d2") is None or r.get("ripiego"):     # v1.17: niente ICON-D2 da verificare
                     n_rip += 1
                     continue
@@ -551,7 +616,7 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
                     continue
                 ore_z.append({"data": v["giorno"].isoformat(), "ora": r["ora"], "zona": zona, "stazione": ZONE[zona][1],
                               "generato": v["gen"].strftime("%Y-%m-%d %H:%M"), "anticipo_h": round((centro - v["gen"]).total_seconds() / 3600, 1),
-                              "prev": {**{k: r.get(k) for k in ("stima", "d2", "i2", "ec", "raff", "dir_g")},
+                              "prev": {**{k: r.get(k) for k in ("stima", "d2", "i2", "ec", "raff", "dir_g") + (("punti",) if "punti" in r else ())},
                                        "raff_d2": r.get("raff_d2", r.get("raff")), "corr": r.get("corr", round(r["stima"] - r["d2"], 1))},
                               "mis": m, "fascia_d2": fascia(r["d2"]), "settore_d2": settore(r.get("dir_g", 0)),
                               "sem_prev": semaforo(r.get("stima"), r.get("raff")), "sem_mis": semaforo(m["media"], m["raff"])})
@@ -591,6 +656,7 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
                 pioggia_v.append({"data": v["giorno"].isoformat(), "ora": r["ora"], **{k: r.get(k) for k in ("prob_D2", "prob_EC", "mm_D2", "mm_2i", "mm_EC")},
                                   "cavalli_mm": mc, "piatt_mm": mp, "oss": pioggia_osservata(O, v["giorno"].isoformat(), r["ora"])})
         v["pioggia_v"] = pioggia_v
+        v["zeri"] = zeri
         if not ore_tot:
             if n_rip and not n_d2:              # v1.17: tutte le ore di ripiego, non si riprova
                 if not provvisoria:
@@ -605,18 +671,18 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
                 log.append(f"  {chiave}: misure CPSM incomplete, riprovo al prossimo lancio")
             continue
         if not provvisoria:
-            if v["area"] == "sud":
-                chiavi = {(o["data"], o["ora"], o["zona"]) for o in ore_tot}
-                A["ore"] = [x for x in A["ore"] if (x["data"], x["ora"], x["zona"]) not in chiavi] + ore_tot
+            # v1.23: le ore del vento si sostituiscono sempre (la chiave contiene la zona, le aree non si toccano tra loro);
+            # onda, aria e pioggia sono le stesse misure per tutte le aree: le scrive il centro, le altre solo se mancano
+            chiavi = {(o["data"], o["ora"], o["zona"]) for o in ore_tot}
+            A["ore"] = [x for x in A["ore"] if (x["data"], x["ora"], x["zona"]) not in chiavi] + ore_tot
+            if v["area"] == "centro":
                 ch_o = {(o["data"], o["ora"]) for o in onda_v}
                 A["onda"] = [x for x in A["onda"] if (x["data"], x["ora"]) not in ch_o] + onda_v
                 ch_a = {(o["data"], o["ora"]) for o in aria_v}
                 A["aria"] = [x for x in A["aria"] if (x["data"], x["ora"]) not in ch_a] + aria_v
                 ch_p = {(o["data"], o["ora"]) for o in pioggia_v}
                 A["pioggia"] = [x for x in A["pioggia"] if (x["data"], x["ora"]) not in ch_p] + pioggia_v
-            else:      # v1.14: un'altra area non sostituisce le ore gia' in archivio (le misure sono le stesse)
-                gia = {(x["data"], x["ora"], x["zona"]) for x in A["ore"]}
-                A["ore"] += [o for o in ore_tot if (o["data"], o["ora"], o["zona"]) not in gia]
+            else:      # v1.14: un'altra area non sostituisce onda, aria e pioggia gia' in archivio (le misure sono le stesse)
                 gia = {(x["data"], x["ora"]) for x in A["onda"]}
                 A["onda"] += [o for o in onda_v if (o["data"], o["ora"]) not in gia]
                 gia = {(x["data"], x["ora"]) for x in A["aria"]}
@@ -630,6 +696,9 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
             log.append(f"    {zona}: {len(oz)} ore · misurato {num(statistics.mean(o['mis']['media'] for o in oz))} nodi · "
                        f"errore stima {sg(statistics.mean(o['prev']['stima'] - o['mis']['media'] for o in oz))} · "
                        f"errore ICON-D2 {sg(statistics.mean(o['prev']['d2'] - o['mis']['media'] for o in oz))} nodi")
+        for s, nz in zeri.items():
+            if nz:
+                log.append(f"    {s}: {nz} letture da 5 min a zero scartate (sensore fermo)")
         if onda_v:
             log.append(f"    Onda mare aperto: {len(onda_v)} ore · misurata {num(statistics.mean(o['mis'] for o in onda_v), 2)} m · "
                        f"prevista {num(statistics.mean(o['prev'] for o in onda_v), 2)} m")
@@ -766,23 +835,48 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
                     if q is not None:
                         pv = {"prev": round(q), "scarto_prev": round(q - mis_cm)}
                 liv.append({"ora": o["ora"], "mis": round(mis_cm), "astro": round(a_cm), "scarto": round(mis_cm - a_cm), **pv})
-    if liv and not provvisoria and any("prev" in l for l in liv):    # v1.20: archivio livelli per valutare l'eta' del bollettino CPSM
+    if liv and not provvisoria and v.get("area", "centro") == "centro" and any("prev" in l for l in liv):    # v1.23: solo il centro    # v1.20: archivio livelli per valutare l'eta' del bollettino CPSM
         A["livello"] = [x for x in A.get("livello", []) if x["data"] != g.isoformat()] + [
             {"data": g.isoformat(), "ora": l["ora"], "mis": l["mis"], "astro": l["astro"], "prev": l.get("prev"), "fonte": fonte_liv, "eta_h": eta_liv} for l in liv]
-    D = {"versione": VERSIONE, "provvisoria": provvisoria, "ore_fino": max(o["ora"] for _, oz in risultati for o in oz),
-         "titolo": f"{P['titolo']} · {P['finestra']}", "previsione": f"{v['file']} · generata {v['gen'].strftime('%d/%m %H:%M')}",
+    area = v.get("area", "centro")
+    nota_misure = {"tipo": "dato", "testo": "Misure CPSM ogni 5 min in m/s, convertite in nodi; valore orario = media da −30 a +30 min, raffica = massimo nell'ora."}
+    nota_settori = ("Settori del vento (Centro Maree, Comune di Venezia): Bora 23–67°, Tramontana–Maestrale 293–22°, Levante–Scirocco 68–202°, "
+                    "Libeccio–Ponente 203–292°. In archivio il settore di ogni ora viene dalla direzione misurata alla stazione della zona; "
+                    "in previsione dalla direzione di ICON-D2. Sotto la direzione misurata: quella prevista (in rosso se di un altro settore).")
+    if area == "centro":
+        note = [nota_misure,
+                {"tipo": "inferenza", "testo": "San Leonardo · Melison, Fisolo e Bocca · Alberoni: nessuna stazione di verifica valida; non verificate, "
+                                               "usano la correzione di Malamocco · Valgrande. Riferimenti validi: Malamocco Porto (vento) e Piattaforma CNR (onda e aria); aria anche Palazzo Cavalli."},
+                {"tipo": "dato", "testo": f"Correzione misurata per zona quando una fascia di ICON-D2 ha almeno {MIN_ORE_CORR} ore verificate; prima vale +{num(CORR_DEFAULT)} nodi (graduale tra 3 e 5 nodi di ICON-D2)."},
+                {"tipo": "dato", "testo": nota_settori}]
+        staz_vento = ["Malamocco Porto"]
+        avviso = ""
+    else:                                       # v1.23: nord e sud, verifica di controllo
+        staz_vento = [s_ for zona, _ in risultati for s_ in ZONE[zona][0]]
+        punti = next((o["prev"].get("punti") for _, oz in risultati for o in oz if o["prev"].get("punti")), None) or P.get("zone_vento") or []
+        note = [nota_misure,
+                {"tipo": "dato", "testo": f"Verifica di controllo: nessuna correzione applicata alla previsione (stima = ICON-D2 così com'è). "
+                                          f"Le ore verificate servono a decidere in seguito la correzione del vento per {', '.join(z for z, _ in risultati)}."},
+                {"tipo": "dato", "testo": f"Previsto della zona = media dei punti di calcolo ({', '.join(punti)}), la stessa media che decide il semaforo; "
+                                          f"misurato = {', '.join(ZONE[z][1] for z, _ in risultati)}."},
+                {"tipo": "inferenza", "testo": "Una stazione rappresenta un solo punto del bacino: il confronto con la media dei punti di calcolo è indicativo."},
+                {"tipo": "dato", "testo": nota_settori}]
+        zz = {s_: n_ for s_, n_ in (v.get("zeri") or {}).items() if n_}
+        if any(s_ in STAZ_FILTRO_ZERO for s_ in staz_vento):
+            note.insert(3, {"tipo": "dato", "testo": "Sensore fermo: le letture da 5 min con vento medio 0,0 e raffica 0,0 sono scartate; un'ora vale con almeno "
+                                                     f"{MIN_LETTURE} letture valide su 12. "
+                                                     + ("Scartate in questa finestra: " + ", ".join(f"{s_} {n_}" for s_, n_ in zz.items()) + "." if zz else "Nessuna lettura scartata in questa finestra.")})
+        avviso = " · Verifica di controllo: nessuna correzione applicata alla previsione"
+    D = {"versione": VERSIONE, "provvisoria": provvisoria, "ore_fino": max(o["ora"] for _, oz in risultati for o in oz), "area": area,
+         "titolo": f"{P['titolo']} · {P['finestra']}", "previsione": f"{v['file']} · generata {v['gen'].strftime('%d/%m %H:%M')}{avviso}",
          "sem_prev": P["verdetto"]["colore"], "fascia": [v["da"].hour * 60 + v["da"].minute, v["a"].hour * 60 + v["a"].minute],
-         "zone": zone, "onda": onda_v, "liv": liv, "liv_fonte": fonte_liv, "liv_eta_h": eta_liv, "aria": v.get("aria_v") or [], "pioggia": v.get("pioggia_v") or [], "andamento": andamento(A), "archivio": riepilogo(A),
-         "note": [{"tipo": "dato", "testo": "Misure CPSM ogni 5 min in m/s, convertite in nodi; valore orario = media da −30 a +30 min, raffica = massimo nell'ora."},
-                  {"tipo": "inferenza", "testo": "San Leonardo · Melison, Fisolo e Bocca · Alberoni: nessuna stazione di verifica valida; non verificate, "
-                                                 "usano la correzione di Malamocco · Valgrande. Riferimenti validi: Malamocco Porto (vento) e Piattaforma CNR (onda e aria); aria anche Palazzo Cavalli."},
-                  {"tipo": "dato", "testo": f"Correzione misurata per zona quando una fascia di ICON-D2 ha almeno {MIN_ORE_CORR} ore verificate; prima vale +{num(CORR_DEFAULT)} nodi (graduale tra 3 e 5 nodi di ICON-D2)."},
-                  {"tipo": "dato", "testo": "Settori del vento (Centro Maree, Comune di Venezia): Bora 23–67°, Tramontana–Maestrale 293–22°, Levante–Scirocco 68–202°, Libeccio–Ponente 203–292°. In archivio il settore di ogni ora viene dalla direzione misurata a Malamocco Porto; in previsione dalla direzione di ICON-D2. Sotto la direzione misurata: quella prevista (in rosso se di un altro settore)."}],
-         "fonti": f"Misure: CPSM Comune di Venezia (Malamocco Porto, Piattaforma CNR, Palazzo Cavalli) · "
+         "zone": zone, "onda": onda_v, "liv": liv, "liv_fonte": fonte_liv, "liv_eta_h": eta_liv, "aria": v.get("aria_v") or [], "pioggia": v.get("pioggia_v") or [],
+         "andamento": andamento(A, risultati[0][0]), "archivio": riepilogo(A), "note": note,
+         "fonti": f"Misure: CPSM Comune di Venezia ({', '.join(dict.fromkeys(staz_vento + ['Malamocco Porto', 'Piattaforma CNR', 'Palazzo Cavalli']))}) · "
                   f"Previsione: fd_previsione (Open-Meteo) · fd_verifica v{VERSIONE}",
          "generato": dt.datetime.now().strftime("%d/%m/%Y %H:%M")}
     base = os.path.join(cartella, CARTELLA, f"verifica_{g.strftime('%d-%m-%Y')}_{v['da'].strftime('%H%M')}-{v['a'].strftime('%H%M')}"
-                                            f"{'' if v.get('area', 'sud') == 'sud' else '_' + v['area']}{'_PROVVISORIA' if provvisoria else ''}_v{VERSIONE}")
+                                            f"{'' if area == 'centro' else '_' + area}{'_PROVVISORIA' if provvisoria else ''}_v{VERSIONE}")
     json.dump(D, open(base + ".json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     open(base + ".html", "w", encoding="utf-8").write(HTML.replace("__DATI__", json.dumps(D, ensure_ascii=False).replace("</", "<\\/")))
     if stampa_pdf:
