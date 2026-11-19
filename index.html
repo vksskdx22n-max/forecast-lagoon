@@ -155,19 +155,21 @@ function istruzioni(){
  const R=D.regole||{},v=R.soglia_verde,r=R.soglia_rosso,k=x=>x==null?'…':nf(x,0);
  const el=document.createElement('div');el.className='velo';el.onclick=e=>{if(e.target===el)el.remove()};
  el.innerHTML=`<div class="sheet"><h3>Come si legge<span class="x" onclick="this.closest('.velo').remove()">Chiudi</span></h3>
- <h4>Cos'è</h4><p>Previsione di vento, marea e correnti per uscire in barca in laguna, nella finestra ${esc(finestra()||'del mattino')}. Si aggiorna da sola ogni pomeriggio con la previsione del giorno dopo.</p>
+ <h4>Cos'è</h4><p>Previsione meteo-marina della laguna per uscire in barca: vento, marea, correnti, onda e pioggia, nella finestra ${esc(finestra()||'del mattino')}. Si aggiorna da sola ogni pomeriggio con la previsione del giorno dopo.</p>
  <h4>Le tre zone</h4><p>La laguna è divisa nei tre bacini delle bocche di porto: <b>Nord</b> (Lido), <b>Centro</b> (Malamocco), <b>Sud</b> (Chioggia). Tocca un bacino sulla mappa o un riquadro per aprire la zona.</p>
  <h4>Il semaforo</h4><ul><li><span class="sem" style="background:var(--verde)"></span><b>Verde</b>: vento medio sotto ${k(v)} nodi</li><li><span class="sem" style="background:var(--giallo)"></span><b>Giallo</b>: da ${k(v)} a ${k(r)} nodi</li><li><span class="sem" style="background:var(--rosso)"></span><b>Rosso</b>: da ${k(r)} nodi in su</li></ul>
  <p>Conta il vento medio, media dei punti della zona. Le raffiche sono indicate ma non cambiano il colore. Il colore del giorno è quello più frequente nelle ore della finestra; i quadratini mostrano ora per ora il colore e i nodi.</p>
  <h4>Marea</h4><p>Curva del bollettino del Centro Maree del Comune (linea piena) e marea astronomica (tratteggiata). Se il bollettino ha più di ${k(R.cpsm_ore_max)} ore è indicato come tendenza meno affidabile.</p>
- <h4>Previsione, Verifica, PDF</h4><p><b>Previsione</b> apre il dettaglio completo, <b>Verifica</b> (a giornata conclusa) confronta la previsione con le misure delle stazioni, <b>PDF</b> la versione da salvare. In alto si sceglie il giorno.</p>
+ <h4>Nella pagina della zona</h4><p>Ora per ora (vento, raffiche, direzione, marea, corrente, pioggia), curva di marea, pioggia per modello, onda in laguna e in mare aperto, aria, cielo, sole e luna. In alto si sceglie il giorno.</p>
+ <h4>Previsione e Verifica</h4><p><b>Previsione</b> apre il dettaglio completo; <b>Verifica</b> (a giornata conclusa) confronta la previsione con le misure delle stazioni. In cima alle due pagine trovi “‹ Torna a Forecast Lagoon” e il link <b>PDF ↗</b>, per salvarla o mandarla a qualcuno.</p>
+ <p>Per ora la verifica e la correzione del vento con le misure ci sono solo per la Laguna Centro; Nord e Sud usano il modello così com'è.</p>
  <h4>Sull'iPhone</h4><p>In Safari: Condividi → Aggiungi alla schermata Home. Si apre come un'app.</p>
  <h4>Avvertenza</h4><p>Previsione indicativa, calcolata da modelli meteo e corretta dove ci sono misure: non sostituisce i bollettini ufficiali. In barca decide chi esce.</p></div>`;
  document.body.append(el)}
 function home(){
  const date=D.zone.map(ultima).filter(Boolean).map(v=>v.data).sort();const ult=date[date.length-1];const fin=finestra();
  let h=`<div class="home"><header class="testa"><div><div class="eyebrow">Laguna di Venezia<span class="ver">v${esc(VERSIONE)}</span></div><h1>Forecast <span>Lagoon</span></h1>
- <div class="sub">Vento, marea e correnti per uscire in barca. Ogni giorno${fin?', '+esc(fin):''}.</div></div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></header>
+ <div class="sub">Previsioni meteo-marine per uscire in barca: vento, marea, correnti, onda e pioggia. Ogni giorno${fin?', '+esc(fin):''}.</div></div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></header>
  <div class="hero">${mappa('40 -60 1000 1360',{meet:true,labels:true,click:true,k:'h',fo:.24,sw:2.5})}<div class="shade" style="background:linear-gradient(180deg,rgba(6,19,29,.55) 0%,rgba(6,19,29,0) 18%,rgba(6,19,29,0) 72%,rgba(6,19,29,.95) 100%)"></div>
  ${ult?`<div class="oggi"><span class="dot"></span>${esc(etichetta(ult))}</div>`:''}<div class="credit">© ESA · Copernicus Sentinel-2</div></div><div class="zones">`;
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
