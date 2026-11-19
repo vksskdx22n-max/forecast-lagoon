@@ -115,6 +115,7 @@ details.card p{font-size:13.5px;line-height:1.5;color:var(--soft);margin-top:8px
  .corpo .days,.corpo .btns,.corpo .list{column-span:all}
  .zwrap{max-width:1200px;margin:0 auto}
 }
+.ritardo{margin:0 16px 10px;padding:11px 14px;border-radius:14px;background:rgba(242,182,60,.14);border:1px solid rgba(242,182,60,.45);color:#f6d48a;font-size:13.5px;line-height:1.4}
 @keyframes pulse{0%{r:6;opacity:.9}100%{r:18;opacity:0}}
 .pulse{animation:pulse 2.4s ease-out infinite}
 </style>
@@ -166,12 +167,20 @@ function istruzioni(){
  <h4>Sull'iPhone</h4><p>In Safari: Condividi → Aggiungi alla schermata Home. Si apre come un'app.</p>
  <h4>Avvertenza</h4><p>Previsione indicativa, calcolata da modelli meteo e corretta dove ci sono misure: non sostituisce i bollettini ufficiali. In barca decide chi esce.</p></div>`;
  document.body.append(el)}
+function ritardo(ult){
+ if(!ult||!D.ora_attesa)return '';const ora=new Date(),oggi=new Date(ora);oggi.setHours(0,0,0,0);
+ const [hh,mm]=D.ora_attesa.split(':').map(Number),soglia=new Date(oggi);soglia.setHours(hh,mm,0,0);
+ const atteso=new Date(oggi);atteso.setDate(atteso.getDate()+(ora>=soglia?1:0));
+ if(dataDi(ult)>=atteso)return '';
+ const agg=new Date(D.aggiornato_utc).toLocaleString('it-IT',{weekday:'long',day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'});
+ const iso=d=>[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-'),giorno=s=>{const d=dataDi(s);return GIORNI[d.getDay()]+' '+d.getDate()+'/'+(d.getMonth()+1)};
+ return `<div class="ritardo"><b>Aggiornamento in ritardo.</b> La previsione di ${esc(giorno(iso(atteso)))} non è ancora uscita: qui vedi quella di ${esc(giorno(ult))}. Ultimo aggiornamento ${esc(agg)}.</div>`}
 function home(){
  const date=D.zone.map(ultima).filter(Boolean).map(v=>v.data).sort();const ult=date[date.length-1];const fin=finestra();
  let h=`<div class="home"><header class="testa"><div><div class="eyebrow">Laguna di Venezia<span class="ver">v${esc(VERSIONE)}</span></div><h1>Forecast <span>Lagoon</span></h1>
  <div class="sub">Previsioni meteo-marine per uscire in barca: vento, marea, correnti, onda e pioggia. Ogni giorno${fin?', '+esc(fin):''}.</div></div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></header>
  <div class="hero">${mappa('40 -60 1000 1360',{meet:true,labels:true,click:true,k:'h',fo:.24,sw:2.5})}<div class="shade" style="background:linear-gradient(180deg,rgba(6,19,29,.55) 0%,rgba(6,19,29,0) 18%,rgba(6,19,29,0) 72%,rgba(6,19,29,.95) 100%)"></div>
- ${ult?`<div class="oggi"><span class="dot"></span>${esc(etichetta(ult))}</div>`:''}<div class="credit">© ESA · Copernicus Sentinel-2</div></div><div class="zones">`;
+ ${ult?`<div class="oggi"><span class="dot"></span>${esc(etichetta(ult))}</div>`:''}<div class="credit">© ESA · Copernicus Sentinel-2</div></div>${ritardo(ult)}<div class="zones">`;
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
   h+=`<div class="zone ${z.attiva?'':'off'}" ${z.attiva?`onclick="location.hash='zona/${z.id}'"`:''}><div class="bar" style="background:${col(v&&v.colore)}"></div>
   <div><div class="zname">${esc(z.nome)}</div><div class="zmeta">Bocca di ${esc(z.bocca)}${z.attiva?(v.data!==ult?' · '+esc(etichetta(v.data)):''):' · in arrivo'}</div></div>

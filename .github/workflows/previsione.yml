@@ -1,8 +1,10 @@
 name: Previsione e verifica
 
 on:
-  schedule:
-    - cron: "17 15 * * *"      # ogni giorno alle 15:17 UTC (16:17 ora solare), dopo il bollettino CPSM delle 13:30
+  schedule:                    # orari UTC (ora solare: +1 h, ora legale: +2 h). I giri di riserva si fermano subito se la previsione c'e' gia'
+    - cron: "17 15 * * *"      # 16:17 ora solare, dopo il bollettino CPSM delle 13:30
+    - cron: "47 16 * * *"      # 17:47 ora solare, riserva
+    - cron: "13 18 * * *"      # 19:13 ora solare, riserva
   workflow_dispatch:
     inputs:
       data:
@@ -14,6 +16,10 @@ on:
       a:
         description: "Ora fine (vuoto = 12:00)"
         required: false
+      forza:
+        description: "Rifai anche se la previsione di domani c'e' gia' (si/no)"
+        required: false
+        default: "si"
 
 permissions:
   contents: write
@@ -31,14 +37,42 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      salta: ${{ steps.guard.outputs.salta }}
     steps:
       - uses: actions/checkout@v4
 
+      - name: Controllo doppioni (previsione di domani gia' fatta oggi?)
+        id: guard
+        env:
+          FORZA: ${{ github.event.inputs.forza }}
+          DATA_IN: ${{ github.event.inputs.data }}
+        run: |
+          python3 - <<'EOF'
+          import os, glob, json, datetime as dt
+          oggi = dt.date.today(); domani = oggi + dt.timedelta(days=1)
+          forza = (os.environ.get("FORZA") or "").strip().lower() in ("si", "sì", "yes", "true")
+          fatte = set()
+          for f in glob.glob(f"Previsioni/previsione_{domani.strftime('%d-%m-%Y')}_0500-1200*_v*.json"):
+              try:
+                  P = json.load(open(f, encoding="utf-8"))
+              except ValueError:
+                  continue
+              if (P.get("generato") or "").startswith(oggi.strftime("%d/%m/%Y")):
+                  fatte.add(P.get("area") or "centro")
+          salta = not forza and not os.environ.get("DATA_IN") and {"centro", "nord", "sud"} <= fatte
+          print("Previsione di domani gia' fatta oggi per: " + (", ".join(sorted(fatte)) or "nessuna zona"))
+          print("Giro saltato (nessun doppione)." if salta else "Giro da fare.")
+          open(os.environ["GITHUB_OUTPUT"], "a").write(f"salta={'true' if salta else 'false'}\n")
+          EOF
+
       - uses: actions/setup-python@v5
+        if: steps.guard.outputs.salta != 'true'
         with:
           python-version: "3.12"
 
       - name: Controllo dei file dati
+        if: steps.guard.outputs.salta != 'true'
         run: |
           ANNO=$(date +%Y)
           for f in "marea_astronomica_${ANNO}.json" correnti_laguna.json verifica_archivio.json; do
@@ -46,6 +80,7 @@ jobs:
           done
 
       - name: Previsione (con la verifica dei giorni conclusi)
+        if: steps.guard.outputs.salta != 'true'
         continue-on-error: true      # se un servizio esterno non risponde, il sito si pubblica lo stesso con i dati gia' presenti
         env:
           DATA_IN: ${{ github.event.inputs.data }}
@@ -61,9 +96,11 @@ jobs:
           exit $ERR
 
       - name: Pagine per GitHub Pages
+        if: steps.guard.outputs.salta != 'true'
         run: python3 build_site.py
 
       - name: Salvataggio di archivio e previsioni nel repository
+        if: steps.guard.outputs.salta != 'true'
         run: |
           git config user.name "forecast-lagoon-bot"
           git config user.email "forecast-lagoon-bot@users.noreply.github.com"
@@ -77,13 +114,16 @@ jobs:
           fi
 
       - uses: actions/configure-pages@v5
+        if: steps.guard.outputs.salta != 'true'
 
       - uses: actions/upload-pages-artifact@v3
+        if: steps.guard.outputs.salta != 'true'
         with:
           path: site
 
   deploy:
     needs: build
+    if: needs.build.outputs.salta != 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
