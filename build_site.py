@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v2.5 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v2.6 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "2.5"
+VERSIONE = "2.6"
 CARTELLA = "Previsioni"
 SITO = "site"
 ZONE = [
@@ -164,7 +164,13 @@ def sintesi(P, giorno):
 
 BARRA = """<div id="fl-barra" style="position:sticky;top:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;gap:10px;
 padding:calc(env(safe-area-inset-top) + 10px) 14px 10px;background:#06131d;color:#eaf3f7;font:600 15px -apple-system,system-ui,sans-serif">
-<a href="../index.html#zona/__ZONA__" style="color:#5fd4d0;text-decoration:none">&lsaquo; Torna a Forecast Lagoon</a>__PDF__</div>"""
+<a href="../index.html?v=__CODICE__#zona/__ZONA__" style="color:#5fd4d0;text-decoration:none">&lsaquo; Torna a Forecast Lagoon</a>__PDF__</div>"""
+
+
+def codice_sito():
+    """Impronta del codice della pagina (cambia a ogni nuova versione): usata per non far riusare copie vecchie."""
+    html = open("index.html", encoding="utf-8").read()
+    return hashlib.sha1((html + VERSIONE).encode("utf-8")).hexdigest()[:12]
 
 
 def copia_pagina(sorgente, destinazione, zona, giorno, pdf=None):
@@ -172,7 +178,7 @@ def copia_pagina(sorgente, destinazione, zona, giorno, pdf=None):
     html = open(sorgente, encoding="utf-8").read()
     link_pdf = (f'<a href="{os.path.basename(pdf)}" target="_blank" rel="noopener" style="color:#cfe0e8;text-decoration:none;'
                 f'font-weight:500;font-size:14px">PDF &#8599;</a>') if pdf else ""
-    barra = BARRA.replace("__ZONA__", zona).replace("__DATA__", giorno.isoformat()).replace("__PDF__", link_pdf)
+    barra = BARRA.replace("__CODICE__", codice_sito()).replace("__ZONA__", zona).replace("__DATA__", giorno.isoformat()).replace("__PDF__", link_pdf)
     if "<meta name=\"viewport\"" not in html:
         html = html.replace("<head>", "<head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">", 1)
     html = re.sub(r"(<body[^>]*>)", lambda m: m.group(1) + barra, html, count=1) if re.search(r"<body[^>]*>", html) else barra + html
@@ -248,7 +254,7 @@ def main():
     # v2.1: la pagina conosce la propria versione e l'impronta del suo codice; versione.json (letto senza cache)
     # dice alla pagina gia' aperta se esiste una versione nuova -> barra "Aggiorna"
     html = open("index.html", encoding="utf-8").read()
-    codice = hashlib.sha1((html + VERSIONE).encode("utf-8")).hexdigest()[:12]
+    codice = codice_sito()
     html = html.replace("__VERSIONE_SITO__", VERSIONE).replace("__CODICE_SITO__", codice)
     open(os.path.join(SITO, "index.html"), "w", encoding="utf-8").write(html)
     json.dump({"versione_sito": VERSIONE, "codice": codice, "aggiornato_utc": ora.isoformat(timespec="minutes")},
