@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_previsione.py v1.29 — previsione meteo-marina per un'uscita (Fishing Diary).
+"""fd_previsione.py v1.34 — previsione meteo-marina per un'uscita (Fishing Diary).
 
 All'avvio verifica da solo le previsioni concluse (fd_verifica.py, stessa cartella) e usa l'archivio
 verifica_archivio.json per la correzione di ICON-D2 (--no-verifica per saltare la verifica).
@@ -45,7 +45,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.33"
+VERSIONE = "1.34"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -104,6 +104,13 @@ def imposta_area(nome):
 def zona_corr(z):
     """Zona da cui prendere correzione e raffiche: le zone fuori archivio usano Malamocco · Valgrande."""
     return z if FV and (z in FV.ZONE or z in getattr(FV, "CORR_DA", {})) else "Malamocco · Valgrande"
+def nota_verifica_nord_sud():
+    """v1.34: nota del vento per nord e sud (prima diceva per errore "usano la correzione di Malamocco Porto")."""
+    st = [FV.ZONE[z][1] for z, a in getattr(FV, "ZONE_MEDIA", {}).items() if a == AREA and z in FV.ZONE] if FV else []
+    return (". Verifica di controllo, nessuna correzione: media dei punti di calcolo confrontata con " + ", ".join(st)) if st else \
+           ". Nessuna stazione di verifica e nessuna correzione"
+
+
 TESTO_RIPARO = "zona riparata dalla bora: stima = ICON-D2 senza correzione; vento reale probabilmente più basso (osservazione di Ennio, non misurata)"
 
 
@@ -850,7 +857,8 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None):
         "vento": vento, "zone_vento": ZONE_VENTO, "testo_riparo": TESTO_RIPARO, "ore_ripiego": [f"{x:02d}:00" for x in sorted(ore_rip)],
         "vento_nota": (f"Nodi. D2 = ICON-D2, 2i = ICON-2i, Raff. = raffiche ICON-D2 corrette ({'; '.join(sorted(fonti_raff)) or 'senza correzione'}), EC = ECMWF. Stima = ICON-D2 + correzione — "
                        + "; ".join(f"{intervallo_corr(v)} nodi: {k}" for k, v in fonti_corr.items())
-                       + ((". Misure di verifica: " + "; ".join(f"{z} = {FV.ZONE[z][1]}" for z in ZONE_VENTO if z in FV.ZONE) + "; "
+                       + (nota_verifica_nord_sud() if AREA != "centro" else
+                          (". Misure di verifica: " + "; ".join(f"{z} = {FV.ZONE[z][1]}" for z in ZONE_VENTO if z in FV.ZONE) + "; "
                            if any(z in FV.ZONE for z in ZONE_VENTO) else ". ")
                           + ", ".join(z for z in ZONE_VENTO if z not in FV.ZONE) + ": nessuna stazione di verifica valida, "
                             "usano la correzione di Malamocco Porto" if FV else "")
