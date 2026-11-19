@@ -39,13 +39,13 @@ Semaforo (v1.28): solo vento medio stimato dell'ora: verde < 6 nodi, giallo 6-12
 Correnti: stima del modello di Laguna Viva, v = c*f - s*f'/omega (stesse formule del doppio clic di LV 7.25+),
           valore riportato = massimo lungo il canale, in m/s.
 """
-import sys, os, re, json, math, datetime as dt, subprocess, shutil, statistics, tempfile
+import sys, os, re, json, math, time, datetime as dt, subprocess, shutil, statistics, tempfile
 try:
     import fd_verifica as FV          # verifica automatica e correzione misurata (fd_verifica.py nella stessa cartella)
 except ImportError:
     FV = None
 
-VERSIONE = "1.32"
+VERSIONE = "1.33"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -237,10 +237,13 @@ def scarica(giorno, da, a):
            "&hourly=wind_speed_10m,wind_direction_10m,wind_gusts_10m,pressure_msl,temperature_2m,precipitation,precipitation_probability,cloud_cover"
            f"&models={','.join(m for m, _ in MODELLI)}&wind_speed_unit=kn&timezone=Europe%2FRome"
            f"&start_hour={g}T{max(0, da.hour - 2):02d}:00&end_hour={g}T{min(23, a.hour + 2):02d}:00&daily=sunrise,sunset&start_date={g}&end_date={g}")
-    r = subprocess.run(["curl", "-s", "-m", "30", url], capture_output=True, text=True)
-    if r.returncode != 0 or not r.stdout.strip().startswith("["):
-        sys.exit(f"Errore Open-Meteo: {r.stdout[:300] or r.stderr[:300]}")
-    return json.loads(r.stdout)
+    for tentativo in range(3):                      # v1.33: fino a 3 tentativi (Open-Meteo a volte non risponde)
+        r = subprocess.run(["curl", "-s", "-m", "45", url], capture_output=True, text=True)
+        if r.returncode == 0 and r.stdout.strip().startswith("["):
+            return json.loads(r.stdout)
+        print(f"Open-Meteo non risponde (tentativo {tentativo + 1} di 3): {(r.stdout or r.stderr)[:200]}")
+        time.sleep(20 * (tentativo + 1))
+    sys.exit(f"Errore Open-Meteo dopo 3 tentativi: {r.stdout[:300] or r.stderr[:300]}")
 
 
 # ------------------------------------------------------------------ onda in mare aperto (Open-Meteo Marine)

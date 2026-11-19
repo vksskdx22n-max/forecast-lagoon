@@ -46,16 +46,19 @@ jobs:
           done
 
       - name: Previsione (con la verifica dei giorni conclusi)
+        continue-on-error: true      # se un servizio esterno non risponde, il sito si pubblica lo stesso con i dati gia' presenti
         env:
           DATA_IN: ${{ github.event.inputs.data }}
           DA_IN: ${{ github.event.inputs.da }}
           A_IN: ${{ github.event.inputs.a }}
         run: |
           DATA="${DATA_IN:-$(date -d tomorrow +%F)}"
-          python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire
+          ERR=0
+          python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire || { echo "::warning::Previsione Laguna Centro non riuscita"; ERR=1; }
           # Laguna Nord e Sud: la verifica dei giorni conclusi e' gia' stata fatta sopra
-          python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire --no-verifica --area nord
-          python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire --no-verifica --area sud
+          python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire --no-verifica --area nord || { echo "::warning::Previsione Laguna Nord non riuscita"; ERR=1; }
+          python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire --no-verifica --area sud || { echo "::warning::Previsione Laguna Sud non riuscita"; ERR=1; }
+          exit $ERR
 
       - name: Pagine per GitHub Pages
         run: python3 build_site.py
