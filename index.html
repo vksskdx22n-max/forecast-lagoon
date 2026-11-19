@@ -19,7 +19,10 @@ html,body{background:var(--ink)}
 body{color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:560px;margin:0 auto;position:relative}
-.hero{position:relative;height:max(300px,calc(100vh - 352px));height:max(300px,calc(100svh - 352px));overflow:hidden;background:#0b1b28}
+.testa{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:calc(env(safe-area-inset-top) + 18px) 20px 12px}
+.testa h1{font-size:34px;line-height:1.05;margin-top:6px}
+.testa .sub{max-width:none;margin-top:6px;font-size:14px}
+.hero{position:relative;height:max(260px,calc(100vh - 475px));height:max(260px,calc(100svh - 475px));overflow:hidden;background:#0b1b28}
 .hero svg{position:absolute;inset:0;width:100%;height:100%}
 .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,14,22,.9) 0%,rgba(4,14,22,.35) 30%,rgba(4,14,22,0) 52%,rgba(6,19,29,.96) 100%);pointer-events:none}
 .top{position:absolute;left:24px;right:24px;top:calc(env(safe-area-inset-top) + 28px)}
@@ -78,7 +81,7 @@ h1 span{color:var(--teal)}
 .row .r a{color:var(--teal);font-size:13px;margin-left:12px}
 .empty{padding:26px 22px;color:var(--soft);line-height:1.5}
 .ttl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:0 2px 6px}
-.info{position:absolute;top:calc(env(safe-area-inset-top) + 22px);right:18px;width:38px;height:38px;border-radius:50%;background:rgba(6,19,29,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.22);color:var(--txt);font:italic 700 19px Georgia,serif;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5}
+.info{position:relative;flex:none;margin-top:2px;width:38px;height:38px;border-radius:50%;background:rgba(6,19,29,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.22);color:var(--txt);font:italic 700 19px Georgia,serif;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5}
 .velo{position:fixed;inset:0;background:rgba(2,8,12,.6);z-index:20;display:flex;align-items:flex-end;justify-content:center}
 .sheet{background:#0c2131;border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;max-width:560px;width:100%;max-height:86vh;overflow-y:auto;padding:22px 22px calc(env(safe-area-inset-bottom) + 26px);-webkit-overflow-scrolling:touch}
 .sheet h3{font-size:22px;font-weight:750;letter-spacing:-.01em;display:flex;justify-content:space-between;align-items:center}
@@ -98,6 +101,20 @@ h1 span{color:var(--teal)}
 .mini{font-size:20px;font-weight:700;margin-top:6px;letter-spacing:-.01em}.mini small{font-size:12.5px;color:var(--mut);font-weight:500;margin-left:3px}
 details.card summary{cursor:pointer;list-style:none;font-size:11.5px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
 details.card p{font-size:13.5px;line-height:1.5;color:var(--soft);margin-top:8px}
+@media (min-width:900px){
+ .wrap{max-width:1400px}
+ .home{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(380px,1fr);grid-template-areas:"hero testa" "hero zones" "hero foot";grid-template-rows:auto auto 1fr;column-gap:8px}
+ .home .hero{grid-area:hero;position:sticky;top:0;height:100vh}
+ .home .testa{grid-area:testa;padding:40px 28px 18px}.home .testa h1{font-size:46px}
+ .home .zones{grid-area:zones;padding:6px 24px 0}.home .foot{grid-area:foot}
+ .zone{padding:18px 18px 18px 0}
+ .zhero{height:380px}
+ .zhero svg{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%)}
+ .corpo{column-count:2;column-gap:4px;padding:0 12px}
+ .corpo .sec{break-inside:avoid}
+ .corpo .days,.corpo .btns,.corpo .list{column-span:all}
+ .zwrap{max-width:1200px;margin:0 auto}
+}
 @keyframes pulse{0%{r:6;opacity:.9}100%{r:18;opacity:0}}
 .pulse{animation:pulse 2.4s ease-out infinite}
 </style>
@@ -122,13 +139,15 @@ function mappa(vb,o){
  let s=`<svg viewBox="${vb}" preserveAspectRatio="${o.meet?'xMidYMid meet':'xMidYMid slice'}" xmlns="http://www.w3.org/2000/svg"><defs>
  <filter id="gl${o.k}" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="${o.blur||5}" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
  <filter id="gr${o.k}"><feColorMatrix type="matrix" values="0.78 0 0 0 0  0 0.86 0 0 0.01  0 0 0.95 0 0.03  0 0 0 1 0"/></filter></defs>
- <image href="assets/laguna_sat.jpg" width="${G.w}" height="${G.h}" filter="url(#gr${o.k})" opacity=".9"/>`;
+ <image href="assets/laguna_sat.jpg" x="${G.img?G.img.x:0}" y="${G.img?G.img.y:0}" width="${G.img?G.img.w:G.w}" height="${G.img?G.img.h:G.h}" filter="url(#gr${o.k})" opacity=".9"/>`;
  D.zone.forEach(z=>{const v=ultima(z),c=v?v.colore:null,on=!o.only||o.only===z.id,hex=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();
   s+=`<path d="${G.bacini[z.id]}" fill="${hex}" fill-opacity="${on?(o.fo||.4):.06}" stroke="${hex}" stroke-opacity="${on?.95:.25}" stroke-width="${o.sw||2}" ${on?`filter="url(#gl${o.k})"`:''} ${o.click?`style="cursor:pointer" onclick="location.hash='zona/${z.id}'"`:''}/>`;});
  Object.values(G.bocche).forEach(([n,x,y])=>{s+=`<circle cx="${x}" cy="${y}" r="7" fill="none" stroke="#5fd4d0" stroke-width="2.5" class="pulse"/><circle cx="${x}" cy="${y}" r="6" fill="#eaf3f7" stroke="#06131d" stroke-width="2"/>
   <text x="${x+14}" y="${y+7}" fill="#fff" font-size="${o.fs||22}" font-weight="700" paint-order="stroke" stroke="#06131d" stroke-width="4" stroke-opacity=".6">${n}</text>`});
- if(o.labels)D.zone.forEach(z=>{const b=G.bbox[z.id],x=z.id==='nord'?b[0]+(b[2]-b[0])*.5:b[0]+(b[2]-b[0])*.2,y=z.id==='nord'?b[1]+(b[3]-b[1])*.62:(b[1]+b[3])/2;
-  s+=`<text x="${x}" y="${y}" fill="#fff" font-size="40" font-weight="800" letter-spacing="-1" paint-order="stroke" stroke="#06131d" stroke-width="6" stroke-opacity=".55" style="pointer-events:none">${z.nome.replace('Laguna ','')}</text>`});
+ if(o.labels)D.zone.forEach(z=>{const b=G.bbox[z.id],v=ultima(z),c=v?v.colore:null,hex=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();
+  const t=z.nome.replace('Laguna ',''),w=t.length*21+62,x=z.id==='nord'?b[0]+(b[2]-b[0])*.52:b[0]+(b[2]-b[0])*.18,y=z.id==='nord'?b[1]+(b[3]-b[1])*.55:(b[1]+b[3])/2;
+  s+=`<g style="pointer-events:none"><rect x="${x}" y="${y-30}" width="${w}" height="52" rx="26" fill="#06131d" fill-opacity=".8" stroke="#ffffff" stroke-opacity=".18"/>
+  <circle cx="${x+27}" cy="${y-4}" r="10" fill="${hex}"/><text x="${x+47}" y="${y+8}" fill="#fff" font-size="32" font-weight="750" letter-spacing="-.5">${t}</text></g>`});
  return s+'</svg>'}
 function piede(){return `<div class="foot"><b>Fonti</b> · vento Open-Meteo (ICON-D2, ICON-2i, ECMWF) · marea CPSM Comune di Venezia · correnti modello Laguna Viva · immagine: ${esc(G.fonte_immagine)} · costa ${esc(G.fonte_costa)}; ${esc(G.nota_confini)}.<br>Previsione indicativa: non sostituisce i bollettini ufficiali.<br>Sito v${esc(D.versione_sito)} · aggiornato ${new Date(D.aggiornato_utc).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div>`}
 function finestra(){const v=D.zone.map(ultima).filter(Boolean)[0];return v&&v.finestra}
@@ -147,14 +166,15 @@ function istruzioni(){
  document.body.append(el)}
 function home(){
  const date=D.zone.map(ultima).filter(Boolean).map(v=>v.data).sort();const ult=date[date.length-1];const fin=finestra();
- let h=`<div class="hero">${mappa('40 -60 1000 1360',{meet:true,labels:true,click:true,k:'h'})}<div class="shade"></div>
- <div class="top"><div class="eyebrow">Laguna di Venezia<span class="ver">v${esc(VERSIONE)}</span></div><h1>Forecast<br><span>Lagoon</span></h1><div class="sub">Vento, marea e correnti per uscire in barca. Ogni giorno${fin?', '+esc(fin):''}.</div></div>
- ${ult?`<div class="oggi"><span class="dot"></span>${esc(etichetta(ult))}</div>`:''}<div class="credit">© ESA · Copernicus Sentinel-2</div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></div><div class="zones">`;
+ let h=`<div class="home"><header class="testa"><div><div class="eyebrow">Laguna di Venezia<span class="ver">v${esc(VERSIONE)}</span></div><h1>Forecast <span>Lagoon</span></h1>
+ <div class="sub">Vento, marea e correnti per uscire in barca. Ogni giorno${fin?', '+esc(fin):''}.</div></div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></header>
+ <div class="hero">${mappa('40 -60 1000 1360',{meet:true,labels:true,click:true,k:'h',fo:.24,sw:2.5})}<div class="shade" style="background:linear-gradient(180deg,rgba(6,19,29,.55) 0%,rgba(6,19,29,0) 18%,rgba(6,19,29,0) 72%,rgba(6,19,29,.95) 100%)"></div>
+ ${ult?`<div class="oggi"><span class="dot"></span>${esc(etichetta(ult))}</div>`:''}<div class="credit">© ESA · Copernicus Sentinel-2</div></div><div class="zones">`;
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
   h+=`<div class="zone ${z.attiva?'':'off'}" ${z.attiva?`onclick="location.hash='zona/${z.id}'"`:''}><div class="bar" style="background:${col(v&&v.colore)}"></div>
   <div><div class="zname">${esc(z.nome)}</div><div class="zmeta">Bocca di ${esc(z.bocca)}${z.attiva?(v.data!==ult?' · '+esc(etichetta(v.data)):''):' · in arrivo'}</div></div>
   <div class="badge">${v?`<span class="chip" style="background:${col(v.colore)};color:${oncol(v.colore)}">${TXT[v.colore]||'n.d.'}</span><span class="wind">${nf(s.vento_min,0)}–${nf(s.vento_max,0)} kn${s.direzione?' · '+esc(s.direzione):''}</span>`:`<span class="chip" style="background:#22394B;color:var(--mut)">In arrivo</span>`}</div></div>`});
- app.innerHTML=h+'</div>'+piede();window.scrollTo(0,0)}
+ app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0)}
 function curva(s){
  const C=s.marea_curva||[],A=s.marea_astro||[];if(C.length<2)return '';
  const all=C.concat(A).map(p=>p[1]),mn=Math.min(...all)-5,mx=Math.max(...all)+5,x0=C[0][0],x1=C[C.length-1][0],W=330,H=110;
@@ -193,10 +213,11 @@ function pioggia(s){
  <svg viewBox="0 -4 ${W} ${H+34}" width="100%" style="margin-top:8px">${g}</svg><div class="note">mm nell'ora per modello · % = probabilità (ICON-D2, se manca ECMWF)<br>Totale finestra: ${leg}</div></div></div>`}
 function zona(id,dsel){
  const z=D.zone.find(a=>a.id===id);if(!z){location.hash='';return}
- const b=G.bbox[id],p=20,vb=`${b[0]-p} ${b[1]-p} ${b[2]-b[0]+2*p+120} ${b[3]-b[1]+2*p}`;
- let h=`<div class="zhero">${mappa(vb,{only:id,fs:24,fo:.28,sw:3,k:'z'})}<div class="shade"></div><div class="back" onclick="location.hash=''">‹ Tutte le zone</div>
- <div class="ztitle"><div class="eyebrow">Bocca di ${esc(z.bocca)}<span class="ver">v${esc(VERSIONE)}</span></div><h2>${esc(z.nome)}</h2></div><div class="credit">© ESA · Copernicus Sentinel-2</div></div>`;
- if(!z.attiva){app.innerHTML=h+`<div class="empty">La previsione per la ${esc(z.nome)} è in preparazione.</div>`+piede();window.scrollTo(0,0);return}
+ const b=G.bbox[id],p=20,larga=window.innerWidth>=900;let vb=`${b[0]-p} ${b[1]-p} ${b[2]-b[0]+2*p+120} ${b[3]-b[1]+2*p}`;
+ if(larga){const hh=b[3]-b[1]+2*p,ww=hh*Math.min(1200,window.innerWidth)/380,cx=(b[0]+b[2])/2+60;vb=`${cx-ww/2} ${b[1]-p} ${ww} ${hh}`}
+ let h=`<div class="zwrap"><div class="zhero">${mappa(vb,{only:id,fs:larga?16:24,fo:.28,sw:larga?2:3,k:'z'})}<div class="shade"></div><div class="back" onclick="location.hash=''">‹ Tutte le zone</div>
+ <div class="ztitle"><div class="eyebrow">Bocca di ${esc(z.bocca)}<span class="ver">v${esc(VERSIONE)}</span></div><h2>${esc(z.nome)}</h2></div><div class="credit">© ESA · Copernicus Sentinel-2</div></div><div class="corpo">`;
+ if(!z.attiva){app.innerHTML=h+`<div class="empty">La previsione per la ${esc(z.nome)} è in preparazione.</div></div>`+piede()+'</div>';window.scrollTo(0,0);return}
  const vv=z.voci.slice(0,4).slice().reverse(),v=z.voci.find(a=>a.data===dsel)||z.voci[0],s=v.sintesi||{},c=v.colore;
  h+=`<div class="days">${vv.map(a=>{const d=dataDi(a.data);return `<div class="day ${a===v?'on':''}" onclick="location.hash='zona/${id}/${a.data}'"><i style="background:${col(a.colore)}"></i>${GG[d.getDay()]}<b>${d.getDate()}/${d.getMonth()+1}</b></div>`}).join('')}</div>`;
  const ore=s.ore||[];
@@ -213,7 +234,7 @@ function zona(id,dsel){
  h+=dettagli(s);
  h+=`<div class="btns">${v.previsione?`<a class="btn p" href="${esc(fresco(v.previsione))}">Previsione</a>`:''}${v.verifica?`<a class="btn" href="${esc(fresco(v.verifica))}">Verifica${v.verifica_provvisoria?' *':''}</a>`:''}</div>`;
  if(z.voci.length>1)h+=`<div class="list"><div class="ttl">Archivio</div>${z.voci.map(a=>`<div class="row"><span class="l"><i style="background:${col(a.colore)}"></i>${esc(a.titolo||a.data)}</span><span class="r">${a.previsione?`<a href="${esc(fresco(a.previsione))}">previsione</a>`:''}${a.verifica?`<a href="${esc(fresco(a.verifica))}">verifica</a>`:''}</span></div>`).join('')}</div>`;
- app.innerHTML=h+piede();window.scrollTo(0,0)}
+ app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0)}
 function barra(V){if(document.querySelector('.agg'))return;const b=document.createElement('div');b.className='agg';
  b.innerHTML=`<span>Nuova versione disponibile${V.versione_sito?' · v'+esc(V.versione_sito):''}</span><b>Aggiorna</b>`;
  b.querySelector('b').onclick=()=>location.replace(location.pathname+'?v='+encodeURIComponent(V.codice)+location.hash);document.body.append(b)}
@@ -226,7 +247,7 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 setInterval(controlla,15*60*1000);
 function vai(){if(!D||!G)return;const p=location.hash.replace(/^#/,'').split('/');if(p[0]==='zona')zona(p[1],p[2]);else home()}
 window.addEventListener('hashchange',vai);
-Promise.all([fetch('index.json',{cache:'no-store'}).then(r=>r.json()),fetch('assets/laguna_bacini.json').then(r=>r.json())])
+Promise.all([fetch('index.json',{cache:'no-store'}).then(r=>r.json()),fetch('assets/laguna_bacini.json?v='+CODICE).then(r=>r.json())])
  .then(([d,g])=>{D=d;G=g;vai();controlla()}).catch(e=>{app.innerHTML=`<div class="empty">Impossibile leggere i dati: ${esc(e)}</div>`});
 </script>
 </body>
