@@ -210,7 +210,7 @@ function zona(id,dsel){
  h+=pioggia(s);h+=meteoOnda(s);
  if((s.corrente||[]).length)h+=`<div class="sec"><div class="card"><div class="ch">Corrente <span>${esc(s.canale||'')}</span></div><div style="margin-top:6px;font-size:14.5px;line-height:1.5">${s.corrente.map(t=>`${t.verso==='entra'?'Entrante':'Uscente'} ${t.da===t.a?'alle '+esc(t.da):'dalle '+esc(t.da)+' alle '+esc(t.a)}`).join(' · ')}</div></div></div>`;
  h+=dettagli(s);
- h+=`<div class="btns">${v.previsione?`<a class="btn p" href="${esc(v.previsione)}">Previsione</a>`:''}${v.verifica?`<a class="btn" href="${esc(v.verifica)}">Verifica${v.verifica_provvisoria?' *':''}</a>`:''}${v.previsione_pdf?`<a class="btn" href="${esc(v.previsione_pdf)}">PDF</a>`:''}</div>`;
+ h+=`<div class="btns">${v.previsione?`<a class="btn p" href="${esc(v.previsione)}">Previsione</a>`:''}${v.verifica?`<a class="btn" href="${esc(v.verifica)}">Verifica${v.verifica_provvisoria?' *':''}</a>`:''}</div>`;
  if(z.voci.length>1)h+=`<div class="list"><div class="ttl">Archivio</div>${z.voci.map(a=>`<div class="row"><span class="l"><i style="background:${col(a.colore)}"></i>${esc(a.titolo||a.data)}</span><span class="r">${a.previsione?`<a href="${esc(a.previsione)}">previsione</a>`:''}${a.verifica?`<a href="${esc(a.verifica)}">verifica</a>`:''}</span></div>`).join('')}</div>`;
  app.innerHTML=h+piede();window.scrollTo(0,0)}
 function barra(V){if(document.querySelector('.agg'))return;const b=document.createElement('div');b.className='agg';

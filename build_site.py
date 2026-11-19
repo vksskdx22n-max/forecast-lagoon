@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v2.2 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v2.3 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "2.2"
+VERSIONE = "2.3"
 CARTELLA = "Previsioni"
 SITO = "site"
 ZONE = [
@@ -162,6 +162,23 @@ def sintesi(P, giorno):
     return s
 
 
+BARRA = """<div id="fl-barra" style="position:sticky;top:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;gap:10px;
+padding:calc(env(safe-area-inset-top) + 10px) 14px 10px;background:#06131d;color:#eaf3f7;font:600 15px -apple-system,system-ui,sans-serif">
+<a href="../index.html#zona/__ZONA__/__DATA__" style="color:#5fd4d0;text-decoration:none">&lsaquo; Torna a Forecast Lagoon</a>__PDF__</div>"""
+
+
+def copia_pagina(sorgente, destinazione, zona, giorno, pdf=None):
+    """v2.3: copia la pagina di previsione/verifica aggiungendo in cima la barra per tornare all'app (e il link al PDF)."""
+    html = open(sorgente, encoding="utf-8").read()
+    link_pdf = (f'<a href="{os.path.basename(pdf)}" target="_blank" rel="noopener" style="color:#cfe0e8;text-decoration:none;'
+                f'font-weight:500;font-size:14px">PDF &#8599;</a>') if pdf else ""
+    barra = BARRA.replace("__ZONA__", zona).replace("__DATA__", giorno.isoformat()).replace("__PDF__", link_pdf)
+    if "<meta name=\"viewport\"" not in html:
+        html = html.replace("<head>", "<head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">", 1)
+    html = re.sub(r"(<body[^>]*>)", lambda m: m.group(1) + barra, html, count=1) if re.search(r"<body[^>]*>", html) else barra + html
+    open(destinazione, "w", encoding="utf-8").write(html)
+
+
 def regole():
     """Soglie e parametri mostrati nelle istruzioni del sito, letti da fd_previsione (nessun numero scritto a mano)."""
     try:
@@ -199,19 +216,25 @@ def main():
         voce = {"data": d.isoformat(), "titolo": P.get("titolo"), "finestra": P.get("finestra"),
                 "colore": (P.get("verdetto") or {}).get("colore"), "generato": P.get("generato"),
                 "versione": P.get("versione"), "sintesi": sintesi(P, d)}
-        for estensione, chiave in ((".html", "previsione"), (".pdf", "previsione_pdf")):
-            sorgente = pj[:-5] + estensione
-            if os.path.exists(sorgente):
-                destinazione = os.path.join("giorni", os.path.basename(sorgente))
-                shutil.copy(sorgente, os.path.join(SITO, destinazione))
-                voce[chiave] = destinazione
+        pdf = pj[:-5] + ".pdf"
+        if os.path.exists(pdf):
+            voce["previsione_pdf"] = os.path.join("giorni", os.path.basename(pdf))
+            shutil.copy(pdf, os.path.join(SITO, voce["previsione_pdf"]))
+        else:
+            pdf = None
+        if os.path.exists(pj[:-5] + ".html"):
+            voce["previsione"] = os.path.join("giorni", os.path.basename(pj[:-5] + ".html"))
+            copia_pagina(pj[:-5] + ".html", os.path.join(SITO, voce["previsione"]), zona, d, pdf)
         if (d, fin, zona) in ver:
             vj = scegli_ultimo(ver[(d, fin, zona)])
             V = leggi(vj) or {}
             vh = vj[:-5] + ".html"
             if os.path.exists(vh):
                 destinazione = os.path.join("giorni", os.path.basename(vh))
-                shutil.copy(vh, os.path.join(SITO, destinazione))
+                vp = vj[:-5] + ".pdf"
+                if os.path.exists(vp):
+                    shutil.copy(vp, os.path.join(SITO, "giorni", os.path.basename(vp)))
+                copia_pagina(vh, os.path.join(SITO, destinazione), zona, d, vp if os.path.exists(vp) else None)
                 voce["verifica"] = destinazione
             voce["verifica_provvisoria"] = bool(V.get("provvisoria"))
             voce["verifica_versione"] = V.get("versione")
