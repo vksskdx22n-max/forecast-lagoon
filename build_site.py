@@ -118,6 +118,17 @@ def sintesi(P, giorno):
     return s
 
 
+def regole():
+    """Soglie e parametri mostrati nelle istruzioni del sito, letti da fd_previsione (nessun numero scritto a mano)."""
+    try:
+        import fd_previsione as F
+        return {"soglia_verde": F.SOGLIA_VERDE, "soglia_rosso": F.SOGLIA_ROSSO, "cpsm_ore_max": F.CPSM_ORE_MAX,
+                "raff_avviso": F.RAFF_AVVISO, "versione_previsione": F.VERSIONE}
+    except Exception as e:          # il sito si costruisce lo stesso; le istruzioni omettono i numeri
+        print(f"build_site: regole non lette da fd_previsione ({e})")
+        return {}
+
+
 def main():
     shutil.rmtree(SITO, ignore_errors=True)
     os.makedirs(os.path.join(SITO, "giorni"), exist_ok=True)
@@ -165,7 +176,7 @@ def main():
     for z in ZONE:
         zone.append(dict(z, attiva=bool(voci[z["id"]]), voci=voci[z["id"]]))
     ora = dt.datetime.now(dt.timezone.utc)
-    json.dump({"versione_sito": VERSIONE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "zone": zone},
+    json.dump({"versione_sito": VERSIONE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "regole": regole(), "zone": zone},
               open(os.path.join(SITO, "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     shutil.copy("index.html", os.path.join(SITO, "index.html"))
     if os.path.exists("manifest.json"):
