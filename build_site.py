@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v2.8 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v2.9 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "2.8"
+VERSIONE = "2.9"
 CARTELLA = "Previsioni"
 SITO = "site"
 ZONE = [
@@ -167,6 +167,16 @@ padding:calc(env(safe-area-inset-top) + 10px) 14px 10px;background:#06131d;color
 <a href="../index.html?v=__CODICE__#zona/__ZONA__" style="color:#5fd4d0;text-decoration:none">&lsaquo; Torna a Forecast Lagoon</a>__PDF__</div>"""
 
 
+# v2.9: sul telefono (app sulla schermata Home) il PDF non si apre dentro l'app, dove non c'e' modo di tornare indietro:
+# si apre il menu Condividi (salva in File, WhatsApp, stampa). Il file e' scaricato all'apertura della pagina, cosi' il menu
+# parte subito al tocco. Sul computer, o se Condividi non e' disponibile, il link apre il PDF in una nuova scheda.
+CONDIVIDI = """<script>(function(){var a=document.getElementById('fl-pdf');if(!a||!navigator.canShare)return;
+var tel=matchMedia('(pointer:coarse)').matches||navigator.standalone;if(!tel)return;a.innerHTML='Condividi PDF';var f=null;
+fetch(a.href).then(function(r){return r.blob()}).then(function(b){var x=new File([b],a.getAttribute('href'),{type:'application/pdf'});
+if(navigator.canShare({files:[x]}))f=x}).catch(function(){});
+a.addEventListener('click',function(e){if(!f)return;e.preventDefault();navigator.share({files:[f],title:document.title}).catch(function(){})})})();</script>"""
+
+
 def codice_sito():
     """Impronta del codice della pagina (cambia a ogni nuova versione): usata per non far riusare copie vecchie."""
     html = open("index.html", encoding="utf-8").read()
@@ -176,8 +186,8 @@ def codice_sito():
 def copia_pagina(sorgente, destinazione, zona, giorno, pdf=None):
     """v2.3: copia la pagina di previsione/verifica aggiungendo in cima la barra per tornare all'app (e il link al PDF)."""
     html = open(sorgente, encoding="utf-8").read()
-    link_pdf = (f'<a href="{os.path.basename(pdf)}" target="_blank" rel="noopener" style="color:#cfe0e8;text-decoration:none;'
-                f'font-weight:500;font-size:14px">PDF &#8599;</a>') if pdf else ""
+    link_pdf = (f'<a id="fl-pdf" href="{os.path.basename(pdf)}" target="_blank" rel="noopener" style="color:#cfe0e8;text-decoration:none;'
+                f'font-weight:500;font-size:14px">PDF &#8599;</a>' + CONDIVIDI) if pdf else ""
     barra = BARRA.replace("__CODICE__", codice_sito()).replace("__ZONA__", zona).replace("__DATA__", giorno.isoformat()).replace("__PDF__", link_pdf)
     if "<meta name=\"viewport\"" not in html:
         html = html.replace("<head>", "<head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">", 1)
