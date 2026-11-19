@@ -19,7 +19,7 @@ html,body{background:var(--ink)}
 body{color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:560px;margin:0 auto;position:relative}
-.hero{position:relative;height:min(78vh,640px);overflow:hidden;background:#0b1b28}
+.hero{position:relative;height:max(300px,calc(100vh - 352px));height:max(300px,calc(100svh - 352px));overflow:hidden;background:#0b1b28}
 .hero svg{position:absolute;inset:0;width:100%;height:100%}
 .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,14,22,.9) 0%,rgba(4,14,22,.35) 30%,rgba(4,14,22,0) 52%,rgba(6,19,29,.96) 100%);pointer-events:none}
 .top{position:absolute;left:24px;right:24px;top:calc(env(safe-area-inset-top) + 28px)}
@@ -27,14 +27,14 @@ a{color:inherit;text-decoration:none}
 h1{font-size:42px;line-height:1;font-weight:750;letter-spacing:-.02em;margin-top:8px}
 h1 span{color:var(--teal)}
 .sub{color:#b8cdd8;font-size:15px;line-height:1.45;margin-top:10px;max-width:270px}
-.oggi{position:absolute;left:24px;bottom:20px;font-size:13.5px;color:var(--soft);display:flex;align-items:center;gap:8px}
+.oggi{position:absolute;left:24px;bottom:12px;font-size:13.5px;color:var(--soft);display:flex;align-items:center;gap:8px}
 .oggi b{font-weight:650}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(95,212,208,.18)}
 .credit{position:absolute;right:12px;bottom:8px;font-size:9px;color:rgba(255,255,255,.5)}
 .zones{padding:6px 16px 0}
-.zone{display:grid;grid-template-columns:6px 1fr auto;gap:14px;align-items:center;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:22px;padding:16px 16px 16px 0;margin-bottom:12px;overflow:hidden;cursor:pointer;transition:transform .15s}
+.zone{display:grid;grid-template-columns:6px 1fr auto;gap:14px;align-items:center;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:20px;padding:12px 16px 12px 0;margin-bottom:10px;overflow:hidden;cursor:pointer;transition:transform .15s}
 .zone:active{transform:scale(.985)}
-.zone .bar{align-self:stretch;min-height:64px;border-radius:0 6px 6px 0}
+.zone .bar{align-self:stretch;min-height:52px;border-radius:0 6px 6px 0}
 .zname{font-size:20px;font-weight:650;letter-spacing:-.01em}
 .zmeta{font-size:12.5px;color:var(--mut);margin-top:3px}
 .badge{display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right}

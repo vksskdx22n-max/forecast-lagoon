@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v2.4 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v2.5 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "2.4"
+VERSIONE = "2.5"
 CARTELLA = "Previsioni"
 SITO = "site"
 ZONE = [
@@ -164,7 +164,7 @@ def sintesi(P, giorno):
 
 BARRA = """<div id="fl-barra" style="position:sticky;top:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;gap:10px;
 padding:calc(env(safe-area-inset-top) + 10px) 14px 10px;background:#06131d;color:#eaf3f7;font:600 15px -apple-system,system-ui,sans-serif">
-<a href="../index.html#zona/__ZONA__/__DATA__" style="color:#5fd4d0;text-decoration:none">&lsaquo; Torna a Forecast Lagoon</a>__PDF__</div>"""
+<a href="../index.html#zona/__ZONA__" style="color:#5fd4d0;text-decoration:none">&lsaquo; Torna a Forecast Lagoon</a>__PDF__</div>"""
 
 
 def copia_pagina(sorgente, destinazione, zona, giorno, pdf=None):
