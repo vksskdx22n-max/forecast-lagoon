@@ -7,6 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Forecast Lagoon">
 <meta name="theme-color" content="#06131d">
+<meta name="versione-sito" content="__VERSIONE_SITO__">
 <link rel="apple-touch-icon" href="assets/icona_180.png">
 <link rel="manifest" href="manifest.json">
 <title>Forecast Lagoon</title>
@@ -85,6 +86,9 @@ h1 span{color:var(--teal)}
 .sheet p,.sheet li{font-size:14.5px;line-height:1.5;color:var(--soft)}.sheet ul{padding-left:18px}
 .sheet .x{font-size:15px;font-weight:600;color:var(--mut);cursor:pointer;padding:4px 8px}
 .sem{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:0}
+.ver{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:rgba(95,212,208,.16);color:var(--teal);font-size:10.5px;letter-spacing:.06em;vertical-align:1px}
+.agg{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 12px);z-index:30;max-width:536px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--teal);color:#04282a;border-radius:18px;padding:13px 14px 13px 18px;font-size:14.5px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.agg b{background:#04282a;color:var(--teal);border-radius:12px;padding:9px 14px;font-size:14px;cursor:pointer;white-space:nowrap}
 @keyframes pulse{0%{r:6;opacity:.9}100%{r:18;opacity:0}}
 .pulse{animation:pulse 2.4s ease-out infinite}
 </style>
@@ -93,6 +97,7 @@ h1 span{color:var(--teal)}
 <div class="wrap" id="app"><div class="empty">Caricamento…</div></div>
 <script>
 const app=document.getElementById('app');
+const VERSIONE='__VERSIONE_SITO__',CODICE='__CODICE_SITO__';
 const TXT={verde:'Verde',giallo:'Giallo',rosso:'Rosso'};
 const GIORNI=['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'],GG=['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
 let D=null,G=null;
@@ -133,7 +138,7 @@ function istruzioni(){
 function home(){
  const date=D.zone.map(ultima).filter(Boolean).map(v=>v.data).sort();const ult=date[date.length-1];const fin=finestra();
  let h=`<div class="hero">${mappa('40 -60 1000 1360',{meet:true,labels:true,click:true,k:'h'})}<div class="shade"></div>
- <div class="top"><div class="eyebrow">Laguna di Venezia</div><h1>Forecast<br><span>Lagoon</span></h1><div class="sub">Vento, marea e correnti per uscire in barca. Ogni giorno${fin?', '+esc(fin):''}.</div></div>
+ <div class="top"><div class="eyebrow">Laguna di Venezia<span class="ver">v${esc(VERSIONE)}</span></div><h1>Forecast<br><span>Lagoon</span></h1><div class="sub">Vento, marea e correnti per uscire in barca. Ogni giorno${fin?', '+esc(fin):''}.</div></div>
  ${ult?`<div class="oggi"><span class="dot"></span>${esc(etichetta(ult))}</div>`:''}<div class="credit">© ESA · Copernicus Sentinel-2</div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></div><div class="zones">`;
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
   h+=`<div class="zone ${z.attiva?'':'off'}" ${z.attiva?`onclick="location.hash='zona/${z.id}'"`:''}><div class="bar" style="background:${col(v&&v.colore)}"></div>
@@ -163,7 +168,7 @@ function zona(id,dsel){
  const z=D.zone.find(a=>a.id===id);if(!z){location.hash='';return}
  const b=G.bbox[id],p=20,vb=`${b[0]-p} ${b[1]-p} ${b[2]-b[0]+2*p+120} ${b[3]-b[1]+2*p}`;
  let h=`<div class="zhero">${mappa(vb,{only:id,fs:24,fo:.28,sw:3,k:'z'})}<div class="shade"></div><div class="back" onclick="location.hash=''">‹ Tutte le zone</div>
- <div class="ztitle"><div class="eyebrow">Bocca di ${esc(z.bocca)}</div><h2>${esc(z.nome)}</h2></div><div class="credit">© ESA · Copernicus Sentinel-2</div></div>`;
+ <div class="ztitle"><div class="eyebrow">Bocca di ${esc(z.bocca)}<span class="ver">v${esc(VERSIONE)}</span></div><h2>${esc(z.nome)}</h2></div><div class="credit">© ESA · Copernicus Sentinel-2</div></div>`;
  if(!z.attiva){app.innerHTML=h+`<div class="empty">La previsione per la ${esc(z.nome)} è in preparazione.</div>`+piede();window.scrollTo(0,0);return}
  const vv=z.voci.slice(0,4).slice().reverse(),v=z.voci.find(a=>a.data===dsel)||z.voci[0],s=v.sintesi||{},c=v.colore;
  h+=`<div class="days">${vv.map(a=>{const d=dataDi(a.data);return `<div class="day ${a===v?'on':''}" onclick="location.hash='zona/${id}/${a.data}'"><i style="background:${col(a.colore)}"></i>${GG[d.getDay()]}<b>${d.getDate()}/${d.getMonth()+1}</b></div>`}).join('')}</div>`;
@@ -180,10 +185,20 @@ function zona(id,dsel){
  h+=`<div class="btns">${v.previsione?`<a class="btn p" href="${esc(v.previsione)}">Previsione</a>`:''}${v.verifica?`<a class="btn" href="${esc(v.verifica)}">Verifica${v.verifica_provvisoria?' *':''}</a>`:''}${v.previsione_pdf?`<a class="btn" href="${esc(v.previsione_pdf)}">PDF</a>`:''}</div>`;
  if(z.voci.length>1)h+=`<div class="list"><div class="ttl">Archivio</div>${z.voci.map(a=>`<div class="row"><span class="l"><i style="background:${col(a.colore)}"></i>${esc(a.titolo||a.data)}</span><span class="r">${a.previsione?`<a href="${esc(a.previsione)}">previsione</a>`:''}${a.verifica?`<a href="${esc(a.verifica)}">verifica</a>`:''}</span></div>`).join('')}</div>`;
  app.innerHTML=h+piede();window.scrollTo(0,0)}
+function barra(V){if(document.querySelector('.agg'))return;const b=document.createElement('div');b.className='agg';
+ b.innerHTML=`<span>Nuova versione disponibile${V.versione_sito?' · v'+esc(V.versione_sito):''}</span><b>Aggiorna</b>`;
+ b.querySelector('b').onclick=()=>location.replace(location.pathname+'?v='+encodeURIComponent(V.codice)+location.hash);document.body.append(b)}
+async function controlla(){try{
+ const V=await (await fetch('versione.json',{cache:'no-store'})).json();
+ if(V.codice&&V.codice!==CODICE&&!CODICE.startsWith('__')){barra(V);return}
+ if(D&&V.aggiornato_utc&&V.aggiornato_utc!==D.aggiornato_utc){D=await (await fetch('index.json',{cache:'no-store'})).json();vai()}
+}catch(e){}}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')controlla()});
+setInterval(controlla,15*60*1000);
 function vai(){if(!D||!G)return;const p=location.hash.replace(/^#/,'').split('/');if(p[0]==='zona')zona(p[1],p[2]);else home()}
 window.addEventListener('hashchange',vai);
 Promise.all([fetch('index.json',{cache:'no-store'}).then(r=>r.json()),fetch('assets/laguna_bacini.json').then(r=>r.json())])
- .then(([d,g])=>{D=d;G=g;vai()}).catch(e=>{app.innerHTML=`<div class="empty">Impossibile leggere i dati: ${esc(e)}</div>`});
+ .then(([d,g])=>{D=d;G=g;vai();controlla()}).catch(e=>{app.innerHTML=`<div class="empty">Impossibile leggere i dati: ${esc(e)}</div>`});
 </script>
 </body>
 </html>

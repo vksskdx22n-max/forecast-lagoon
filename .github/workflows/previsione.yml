@@ -53,6 +53,9 @@ jobs:
         run: |
           DATA="${DATA_IN:-$(date -d tomorrow +%F)}"
           python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire
+          # Laguna Nord e Sud: la verifica dei giorni conclusi e' gia' stata fatta sopra
+          python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire --no-verifica --area nord
+          python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire --no-verifica --area sud
 
       - name: Pagine per GitHub Pages
         run: python3 build_site.py

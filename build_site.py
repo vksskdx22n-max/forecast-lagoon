@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v2.0 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v2.1 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -8,10 +8,10 @@ corrente alla bocca). Nessun valore e' scritto a mano: la pagina index.html legg
 
 Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senza "area" sono della Laguna Centro.
 """
-import os, re, json, glob, shutil, datetime as dt
+import os, re, json, glob, shutil, hashlib, datetime as dt
 from collections import Counter
 
-VERSIONE = "2.0"
+VERSIONE = "2.1"
 CARTELLA = "Previsioni"
 SITO = "site"
 ZONE = [
@@ -190,7 +190,14 @@ def main():
     ora = dt.datetime.now(dt.timezone.utc)
     json.dump({"versione_sito": VERSIONE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "regole": regole(), "zone": zone},
               open(os.path.join(SITO, "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    shutil.copy("index.html", os.path.join(SITO, "index.html"))
+    # v2.1: la pagina conosce la propria versione e l'impronta del suo codice; versione.json (letto senza cache)
+    # dice alla pagina gia' aperta se esiste una versione nuova -> barra "Aggiorna"
+    html = open("index.html", encoding="utf-8").read()
+    codice = hashlib.sha1((html + VERSIONE).encode("utf-8")).hexdigest()[:12]
+    html = html.replace("__VERSIONE_SITO__", VERSIONE).replace("__CODICE_SITO__", codice)
+    open(os.path.join(SITO, "index.html"), "w", encoding="utf-8").write(html)
+    json.dump({"versione_sito": VERSIONE, "codice": codice, "aggiornato_utc": ora.isoformat(timespec="minutes")},
+              open(os.path.join(SITO, "versione.json"), "w", encoding="utf-8"))
     if os.path.exists("manifest.json"):
         shutil.copy("manifest.json", os.path.join(SITO, "manifest.json"))
     if os.path.isdir("assets"):
