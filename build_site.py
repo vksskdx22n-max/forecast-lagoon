@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v2.1 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v2.2 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -8,10 +8,10 @@ corrente alla bocca). Nessun valore e' scritto a mano: la pagina index.html legg
 
 Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senza "area" sono della Laguna Centro.
 """
-import os, re, json, glob, shutil, hashlib, datetime as dt
+import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "2.1"
+VERSIONE = "2.2"
 CARTELLA = "Previsioni"
 SITO = "site"
 ZONE = [
@@ -20,7 +20,8 @@ ZONE = [
     {"id": "sud", "nome": "Laguna Sud", "bocca": "Chioggia", "bacino": "bacino di Chioggia"},
 ]
 ALIAS_AREA = {}            # eventuali nomi di area diversi dagli id delle zone
-MARGINE_MAREA_MIN = 60     # minuti di curva di marea mostrati prima e dopo la finestra
+MARGINE_MAREA_MIN = 60
+CARD = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"]     # minuti di curva di marea mostrati prima e dopo la finestra
 
 
 def leggi(percorso):
@@ -124,6 +125,37 @@ def sintesi(P, giorno):
     prob = [r.get(k) for r in po for k in ("prob_D2", "prob_EC") if isinstance(r.get(k), (int, float))]
     s["pioggia_prob_max"] = max(prob) if prob else None
     s["pioggia_max_oraria"] = Me.get("pioggia")
+    # v2.2: ora per ora (direzione media vettoriale delle zone, onda in laguna, probabilita' di pioggia), meteo, onda, note
+    vento = P.get("vento") or {}
+    zone_v = [z for z in (st.get("zone") or list(vento)) if z in vento]
+    ol = {r.get("ora", "")[:2]: r.get("v") or {} for r in ((P.get("onda_laguna") or {}).get("ore") or [])}
+    pr = {r.get("ora", "")[:2]: r for r in po}
+    mare = {r.get("ora", "")[:2]: r for r in ((P.get("mare") or {}).get("righe") or [])}
+    det = []
+    for o in ore:
+        h = o.get("ora")
+        dirs = [vento[z][i]["dir_g"] for z in zone_v for i in range(len(vento[z])) if vento[z][i].get("ora", "")[:2] == h and vento[z][i].get("dir_g") is not None]
+        dg = None
+        if dirs:
+            x = sum(math.sin(math.radians(d)) for d in dirs); y = sum(math.cos(math.radians(d)) for d in dirs)
+            dg = round(math.degrees(math.atan2(x, y)) % 360)
+        onde = [v[0] for v in (ol.get(h) or {}).values() if v and v[0] is not None]
+        p = pr.get(h) or {}
+        pp = p.get("prob_D2") if p.get("prob_D2") is not None else p.get("prob_EC")
+        m = mare.get(h) or {}
+        det.append({"ora": h, "sem": o.get("sem"), "stima": o.get("stima"), "raff": o.get("raff"), "dir_g": dg,
+                    "dir": CARD[int((dg + 11.25) % 360 // 22.5)] if dg is not None else None,
+                    "marea": o.get("marea"), "cm_h": o.get("cm_h"), "corr": o.get("corr"), "verso": o.get("verso"),
+                    "onda_lag": max(onde) if onde else None, "pioggia_prob": pp, "pioggia_mm": p.get("mm_D2"),
+                    "onda_mare": m.get("h_corr", m.get("h"))})
+    s["ore_dettaglio"] = det
+    s["meteo"] = {k: Me.get(k) for k in ("aria", "aria_acqua", "aria_punto", "pressione", "nuvolosita", "luna", "fonte_meteo")}
+    onde_l = [d["onda_lag"] for d in det if d["onda_lag"] is not None]
+    onde_m = [d["onda_mare"] for d in det if d["onda_mare"] is not None]
+    s["onda_laguna_max"] = max(onde_l) if onde_l else None
+    s["onda_mare_min"], s["onda_mare_max"] = (min(onde_m), max(onde_m)) if onde_m else (None, None)
+    s["note"] = [r.get("testo") for r in (P.get("riflessioni") or []) if r.get("tipo") in ("inferenza", "dato")][:3]
+    s["verdetto_testo"] = (P.get("verdetto") or {}).get("testo")
     V = P.get("verdetto") or {}
     s["andamento"] = V.get("andamento_txt")
     s["andamento_fasce"] = V.get("andamento")

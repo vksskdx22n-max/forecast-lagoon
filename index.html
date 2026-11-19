@@ -89,6 +89,15 @@ h1 span{color:var(--teal)}
 .ver{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:rgba(95,212,208,.16);color:var(--teal);font-size:10.5px;letter-spacing:.06em;vertical-align:1px}
 .agg{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 12px);z-index:30;max-width:536px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--teal);color:#04282a;border-radius:18px;padding:13px 14px 13px 18px;font-size:14.5px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .agg b{background:#04282a;color:var(--teal);border-radius:12px;padding:9px 14px;font-size:14px;cursor:pointer;white-space:nowrap}
+.tab{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.tab th{font-weight:500;color:var(--mut);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;text-align:center;padding:0 0 6px}
+.tab td{text-align:center;padding:7px 0;border-top:1px solid rgba(35,70,95,.6);color:var(--soft)}
+.tab td:first-child{color:var(--mut);font-weight:600}.tab .kn{display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--txt)}
+.tab .kn i{width:8px;height:8px;border-radius:50%}
+.arr{display:inline-block;font-size:13px;line-height:1}
+.mini{font-size:20px;font-weight:700;margin-top:6px;letter-spacing:-.01em}.mini small{font-size:12.5px;color:var(--mut);font-weight:500;margin-left:3px}
+details.card summary{cursor:pointer;list-style:none;font-size:11.5px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+details.card p{font-size:13.5px;line-height:1.5;color:var(--soft);margin-top:8px}
 @keyframes pulse{0%{r:6;opacity:.9}100%{r:18;opacity:0}}
 .pulse{animation:pulse 2.4s ease-out infinite}
 </style>
@@ -155,8 +164,25 @@ function curva(s){
  <polygon points="0,${H} ${pt(C)} ${W},${H}" fill="url(#tg)"/>${A.length?`<polyline points="${pt(A)}" fill="none" stroke="#8aa6b6" stroke-width="1.2" stroke-dasharray="4 4"/>`:''}
  <polyline points="${pt(C)}" fill="none" stroke="#5fd4d0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
  ${tick.map(t=>`<text x="${Math.min(W-14,Math.max(0,X(t)-6))}" y="${H+15}" fill="#6f8a9a" font-size="10">${String(t/60).padStart(2,'0')}</text>`).join('')}</svg>`}
+function oraPerOra(s){const O=s.ore_dettaglio||[];if(!O.length)return '';
+ const fr=g=>g==null?'':`<span class="arr" style="transform:rotate(${g+180}deg)">↑</span>`;
+ return `<div class="sec"><div class="card"><div class="ch">Ora per ora <span>vento medio della zona</span></div><table class="tab"><tr><th>Ora</th><th>Vento</th><th>Raff.</th><th>Da</th><th>Marea</th><th>Corrente</th><th>Pioggia</th></tr>
+ ${O.map(o=>`<tr><td>${esc(o.ora)}</td><td><span class="kn"><i style="background:${col(o.sem)}"></i>${nf(o.stima,0)}</span></td><td>${nf(o.raff,0)}</td><td>${fr(o.dir_g)} ${esc(o.dir||'')}</td>
+ <td>${esc(o.marea||'')}</td><td>${o.corr==null?'–':(o.verso==='entra'?'▲ ':'▼ ')+nf(o.corr,1)}</td><td>${o.pioggia_prob==null?'–':o.pioggia_prob+'%'}</td></tr>`).join('')}</table>
+ <div class="note">nodi · corrente in m/s alla bocca, ▲ entra ▼ esce · pioggia = probabilità</div></div></div>`}
+function meteoOnda(s){const M=s.meteo||{},P=M.pressione,L=M.luna;let h='<div class="sec grid2">';
+ if(s.onda_laguna_max!=null)h+=`<div class="card"><div class="ch">Onda in laguna</div><div class="mini">fino a ${nf(s.onda_laguna_max,2)}<small>m</small></div><div class="note">stima, onda significativa</div></div>`;
+ if(s.onda_mare_max!=null)h+=`<div class="card"><div class="ch">Mare aperto</div><div class="mini">${nf(s.onda_mare_min,1)}–${nf(s.onda_mare_max,1)}<small>m</small></div><div class="note">onda fuori dalla bocca</div></div>`;
+ if(M.aria)h+=`<div class="card"><div class="ch">Aria</div><div class="mini">${esc(M.aria[0])}–${esc(M.aria[1])}<small>°C</small></div><div class="note">${M.aria_acqua?'sull’acqua '+esc(M.aria_acqua[0])+'–'+esc(M.aria_acqua[1])+' °C':''}</div></div>`;
+ if(P||M.nuvolosita!=null)h+=`<div class="card"><div class="ch">Cielo</div><div class="mini">${M.nuvolosita==null?'–':M.nuvolosita}<small>% nuvole</small></div><div class="note">${P?'pressione '+esc(P[0])+' → '+esc(P[1])+' hPa, '+esc(P[2]):''}</div></div>`;
+ if(s.alba)h+=`<div class="card"><div class="ch">Sole</div><div class="mini">${esc(s.alba)}<small>alba</small></div><div class="note">tramonto ${esc(s.tramonto||'')}</div></div>`;
+ if(L)h+=`<div class="card"><div class="ch">Luna</div><div class="mini">${L[0]}<small>%</small></div><div class="note">${esc(L[1]||'')}</div></div>`;
+ return h+'</div>'}
+function dettagli(s){let h='';if(s.verdetto_testo)h+=`<div class="sec"><details class="card"><summary>Il verdetto per esteso ▾</summary><p>${esc(s.verdetto_testo)}</p>${(s.note||[]).map(n=>`<p>${esc(n)}</p>`).join('')}</details></div>`;return h}
 function pioggia(s){
  const P=s.pioggia_ore||[];if(!P.length)return '';
+ const T0=s.pioggia_tot||{},secco=Object.values(T0).every(v=>!v)&&!s.pioggia_prob_max;
+ if(secco)return `<div class="sec"><div class="card"><div class="ch">Pioggia <span>ICON-D2 · ICON-2i · ECMWF</span></div><div class="mini">Nessuna pioggia prevista</div><div class="note">0 mm e probabilità 0% in tutte le ore della finestra</div></div></div>`;
  const mm=P.flatMap(r=>[r.mm_D2,r.mm_2i,r.mm_EC]).filter(x=>x!=null),mx=Math.max(1,...mm),W=330,H=90,n=P.length,bw=W/n;
  const M=[['mm_D2','#5fd4d0'],['mm_2i','#7fa8ff'],['mm_EC','#c9a7ff']];
  let g='';P.forEach((r,i)=>{M.forEach(([k,c],j)=>{const v=r[k];if(v==null)return;const hh=v/mx*H;g+=`<rect x="${(i*bw+bw*.14+j*bw*.24).toFixed(1)}" y="${(H-hh).toFixed(1)}" width="${(bw*.22).toFixed(1)}" height="${Math.max(hh,v>0?1.5:0).toFixed(1)}" rx="2" fill="${c}"/>`});
@@ -176,12 +202,14 @@ function zona(id,dsel){
  h+=`<div class="sec"><div class="verdict" style="background:${col(c)};color:${oncol(c)}"><div class="k">${esc(etichetta(v.data))} · ${esc(v.finestra||'')}</div>
  <div class="v">${TXT[c]||'n.d.'}</div><p>${esc(s.andamento||'')}</p>
  <div class="hours" style="grid-template-columns:repeat(${Math.max(ore.length,1)},1fr)">${ore.map(o=>`<div style="background:${o.sem===c?'rgba(0,0,0,.14)':col(o.sem)}">${esc(o.ora)}<b>${nf(o.stima,0)}</b></div>`).join('')}</div></div></div>`;
+ h+=oraPerOra(s);
  h+=`<div class="sec grid2"><div class="card"><div class="ch">Vento medio</div><div class="big">${nf(s.vento_min,0)}–${nf(s.vento_max,0)}<small>kn</small></div><div class="note">${s.direzione?'da '+esc(s.direzione)+(s.direzione_nome?' · '+esc(s.direzione_nome):''):''}</div></div>
  <div class="card"><div class="ch">Raffiche</div><div class="big">${nf(s.raff_max,0)}<small>kn</small></div><div class="note">massimo nella finestra; non cambiano il colore</div></div></div>`;
  if((s.marea_curva||[]).length>1)h+=`<div class="sec"><div class="card"><div class="ch">Marea <span>${esc(s.marea_fonte||'')}${s.marea_eta_h!=null?' · emesso '+s.marea_eta_h+' h prima':''}${s.marea_vecchia?' · tendenza meno affidabile':''}</span></div>${curva(s)}
  <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--soft)">${(s.marea_estremali||[]).map(e=>`<span>${e.tipo==='max'?'▲':'▼'} ${e.cm>0?'+':''}${e.cm} cm · ${esc(e.ora)}</span>`).join('')}</div></div></div>`;
- h+=pioggia(s);
+ h+=pioggia(s);h+=meteoOnda(s);
  if((s.corrente||[]).length)h+=`<div class="sec"><div class="card"><div class="ch">Corrente <span>${esc(s.canale||'')}</span></div><div style="margin-top:6px;font-size:14.5px;line-height:1.5">${s.corrente.map(t=>`${t.verso==='entra'?'Entrante':'Uscente'} ${t.da===t.a?'alle '+esc(t.da):'dalle '+esc(t.da)+' alle '+esc(t.a)}`).join(' · ')}</div></div></div>`;
+ h+=dettagli(s);
  h+=`<div class="btns">${v.previsione?`<a class="btn p" href="${esc(v.previsione)}">Previsione</a>`:''}${v.verifica?`<a class="btn" href="${esc(v.verifica)}">Verifica${v.verifica_provvisoria?' *':''}</a>`:''}${v.previsione_pdf?`<a class="btn" href="${esc(v.previsione_pdf)}">PDF</a>`:''}</div>`;
  if(z.voci.length>1)h+=`<div class="list"><div class="ttl">Archivio</div>${z.voci.map(a=>`<div class="row"><span class="l"><i style="background:${col(a.colore)}"></i>${esc(a.titolo||a.data)}</span><span class="r">${a.previsione?`<a href="${esc(a.previsione)}">previsione</a>`:''}${a.verifica?`<a href="${esc(a.verifica)}">verifica</a>`:''}</span></div>`).join('')}</div>`;
  app.innerHTML=h+piede();window.scrollTo(0,0)}
