@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_previsione.py v1.38 — previsione meteo-marina per un'uscita (Fishing Diary).
+"""fd_previsione.py v1.39 — previsione meteo-marina per un'uscita (Fishing Diary).
 
 All'avvio verifica da solo le previsioni concluse (fd_verifica.py, stessa cartella) e usa l'archivio
 verifica_archivio.json per la correzione di ICON-D2 (--no-verifica per saltare la verifica).
@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.38"
+VERSIONE = "1.39"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -57,6 +57,10 @@ NEBBIA_PROB = {"umidita": 97, "vento": 5}        # probabile: umidita' >= 97 % e
 NEBBIA_POSS = {"umidita": 94, "vento": 8, "nubi_basse": 90}   # possibile: umidita' >= 94 % e vento <= 8 kn, oppure nubi basse >= 90 %
 NEBBIA_CODICI = (45, 48)                          # codici meteo WMO "nebbia" / "nebbia con brina"
 NEBBIA_LIVELLI = ["nessuna", "possibile", "probabile"]
+# v1.39: probabilita' di nebbia = quota degli scenari ICON-D2-EPS (20 membri, punti della zona) che soddisfano la regola "probabile"
+NEBBIA_ENS_MODELLO = "icon_d2_eps"
+NEBBIA_SOGLIA_ALTA = 50      # %: ore indicate in prima pagina (se nessuna ora arriva qui, si usano quelle sopra NEBBIA_SOGLIA_MIN)
+NEBBIA_SOGLIA_MIN = 20       # %: sotto questa probabilita' massima la nebbia non viene segnalata in prima pagina
 RAFF_AVVISO = 20.0                    # v1.28: raffiche solo come avviso, non cambiano il colore
 CPSM_ORE_MAX = 48                    # v1.30: oltre, il bollettino CPSM e' "tendenza": si usa ma e' segnalato
 SOGLIA_FERMA = 2.0                   # v1.29: cm/h, sotto questa variazione massima nella finestra la marea e' "quasi ferma"
@@ -265,6 +269,52 @@ def scarica(giorno, da, a):
         print(f"Open-Meteo non risponde (tentativo {tentativo + 1} di 3): {(r.stdout or r.stderr)[:200]}")
         time.sleep(20 * (tentativo + 1))
     sys.exit(f"Errore Open-Meteo dopo 3 tentativi: {r.stdout[:300] or r.stderr[:300]}")
+
+
+def scarica_ensemble(giorno, da, a, path=None):
+    """v1.39: ICON-D2-EPS sui punti della zona (lista di risposte Open-Meteo, una per punto), o None."""
+    if path:
+        return json.load(open(path, encoding="utf-8"))
+    g = giorno.isoformat()
+    pts = [p for p in PUNTI if p[0] in ZONE_VENTO]
+    url = ("https://ensemble-api.open-meteo.com/v1/ensemble?"
+           f"latitude={','.join(str(p[1]) for p in pts)}&longitude={','.join(str(p[2]) for p in pts)}"
+           "&hourly=relative_humidity_2m,wind_speed_10m,cloud_cover_low,weather_code"
+           f"&models={NEBBIA_ENS_MODELLO}&wind_speed_unit=kn&timezone=Europe%2FRome&start_date={g}&end_date={g}")
+    for tentativo in range(2):
+        r = subprocess.run(["curl", "-s", "-m", "45", url], capture_output=True, text=True)
+        try:
+            d = json.loads(r.stdout)
+            d = d if isinstance(d, list) else [d]
+            if all("hourly" in x for x in d):
+                return d
+        except ValueError:
+            pass
+        print(f"Open-Meteo ensemble non risponde (tentativo {tentativo + 1} di 2): {(r.stdout or r.stderr)[:200]}")
+        time.sleep(10)
+    return None
+
+
+def probabilita_nebbia(ENS, ore_txt):
+    """v1.39: {ora 'HH:00': (percentuale, scenari)} con la regola "probabile" applicata a ogni membro e punto."""
+    out = {}
+    for t in ore_txt:
+        si = tot = 0
+        for P in ENS or []:
+            H = P["hourly"]; i = {x: j for j, x in enumerate(H.get("time", []))}.get(t)
+            if i is None:
+                continue
+            for key in [k_ for k_ in H if k_ == "relative_humidity_2m" or k_.startswith("relative_humidity_2m_member")]:
+                suf = key[len("relative_humidity_2m"):]
+                rh = H[key][i]; ws = (H.get("wind_speed_10m" + suf) or [None] * (i + 1))[i]
+                wc = (H.get("weather_code" + suf) or [None] * (i + 1))[i]
+                if rh is None and wc is None:
+                    continue
+                tot += 1
+                if wc in NEBBIA_CODICI or (rh is not None and ws is not None and rh >= NEBBIA_PROB["umidita"] and ws <= NEBBIA_PROB["vento"]):
+                    si += 1
+        out[t] = (round(100 * si / tot) if tot else None, tot)
+    return out
 
 
 # ------------------------------------------------------------------ onda in mare aperto (Open-Meteo Marine)
@@ -636,7 +686,7 @@ def misure_aria(html_dir=None):
     return out
 
 
-def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None):
+def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS=None):
     tz = tz_italia(giorno)
     ore = [h for h in range(24) if da <= dt.time(h, 0) <= a]
     idx = {p[0]: i for i, p in enumerate(PUNTI)}
@@ -886,6 +936,9 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None):
             liv = 1
         nebbia_ore.append({"ora": f"{h:02d}:00", "livello": liv, "umidita": None if rh is None else round(rh),
                            "nubi_basse": None if nb is None else round(nb), "vento": None if ws is None else round(ws, 1), "codice_nebbia": cod})
+    PE = probabilita_nebbia(ENS, [k(h) for h in ore]) if ENS else {}
+    for h, r in zip(ore, nebbia_ore):
+        r["prob"], r["scenari"] = PE.get(k(h), (None, 0))
     nb_max = max((r["livello"] for r in nebbia_ore), default=0)
     ore_n = [r["ora"] for r in nebbia_ore if r["livello"] == nb_max] if nb_max else []
     nebbia = {"livello": nb_max, "testo": NEBBIA_LIVELLI[nb_max],
@@ -893,6 +946,15 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None):
               "regola": f"probabile: umidità ≥ {NEBBIA_PROB['umidita']} % e vento ≤ {NEBBIA_PROB['vento']} kn, o codice meteo nebbia; "
                         f"possibile: umidità ≥ {NEBBIA_POSS['umidita']} % e vento ≤ {NEBBIA_POSS['vento']} kn, o nubi basse ≥ {NEBBIA_POSS['nubi_basse']} %",
               "nota": "stima dai modelli, non verificata"}
+    probs = [r["prob"] for r in nebbia_ore if r.get("prob") is not None]
+    if probs:                                   # v1.39: probabilita' dall'ensemble (sostituisce i livelli nella sintesi)
+        pmax = max(probs)
+        sopra = [r["ora"] for r in nebbia_ore if (r.get("prob") or 0) >= (NEBBIA_SOGLIA_ALTA if pmax >= NEBBIA_SOGLIA_ALTA else NEBBIA_SOGLIA_MIN)]
+        nebbia.update({"prob_max": pmax, "segnala": pmax >= NEBBIA_SOGLIA_MIN,
+                       "dalle": sopra[0] if sopra else None, "alle": (f"{int(sopra[-1][:2]) + 1:02d}:00" if sopra else None),
+                       "soglia_alta": NEBBIA_SOGLIA_ALTA, "soglia_min": NEBBIA_SOGLIA_MIN,
+                       "fonte_prob": f"ICON-D2-EPS, {max(r['scenari'] for r in nebbia_ore)} scenari (20 membri × punti della zona)",
+                       "nota": "probabilità dai modelli, non ancora verificata con le misure"})
     note_meteo = []
     t0e, t0d = Tec.get(k(ore[0])), (T_d2_mestre if aria_punto else T_d2_acqua).get(k(ore[0]))
     if None not in (t0e, t0d) and abs(t0e - t0d) >= 3:
@@ -1336,9 +1398,12 @@ def main():
     cpath = sys.argv[sys.argv.index("--cpsm-json") + 1] if "--cpsm-json" in sys.argv else None
     CP = scarica_cpsm(cpath)
     print(f"Previsione marea CPSM: {len(CP[0])} estremali (emessa {CP[1]})" if CP[0] else "Previsione marea CPSM non disponibile: uso la marea astronomica")
+    ENS = scarica_ensemble(giorno, da, a, sys.argv[sys.argv.index("--ens-json") + 1] if "--ens-json" in sys.argv else None)   # v1.39
+    print(f"Ensemble ICON-D2-EPS (nebbia): {len(ENS)} punti" if ENS else "Ensemble ICON-D2-EPS non disponibile: nebbia solo come livello")
     D = calcola(giorno, da, a, OM, carica_diario(),
                 Marea(f"marea_astronomica_{giorno.year}.json"), json.load(open("correnti_laguna.json", encoding="utf-8")), CP, MAR,
-                misure_aria(sys.argv[sys.argv.index("--misure-dir") + 1] if "--misure-dir" in sys.argv else None))
+                misure_aria(sys.argv[sys.argv.index("--misure-dir") + 1] if "--misure-dir" in sys.argv else None),
+                ENS)
     os.makedirs("Previsioni", exist_ok=True)
     base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_{da.strftime('%H%M')}-{a.strftime('%H%M')}{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}")
     print(onde_misurate_archivia(sys.argv[sys.argv.index("--onde-json") + 1] if "--onde-json" in sys.argv else None))   # v1.37: solo archivio
