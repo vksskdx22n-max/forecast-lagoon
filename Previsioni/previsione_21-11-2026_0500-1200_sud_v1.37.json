@@ -1683,8 +1683,8 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "20/11 10:15",
-    "valore": "10,1"
+    "ora": "20/11 10:20",
+    "valore": "10,2"
    },
    {
     "stazione": "Palazzo Cavalli",
@@ -2010,7 +2010,7 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: Open-Meteo (ICON-D2 DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS) · marea astronomica CPSM Punta Salute · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.37",
- "generato": "20/11/2026 10:22",
+ "generato": "20/11/2026 10:26",
  "area": "sud",
  "acqua_misurata": {
   "valore": 12.0,
