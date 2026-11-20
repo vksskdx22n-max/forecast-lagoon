@@ -61,11 +61,11 @@ h1 span{color:var(--teal)}
 .verdict .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
 .verdict .v{font-size:30px;font-weight:750;letter-spacing:-.02em;margin-top:4px}
 .verdict p{font-size:14px;line-height:1.4;margin-top:4px;opacity:.9}
-.verdict .prov{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:10px;background:rgba(0,0,0,.18);font-size:12px;font-weight:650}
+.verdict .prov{display:inline-block;margin-top:8px;padding:4px 10px;border-radius:10px;background:rgba(255,255,255,.9);color:#0b1a24;font-size:12.5px;font-weight:650}
 .hours{display:grid;gap:4px;margin-top:14px}
-.hours div{border-radius:8px;text-align:center;padding:5px 0 4px;font-size:10px;font-weight:650;color:rgba(0,0,0,.6)}
-.hours div b{display:block;font-size:13px;color:rgba(0,0,0,.8)}
-.hours div u{display:block;text-decoration:none;font-size:9px;font-weight:600;color:rgba(0,0,0,.55)}
+.hours div{border-radius:8px;text-align:center;padding:4px 0 4px;font-size:10.5px;font-weight:650;color:#3a4a55;background:rgba(255,255,255,.92);box-shadow:inset 0 5px 0 var(--c);padding-top:8px}
+.hours div b{display:block;font-size:15px;color:#0b1a24}
+.hours div u{display:block;text-decoration:none;font-size:9.5px;font-weight:600;color:#3a4a55}
 .tab th u{display:block;text-decoration:none;text-transform:none;letter-spacing:0;font-size:10px;margin-top:1px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px 16px}
 .ch{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:11.5px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
@@ -156,19 +156,20 @@ function mappa(vb,o){
 function piede(){return `<div class="foot"><b>Fonti</b> · vento Open-Meteo (ICON-D2, ICON-2i, ECMWF) · marea CPSM Comune di Venezia · correnti modello Laguna Viva · immagine: ${esc(G.fonte_immagine)} · costa ${esc(G.fonte_costa)}; ${esc(G.nota_confini)}.<br>Previsione indicativa: non sostituisce i bollettini ufficiali.<br>Sito v${esc(D.versione_sito)} · aggiornato ${new Date(D.aggiornato_utc).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div>`}
 function finestra(){const v=D.zone.map(ultima).filter(Boolean)[0];return v&&v.finestra}
 function istruzioni(){
- const R=D.regole||{},v=R.soglia_verde,r=R.soglia_rosso,k=x=>x==null?'…':nf(x,0);
+ const R=D.regole||{},v=R.verde_fino_a,r=R.rosso_da,k=x=>x==null?'…':nf(x,0),k1=x=>x==null?'…':nf(x+1,0),km=x=>x==null?'…':nf(x-1,0);
  const el=document.createElement('div');el.className='velo';el.onclick=e=>{if(e.target===el)el.remove()};
  el.innerHTML=`<div class="sheet"><h3>Come si legge<span class="x" onclick="this.closest('.velo').remove()">Chiudi</span></h3>
- <h4>Cos'è</h4><p>Previsione meteo-marina della laguna per uscire in barca: vento, marea, correnti, onda e pioggia, nella finestra ${esc(finestra()||'del mattino')}. Si aggiorna da sola ogni pomeriggio con la previsione del giorno dopo.</p>
+ <h4>Cos'è</h4><p>Previsione meteo-marina della laguna per uscire in barca: vento, marea, correnti, onda e pioggia, nella finestra ${esc(finestra()||'del mattino')}. Si aggiorna da sola due volte al giorno con la previsione del giorno dopo (vedi “Due previsioni al giorno”).</p>
  <h4>Le tre zone</h4><p>La laguna è divisa nei tre bacini delle bocche di porto: <b>Nord</b> (Lido), <b>Centro</b> (Malamocco), <b>Sud</b> (Chioggia). Tocca un bacino sulla mappa o un riquadro per aprire la zona.</p>
- <h4>Il semaforo</h4><ul><li><span class="sem" style="background:var(--verde)"></span><b>Verde</b>: vento medio sotto ${k(v)} nodi</li><li><span class="sem" style="background:var(--giallo)"></span><b>Giallo</b>: da ${k(v)} a ${k(r)} nodi</li><li><span class="sem" style="background:var(--rosso)"></span><b>Rosso</b>: da ${k(r)} nodi in su</li></ul>
- <p>Conta il vento medio, media dei punti della zona. Le raffiche sono indicate ma non cambiano il colore. Il colore del giorno è quello più frequente nelle ore della finestra; i quadratini mostrano ora per ora il colore e i nodi.</p>
+ <h4>Il semaforo</h4><ul><li><span class="sem" style="background:var(--verde)"></span><b>Verde</b>: vento medio fino a ${k(v)} nodi</li><li><span class="sem" style="background:var(--giallo)"></span><b>Giallo</b>: da ${k1(v)} a ${km(r)} nodi</li><li><span class="sem" style="background:var(--rosso)"></span><b>Rosso</b>: da ${k(r)} nodi in su</li></ul>
+ <p>Conta il vento medio, media dei punti della zona, arrotondato al nodo intero: il colore corrisponde sempre al numero che vedi. Le raffiche sono indicate ma non cambiano il colore.</p>
+ <p>Ogni ora ha il suo colore (la barretta in cima a ogni quadratino); il colore del giorno è quello più frequente nelle ore della finestra. Per esempio 7 ore verdi e una gialla danno un giorno verde, con l'ora gialla ben visibile.</p>
  <h4>Marea</h4><p>Curva del bollettino del Centro Maree del Comune (linea piena) e marea astronomica (tratteggiata). Se il bollettino ha più di ${k(R.cpsm_ore_max)} ore è indicato come tendenza meno affidabile.</p>
  <h4>Nella pagina della zona</h4><p>Ora per ora (vento, raffiche, direzione, marea, corrente, pioggia), curva di marea, pioggia per modello, onda in laguna e in mare aperto, aria, cielo, sole e luna. In alto si sceglie il giorno.</p>
  <h4>Previsione e Verifica</h4><p><b>Previsione</b> apre il dettaglio completo; <b>Verifica</b> (a giornata conclusa) confronta la previsione con le misure delle stazioni. In cima alle due pagine trovi “‹ Torna a Forecast Lagoon” e il link <b>PDF ↗</b>, per salvarla o mandarla a qualcuno.</p>
  <p>La correzione del vento con le misure c'è solo per la Laguna Centro; Nord e Sud usano il modello così com'è e vengono verificate ogni giorno con le stazioni Laguna Nord e Chioggia Porto, per decidere in seguito la loro correzione.</p>
- <h4>Due previsioni al giorno</h4><p>Al mattino esce una previsione <b>provvisoria</b> per il giorno dopo; verso le ${esc(D.ora_aggiornamento||'')} la sostituisce quella definitiva, con il bollettino di marea del Centro Maree delle 13:30 e i modelli più recenti.</p>
- <h4>Sull'iPhone</h4><p>In Safari: Condividi → Aggiungi alla schermata Home. Si apre come un'app.</p>
+ <h4>Due previsioni al giorno</h4><p>Verso le ${esc(D.ora_mattino||'')} esce la <b>previsione provvisoria</b> per il giorno dopo, utile per organizzare l'uscita con un giorno di anticipo. Verso le ${esc(D.ora_aggiornamento||'')} la sostituisce la <b>previsione definitiva</b>, con il bollettino di marea del Centro Maree delle 13:30 e i modelli meteo più recenti. In cima alla previsione è scritto quale delle due stai guardando e a che ora è stata emessa. Se dopo le ${esc(D.ora_attesa||'')} c'è ancora solo la provvisoria, compare l'avviso “Aggiornamento in ritardo”.</p>
+ <h4>Installarla come app</h4><p><b>iPhone</b> (Safari): Condividi → Aggiungi alla schermata Home.<br><b>Android</b> (Chrome): menu ⋮ in alto a destra → “Aggiungi a schermata Home” oppure “Installa app”.<br>Si apre a tutto schermo come un'app; per vedere l'ultima versione chiudila e riaprila.</p>
  <h4>Avvertenza</h4><p>Previsione indicativa, calcolata da modelli meteo e corretta dove ci sono misure: non sostituisce i bollettini ufficiali. In barca decide chi esce.</p></div>`;
  document.body.append(el)}
 function ritardo(ult){
@@ -239,8 +240,8 @@ function zona(id,dsel){
  h+=`<div class="days">${vv.map(a=>{const d=dataDi(a.data);return `<div class="day ${a===v?'on':''}" onclick="location.hash='zona/${id}/${a.data}'"><i style="background:${col(a.colore)}"></i>${GG[d.getDay()]}<b>${d.getDate()}/${d.getMonth()+1}</b></div>`}).join('')}</div>`;
  const ore=s.ore||[];
  h+=`<div class="sec"><div class="verdict" style="background:${col(c)};color:${oncol(c)}"><div class="k">${esc(etichetta(v.data))} · ${esc(v.finestra||'')}</div>
- <div class="v">${TXT[c]||'n.d.'}</div>${v.provvisoria?`<div class="prov">Provvisoria · definitiva verso le ${esc(D.ora_aggiornamento||'')}</div>`:''}<p>${esc(s.andamento||'')}</p>
- <div class="hours" style="grid-template-columns:repeat(${Math.max(ore.length,1)},1fr)">${ore.map(o=>`<div style="background:${o.sem===c?'rgba(0,0,0,.14)':col(o.sem)}">${esc(o.ora)}<b>${nf(o.stima,0)}</b><u>kn</u></div>`).join('')}</div></div></div>`;
+ <div class="v">${TXT[c]||'n.d.'}</div>${v.emessa?`<div class="prov">${v.provvisoria?`Previsione provvisoria delle ${esc(v.emessa)} · la definitiva esce verso le ${esc(D.ora_aggiornamento||'')}`:`Previsione definitiva delle ${esc(v.emessa)}`}</div>`:''}<p>${esc(s.andamento||'')}</p>
+ <div class="hours" style="grid-template-columns:repeat(${Math.max(ore.length,1)},1fr)">${ore.map(o=>`<div style="--c:${col(o.sem)}">${esc(o.ora)}<b>${nf(o.stima,0)}</b><u>kn</u></div>`).join('')}</div></div></div>`;
  h+=oraPerOra(s);
  h+=`<div class="sec grid2"><div class="card"><div class="ch">Vento medio</div><div class="big">${nf(s.vento_min,0)}–${nf(s.vento_max,0)}<small>kn</small></div><div class="note">${s.direzione?'da '+esc(s.direzione)+(s.direzione_nome?' · '+esc(s.direzione_nome):''):''}</div></div>
  <div class="card"><div class="ch">Raffiche</div><div class="big">${nf(s.raff_max,0)}<small>kn</small></div><div class="note">massimo nella finestra; non cambiano il colore</div></div></div>`;

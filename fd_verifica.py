@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_verifica.py v1.23 — verifica automatica delle previsioni di fd_previsione (Fishing Diary).
+"""fd_verifica.py v1.24 — verifica automatica delle previsioni di fd_previsione (Fishing Diary).
 
 Confronta il vento previsto per zona con le misure CPSM e accumula gli errori in verifica_archivio.json.
 fd_previsione (>= 1.9) usa l'archivio per la correzione di ICON-D2 per zona, fascia di vento previsto
@@ -46,16 +46,17 @@ Ore di ripiego (v1.17, previsioni da fd_previsione 1.26): ore senza ICON-D2, sti
   Non entrano nell'archivio del vento (la correzione e' di ICON-D2); se tutte le ore sono di ripiego la previsione
   viene segnata "non verificabile" e non si riprova.
 
-Semaforo misurato (v1.19): ora per ora dalla sola media oraria (soglie 6 e 12 nodi, come fd_previsione 1.28; le raffiche
+Semaforo misurato (v1.24): ora per ora dalla media oraria arrotondata all'intero (verde fino a 6, giallo 7-12, rosso da 13,
+  come fd_previsione 1.35; v1.19-1.23: soglie 6 e 12 sul valore non arrotondato; le raffiche
   non cambiano il colore). L'archivio si ricalcola con questa regola anche per le ore gia' verificate.
   Verdetto = colore piu' frequente nelle ore, a parita' quello che viene prima (stessa regola di fd_previsione 1.27+).
   La raffica di picco su 5 minuti resta come informazione. Confronto ora per ora con il colore previsto della zona.
 
-Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_nord|_sud]_v1.23.html / .pdf
+Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_nord|_sud]_v1.24.html / .pdf
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.23"
+VERSIONE = "1.24"
 URL_BASE = "https://www.comune.venezia.it/sites/default/files/publicCPSM2/stazioni/temporeale/"
 URL_PROXY = "https://fd-cpsm-proxy.ennioweb.workers.dev/misure/"      # v1.22: il Comune blocca i server di GitHub; il proxy Cloudflare no
 ORIGINE_PROXY = "https://vksskdx22n-max.github.io"
@@ -132,7 +133,7 @@ def fascia(d2):
             return nome
 
 
-SOGLIA_VERDE, SOGLIA_ROSSO = 6.0, 12.0     # stesse soglie di fd_previsione (1.28: solo vento medio)
+VERDE_FINO_A, ROSSO_DA = 6, 13             # v1.24: stessa regola di fd_previsione 1.35 (vento medio arrotondato all'intero)
 ORD_SEM = {"verde": 0, "giallo": 1, "rosso": 2}
 
 
@@ -140,9 +141,10 @@ def semaforo(kn, raff):
     """v1.18: colore di un'ora (stessa regola di fd_previsione.semaforo)."""
     if kn is None:
         return None
-    if kn >= SOGLIA_ROSSO:                     # v1.19: le raffiche non contano
+    n = int(math.floor(round(kn, 1) + 0.5))   # v1.24: intero come in pagina (6,5 -> 7); le raffiche non contano
+    if n >= ROSSO_DA:
         return "rosso"
-    return "giallo" if kn >= SOGLIA_VERDE else "verde"
+    return "giallo" if n > VERDE_FINO_A else "verde"
 
 
 def verdetto(colori):
@@ -756,6 +758,7 @@ def report_andamento(cartella=".", stampa_pdf=True):
          "previsione": f"Archivio: {len(A['ore'])} ore verificate · aggiornato {dt.datetime.now().strftime('%d/%m/%Y %H:%M')}",
          "sem_prev": "", "fascia": [0, 0], "zone": [], "onda": [], "liv": [], "aria": [], "andamento": andamento(A), "archivio": riepilogo(A),
          "note": NOTE_ANDAMENTO, "fonti": f"Misure: CPSM Comune di Venezia (Malamocco Porto) · fd_verifica v{VERSIONE}",
+         "verde_fino_a": VERDE_FINO_A, "rosso_da": ROSSO_DA,
          "generato": dt.datetime.now().strftime("%d/%m/%Y %H:%M")}
     os.makedirs(os.path.join(cartella, CARTELLA), exist_ok=True)
     base = os.path.join(cartella, CARTELLA, f"verifica_andamento_v{VERSIONE}")
@@ -874,6 +877,7 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
          "andamento": andamento(A, risultati[0][0]), "archivio": riepilogo(A), "note": note,
          "fonti": f"Misure: CPSM Comune di Venezia ({', '.join(dict.fromkeys(staz_vento + ['Malamocco Porto', 'Piattaforma CNR', 'Palazzo Cavalli']))}) · "
                   f"Previsione: fd_previsione (Open-Meteo) · fd_verifica v{VERSIONE}",
+         "verde_fino_a": VERDE_FINO_A, "rosso_da": ROSSO_DA,
          "generato": dt.datetime.now().strftime("%d/%m/%Y %H:%M")}
     base = os.path.join(cartella, CARTELLA, f"verifica_{g.strftime('%d-%m-%Y')}_{v['da'].strftime('%H%M')}-{v['a'].strftime('%H%M')}"
                                             f"{'' if area == 'centro' else '_' + area}{'_PROVVISORIA' if provvisoria else ''}_v{VERSIONE}")
@@ -915,7 +919,7 @@ td.dir{font-size:12px;white-space:nowrap}.dnome{font-size:11px;color:var(--mu)}.
 const D=JSON.parse(document.getElementById('dati').textContent);
 const h=(t,a={},...c)=>{const e=document.createElement(t);for(const[k,v]of Object.entries(a))k==='cls'?e.className=v:k==='html'?e.innerHTML=v:e.setAttribute(k,v);c.flat().forEach(x=>x!=null&&e.append(x));return e;};
 const n=(x,d=1)=>x==null?'–':Number(x).toFixed(d).replace('.',',');const sg=(x,d=1)=>{if(x==null)return'–';const p=10**d,r=Math.round(x*p)/p||0;return(r>0?'+':'')+n(r,d);};
-const sem=(m,r)=>m>=12?'rosso':m>=6?'giallo':'verde';
+const SV=D.verde_fino_a,SR=D.rosso_da,sem=(m,r)=>{const k=Math.round(Math.round(m*10)/10);return k>=SR?'rosso':k>SV?'giallo':'verde'};
 const app=document.getElementById('app');
 app.append(h('div',{cls:'hero'},h('div',{cls:'k'},(D.provvisoria?'Verifica PROVVISORIA (ore fino alle '+D.ore_fino+')':'Verifica previsione')+' · v'+D.versione),h('h1',{},D.titolo),h('div',{cls:'z'},D.previsione)));
 function grafico(Z){const se=Z.serie;if(!se.length)return null;const W=520,H=210,L=30,R=10,T=14,B=26,x0=Math.min(...se.map(p=>p[0])),x1=Math.max(...se.map(p=>p[0]));
@@ -937,9 +941,9 @@ D.zone.forEach(Z=>{const S=Z.sintesi,c=h('div',{cls:'card'},h('h2',{},'💨 '+Z.
    +`Vento medio nella finestra ${n(S.media)} nodi, raffica di picco (5 min) ${n(S.raff)}. Verdetto della previsione (media delle zone): ${D.sem_prev}.`)));
  c.append(grafico(Z),h('div',{cls:'leg',html:'<span><i style="background:#1e3a6b"></i>misurato (5 min)</span><span><i style="background:#94a3b8"></i>raffica misurata</span><span style="color:#dc2626">● <b>stima</b></span><span style="color:#f59e0b">● <b>ICON-D2</b></span><span style="color:#7c3aed">● <b>ECMWF</b></span><span>fascia azzurra = finestra prevista · tratteggio: 6 e 12 nodi</span>'}));
  const t=h('table',{},h('tr',{},...['Ora','Misur.','Dir.','Stima','D2','2i','EC','Raff. mis.','Raff. prev.'].map(x=>h('th',{},x))));
- Z.ore.forEach(o=>t.append(h('tr',{},h('td',{},o.ora),h('td',{},h('span',{cls:'pill '+sem(o.mis,o.raff_mis)},n(o.mis))),h('td',{cls:'dir'},o.dir_mis,h('div',{cls:'dnome'},o.nome_mis),h('div',{cls:'dprev'+(o.set_mis===o.set_prev?'':' fuori')},'prev. '+o.dir_prev,h('br'),o.nome_prev)),
-  h('td',{},o.sem_prev?h('span',{cls:'pill '+o.sem_prev},n(o.stima)):n(o.stima)),h('td',{},n(o.d2)),h('td',{},n(o.i2)),h('td',{},n(o.ec)),h('td',{},n(o.raff_mis)),h('td',{},n(o.raff)))));
- c.append(h('h3',{},'Ora per ora (nodi)'),t,h('div',{cls:'nota'},'Colori: Misur. = semaforo misurato dell’ora (media oraria), Stima = semaforo previsto per la zona; stesse soglie sul vento medio: verde sotto 6, giallo 6–12, rosso da 12; le raffiche non cambiano il colore. Raff. prev. = raffica stimata (corretta).'));
+ Z.ore.forEach(o=>t.append(h('tr',{},h('td',{},o.ora),h('td',{},h('span',{cls:'pill '+sem(o.mis,o.raff_mis)},n(o.mis,0))),h('td',{cls:'dir'},o.dir_mis,h('div',{cls:'dnome'},o.nome_mis),h('div',{cls:'dprev'+(o.set_mis===o.set_prev?'':' fuori')},'prev. '+o.dir_prev,h('br'),o.nome_prev)),
+  h('td',{},o.sem_prev?h('span',{cls:'pill '+o.sem_prev},n(o.stima,0)):n(o.stima,0)),h('td',{},n(o.d2)),h('td',{},n(o.i2)),h('td',{},n(o.ec)),h('td',{},n(o.raff_mis)),h('td',{},n(o.raff)))));
+ c.append(h('h3',{},'Ora per ora (nodi)'),t,h('div',{cls:'nota'},'Colori: Misur. = semaforo misurato dell’ora (media oraria), Stima = semaforo previsto per la zona; stessa regola della previsione sul vento medio arrotondato all’intero: verde fino a '+D.verde_fino_a+' nodi, giallo da '+(D.verde_fino_a+1)+' a '+(D.rosso_da-1)+', rosso da '+D.rosso_da+'; le raffiche non cambiano il colore. Raff. prev. = raffica stimata (corretta).'));
  const te=h('table',{},h('tr',{},h('th',{},'Modello'),h('th',{},'Errore medio'),h('th',{},'Errore assoluto')));
  Z.errori.forEach(e=>te.append(h('tr',{},h('td',{},e.nome),h('td',{cls:e.medio>0?'pos':'neg'},sg(e.medio)),h('td',{},n(e.ass)))));
  c.append(h('h3',{},'Errore dei modelli (previsto − misurato, nodi)'),te);app.append(c);});

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v3.2 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v3.3 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.2"
+VERSIONE = "3.3"
 CARTELLA = "Previsioni"
 SITO = "site"
 ZONE = [
@@ -22,6 +22,7 @@ ZONE = [
 ALIAS_AREA = {}            # eventuali nomi di area diversi dagli id delle zone
 MARGINE_MAREA_MIN = 60
 ORA_DEFINITIVA = 14          # v3.2: previsione generata prima di quest'ora (italiana) = provvisoria del mattino (stessa soglia del workflow)
+ORA_MATTINO = "08:30"        # v3.3: ora indicativa della previsione provvisoria (giro Cloudflare delle 08:25), per le istruzioni
 ORA_AGGIORNAMENTO = "16:30"  # v3.2: ora indicativa della previsione definitiva (giro Cloudflare delle 16:25), mostrata accanto alla provvisoria
 ORA_ATTESA = "17:30"        # v3.0: ora (italiana) entro cui ci si aspetta la previsione di domani; dopo, il sito avvisa del ritardo
 CARD = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"]     # minuti di curva di marea mostrati prima e dopo la finestra
@@ -210,7 +211,7 @@ def regole():
     """Soglie e parametri mostrati nelle istruzioni del sito, letti da fd_previsione (nessun numero scritto a mano)."""
     try:
         import fd_previsione as F
-        return {"soglia_verde": F.SOGLIA_VERDE, "soglia_rosso": F.SOGLIA_ROSSO, "cpsm_ore_max": F.CPSM_ORE_MAX,
+        return {"verde_fino_a": F.VERDE_FINO_A, "rosso_da": F.ROSSO_DA, "cpsm_ore_max": F.CPSM_ORE_MAX,      # v3.3: semaforo su nodi interi
                 "raff_avviso": F.RAFF_AVVISO, "versione_previsione": F.VERSIONE}
     except Exception as e:          # il sito si costruisce lo stesso; le istruzioni omettono i numeri
         print(f"build_site: regole non lette da fd_previsione ({e})")
@@ -241,7 +242,7 @@ def main():
         pj = scegli_ultimo(file)
         P = leggi(pj)
         voce = {"data": d.isoformat(), "titolo": P.get("titolo"), "finestra": P.get("finestra"),
-                "colore": (P.get("verdetto") or {}).get("colore"), "generato": P.get("generato"), "provvisoria": provvisoria(P),
+                "colore": (P.get("verdetto") or {}).get("colore"), "generato": P.get("generato"), "provvisoria": provvisoria(P), "emessa": (P.get("generato") or "")[-5:],
                 "versione": P.get("versione"), "sintesi": sintesi(P, d)}
         pdf = pj[:-5] + ".pdf"
         if os.path.exists(pdf):
@@ -270,7 +271,7 @@ def main():
     for z in ZONE:
         zone.append(dict(z, attiva=bool(voci[z["id"]]), voci=voci[z["id"]]))
     ora = dt.datetime.now(dt.timezone.utc)
-    json.dump({"versione_sito": VERSIONE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ora_aggiornamento": ORA_AGGIORNAMENTO, "regole": regole(), "zone": zone},
+    json.dump({"versione_sito": VERSIONE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ora_aggiornamento": ORA_AGGIORNAMENTO, "ora_mattino": ORA_MATTINO, "regole": regole(), "zone": zone},
               open(os.path.join(SITO, "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # v2.1: la pagina conosce la propria versione e l'impronta del suo codice; versione.json (letto senza cache)
     # dice alla pagina gia' aperta se esiste una versione nuova -> barra "Aggiorna"

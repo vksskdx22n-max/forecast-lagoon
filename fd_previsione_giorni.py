@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_previsione_giorni.py v1.7 — previsione meteo-marina di piu' giorni in una sola pagina (Fishing Diary).
+"""fd_previsione_giorni.py v1.10 — previsione meteo-marina di piu' giorni in una sola pagina (Fishing Diary).
 
 Usa le funzioni di fd_previsione.py (>= 1.26, stessa cartella): stesso download, stessa correzione, stesso ripiego
 su ICON-2i/ECMWF quando ICON-D2 non copre ancora il giorno. La verifica automatica (fd_verifica) parte una sola volta.
@@ -18,7 +18,7 @@ Uscita in ./Previsioni/:
 import sys, os, json, shutil, subprocess, datetime as dt
 import fd_previsione as FP
 
-VERSIONE = "1.9"
+VERSIONE = "1.10"
 GIORNI_DEFAULT = 3
 
 
@@ -182,7 +182,7 @@ t.append(riga('Pressione',g=>h('div',{cls:'sm',style:'color:var(--tx)'},g.pressi
 t.append(riga('Alba',g=>g.alba||'–'));
 const rip=G.filter(g=>g.ore_ripiego.length);
 app.append(h('div',{cls:'card'},h('h2',{},'📊 Confronto dei giorni'),t,
-  h('div',{cls:'nota'},'Semaforo e vento = media delle zone di pesca ('+D.zone_vento.join(', ')+'), nodi, stima corretta; colore: verde sotto 6, giallo 6–12, rosso da 12 (solo vento medio, le raffiche non cambiano il colore); cerchio = colore più frequente nelle ore (a parità quello che viene prima), sotto l’andamento ora per ora. Pioggia: probabilità massima ICON-D2 di più di 0,1 mm nella finestra (EC = ECMWF se ICON-D2 manca); mm/h = massimo tra i tre modelli. Onda: modello Open-Meteo Marine fuori dalla bocca, corretta con le verifiche alla Piattaforma CNR quando disponibile. Marea: fasi che toccano la finestra con livelli agli estremi in cm su Punta Salute ('+[...new Set(G.map(g=>g.fonte_marea))].join(' / ')+'); velocità = massima variazione oraria del livello nella finestra; curva: stessa scala per tutti i giorni, fascia azzurra = ore di pesca, punti rossi = estremi (con ora e cm; se fuori dal grafico, scritti sul bordo con la freccia), punti blu = livello a inizio e fine finestra.'
+  h('div',{cls:'nota'},'Semaforo e vento = media delle zone di pesca ('+D.zone_vento.join(', ')+'), nodi, stima corretta; colore: '+D.testo_semaforo+'; le raffiche non cambiano il colore); cerchio = colore più frequente nelle ore (a parità quello che viene prima), sotto l’andamento ora per ora. Pioggia: probabilità massima ICON-D2 di più di 0,1 mm nella finestra (EC = ECMWF se ICON-D2 manca); mm/h = massimo tra i tre modelli. Onda: modello Open-Meteo Marine fuori dalla bocca, corretta con le verifiche alla Piattaforma CNR quando disponibile. Marea: fasi che toccano la finestra con livelli agli estremi in cm su Punta Salute ('+[...new Set(G.map(g=>g.fonte_marea))].join(' / ')+'); velocità = massima variazione oraria del livello nella finestra; curva: stessa scala per tutti i giorni, fascia azzurra = ore di pesca, punti rossi = estremi (con ora e cm; se fuori dal grafico, scritti sul bordo con la freccia), punti blu = livello a inizio e fine finestra.'
     +(rip.length?' † '+rip.map(g=>corto(g)+': ICON-D2 non copre le ore '+g.ore_ripiego.map(o=>o.slice(0,2)).join(', ')+', stima = '+g.ripiego_mod.join('/')+' senza correzione (meno affidabile)').join('; ')+'.':''))));
 /* giorni */
 const colP=v=>v==null?['#f1f5f9','#64748b']:v<20?['#e6f1fb','#0c447c']:v<40?['#b5d4f4','#0c447c']:v<60?['#85b7eb','#042c53']:v<80?['#378add','#fff']:['#185fa5','#fff'];
@@ -191,7 +191,7 @@ function striscia(g){const S=g.striscia;if(!S||!S.ore.length)return null;
   const q=h('div',{style:`display:grid;grid-template-columns:52px repeat(${S.ore.length},1fr);gap:6px 4px;align-items:center;font-size:13px`});
   const lab=t=>h('div',{style:'color:var(--mu);font-size:11px'},t);
   q.append(lab(''),...S.ore.map(o=>h('div',{style:'text-align:center;font-weight:700'},o.ora)));
-  q.append(lab('Vento'),...S.ore.map(o=>h('div',{style:'text-align:center'},h('span',{cls:'pill '+o.sem},n(o.stima)),g.ore_ripiego.includes(o.ora+':00')?h('span',{cls:'rip'},'†'):null)));
+  q.append(lab('Vento'),...S.ore.map(o=>h('div',{style:'text-align:center'},h('span',{cls:'pill '+o.sem},n(o.stima,0)),g.ore_ripiego.includes(o.ora+':00')?h('span',{cls:'rip'},'†'):null)));
   q.append(lab('Raffiche'),...S.ore.map(o=>h('div',{style:'text-align:center;font-size:12px;color:var(--mu)'},n(o.raff))));
   q.append(lab('Marea'),...S.ore.map(o=>h('div',{style:'text-align:center;line-height:1.1'},h('div',{style:'font-size:18px;font-weight:700;color:'+(o.marea==='↑'?'#0f766e':o.marea==='↓'?'#6d28d9':'#64748b')},o.marea),h('div',{style:'font-size:10px;color:var(--mu)'},(o.cm_h>0?'+':'')+n(o.cm_h)))));
   if(S.canale)q.append(lab('Corrente'),...S.ore.map(o=>{const w=o.corr==null?0:Math.max(4,Math.round(o.corr/mx*100));const c=o.verso==='entra'?'#2dd4bf':'#a78bfa';
@@ -257,7 +257,8 @@ def main():
         out.append(S)
         print(f"  {D['titolo']}: {D['verdetto']['colore'].upper()} · vento {FP.num(S['vento'][0])}–{FP.num(S['vento'][1])} nodi, raffiche fino a {FP.num(S['raff'])}"
               + (f" · ripiego {'/'.join(S['ripiego_mod'])} alle {', '.join(o[:2] for o in S['ore_ripiego'])}" if S["ore_ripiego"] else ""))
-    T = {"versione": VERSIONE, "finestra": f"{da.strftime('%H:%M')}–{a.strftime('%H:%M')}", "zone": FP.ZONE_TITOLO, "zone_vento": FP.ZONE_VENTO,
+    T = {"versione": VERSIONE, "testo_semaforo": f"verde fino a {FP.VERDE_FINO_A} nodi, giallo da {FP.VERDE_FINO_A + 1} a {FP.ROSSO_DA - 1}, rosso da {FP.ROSSO_DA} (vento medio arrotondato all'intero",   # v1.10
+         "finestra": f"{da.strftime('%H:%M')}–{a.strftime('%H:%M')}", "zone": FP.ZONE_TITOLO, "zone_vento": FP.ZONE_VENTO,
          "giorni": out,
          "fonti": f"Fonti: Open-Meteo (ICON-D2 DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS) · marea CPSM · correnti: modello Laguna Viva · "
                   f"fd_previsione v{FP.VERSIONE} · fd_previsione_giorni v{VERSIONE}",

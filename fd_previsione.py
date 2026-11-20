@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_previsione.py v1.34 — previsione meteo-marina per un'uscita (Fishing Diary).
+"""fd_previsione.py v1.35 — previsione meteo-marina per un'uscita (Fishing Diary).
 
 All'avvio verifica da solo le previsioni concluse (fd_verifica.py, stessa cartella) e usa l'archivio
 verifica_archivio.json per la correzione di ICON-D2 (--no-verifica per saltare la verifica).
@@ -34,7 +34,8 @@ Marea (v1.30): la previsione CPSM (con vento e pressione) si usa sempre quando c
         vecchio di CPSM_ORE_MAX (48 h) resta usato ma e' segnalato come "tendenza, meno affidabile" e l'astronomica e' mostrata
         come riferimento (16/11: bollettino di sabato, +45 cm previsti, livello misurato +11..+36 cm sull'astronomica).
         Se nella finestra il livello varia meno di SOGLIA_FERMA (2 cm/h) il verdetto dice "marea quasi ferma" (morto d'acqua).
-Semaforo (v1.28): solo vento medio stimato dell'ora: verde < 6 nodi, giallo 6-12, rosso da 12. Le raffiche non cambiano
+Semaforo (v1.35, scelta di Ennio 20/11/2026): vento medio dell'ora arrotondato all'intero (come lo mostra la pagina), verde fino a 6 nodi,
+  giallo da 7 a 12, rosso da 13. (v1.28-1.34: valore non arrotondato, verde < 6, giallo 6-12, rosso da 12.) Le raffiche non cambiano
           il colore; avviso nel verdetto se una zona supera RAFF_AVVISO (20 nodi).
 Correnti: stima del modello di Laguna Viva, v = c*f - s*f'/omega (stesse formule del doppio clic di LV 7.25+),
           valore riportato = massimo lungo il canale, in m/s.
@@ -45,11 +46,12 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.34"
+VERSIONE = "1.35"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
-SOGLIA_VERDE, SOGLIA_ROSSO = 6.0, 12.0
+SOGLIA_VERDE, SOGLIA_ROSSO = 6.0, 12.0   # fasce di vento per correzioni e riflessioni (non piu' per il semaforo dalla v1.35)
+VERDE_FINO_A, ROSSO_DA = 6, 13       # v1.35: semaforo sul vento medio arrotondato all'intero: verde <= 6, giallo 7-12, rosso >= 13
 RAFF_AVVISO = 20.0                    # v1.28: raffiche solo come avviso, non cambiano il colore
 CPSM_ORE_MAX = 48                    # v1.30: oltre, il bollettino CPSM e' "tendenza": si usa ma e' segnalato
 SOGLIA_FERMA = 2.0                   # v1.29: cm/h, sotto questa variazione massima nella finestra la marea e' "quasi ferma"
@@ -216,11 +218,17 @@ def bora(g):
     return g is not None and 23 <= gradi(g) <= 67
 
 
+def arrotonda(kn):
+    """v1.35: nodi interi come li mostra la pagina (valore a un decimale, poi mezzo in su: 6,5 -> 7)."""
+    return int(math.floor(round(kn, 1) + 0.5))
+
+
 def semaforo(kn, raff):
-    """v1.28: colore dal solo vento medio; raff resta nella firma per compatibilita' ma non conta."""
-    if kn >= SOGLIA_ROSSO:
+    """v1.35: colore dal vento medio arrotondato all'intero; raff resta nella firma per compatibilita' ma non conta."""
+    n = arrotonda(kn)
+    if n >= ROSSO_DA:
         return 'rosso'
-    return 'giallo' if kn >= SOGLIA_VERDE else 'verde'
+    return 'giallo' if n > VERDE_FINO_A else 'verde'
 
 
 ORD = {'verde': 0, 'giallo': 1, 'rosso': 2}
@@ -862,8 +870,8 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None):
                            if any(z in FV.ZONE for z in ZONE_VENTO) else ". ")
                           + ", ".join(z for z in ZONE_VENTO if z not in FV.ZONE) + ": nessuna stazione di verifica valida, "
                             "usano la correzione di Malamocco Porto" if FV else "")
-                       + f". Colori: verde sotto {num(SOGLIA_VERDE, 0)} nodi, "
-                       f"giallo {num(SOGLIA_VERDE, 0)}–{num(SOGLIA_ROSSO, 0)}, rosso da {num(SOGLIA_ROSSO, 0)} (vento medio; le raffiche non cambiano il colore)."),
+                       + f". Colori sul vento medio arrotondato all'intero: verde fino a {VERDE_FINO_A} nodi, "
+                       f"giallo da {VERDE_FINO_A + 1} a {ROSSO_DA - 1}, rosso da {ROSSO_DA} (le raffiche non cambiano il colore)."),
         "marea": {"estremali": [{"tipo": e[0], "ora": fmt_ms(e[1], "%d/%m %H:%M"), "cm": e[2]} for e in est_g],
                   "cpsm": [{k: v for k, v in c.items() if k != "ms"} for c in cpsm], "cpsm_emessa": emessa, "fonte_fase": fonte_fase,
                   "cpsm_vecchia": cpsm_vecchia, "cpsm_eta_h": None if eta_cpsm is None else round(eta_cpsm), "ferma": ferma, "vel_max": vel_max,
@@ -948,7 +956,7 @@ const colP=v=>v==null?['#f1f5f9','#64748b']:v<20?['#e6f1fb','#0c447c']:v<40?['#b
   const g=h('div',{style:`display:grid;grid-template-columns:52px repeat(${cols},1fr);gap:6px 4px;align-items:center;font-size:13px`});
   const lab=t=>h('div',{style:'color:var(--mu);font-size:11px'},t);
   g.append(lab(''),...S.ore.map(o=>h('div',{style:'text-align:center;font-weight:700'},o.ora)));
-  g.append(lab('Vento'),...S.ore.map(o=>h('div',{style:'text-align:center'},h('span',{cls:'pill '+o.sem},n(o.stima)))));
+  g.append(lab('Vento'),...S.ore.map(o=>h('div',{style:'text-align:center'},h('span',{cls:'pill '+o.sem},n(o.stima,0)))));
   g.append(lab('Marea'),...S.ore.map(o=>h('div',{style:'text-align:center;line-height:1.1'},h('div',{style:'font-size:18px;font-weight:700;color:'+(o.marea==='↑'?'#0f766e':o.marea==='↓'?'#6d28d9':'#64748b')},o.marea),h('div',{style:'font-size:10px;color:var(--mu)'},(o.cm_h>0?'+':'')+n(o.cm_h)))));
   if(S.canale)g.append(lab('Corrente'),...S.ore.map(o=>{const w=o.corr==null?0:Math.max(4,Math.round(o.corr/mx*100));const c=o.verso==='entra'?'#2dd4bf':'#a78bfa';
     return h('div',{style:'text-align:center'},h('div',{style:`height:8px;border-radius:4px;background:${c};width:${w}%;margin:0 auto`}),h('div',{style:'font-size:10px;color:var(--mu);margin-top:2px'},n(o.corr,2)));}));
@@ -974,7 +982,7 @@ const LEGV='<span><i style="background:#dc2626;height:4px"></i><b>stima</b></spa
 const cv=h('div',{cls:'card parte1'},h('h2',{},'💨 Vento'));const tabs=h('div',{cls:'tabs'});cv.append(tabs);
 D.zone_vento.forEach((z,i)=>{const b=h('div',{cls:'tab'+(i?'':' on')},z);tabs.append(b);
   const t=h('table',{},h('tr',{},...['Ora','Dir.','Stima','D2','2i','Raff.','EC'].map(x=>h('th',{},x))));
-  D.vento[z].forEach(r=>t.append(h('tr',{},h('td',{},r.ora),h('td',{cls:'dir'},r.dir,h('div',{cls:'dnome'},r.nome||'')),h('td',{},h('span',{cls:'pill '+r.sem},n(r.stima)),r.riparo?' *':'',r.ripiego?' †':''),h('td',{},n(r.d2)),h('td',{},n(r.i2)),h('td',{},n(r.raff)),h('td',{},n(r.ec)))));
+  D.vento[z].forEach(r=>t.append(h('tr',{},h('td',{},r.ora),h('td',{cls:'dir'},r.dir,h('div',{cls:'dnome'},r.nome||'')),h('td',{},h('span',{cls:'pill '+r.sem},n(r.stima,0)),r.riparo?' *':'',r.ripiego?' †':''),h('td',{},n(r.d2)),h('td',{},n(r.i2)),h('td',{},n(r.raff)),h('td',{},n(r.ec)))));
   const box=h('div',{cls:'zbox',style:i?'display:none':''},h('div',{cls:'zona-t'},z),graficoVento(D.vento[z]),h('div',{cls:'leg',html:LEGV}),t);
   if(D.vento[z].some(r=>r.riparo))box.append(h('div',{cls:'nota'},'* Bora, '+D.testo_riparo+'.'));
   if(D.vento[z].some(r=>r.ripiego))box.append(h('div',{cls:'nota'},'† ICON-D2 non disponibile: stima = '+D.vento[z].find(r=>r.ripiego).ripiego+' senza correzione misurata, raffiche dello stesso modello (meno affidabile).'));cv.append(box);
