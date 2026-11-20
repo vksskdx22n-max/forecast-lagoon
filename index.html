@@ -199,7 +199,7 @@ function home(){
  ${ult?`<div class="oggi"><span class="dot"></span>${esc(etichetta(ult))}</div>`:''}<div class="credit">© ESA · Copernicus Sentinel-2</div></div>${ritardo(ult)}<div class="zones">`;
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
   h+=`<div class="zone ${z.attiva?'':'off'}" ${z.attiva?`onclick="location.hash='zona/${z.id}'"`:''}><div class="bar" style="background:${col(v&&v.colore)}"></div>
-  <div><div class="zname">${esc(z.nome)}</div><div class="zmeta">Bocca di ${esc(z.bocca)}${z.attiva?(v.data!==ult?' · '+esc(etichetta(v.data)):''):' · in arrivo'}</div>${z.attiva&&v?`<div class="zmeta">Previsione ${v.provvisoria?'provvisoria':'definitiva'}${v.emessa?' delle '+esc(v.emessa):''}</div><div class="adA" data-adh="${z.id}"></div>`:''}</div>   <!-- v3.8 -->
+  <div><div class="zname">${esc(z.nome)}</div><div class="zmeta">Bocca di ${esc(z.bocca)}${z.attiva?(v.data!==ult?' · '+esc(etichetta(v.data)):'')+(v?` · ${v.provvisoria?'provvisoria':'definitiva'}${v.emessa?' '+esc(v.emessa):''}`:''):' · in arrivo'}</div>${z.attiva&&v?`<div class="adA" data-adh="${z.id}"></div>`:''}</div>   <!-- v3.14: bocca e previsione su una riga, per far stare la riga Adesso -->   <!-- v3.8 -->
   <div class="badge">${v?`<span class="chip" style="background:${col(v.colore)};color:${oncol(v.colore)}">${TXT[v.colore]||'n.d.'}</span><span class="wind">${nf(s.vento_min,0)}–${nf(s.vento_max,0)} kn${s.direzione?' · '+esc(s.direzione):''}</span>`:`<span class="chip" style="background:#22394B;color:var(--mut)">In arrivo</span>`}</div></div>`});
  app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0)}
 function curva(s){
