@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v3.14 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v3.17 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.16"
+VERSIONE = "3.17"
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"
@@ -24,6 +24,17 @@ ALIAS_AREA = {}            # eventuali nomi di area diversi dagli id delle zone
 MARGINE_MAREA_MIN = 60
 ORA_DEFINITIVA = 14          # v3.2: previsione generata prima di quest'ora (italiana) = provvisoria del mattino (stessa soglia del workflow)
 ADESSO_URL = "https://fd-cpsm-proxy.ennioweb.workers.dev/adesso"   # v3.13: vento misurato adesso, calcolato dal Worker v2.4
+# v3.17: allerte vento (Worker v2.5). Il Worker legge questi parametri da index.json: unica fonte delle soglie.
+ALLERTA = {"url": "https://fd-cpsm-proxy.ennioweb.workers.dev/allerta",
+           "raffica_kn": 25,          # raffica minima in una stazione
+           "salita_kn": 8,            # aumento minimo del vento medio ...
+           "finestra_min": 15,        # ... in questi minuti
+           "pausa_min": 60,           # stessa stazione: al massimo un avviso ogni 60 minuti
+           "pausa_globale_min": 30,   # dopo un avviso, 30 minuti senza altri messaggi (stesso fronte)
+           "misura_max_min": 20,      # misure piu' vecchie non fanno scattare l'avviso
+           "ora_inizio": 5, "ora_fine": 20,        # ora italiana
+           "controllo_min": 5,        # frequenza del controllo (cron del Worker)
+           "rotazione_gradi": 90, "rotazione_min_kn": 8}   # pre-allarme sperimentale: solo registrato, non inviato
 ORA_MATTINO = "08:30"        # v3.3: ora indicativa della previsione provvisoria (giro Cloudflare delle 08:25), per le istruzioni
 ORA_AGGIORNAMENTO = "16:30"  # v3.2: ora indicativa della previsione definitiva (giro Cloudflare delle 16:25), mostrata accanto alla provvisoria
 ORA_ATTESA = "17:30"        # v3.0: ora (italiana) entro cui ci si aspetta la previsione di domani; dopo, il sito avvisa del ritardo
@@ -276,7 +287,7 @@ def main():
     for z in ZONE:
         zone.append(dict(z, attiva=bool(voci[z["id"]]), voci=voci[z["id"]]))
     ora = dt.datetime.now(dt.timezone.utc)
-    json.dump({"versione_sito": VERSIONE, "autore": AUTORE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ora_aggiornamento": ORA_AGGIORNAMENTO, "ora_mattino": ORA_MATTINO, "adesso_url": ADESSO_URL, "regole": regole(), "zone": zone},
+    json.dump({"versione_sito": VERSIONE, "autore": AUTORE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ora_aggiornamento": ORA_AGGIORNAMENTO, "ora_mattino": ORA_MATTINO, "adesso_url": ADESSO_URL, "allerta": ALLERTA, "regole": regole(), "zone": zone},
               open(os.path.join(SITO, "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # v2.1: la pagina conosce la propria versione e l'impronta del suo codice; versione.json (letto senza cache)
     # dice alla pagina gia' aperta se esiste una versione nuova -> barra "Aggiorna"
@@ -288,6 +299,8 @@ def main():
               open(os.path.join(SITO, "versione.json"), "w", encoding="utf-8"))
     if os.path.exists("manifest.json"):
         shutil.copy("manifest.json", os.path.join(SITO, "manifest.json"))
+    if os.path.exists("sw.js"):                     # v3.17: service worker delle allerte vento
+        shutil.copy("sw.js", os.path.join(SITO, "sw.js"))
     if os.path.isdir("assets"):
         shutil.copytree("assets", os.path.join(SITO, "assets"))
     open(os.path.join(SITO, ".nojekyll"), "w").close()

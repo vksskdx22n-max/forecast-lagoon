@@ -99,7 +99,7 @@ h1 span{color:var(--teal)}
 .sem{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:0}
 .ver{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:rgba(95,212,208,.16);color:var(--teal);font-size:10.5px;letter-spacing:.06em;vertical-align:1px;text-transform:none}
 .avv{color:#8fa9b8;font-size:12px;line-height:1.4;margin-top:6px}   /* v3.10, testo v3.11 */
-.foot a{color:inherit}.sheet p a{color:var(--teal);text-decoration:underline}
+.foot a{color:inherit}.sheet p a{color:var(--teal);text-decoration:underline}.avvall{border:1px solid #c9a227;background:#2a2410;color:#f3e3a4;border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.4;margin:8px 0}.allui{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px}.allui:empty{display:none}.allui button{background:var(--teal);color:#06131d;border:0;border-radius:10px;padding:9px 14px;font-weight:700;font-size:14px;font-family:inherit}.allui button.sec{background:transparent;color:var(--teal);border:1px solid var(--teal)}.allui .st{width:100%;font-size:13.5px;color:#cfe3ec}
 .agg{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 12px);z-index:30;max-width:536px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--teal);color:#04282a;border-radius:18px;padding:13px 14px 13px 18px;font-size:14.5px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .agg b{background:#04282a;color:var(--teal);border-radius:12px;padding:9px 14px;font-size:14px;cursor:pointer;white-space:nowrap}
 .tab{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
@@ -176,11 +176,12 @@ function istruzioni(){
  <h4>Previsione e Verifica</h4><p><b>Previsione</b> apre il dettaglio completo; <b>Verifica</b> (a giornata conclusa) confronta la previsione con le misure delle stazioni. In cima alle due pagine trovi “‹ Torna a Forecast Lagoon” e il link <b>PDF ↗</b>, per salvarla o mandarla a qualcuno.</p>
  <h4>Una previsione che impara</h4><p>Ogni giorno l'app confronta la previsione con quello che è stato misurato davvero: vento e raffiche nelle stazioni del Centro Maree, onda in mare aperto alla Piattaforma oceanografica del CNR. Questi confronti si accumulano giorno dopo giorno e servono a correggere le previsioni successive: più passa il tempo, più la previsione si adatta alla laguna.</p>
  <h4>Vento adesso</h4><p>Sotto ogni zona e nella sua pagina c'è il vento <b>misurato adesso</b> dalla stazione del Centro Maree della zona (Laguna Nord alle Saline, Malamocco Porto, Chioggia Porto), con raffica, direzione, ora della misura e andamento delle ultime 3 ore. È una misura, non la previsione; il colore segue la stessa regola del semaforo. Se l'ultima misura ha più di 30 minuti viene indicato.</p>
+ ${D.allerta?`<h4>Allerte vento</h4><p>Dalle ${esc(D.allerta.ora_inizio)} alle ${esc(D.allerta.ora_fine)} l'app controlla ogni ${esc(D.allerta.controllo_min)} minuti le stazioni del Centro Maree (Laguna Nord, Diga Lido, Malamocco Porto, Piattaforma CNR, Diga Sud Chioggia, Chioggia Porto). Se in una stazione la raffica arriva ad almeno <b>${esc(D.allerta.raffica_kn)} kn</b> e il vento medio sale di almeno ${esc(D.allerta.salita_kn)} kn in ${esc(D.allerta.finestra_min)} minuti, manda una notifica con stazione, raffica, direzione e ora. Un groppo spesso colpisce prima una parte della laguna e poi le altre: l'avviso può darti da pochi minuti a mezz'ora di anticipo. Se colpisce per prima la tua zona, l'avviso arriva insieme al vento.</p><div class="avvall"><b>Attenzione.</b> Servizio sperimentale e gratuito, basato solo sulle misure, senza alcuna garanzia: l'avviso può arrivare in ritardo o non arrivare (stazione ferma, rete assente, telefono in silenzioso o in Full immersion). Non è un'allerta ufficiale e non sostituisce l'osservazione del cielo, il VHF e i bollettini meteo: la decisione di uscire o di rientrare resta sempre tua.</div><div id="allUI" class="allui"></div>`:''}
  <h4>Temperatura dell'acqua</h4><p>È una <b>misura</b>, non una previsione: l'ultimo valore della stazione del Centro Maree di Punta Salute (Canal Grande), l'unica che oggi la trasmette, in gradi interi. Vale come riferimento per tutta la laguna: sui bassi fondali può essere diversa. Dopo qualche giorno compare anche la tendenza (in aumento, in calo o stabile).</p>
  <h4>Due previsioni al giorno</h4><p>Verso le ${esc(D.ora_mattino||'')} esce la <b>previsione provvisoria</b> per il giorno dopo, utile per organizzare l'uscita con un giorno di anticipo. Verso le ${esc(D.ora_aggiornamento||'')} la sostituisce la <b>previsione definitiva</b>, con il bollettino di marea del Centro Maree delle 13:30 e i modelli meteo più recenti. In cima alla previsione è scritto quale delle due stai guardando e a che ora è stata emessa. Se dopo le ${esc(D.ora_attesa||'')} c'è ancora solo la provvisoria, compare l'avviso “Aggiornamento in ritardo”.</p>
  <h4>Installarla come app</h4><p><b>iPhone</b> (Safari): Condividi → Aggiungi alla schermata Home.<br><b>Android</b> (Chrome): menu ⋮ in alto a destra → “Aggiungi a schermata Home” oppure “Installa app”.<br>Si apre a tutto schermo come un'app. Le previsioni nuove si caricano da sole quando la riapri o ci torni sopra; quando esce una nuova versione dell'app compare in basso la barra “Nuova versione disponibile · <b>Aggiorna</b>”: toccala per caricarla.</p>
  <h4>Avvertenza</h4><p>Previsione indicativa, calcolata da modelli meteo e corretta dove ci sono misure: non sostituisce i bollettini ufficiali. Prima di uscire controlla anche il bollettino <a href="https://www.arpa.veneto.it/dati-ambientali/bollettini/meteo/bollettino-meteo-veneto" target="_blank" rel="noopener">Meteo Veneto di ARPAV</a> (zona "Venezia e laguna") e gli eventuali avvisi meteo.</p></div>`;
- document.body.append(el)}
+ document.body.append(el);allerteUI()}
 function ritardo(ult){
  if(!ult||!D.ora_attesa)return '';const ora=new Date(),oggi=new Date(ora);oggi.setHours(0,0,0,0);
  const [hh,mm]=D.ora_attesa.split(':').map(Number),soglia=new Date(oggi);soglia.setHours(hh,mm,0,0);
@@ -268,6 +269,30 @@ function barra(V){if(document.querySelector('.agg'))return;const b=document.crea
  b.innerHTML=`<span>Nuova versione disponibile${V.versione_sito?' · v'+esc(V.versione_sito):''}</span><b>Aggiorna</b>`;
  b.querySelector('b').onclick=e=>{e.preventDefault();e.stopPropagation();location.replace(location.pathname+'?v='+encodeURIComponent(V.codice))};document.body.append(b)}   // v3.9: Aggiorna riparte sempre dalla prima pagina
 let AD=null;   // v3.13: vento misurato adesso (Worker /adesso), aggiornato all'apertura e ogni volta che si torna sull'app
+// v3.17: allerte vento (Web Push). Chiave e iscrizioni sul Worker; parametri in D.allerta (index.json).
+const ALLsw='serviceWorker' in navigator;if(ALLsw)navigator.serviceWorker.register('sw.js').catch(()=>{});
+const ALLb64=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return Uint8Array.from(atob(s),c=>c.charCodeAt(0))};
+let ALLkey=null;
+async function allPost(p,o){const r=await fetch(D.allerta.url+'/'+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(o)});return r.json()}
+async function allerteUI(msg){
+ const u=document.getElementById('allUI');if(!u||!D.allerta)return;
+ const ios=/iPhone|iPad|iPod/.test(navigator.userAgent),app=navigator.standalone||matchMedia('(display-mode: standalone)').matches;
+ if(!ALLsw||!('PushManager' in window)||!('Notification' in window)){u.innerHTML=`<span class="st">${ios&&!app?'Per ricevere le allerte apri Forecast Lagoon dall\'icona sulla schermata Home (vedi «Installarla come app»).':'Questo browser non riceve notifiche: le allerte non sono disponibili qui.'}</span>`;return}
+ if(!ALLkey)fetch(D.allerta.url+'/chiave').then(r=>r.json()).then(j=>{ALLkey=j.chiave||null}).catch(()=>{});
+ let sub=null;try{sub=await (await navigator.serviceWorker.ready).pushManager.getSubscription()}catch(e){}
+ if(sub){u.innerHTML=`<span class="st">● Allerte vento <b>attive</b> su questo dispositivo.${msg?' '+esc(msg):''}</span><button data-a="prova">Invia una prova</button><button class="sec" data-a="off">Disattiva</button>`}
+ else if(Notification.permission==='denied'){u.innerHTML=`<span class="st">Notifiche bloccate per Forecast Lagoon: riattivale in Impostazioni › Notifiche, poi riapri questa pagina.</span>`;return}
+ else{u.innerHTML=`<span class="st">${msg?esc(msg):'Allerte vento non attive su questo dispositivo.'}</span><button data-a="on">Attiva allerte vento</button>`}
+ u.querySelectorAll('button').forEach(b=>b.onclick=async e=>{e.stopPropagation();const a=b.dataset.a;b.disabled=true;
+  try{
+   if(a==='on'){const p=await Notification.requestPermission();if(p!=='granted'){allerteUI('Permesso per le notifiche non concesso.');return}
+    if(!ALLkey){const j=await (await fetch(D.allerta.url+'/chiave')).json();ALLkey=j.chiave}
+    const reg=await navigator.serviceWorker.ready;const s=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:ALLb64(ALLkey)});
+    const r=await allPost('iscrivi',s.toJSON());allerteUI(r.ok?'Fatto: riceverai le allerte.':'Iscrizione non riuscita, riprova.')}
+   else if(a==='off'){const s=await (await navigator.serviceWorker.ready).pushManager.getSubscription();if(s){await allPost('disiscrivi',s.toJSON()).catch(()=>{});await s.unsubscribe()}allerteUI('Allerte disattivate.')}
+   else if(a==='prova'){const s=await (await navigator.serviceWorker.ready).pushManager.getSubscription();const r=await allPost('prova',s.toJSON());allerteUI(r.push_http<300?'Prova inviata: la notifica arriva tra pochi secondi.':'Prova non riuscita ('+(r.push_http||r.error)+').')}
+  }catch(err){allerteUI('Errore: '+(err&&err.message||err))}})
+}
 async function caricaAdesso(){if(!D||!D.adesso_url)return;try{const c=new AbortController(),t=setTimeout(()=>c.abort(),8000);
  AD=await (await fetch(D.adesso_url,{cache:'no-store',signal:c.signal})).json();clearTimeout(t)}catch(e){AD=null}riempiAdesso()}
 function riempiAdesso(){
