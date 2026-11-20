@@ -209,6 +209,36 @@
    "stazione": "PS_Giud",
    "hs": 0.31,
    "hmax": 0.53
+  },
+  {
+   "t": "2026-11-20 16:15",
+   "stazione": "PSalute",
+   "hs": 0.2,
+   "hmax": 0.36
+  },
+  {
+   "t": "2026-11-20 16:15",
+   "stazione": "P_Cavalli",
+   "hs": 0.06,
+   "hmax": 0.11
+  },
+  {
+   "t": "2026-11-20 16:15",
+   "stazione": "Misericordia",
+   "hs": 0.19,
+   "hmax": 0.42
+  },
+  {
+   "t": "2026-11-20 16:15",
+   "stazione": "Fusina",
+   "hs": 0.03,
+   "hmax": 0.06
+  },
+  {
+   "t": "2026-11-20 16:15",
+   "stazione": "PS_Giud",
+   "hs": 0.33,
+   "hmax": 0.51
   }
  ],
  "confronti": [
