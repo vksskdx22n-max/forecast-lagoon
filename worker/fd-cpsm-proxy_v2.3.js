@@ -67,10 +67,7 @@ function corsHeaders(request) {
 }
 
 // v2.2: avvio del workflow Previsione e verifica su GitHub (forza=no: se la previsione di domani esiste il giro si ferma subito)
-// v2.3: due avvii programmati. Cron '25 7 * * *' (08:25 ora solare) = giro del mattino (previsione provvisoria di domani);
-// cron '25 15 * * *' (16:25) = giro normale. Il workflow decide con il campo giro.
-const CRON_MATTINO = '25 7 * * *';
-async function avviaGiro(env, giro) { const r = await fetch('https://api.github.com/repos/vksskdx22n-max/forecast-lagoon/actions/workflows/previsione.yml/dispatches', { method: 'POST', headers: { 'Authorization': 'Bearer ' + env.GITHUB_TOKEN, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'fd-cpsm-proxy' }, body: JSON.stringify({ ref: 'main', inputs: { forza: 'no', giro: giro || '' } }) }); console.log('avvio giro' + (giro ? ' ' + giro : '') + ': HTTP ' + r.status + (r.ok ? '' : ' ' + (await r.text()))); }
+const CRON_MATTINO = '25 7 * * *'; /* v2.3: 08:25 = giro del mattino */ async function avviaGiro(env, giro) { const r = await fetch('https://api.github.com/repos/vksskdx22n-max/forecast-lagoon/actions/workflows/previsione.yml/dispatches', { method: 'POST', headers: { 'Authorization': 'Bearer ' + env.GITHUB_TOKEN, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'fd-cpsm-proxy' }, body: JSON.stringify({ ref: 'main', inputs: { forza: 'no', giro: giro || '' } }) }); console.log('avvio giro: HTTP ' + r.status + (r.ok ? '' : ' ' + (await r.text()))); }
 
 export default {
   async fetch(request) {
