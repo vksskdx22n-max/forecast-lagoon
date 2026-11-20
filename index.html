@@ -13,7 +13,7 @@
 <title>Forecast Lagoon</title>
 <style>
 :root{--ink:#06131d;--card:#0f2638;--card2:#14314a;--line:#23465f;--txt:#eaf3f7;--mut:#8aa6b6;--soft:#cfe0e8;--teal:#5fd4d0;
---verde:#38c98a;--giallo:#f2b63c;--rosso:#ef5b4c;--nd:#5b7488;--on-verde:#03301d;--on-giallo:#3d2900;--on-rosso:#3d0a05;--on-nd:#e6eef3}
+--verde:#38c98a;--giallo:#f2b63c;--rosso:#ef5b4c;--nd:#5b7488;--on-verde:#03301d;--on-giallo:#3d2900;--on-rosso:#3d0a05;--verde-s:#1f9e68;--giallo-s:#d9961a;--rosso-s:#d23a2c;--on-verde-s:#ffffff;--on-giallo-s:#2a1c00;--on-rosso-s:#ffffff;--on-nd:#e6eef3}
 *{box-sizing:border-box;margin:0}
 html,body{background:var(--ink)}
 body{color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
@@ -63,9 +63,9 @@ h1 span{color:var(--teal)}
 .verdict p{font-size:14px;line-height:1.4;margin-top:4px;opacity:.9}
 .verdict .prov{display:inline-block;margin-top:8px;padding:4px 10px;border-radius:10px;background:rgba(255,255,255,.9);color:#0b1a24;font-size:12.5px;font-weight:650}
 .hours{display:grid;gap:4px;margin-top:14px}
-.hours div{border-radius:8px;text-align:center;padding:4px 0 4px;font-size:10.5px;font-weight:650;color:#3a4a55;background:rgba(255,255,255,.92);box-shadow:inset 0 5px 0 var(--c);padding-top:8px}
-.hours div b{display:block;font-size:15px;color:#0b1a24}
-.hours div u{display:block;text-decoration:none;font-size:9.5px;font-weight:600;color:#3a4a55}
+.hours div{border-radius:8px;text-align:center;padding:4px 0;font-size:10.5px;font-weight:650;background:var(--cs,#22394B);border:2px solid #fff;color:var(--cn,#eaf3f7)}
+.hours div b{display:block;font-size:15px;color:inherit}
+.hours div u{display:block;text-decoration:none;font-size:9.5px;font-weight:600;color:inherit}
 .tab th u{display:block;text-decoration:none;text-transform:none;letter-spacing:0;font-size:10px;margin-top:1px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px 16px}
 .ch{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:11.5px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
@@ -163,7 +163,7 @@ function istruzioni(){
  <h4>Le tre zone</h4><p>La laguna è divisa nei tre bacini delle bocche di porto: <b>Nord</b> (Lido), <b>Centro</b> (Malamocco), <b>Sud</b> (Chioggia). Tocca un bacino sulla mappa o un riquadro per aprire la zona.</p>
  <h4>Il semaforo</h4><ul><li><span class="sem" style="background:var(--verde)"></span><b>Verde</b>: vento medio fino a ${k(v)} nodi</li><li><span class="sem" style="background:var(--giallo)"></span><b>Giallo</b>: da ${k1(v)} a ${km(r)} nodi</li><li><span class="sem" style="background:var(--rosso)"></span><b>Rosso</b>: da ${k(r)} nodi in su</li></ul>
  <p>Conta il vento medio, media dei punti della zona, arrotondato al nodo intero: il colore corrisponde sempre al numero che vedi. Le raffiche sono indicate ma non cambiano il colore.</p>
- <p>Ogni ora ha il suo colore (la barretta in cima a ogni quadratino); il colore del giorno è quello più frequente nelle ore della finestra. Per esempio 7 ore verdi e una gialla danno un giorno verde, con l'ora gialla ben visibile.</p>
+ <p>Ogni ora ha il suo colore (il quadratino con il bordo bianco, in una tonalità più intensa per staccare dal fondo); il colore del giorno è quello più frequente nelle ore della finestra. Per esempio 7 ore verdi e una gialla danno un giorno verde, con l'ora gialla ben visibile.</p>
  <h4>Marea</h4><p>Curva del bollettino del Centro Maree del Comune (linea piena) e marea astronomica (tratteggiata). Se il bollettino ha più di ${k(R.cpsm_ore_max)} ore è indicato come tendenza meno affidabile.</p>
  <h4>Nella pagina della zona</h4><p>Ora per ora (vento, raffiche, direzione, marea, corrente, pioggia), curva di marea, pioggia per modello, onda in laguna e in mare aperto, aria, cielo, sole e luna. In alto si sceglie il giorno.</p>
  <h4>Previsione e Verifica</h4><p><b>Previsione</b> apre il dettaglio completo; <b>Verifica</b> (a giornata conclusa) confronta la previsione con le misure delle stazioni. In cima alle due pagine trovi “‹ Torna a Forecast Lagoon” e il link <b>PDF ↗</b>, per salvarla o mandarla a qualcuno.</p>
@@ -241,7 +241,7 @@ function zona(id,dsel){
  const ore=s.ore||[];
  h+=`<div class="sec"><div class="verdict" style="background:${col(c)};color:${oncol(c)}"><div class="k">${esc(etichetta(v.data))} · ${esc(v.finestra||'')}</div>
  <div class="v">${TXT[c]||'n.d.'}</div>${v.emessa?`<div class="prov">${v.provvisoria?`Previsione provvisoria delle ${esc(v.emessa)} · la definitiva esce verso le ${esc(D.ora_aggiornamento||'')}`:`Previsione definitiva delle ${esc(v.emessa)}`}</div>`:''}<p>${esc(s.andamento||'')}</p>
- <div class="hours" style="grid-template-columns:repeat(${Math.max(ore.length,1)},1fr)">${ore.map(o=>`<div style="--c:${col(o.sem)}">${esc(o.ora)}<b>${nf(o.stima,0)}</b><u>kn</u></div>`).join('')}</div></div></div>`;
+ <div class="hours" style="grid-template-columns:repeat(${Math.max(ore.length,1)},1fr)">${ore.map(o=>`<div style="${TXT[o.sem]?`--cs:var(--${o.sem}-s);--cn:var(--on-${o.sem}-s)`:''}">${esc(o.ora)}<b>${nf(o.stima,0)}</b><u>kn</u></div>`).join('')}</div></div></div>`;
  h+=oraPerOra(s);
  h+=`<div class="sec grid2"><div class="card"><div class="ch">Vento medio</div><div class="big">${nf(s.vento_min,0)}–${nf(s.vento_max,0)}<small>kn</small></div><div class="note">${s.direzione?'da '+esc(s.direzione)+(s.direzione_nome?' · '+esc(s.direzione_nome):''):''}</div></div>
  <div class="card"><div class="ch">Raffiche</div><div class="big">${nf(s.raff_max,0)}<small>kn</small></div><div class="note">massimo nella finestra; non cambiano il colore</div></div></div>`;

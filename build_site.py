@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v3.3 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v3.4 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.3"
+VERSIONE = "3.4"
 CARTELLA = "Previsioni"
 SITO = "site"
 ZONE = [
