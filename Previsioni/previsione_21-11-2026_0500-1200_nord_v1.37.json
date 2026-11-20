@@ -5,7 +5,7 @@
  "zone": "Laguna Nord · bacino di Lido",
  "verdetto": {
   "colore": "verde",
-  "testo": "Vento da 313° NO · Maestrale in rotazione a 14° NNE · Tramontana. Media delle 4 zone di pesca: 0,5–3,2 nodi, raffiche medie fino a 6,0. Per zona: Burano sud 0,4–3,4 nodi, raffiche fino a 5,4; Sant'Erasmo nord 0,3–3,4 nodi, raffiche fino a 6,0; Murano nord 0,5–3,7 nodi, raffiche fino a 6,6; Giudecca sud 0,5–2,9 nodi, raffiche fino a 6,0. Marea crescente dalle 02:05 alla massima delle 08:40. Marea calante dalle 08:40 alla minima delle 15:40. (Orari marea: previsione CPSM.)",
+  "testo": "Vento da 310° NO · Maestrale in rotazione a 99° E · Levante. Media delle 4 zone di pesca: 1,1–3,3 nodi, raffiche medie fino a 6,0. Per zona: Burano sud 1,2–3,3 nodi, raffiche fino a 5,4; Sant'Erasmo nord 1,0–3,4 nodi, raffiche fino a 6,0; Murano nord 1,0–2,9 nodi, raffiche fino a 6,2; Giudecca sud 0,8–3,7 nodi, raffiche fino a 6,6. Marea crescente dalle 02:05 alla massima delle 08:40. Marea calante dalle 08:40 alla minima delle 15:40. (Orari marea: previsione CPSM.)",
   "andamento": [
    {
     "colore": "verde",
@@ -27,8 +27,8 @@
    {
     "ora": "05",
     "sem": "verde",
-    "stima": 3.1,
-    "raff": 5.6,
+    "stima": 3.3,
+    "raff": 5.9,
     "marea": "↑",
     "cm_h": 14.9,
     "corr": 0.98,
@@ -37,8 +37,8 @@
    {
     "ora": "06",
     "sem": "verde",
-    "stima": 3.0,
-    "raff": 5.6,
+    "stima": 2.9,
+    "raff": 6.0,
     "marea": "↑",
     "cm_h": 15.9,
     "corr": 1.3,
@@ -47,8 +47,8 @@
    {
     "ora": "07",
     "sem": "verde",
-    "stima": 3.2,
-    "raff": 6.0,
+    "stima": 2.6,
+    "raff": 5.0,
     "marea": "↑",
     "cm_h": 13.9,
     "corr": 1.33,
@@ -57,7 +57,7 @@
    {
     "ora": "08",
     "sem": "verde",
-    "stima": 2.8,
+    "stima": 2.4,
     "raff": 5.7,
     "marea": "↑",
     "cm_h": 6.0,
@@ -67,8 +67,8 @@
    {
     "ora": "09",
     "sem": "verde",
-    "stima": 2.5,
-    "raff": 4.8,
+    "stima": 2.1,
+    "raff": 4.5,
     "marea": "≈",
     "cm_h": 0.1,
     "corr": 0.35,
@@ -77,8 +77,8 @@
    {
     "ora": "10",
     "sem": "verde",
-    "stima": 1.6,
-    "raff": 4.5,
+    "stima": 1.1,
+    "raff": 3.8,
     "marea": "↓",
     "cm_h": -7.6,
     "corr": 0.19,
@@ -87,8 +87,8 @@
    {
     "ora": "11",
     "sem": "verde",
-    "stima": 0.7,
-    "raff": 3.0,
+    "stima": 1.5,
+    "raff": 3.4,
     "marea": "↓",
     "cm_h": -13.6,
     "corr": 0.82,
@@ -97,8 +97,8 @@
    {
     "ora": "12",
     "sem": "verde",
-    "stima": 0.5,
-    "raff": 1.9,
+    "stima": 1.2,
+    "raff": 3.3,
     "marea": "↓",
     "cm_h": -16.5,
     "corr": 1.22,
@@ -115,13 +115,13 @@
   "Burano sud": [
    {
     "ora": "05:00",
-    "dir": "313° NO",
+    "dir": "310° NO",
     "nome": "Maestrale",
-    "dir_g": 313,
-    "stima": 3.4,
+    "dir_g": 310,
+    "stima": 3.3,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 3.4,
+    "d2": 3.3,
     "i2": 2.1,
     "raff": 5.2,
     "raff_d2": 5.2,
@@ -131,45 +131,45 @@
    },
    {
     "ora": "06:00",
-    "dir": "322° NO",
+    "dir": "318° NO",
     "nome": "Maestrale",
-    "dir_g": 322,
-    "stima": 3.2,
+    "dir_g": 318,
+    "stima": 2.9,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 3.2,
+    "d2": 2.9,
     "i2": 2.5,
-    "raff": 5.1,
-    "raff_d2": 5.1,
+    "raff": 5.4,
+    "raff_d2": 5.4,
     "ec": 3.0,
     "riparo": false,
     "ripiego": null
    },
    {
     "ora": "07:00",
-    "dir": "327° NNO",
+    "dir": "304° NO",
     "nome": "Maestrale",
-    "dir_g": 327,
-    "stima": 3.2,
+    "dir_g": 304,
+    "stima": 2.8,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 3.2,
+    "d2": 2.8,
     "i2": 2.7,
-    "raff": 5.4,
-    "raff_d2": 5.4,
+    "raff": 4.5,
+    "raff_d2": 4.5,
     "ec": 3.3,
     "riparo": false,
     "ripiego": null
    },
    {
     "ora": "08:00",
-    "dir": "302° ONO",
+    "dir": "325° NO",
     "nome": "Maestrale",
-    "dir_g": 302,
-    "stima": 3.0,
+    "dir_g": 325,
+    "stima": 2.4,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 3.0,
+    "d2": 2.4,
     "i2": 3.3,
     "raff": 5.2,
     "raff_d2": 5.2,
@@ -179,32 +179,32 @@
    },
    {
     "ora": "09:00",
-    "dir": "321° NO",
+    "dir": "333° NNO",
     "nome": "Maestrale",
-    "dir_g": 321,
-    "stima": 2.5,
+    "dir_g": 333,
+    "stima": 2.2,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 2.5,
+    "d2": 2.2,
     "i2": 3.9,
-    "raff": 4.3,
-    "raff_d2": 4.3,
+    "raff": 3.9,
+    "raff_d2": 3.9,
     "ec": 3.3,
     "riparo": false,
     "ripiego": null
    },
    {
     "ora": "10:00",
-    "dir": "324° NO",
+    "dir": "304° NO",
     "nome": "Maestrale",
-    "dir_g": 324,
-    "stima": 1.7,
+    "dir_g": 304,
+    "stima": 1.4,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 1.7,
+    "d2": 1.4,
     "i2": 3.1,
-    "raff": 3.9,
-    "raff_d2": 3.9,
+    "raff": 3.5,
+    "raff_d2": 3.5,
     "ec": 3.0,
     "riparo": false,
     "ripiego": null
@@ -214,29 +214,29 @@
     "dir": "207° SSO",
     "nome": "Libeccio",
     "dir_g": 207,
-    "stima": 0.4,
+    "stima": 1.7,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 0.4,
+    "d2": 1.7,
     "i2": 2.1,
-    "raff": 2.9,
-    "raff_d2": 2.9,
+    "raff": 3.1,
+    "raff_d2": 3.1,
     "ec": 2.1,
     "riparo": false,
     "ripiego": null
    },
    {
     "ora": "12:00",
-    "dir": "14° NNE",
-    "nome": "Tramontana",
-    "dir_g": 14,
-    "stima": 0.8,
+    "dir": "99° E",
+    "nome": "Levante",
+    "dir_g": 99,
+    "stima": 1.2,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 0.8,
+    "d2": 1.2,
     "i2": 1.6,
-    "raff": 1.9,
-    "raff_d2": 1.9,
+    "raff": 2.9,
+    "raff_d2": 2.9,
     "ec": 1.6,
     "riparo": false,
     "ripiego": null
@@ -253,136 +253,6 @@
     "sem": "verde",
     "d2": 3.4,
     "i2": 2.7,
-    "raff": 5.6,
-    "raff_d2": 5.6,
-    "ec": 2.5,
-    "riparo": false,
-    "ripiego": null
-   },
-   {
-    "ora": "06:00",
-    "dir": "322° NO",
-    "nome": "Maestrale",
-    "dir_g": 322,
-    "stima": 3.2,
-    "corr": 0.0,
-    "sem": "verde",
-    "d2": 3.2,
-    "i2": 2.7,
-    "raff": 5.6,
-    "raff_d2": 5.6,
-    "ec": 3.0,
-    "riparo": false,
-    "ripiego": null
-   },
-   {
-    "ora": "07:00",
-    "dir": "328° NNO",
-    "nome": "Maestrale",
-    "dir_g": 328,
-    "stima": 3.0,
-    "corr": 0.0,
-    "sem": "verde",
-    "d2": 3.0,
-    "i2": 2.7,
-    "raff": 6.0,
-    "raff_d2": 6.0,
-    "ec": 3.3,
-    "riparo": false,
-    "ripiego": null
-   },
-   {
-    "ora": "08:00",
-    "dir": "305° NO",
-    "nome": "Maestrale",
-    "dir_g": 305,
-    "stima": 3.1,
-    "corr": 0.0,
-    "sem": "verde",
-    "d2": 3.1,
-    "i2": 3.5,
-    "raff": 5.6,
-    "raff_d2": 5.6,
-    "ec": 3.3,
-    "riparo": false,
-    "ripiego": null
-   },
-   {
-    "ora": "09:00",
-    "dir": "325° NO",
-    "nome": "Maestrale",
-    "dir_g": 325,
-    "stima": 2.4,
-    "corr": 0.0,
-    "sem": "verde",
-    "d2": 2.4,
-    "i2": 3.9,
-    "raff": 4.7,
-    "raff_d2": 4.7,
-    "ec": 3.3,
-    "riparo": false,
-    "ripiego": null
-   },
-   {
-    "ora": "10:00",
-    "dir": "320° NO",
-    "nome": "Maestrale",
-    "dir_g": 320,
-    "stima": 1.5,
-    "corr": 0.0,
-    "sem": "verde",
-    "d2": 1.5,
-    "i2": 3.1,
-    "raff": 4.5,
-    "raff_d2": 4.5,
-    "ec": 3.0,
-    "riparo": false,
-    "ripiego": null
-   },
-   {
-    "ora": "11:00",
-    "dir": "180° S",
-    "nome": "Ostro",
-    "dir_g": 180,
-    "stima": 0.8,
-    "corr": 0.0,
-    "sem": "verde",
-    "d2": 0.8,
-    "i2": 1.9,
-    "raff": 3.1,
-    "raff_d2": 3.1,
-    "ec": 2.1,
-    "riparo": false,
-    "ripiego": null
-   },
-   {
-    "ora": "12:00",
-    "dir": "45° NE",
-    "nome": "Bora",
-    "dir_g": 45,
-    "stima": 0.3,
-    "corr": 0.0,
-    "sem": "verde",
-    "d2": 0.3,
-    "i2": 1.7,
-    "raff": 1.6,
-    "raff_d2": 1.6,
-    "ec": 1.6,
-    "riparo": false,
-    "ripiego": null
-   }
-  ],
-  "Murano nord": [
-   {
-    "ora": "05:00",
-    "dir": "321° NO",
-    "nome": "Maestrale",
-    "dir_g": 321,
-    "stima": 2.8,
-    "corr": 0.0,
-    "sem": "verde",
-    "d2": 2.8,
-    "i2": 2.9,
     "raff": 6.0,
     "raff_d2": 6.0,
     "ec": 2.5,
@@ -391,62 +261,30 @@
    },
    {
     "ora": "06:00",
-    "dir": "321° NO",
+    "dir": "323° NO",
     "nome": "Maestrale",
-    "dir_g": 321,
-    "stima": 2.8,
+    "dir_g": 323,
+    "stima": 2.9,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 2.8,
-    "i2": 2.9,
-    "raff": 6.4,
-    "raff_d2": 6.4,
+    "d2": 2.9,
+    "i2": 2.7,
+    "raff": 6.0,
+    "raff_d2": 6.0,
     "ec": 3.0,
     "riparo": false,
     "ripiego": null
    },
    {
     "ora": "07:00",
-    "dir": "328° NNO",
+    "dir": "306° NO",
     "nome": "Maestrale",
-    "dir_g": 328,
-    "stima": 3.7,
+    "dir_g": 306,
+    "stima": 2.6,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 3.7,
-    "i2": 2.9,
-    "raff": 6.6,
-    "raff_d2": 6.6,
-    "ec": 3.3,
-    "riparo": false,
-    "ripiego": null
-   },
-   {
-    "ora": "08:00",
-    "dir": "305° NO",
-    "nome": "Maestrale",
-    "dir_g": 305,
-    "stima": 2.4,
-    "corr": 0.0,
-    "sem": "verde",
-    "d2": 2.4,
-    "i2": 2.9,
-    "raff": 6.6,
-    "raff_d2": 6.6,
-    "ec": 3.3,
-    "riparo": false,
-    "ripiego": null
-   },
-   {
-    "ora": "09:00",
-    "dir": "325° NO",
-    "nome": "Maestrale",
-    "dir_g": 325,
-    "stima": 2.4,
-    "corr": 0.0,
-    "sem": "verde",
-    "d2": 2.4,
-    "i2": 3.3,
+    "d2": 2.6,
+    "i2": 2.7,
     "raff": 5.2,
     "raff_d2": 5.2,
     "ec": 3.3,
@@ -454,17 +292,49 @@
     "ripiego": null
    },
    {
-    "ora": "10:00",
-    "dir": "310° NO",
+    "ora": "08:00",
+    "dir": "328° NNO",
     "nome": "Maestrale",
-    "dir_g": 310,
-    "stima": 1.5,
+    "dir_g": 328,
+    "stima": 2.5,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 1.5,
-    "i2": 2.5,
-    "raff": 4.7,
-    "raff_d2": 4.7,
+    "d2": 2.5,
+    "i2": 3.5,
+    "raff": 5.4,
+    "raff_d2": 5.4,
+    "ec": 3.3,
+    "riparo": false,
+    "ripiego": null
+   },
+   {
+    "ora": "09:00",
+    "dir": "340° NNO",
+    "nome": "Tramontana",
+    "dir_g": 340,
+    "stima": 2.3,
+    "corr": 0.0,
+    "sem": "verde",
+    "d2": 2.3,
+    "i2": 3.9,
+    "raff": 4.5,
+    "raff_d2": 4.5,
+    "ec": 3.3,
+    "riparo": false,
+    "ripiego": null
+   },
+   {
+    "ora": "10:00",
+    "dir": "281° O",
+    "nome": "Ponente",
+    "dir_g": 281,
+    "stima": 1.0,
+    "corr": 0.0,
+    "sem": "verde",
+    "d2": 1.0,
+    "i2": 3.1,
+    "raff": 3.9,
+    "raff_d2": 3.9,
     "ec": 3.0,
     "riparo": false,
     "ripiego": null
@@ -474,47 +344,47 @@
     "dir": "207° SSO",
     "nome": "Libeccio",
     "dir_g": 207,
-    "stima": 0.9,
+    "stima": 1.7,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 0.9,
-    "i2": 1.2,
-    "raff": 2.9,
-    "raff_d2": 2.9,
+    "d2": 1.7,
+    "i2": 1.9,
+    "raff": 3.3,
+    "raff_d2": 3.3,
     "ec": 2.1,
     "riparo": false,
     "ripiego": null
    },
    {
     "ora": "12:00",
-    "dir": "135° SE",
+    "dir": "140° SE",
     "nome": "Scirocco",
-    "dir_g": 135,
-    "stima": 0.5,
+    "dir_g": 140,
+    "stima": 1.5,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 0.5,
-    "i2": 1.2,
-    "raff": 1.9,
-    "raff_d2": 1.9,
+    "d2": 1.5,
+    "i2": 1.7,
+    "raff": 3.5,
+    "raff_d2": 3.5,
     "ec": 1.6,
     "riparo": false,
     "ripiego": null
    }
   ],
-  "Giudecca sud": [
+  "Murano nord": [
    {
     "ora": "05:00",
-    "dir": "318° NO",
+    "dir": "312° NO",
     "nome": "Maestrale",
-    "dir_g": 318,
+    "dir_g": 312,
     "stima": 2.9,
     "corr": 0.0,
     "sem": "verde",
     "d2": 2.9,
-    "i2": 3.3,
-    "raff": 5.6,
-    "raff_d2": 5.6,
+    "i2": 2.9,
+    "raff": 5.8,
+    "raff_d2": 5.8,
     "ec": 2.5,
     "riparo": false,
     "ripiego": null
@@ -524,109 +394,239 @@
     "dir": "318° NO",
     "nome": "Maestrale",
     "dir_g": 318,
-    "stima": 2.9,
+    "stima": 2.6,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 2.9,
-    "i2": 3.3,
-    "raff": 5.4,
-    "raff_d2": 5.4,
+    "d2": 2.6,
+    "i2": 2.9,
+    "raff": 6.2,
+    "raff_d2": 6.2,
     "ec": 3.0,
     "riparo": false,
     "ripiego": null
    },
    {
     "ora": "07:00",
-    "dir": "307° NO",
+    "dir": "305° NO",
     "nome": "Maestrale",
-    "dir_g": 307,
-    "stima": 2.9,
+    "dir_g": 305,
+    "stima": 2.4,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 2.9,
-    "i2": 3.3,
-    "raff": 6.0,
-    "raff_d2": 6.0,
+    "d2": 2.4,
+    "i2": 2.9,
+    "raff": 4.9,
+    "raff_d2": 4.9,
     "ec": 3.3,
     "riparo": false,
     "ripiego": null
    },
    {
     "ora": "08:00",
-    "dir": "306° NO",
+    "dir": "312° NO",
     "nome": "Maestrale",
-    "dir_g": 306,
-    "stima": 2.6,
+    "dir_g": 312,
+    "stima": 2.3,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 2.6,
-    "i2": 3.9,
-    "raff": 5.4,
-    "raff_d2": 5.4,
+    "d2": 2.3,
+    "i2": 2.9,
+    "raff": 6.2,
+    "raff_d2": 6.2,
     "ec": 3.3,
     "riparo": false,
     "ripiego": null
    },
    {
     "ora": "09:00",
-    "dir": "315° NO",
-    "nome": "Maestrale",
-    "dir_g": 315,
-    "stima": 2.5,
+    "dir": "338° NNO",
+    "nome": "Tramontana",
+    "dir_g": 338,
+    "stima": 2.1,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 2.5,
-    "i2": 3.5,
-    "raff": 5.1,
-    "raff_d2": 5.1,
+    "d2": 2.1,
+    "i2": 3.3,
+    "raff": 4.9,
+    "raff_d2": 4.9,
     "ec": 3.3,
     "riparo": false,
     "ripiego": null
    },
    {
     "ora": "10:00",
-    "dir": "315° NO",
-    "nome": "Maestrale",
-    "dir_g": 315,
-    "stima": 1.9,
+    "dir": "259° O",
+    "nome": "Ponente",
+    "dir_g": 259,
+    "stima": 1.0,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 1.9,
+    "d2": 1.0,
     "i2": 2.5,
-    "raff": 4.9,
-    "raff_d2": 4.9,
+    "raff": 4.1,
+    "raff_d2": 4.1,
     "ec": 3.0,
     "riparo": false,
     "ripiego": null
    },
    {
     "ora": "11:00",
-    "dir": "108° ESE",
-    "nome": "Levante",
-    "dir_g": 108,
-    "stima": 0.6,
+    "dir": "180° S",
+    "nome": "Ostro",
+    "dir_g": 180,
+    "stima": 1.6,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 0.6,
-    "i2": 1.0,
-    "raff": 3.3,
-    "raff_d2": 3.3,
+    "d2": 1.6,
+    "i2": 1.2,
+    "raff": 3.5,
+    "raff_d2": 3.5,
     "ec": 2.1,
     "riparo": false,
     "ripiego": null
    },
    {
     "ora": "12:00",
-    "dir": "225° SO",
-    "nome": "Libeccio",
-    "dir_g": 225,
-    "stima": 0.5,
+    "dir": "121° ESE",
+    "nome": "Scirocco",
+    "dir_g": 121,
+    "stima": 1.1,
     "corr": 0.0,
     "sem": "verde",
-    "d2": 0.5,
+    "d2": 1.1,
+    "i2": 1.2,
+    "raff": 3.3,
+    "raff_d2": 3.3,
+    "ec": 1.6,
+    "riparo": false,
+    "ripiego": null
+   }
+  ],
+  "Giudecca sud": [
+   {
+    "ora": "05:00",
+    "dir": "335° NNO",
+    "nome": "Maestrale",
+    "dir_g": 335,
+    "stima": 3.7,
+    "corr": 0.0,
+    "sem": "verde",
+    "d2": 3.7,
+    "i2": 3.3,
+    "raff": 6.6,
+    "raff_d2": 6.6,
+    "ec": 2.5,
+    "riparo": false,
+    "ripiego": null
+   },
+   {
+    "ora": "06:00",
+    "dir": "338° NNO",
+    "nome": "Tramontana",
+    "dir_g": 338,
+    "stima": 3.1,
+    "corr": 0.0,
+    "sem": "verde",
+    "d2": 3.1,
+    "i2": 3.3,
+    "raff": 6.6,
+    "raff_d2": 6.6,
+    "ec": 3.0,
+    "riparo": false,
+    "ripiego": null
+   },
+   {
+    "ora": "07:00",
+    "dir": "282° ONO",
+    "nome": "Ponente",
+    "dir_g": 282,
+    "stima": 2.8,
+    "corr": 0.0,
+    "sem": "verde",
+    "d2": 2.8,
+    "i2": 3.3,
+    "raff": 5.6,
+    "raff_d2": 5.6,
+    "ec": 3.3,
+    "riparo": false,
+    "ripiego": null
+   },
+   {
+    "ora": "08:00",
+    "dir": "302° ONO",
+    "nome": "Maestrale",
+    "dir_g": 302,
+    "stima": 2.5,
+    "corr": 0.0,
+    "sem": "verde",
+    "d2": 2.5,
+    "i2": 3.9,
+    "raff": 5.8,
+    "raff_d2": 5.8,
+    "ec": 3.3,
+    "riparo": false,
+    "ripiego": null
+   },
+   {
+    "ora": "09:00",
+    "dir": "349° N",
+    "nome": "Tramontana",
+    "dir_g": 349,
+    "stima": 2.0,
+    "corr": 0.0,
+    "sem": "verde",
+    "d2": 2.0,
+    "i2": 3.5,
+    "raff": 4.7,
+    "raff_d2": 4.7,
+    "ec": 3.3,
+    "riparo": false,
+    "ripiego": null
+   },
+   {
+    "ora": "10:00",
+    "dir": "270° O",
+    "nome": "Ponente",
+    "dir_g": 270,
+    "stima": 0.8,
+    "corr": 0.0,
+    "sem": "verde",
+    "d2": 0.8,
+    "i2": 2.5,
+    "raff": 3.7,
+    "raff_d2": 3.7,
+    "ec": 3.0,
+    "riparo": false,
+    "ripiego": null
+   },
+   {
+    "ora": "11:00",
+    "dir": "202° SSO",
+    "nome": "Ostro",
+    "dir_g": 202,
+    "stima": 1.0,
+    "corr": 0.0,
+    "sem": "verde",
+    "d2": 1.0,
+    "i2": 1.0,
+    "raff": 3.5,
+    "raff_d2": 3.5,
+    "ec": 2.1,
+    "riparo": false,
+    "ripiego": null
+   },
+   {
+    "ora": "12:00",
+    "dir": "135° SE",
+    "nome": "Scirocco",
+    "dir_g": 135,
+    "stima": 1.1,
+    "corr": 0.0,
+    "sem": "verde",
+    "d2": 1.1,
     "i2": 1.6,
-    "raff": 2.1,
-    "raff_d2": 2.1,
+    "raff": 3.5,
+    "raff_d2": 3.5,
     "ec": 1.6,
     "riparo": false,
     "ripiego": null
@@ -1547,7 +1547,7 @@
    "1016,7",
    "in salita"
   ],
-  "nuvolosita": 92,
+  "nuvolosita": 96,
   "pioggia": "0,0",
   "fonte_meteo": "ICON-D2",
   "pioggia_prob": 0,
@@ -1626,75 +1626,75 @@
    }
   ],
   "aria": [
-   "4,6",
-   "11,1"
+   "5,1",
+   "10,4"
   ],
   "aria_punto": "Mestre",
   "aria_ore": [
    {
     "ora": "05:00",
-    "mestre": 5.2,
-    "acqua": 7.2,
-    "mare": 10.0
+    "mestre": 5.4,
+    "acqua": 7.7,
+    "mare": 9.7
    },
    {
     "ora": "06:00",
-    "mestre": 4.8,
-    "acqua": 6.9,
-    "mare": 9.6
+    "mestre": 5.2,
+    "acqua": 7.4,
+    "mare": 9.5
    },
    {
     "ora": "07:00",
-    "mestre": 4.6,
-    "acqua": 6.8,
+    "mestre": 5.1,
+    "acqua": 7.5,
     "mare": 9.5
    },
    {
     "ora": "08:00",
-    "mestre": 4.9,
-    "acqua": 6.6,
-    "mare": 9.5
+    "mestre": 5.1,
+    "acqua": 7.4,
+    "mare": 9.3
    },
    {
     "ora": "09:00",
-    "mestre": 5.7,
-    "acqua": 7.1,
-    "mare": 9.5
+    "mestre": 5.6,
+    "acqua": 7.7,
+    "mare": 9.4
    },
    {
     "ora": "10:00",
-    "mestre": 7.6,
-    "acqua": 8.2,
+    "mestre": 7.2,
+    "acqua": 8.7,
     "mare": 9.4
    },
    {
     "ora": "11:00",
-    "mestre": 9.4,
-    "acqua": 9.6,
+    "mestre": 8.7,
+    "acqua": 9.8,
     "mare": 9.5
    },
    {
     "ora": "12:00",
-    "mestre": 11.1,
-    "acqua": 10.8,
-    "mare": 9.7
+    "mestre": 10.4,
+    "acqua": 11.3,
+    "mare": 10.3
    }
   ],
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "20/11 11:40",
+    "ora": "20/11 12:00",
     "valore": "11,5"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "20/11 11:40",
-    "valore": "13,8"
+    "ora": "20/11 11:55",
+    "valore": "14,2"
    }
   ],
   "aria_acqua": [
-   "6,6",
-   "10,8"
+   "7,4",
+   "11,3"
   ],
   "acqua": null,
   "acqua_tendenza": null,
@@ -1709,7 +1709,7 @@
  "riflessioni": [
   {
    "tipo": "opinione",
-   "testo": "Ore migliori per vento: 05:00–12:00 (semaforo verde). Corrente più forte verso le 07:00. Zona meno ventosa: Giudecca sud."
+   "testo": "Ore migliori per vento: 05:00–12:00 (semaforo verde). Corrente più forte verso le 07:00. Zona meno ventosa: Murano nord."
   }
  ],
  "mare": {
@@ -1720,9 +1720,9 @@
     "dir": "137° SE",
     "dir_g": 137,
     "per": 5.2,
-    "vento": 4.9,
-    "raff_v": 7.2,
-    "dir_v": "304° NO",
+    "vento": 5.2,
+    "raff_v": 6.8,
+    "dir_v": "329° NNO",
     "mod_v": "ICON-D2",
     "nome_v": "Maestrale",
     "h_corr": 0.13,
@@ -1736,9 +1736,9 @@
     "dir": "137° SE",
     "dir_g": 137,
     "per": 5.15,
-    "vento": 3.7,
-    "raff_v": 6.2,
-    "dir_v": "298° ONO",
+    "vento": 4.1,
+    "raff_v": 6.8,
+    "dir_v": "335° NNO",
     "mod_v": "ICON-D2",
     "nome_v": "Maestrale",
     "h_corr": 0.13,
@@ -1752,9 +1752,9 @@
     "dir": "137° SE",
     "dir_g": 137,
     "per": 5.1,
-    "vento": 4.5,
-    "raff_v": 5.8,
-    "dir_v": "288° ONO",
+    "vento": 4.0,
+    "raff_v": 5.6,
+    "dir_v": "281° O",
     "mod_v": "ICON-D2",
     "nome_v": "Ponente"
    },
@@ -1764,9 +1764,9 @@
     "dir": "137° SE",
     "dir_g": 137,
     "per": 5.1,
-    "vento": 4.5,
-    "raff_v": 5.6,
-    "dir_v": "295° ONO",
+    "vento": 4.0,
+    "raff_v": 5.1,
+    "dir_v": "299° ONO",
     "mod_v": "ICON-D2",
     "nome_v": "Maestrale",
     "h_corr": 0.13,
@@ -1780,9 +1780,9 @@
     "dir": "136° SE",
     "dir_g": 136,
     "per": 5.1,
-    "vento": 1.9,
-    "raff_v": 5.4,
-    "dir_v": "294° ONO",
+    "vento": 2.6,
+    "raff_v": 5.1,
+    "dir_v": "312° NO",
     "mod_v": "ICON-D2",
     "nome_v": "Maestrale",
     "h_corr": 0.13,
@@ -1796,15 +1796,11 @@
     "dir": "136° SE",
     "dir_g": 136,
     "per": 5.05,
-    "vento": 1.9,
-    "raff_v": 2.5,
-    "dir_v": "294° ONO",
+    "vento": 1.6,
+    "raff_v": 2.7,
+    "dir_v": "263° O",
     "mod_v": "ICON-D2",
-    "nome_v": "Maestrale",
-    "h_corr": 0.13,
-    "rapp_h": 1.62,
-    "h_corr_min": 0.08,
-    "h_corr_max": 0.16
+    "nome_v": "Ponente"
    },
    {
     "ora": "11:00",
@@ -1812,15 +1808,11 @@
     "dir": "135° SE",
     "dir_g": 135,
     "per": 5.0,
-    "vento": 0.9,
-    "raff_v": 2.5,
-    "dir_v": "333° NNO",
+    "vento": 1.2,
+    "raff_v": 2.3,
+    "dir_v": "252° OSO",
     "mod_v": "ICON-D2",
-    "nome_v": "Maestrale",
-    "h_corr": 0.13,
-    "rapp_h": 1.62,
-    "h_corr_min": 0.08,
-    "h_corr_max": 0.16
+    "nome_v": "Ponente"
    },
    {
     "ora": "12:00",
@@ -1828,11 +1820,11 @@
     "dir": "135° SE",
     "dir_g": 135,
     "per": 4.9,
-    "vento": 0.8,
-    "raff_v": 1.0,
-    "dir_v": "180° S",
+    "vento": 1.6,
+    "raff_v": 2.3,
+    "dir_v": "120° ESE",
     "mod_v": "ICON-D2",
-    "nome_v": "Ostro"
+    "nome_v": "Scirocco"
    }
   ],
   "cella": "45,292 N 12,375 E",
@@ -1850,20 +1842,20 @@
     "ora": "05:00",
     "v": {
      "Giudecca sud": [
-      0.05,
-      0.08
+      0.04,
+      0.07
      ],
      "Burano sud": [
       0.03,
-      0.05
+      0.06
      ],
      "Sant'Erasmo nord": [
       0.02,
       0.03
      ],
      "Murano nord": [
-      0.02,
-      0.03
+      0.01,
+      0.02
      ]
     }
    },
@@ -1871,8 +1863,8 @@
     "ora": "06:00",
     "v": {
      "Giudecca sud": [
-      0.05,
-      0.08
+      0.02,
+      0.04
      ],
      "Burano sud": [
       0.02,
@@ -1883,8 +1875,8 @@
       0.03
      ],
      "Murano nord": [
-      0.02,
-      0.03
+      0.01,
+      0.02
      ]
     }
    },
@@ -1893,19 +1885,19 @@
     "v": {
      "Giudecca sud": [
       0.04,
-      0.08
+      0.07
      ],
      "Burano sud": [
-      0.02,
-      0.04
+      0.03,
+      0.06
      ],
      "Sant'Erasmo nord": [
-      0.02,
+      0.01,
       0.03
      ],
      "Murano nord": [
-      0.03,
-      0.05
+      0.01,
+      0.02
      ]
     }
    },
@@ -1913,20 +1905,20 @@
     "ora": "08:00",
     "v": {
      "Giudecca sud": [
-      0.04,
-      0.07
+      0.03,
+      0.06
      ],
      "Burano sud": [
-      0.04,
-      0.07
+      0.02,
+      0.03
      ],
      "Sant'Erasmo nord": [
-      0.02,
+      0.01,
       0.03
      ],
      "Murano nord": [
       0.01,
-      0.02
+      0.01
      ]
     }
    },
@@ -1934,8 +1926,8 @@
     "ora": "09:00",
     "v": {
      "Giudecca sud": [
-      0.04,
-      0.07
+      0.01,
+      0.02
      ],
      "Burano sud": [
       0.02,
@@ -1943,11 +1935,11 @@
      ],
      "Sant'Erasmo nord": [
       0.01,
-      0.02
+      0.03
      ],
      "Murano nord": [
       0.02,
-      0.03
+      0.04
      ]
     }
    },
@@ -1955,8 +1947,8 @@
     "ora": "10:00",
     "v": {
      "Giudecca sud": [
-      0.02,
-      0.04
+      0.0,
+      0.01
      ],
      "Burano sud": [
       0.01,
@@ -1976,20 +1968,20 @@
     "ora": "11:00",
     "v": {
      "Giudecca sud": [
-      0.0,
-      0.0
+      0.01,
+      0.01
      ],
      "Burano sud": [
-      0.0,
-      0.0
+      0.02,
+      0.03
      ],
      "Sant'Erasmo nord": [
-      0.0,
-      0.01
+      0.02,
+      0.03
      ],
      "Murano nord": [
       0.01,
-      0.01
+      0.02
      ]
     }
    },
@@ -1997,20 +1989,20 @@
     "ora": "12:00",
     "v": {
      "Giudecca sud": [
-      0.0,
-      0.0
-     ],
-     "Burano sud": [
-      0.0,
+      0.01,
       0.01
      ],
+     "Burano sud": [
+      0.01,
+      0.02
+     ],
      "Sant'Erasmo nord": [
-      0.0,
-      0.0
+      0.01,
+      0.02
      ],
      "Murano nord": [
-      0.0,
-      0.0
+      0.01,
+      0.01
      ]
     }
    }
@@ -2018,7 +2010,7 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: Open-Meteo (ICON-D2 DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS) · marea astronomica CPSM Punta Salute · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.37",
- "generato": "20/11/2026 11:44",
+ "generato": "20/11/2026 12:04",
  "area": "nord",
  "acqua_misurata": {
   "valore": 12.0,
