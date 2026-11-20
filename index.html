@@ -99,7 +99,7 @@ h1 span{color:var(--teal)}
 .sem{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:0}
 .ver{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:rgba(95,212,208,.16);color:var(--teal);font-size:10.5px;letter-spacing:.06em;vertical-align:1px;text-transform:none}
 .avv{color:#8fa9b8;font-size:12px;line-height:1.4;margin-top:6px}   /* v3.10, testo v3.11 */
-.foot a{color:inherit}.sheet p a{color:var(--teal);text-decoration:underline}.zneb{font-size:11.5px;font-weight:700;margin-left:8px;white-space:nowrap;vertical-align:3px;background:#eef4f7;color:#06131d;border-radius:8px;padding:2px 7px;letter-spacing:.02em}.avvall{border:1px solid #c9a227;background:#2a2410;color:#f3e3a4;border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.4;margin:8px 0}.allui{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px}.allui:empty{display:none}.allui button{background:var(--teal);color:#06131d;border:0;border-radius:10px;padding:9px 14px;font-weight:700;font-size:14px;font-family:inherit}.allui button.sec{background:transparent;color:var(--teal);border:1px solid var(--teal)}.allui .st{width:100%;font-size:13.5px;color:#cfe3ec}
+.foot a{color:inherit}.sheet p a{color:var(--teal);text-decoration:underline}.avvall{border:1px solid #c9a227;background:#2a2410;color:#f3e3a4;border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.4;margin:8px 0}.allui{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px}.allui:empty{display:none}.allui button{background:var(--teal);color:#06131d;border:0;border-radius:10px;padding:9px 14px;font-weight:700;font-size:14px;font-family:inherit}.allui button.sec{background:transparent;color:var(--teal);border:1px solid var(--teal)}.allui .st{width:100%;font-size:13.5px;color:#cfe3ec}
 
 
 .tab{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
@@ -169,7 +169,7 @@ function istruzioni(){
  <h4>Cos'è</h4><p>Previsione di vento e mare per uscire in barca in laguna (Nord, Centro, Sud), nella finestra ${esc(finestra()||'del mattino')}. Una previsione che impara: ogni giorno viene confrontata con le misure e corretta di conseguenza.</p>
  <h4>Il semaforo</h4><ul><li><span class="sem" style="background:var(--verde)"></span><b>Verde</b>: vento medio fino a ${k(v)} nodi</li><li><span class="sem" style="background:var(--giallo)"></span><b>Giallo</b>: da ${k1(v)} a ${km(r)} nodi</li><li><span class="sem" style="background:var(--rosso)"></span><b>Rosso</b>: da ${k(r)} nodi in su</li></ul><p>Vento medio dell'ora; le raffiche sono indicate ma non cambiano il colore.</p>
  <h4>Due previsioni al giorno</h4><p>Verso le ${esc(D.ora_mattino||'')} la <b>provvisoria</b> per il giorno dopo, verso le ${esc(D.ora_aggiornamento||'')} la <b>definitiva</b>.</p>
- <h4>Nebbia</h4><p>L'etichetta <b>Nebbia</b> accanto al nome della zona segnala la nebbia probabile nella mattina; nella pagina della zona c'è il dettaglio ora per ora (probabile, poco probabile, non probabile). È un'indicazione dai modelli, non ancora verificata con le misure.</p>
+ <h4>Nebbia</h4><p>Nella pagina della zona, ora per ora: probabile, poco probabile o non probabile. È un'indicazione dai modelli, non ancora verificata con le misure.</p>
  <h4>Vento adesso</h4><p>Vento <b>misurato</b> in questo momento dalla stazione del Centro Maree della zona, con raffica, direzione, ora e andamento delle ultime 3 ore. È una misura, non la previsione.</p>
  ${D.allerta?`<h4>Allerte vento</h4><p>Dalle ${esc(D.allerta.ora_inizio)} alle ${esc(D.allerta.ora_fine)}, ogni ${esc(D.allerta.controllo_min)} minuti, l'app controlla le stazioni del Centro Maree. Se in una stazione la raffica arriva ad almeno <b>${esc(D.allerta.raffica_kn)} kn</b> <b>e</b> il vento medio è salito di almeno ${esc(D.allerta.salita_kn)} kn in ${esc(D.allerta.finestra_min)} minuti, arriva una notifica con stazione, raffica, direzione e ora. Si attiva da qui sotto, aprendo l'app dall'icona sulla schermata Home. In barca servono dati mobili accesi e suoneria attiva.</p><div class="avvall"><b>Attenzione.</b> Servizio sperimentale, senza garanzia: l'avviso può arrivare in ritardo o non arrivare. Non sostituisce cielo, VHF e bollettini meteo: la decisione di uscire o rientrare resta tua.</div><div id="allUI" class="allui"></div>`:''}
  <h4>Installarla come app</h4><p><b>iPhone</b> (Safari): Condividi → Aggiungi alla schermata Home.<br><b>Android</b> (Chrome): menu ⋮ → “Aggiungi a schermata Home”. Previsioni e nuove versioni si caricano da sole.</p>
@@ -193,7 +193,7 @@ function home(){
  ${ult?`<div class="oggi"><span class="dot"></span>${esc(etichetta(ult))}</div>`:''}<div class="credit">© ESA · Copernicus Sentinel-2</div></div>${ritardo(ult)}<div class="zones">`;
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
   h+=`<div class="zone ${z.attiva?'':'off'}" ${z.attiva?`onclick="location.hash='zona/${z.id}'"`:''}><div class="bar" style="background:${col(v&&v.colore)}"></div>
-  <div><div class="zname">${esc(z.nome)}${(z.attiva&&v&&v.sintesi)?nebbiaHome(v.sintesi.nebbia):''}</div><div class="zmeta">Bocca di ${esc(z.bocca)}${z.attiva?(v.data!==ult?' · '+esc(etichetta(v.data)):'')+(v?` · ${v.provvisoria?'provvisoria':'definitiva'}${v.emessa?' '+esc(v.emessa):''}`:''):' · in arrivo'}</div>${z.attiva&&v?`<div class="adA" data-adh="${z.id}"></div>`:''}</div>   <!-- v3.14: bocca e previsione su una riga, per far stare la riga Adesso -->   <!-- v3.8 -->
+  <div><div class="zname">${esc(z.nome)}</div><div class="zmeta">Bocca di ${esc(z.bocca)}${z.attiva?(v.data!==ult?' · '+esc(etichetta(v.data)):'')+(v?` · ${v.provvisoria?'provvisoria':'definitiva'}${v.emessa?' '+esc(v.emessa):''}`:''):' · in arrivo'}</div>${z.attiva&&v?`<div class="adA" data-adh="${z.id}"></div>`:''}</div>   <!-- v3.14: bocca e previsione su una riga, per far stare la riga Adesso -->   <!-- v3.8 -->
   <div class="badge">${v?`<span class="chip" style="background:${col(v.colore)};color:${oncol(v.colore)}">${TXT[v.colore]||'n.d.'}</span><span class="wind">${nf(s.vento_min,0)}–${nf(s.vento_max,0)} kn${s.direzione?' · '+esc(s.direzione):''}</span>`:`<span class="chip" style="background:#22394B;color:var(--mut)">In arrivo</span>`}</div></div>`});
  app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0)}
 function curva(s){
@@ -224,9 +224,6 @@ function meteoOnda(s){const M=s.meteo||{},P=M.pressione,L=M.luna;let h='<div cla
 function dettagli(s){let h='';if(s.verdetto_testo)h+=`<div class="sec"><details class="card"><summary>Il verdetto per esteso ▾</summary><p>${esc(s.verdetto_testo)}</p>${(s.note||[]).map(n=>`<p>${esc(n)}</p>`).join('')}</details></div>`;return h}
 function nebbiaCat(p,N){return p==null?null:p>=N.soglia_alta?2:p>=N.soglia_min?1:0}   // v3.22: categorie a parole, niente percentuali finche' non sono verificate
 const NEB_TXT=['non probabile','poco probabile','probabile'],NEB_COL=['#3a5566','#c9a227','#eef4f7'];
-function nebbiaHome(N){   // in prima pagina solo se probabile
- if(!N)return '';const c=N.prob_max!=null?nebbiaCat(N.prob_max,N):N.livello;if(c!==2)return '';
- return `<span class="zneb">Nebbia</span>`}
 function nebbia(s){
  const N=s.nebbia,O=s.nebbia_ore||[];if(!N||!O.length)return '';
  const P=N.prob_max!=null,cat=o=>P?nebbiaCat(o.prob,N):o.livello,cmax=P?nebbiaCat(N.prob_max,N):N.livello;
