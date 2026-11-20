@@ -93,7 +93,7 @@ h1 span{color:var(--teal)}
 .sheet .x{font-size:15px;font-weight:600;color:var(--mut);cursor:pointer;padding:4px 8px}
 .sem{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:0}
 .ver{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:rgba(95,212,208,.16);color:var(--teal);font-size:10.5px;letter-spacing:.06em;vertical-align:1px;text-transform:none}
-.avv{color:#8fa9b8;font-size:12px;line-height:1.4;margin-top:6px}   /* v3.10 */
+.avv{color:#8fa9b8;font-size:12px;line-height:1.4;margin-top:6px}   /* v3.10, testo v3.11 */
 .foot a{color:inherit}
 .agg{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 12px);z-index:30;max-width:536px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--teal);color:#04282a;border-radius:18px;padding:13px 14px 13px 18px;font-size:14.5px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .agg b{background:#04282a;color:var(--teal);border-radius:12px;padding:9px 14px;font-size:14px;cursor:pointer;white-space:nowrap}
@@ -155,7 +155,7 @@ function mappa(vb,o){
   s+=`<g style="pointer-events:none"><rect x="${x}" y="${y-30}" width="${w}" height="52" rx="26" fill="#06131d" fill-opacity=".8" stroke="#ffffff" stroke-opacity=".18"/>
   <circle cx="${x+27}" cy="${y-4}" r="10" fill="${hex}"/><text x="${x+47}" y="${y+8}" fill="#fff" font-size="32" font-weight="750" letter-spacing="-.5">${t}</text></g>`});
  return s+'</svg>'}
-function piede(){return `<div class="foot"><b>Fonti</b> · dati meteo e mare aperto <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (CC BY 4.0; modelli ICON-D2, ICON-2i, ECMWF; dati elaborati e corretti con misure locali) · marea CPSM Comune di Venezia · correnti modello Laguna Viva · immagine: ${esc(G.fonte_immagine)} · costa ${esc(G.fonte_costa)}; ${esc(G.nota_confini)}.<br>Previsione indicativa e gratuita, senza garanzie: non sostituisce i bollettini ufficiali.<br>Sito v${esc(D.versione_sito)}${D.autore?' · a cura di '+esc(D.autore):''} · aggiornato ${new Date(D.aggiornato_utc).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div>`}
+function piede(){return `<div class="foot"><b>Fonti</b> · dati meteo e mare aperto <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (CC BY 4.0; modelli ICON-D2, ICON-2i, ECMWF; dati elaborati e corretti con misure locali) · marea CPSM Comune di Venezia · correnti modello Laguna Viva · immagine: ${esc(G.fonte_immagine)} · costa ${esc(G.fonte_costa)}; ${esc(G.nota_confini)}.<br>Previsione indicativa: non sostituisce i bollettini ufficiali.<br>Sito v${esc(D.versione_sito)}${D.autore?' · a cura di '+esc(D.autore):''} · aggiornato ${new Date(D.aggiornato_utc).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div>`}
 function finestra(){const v=D.zone.map(ultima).filter(Boolean)[0];return v&&v.finestra}
 function istruzioni(){
  const R=D.regole||{},v=R.verde_fino_a,r=R.rosso_da,k=x=>x==null?'…':nf(x,0),k1=x=>x==null?'…':nf(x+1,0),km=x=>x==null?'…':nf(x-1,0);
@@ -173,7 +173,7 @@ function istruzioni(){
  <h4>Temperatura dell'acqua</h4><p>È una <b>misura</b>, non una previsione: l'ultimo valore della stazione del Centro Maree di Punta Salute (Canal Grande), l'unica che oggi la trasmette, in gradi interi. Vale come riferimento per tutta la laguna: sui bassi fondali può essere diversa. Dopo qualche giorno compare anche la tendenza (in aumento, in calo o stabile).</p>
  <h4>Due previsioni al giorno</h4><p>Verso le ${esc(D.ora_mattino||'')} esce la <b>previsione provvisoria</b> per il giorno dopo, utile per organizzare l'uscita con un giorno di anticipo. Verso le ${esc(D.ora_aggiornamento||'')} la sostituisce la <b>previsione definitiva</b>, con il bollettino di marea del Centro Maree delle 13:30 e i modelli meteo più recenti. In cima alla previsione è scritto quale delle due stai guardando e a che ora è stata emessa. Se dopo le ${esc(D.ora_attesa||'')} c'è ancora solo la provvisoria, compare l'avviso “Aggiornamento in ritardo”.</p>
  <h4>Installarla come app</h4><p><b>iPhone</b> (Safari): Condividi → Aggiungi alla schermata Home.<br><b>Android</b> (Chrome): menu ⋮ in alto a destra → “Aggiungi a schermata Home” oppure “Installa app”.<br>Si apre a tutto schermo come un'app. Le previsioni nuove si caricano da sole quando la riapri o ci torni sopra; quando esce una nuova versione dell'app compare in basso la barra “Nuova versione disponibile · <b>Aggiorna</b>”: toccala per caricarla.</p>
- <h4>Avvertenza</h4><p>Previsione indicativa e gratuita, offerta senza garanzie: è calcolata da modelli meteo e corretta dove ci sono misure, può essere sbagliata o non aggiornata e non sostituisce i bollettini ufficiali. In barca decide chi esce.</p></div>`;
+ <h4>Avvertenza</h4><p>Previsione indicativa, calcolata da modelli meteo e corretta dove ci sono misure: non sostituisce i bollettini ufficiali.</p></div>`;
  document.body.append(el)}
 function ritardo(ult){
  if(!ult||!D.ora_attesa)return '';const ora=new Date(),oggi=new Date(ora);oggi.setHours(0,0,0,0);
@@ -188,7 +188,7 @@ function ritardo(ult){
 function home(){
  const date=D.zone.map(ultima).filter(Boolean).map(v=>v.data).sort();const ult=date[date.length-1];const fin=finestra();
  let h=`<div class="home"><header class="testa"><div><div class="eyebrow">Laguna di Venezia<span class="ver">v${esc(VERSIONE)}${D.autore?' · a cura di '+esc(D.autore):''}</span></div><h1>Forecast <span>Lagoon</span></h1>
- <div class="sub">Previsioni meteo-marine per uscire in barca: vento, marea, correnti, onda e pioggia. Ogni giorno${fin?', '+esc(fin):''}.</div><div class="avv">Previsione indicativa e gratuita, senza garanzie: non sostituisce i bollettini ufficiali. In barca decide chi esce.</div></div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></header>
+ <div class="sub">Previsioni meteo-marine per uscire in barca: vento, marea, correnti, onda e pioggia. Ogni giorno${fin?', '+esc(fin):''}.</div><div class="avv">Previsione indicativa: non sostituisce i bollettini ufficiali.</div></div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></header>
  <div class="hero">${mappa('40 -60 1000 1360',{meet:true,labels:true,click:true,k:'h',fo:.24,sw:2.5})}<div class="shade" style="background:linear-gradient(180deg,rgba(6,19,29,.55) 0%,rgba(6,19,29,0) 18%,rgba(6,19,29,0) 72%,rgba(6,19,29,.95) 100%)"></div>
  ${ult?`<div class="oggi"><span class="dot"></span>${esc(etichetta(ult))}</div>`:''}<div class="credit">© ESA · Copernicus Sentinel-2</div></div>${ritardo(ult)}<div class="zones">`;
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
