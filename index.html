@@ -40,6 +40,11 @@ h1 span{color:var(--teal)}
 .zone .bar{align-self:stretch;min-height:52px;border-radius:0 6px 6px 0}
 .zname{font-size:20px;font-weight:650;letter-spacing:-.01em;line-height:1.05}
 .zmeta{font-size:12.5px;line-height:1.15;color:var(--mut);margin-top:1px;white-space:nowrap}
+.adA{display:flex;align-items:center;gap:6px;margin-top:3px;font-size:12.5px;line-height:1.2;color:#cfe3ec;font-weight:600;white-space:nowrap}.adA:empty{display:none}
+.adA i{width:9px;height:9px;border-radius:50%;flex:none}.adA small{color:var(--mut);font-weight:500;font-size:12px}
+.vad{padding:14px 16px}.vad .t{display:flex;justify-content:space-between;gap:8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.vad .n{display:flex;align-items:baseline;gap:10px;margin-top:4px;font-size:30px;font-weight:700}.vad .n small{font-size:14px;color:var(--mut);font-weight:500}.vad .n .d{font-size:18px}
+.vad .r{font-size:13px;color:#b8cbd6;margin-top:2px}.vad .ln{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:11.5px;color:var(--mut)}.vad .ln svg{flex:1;height:34px}
 .badge{display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right}
 .chip{font-size:12px;font-weight:650;padding:5px 11px;border-radius:999px;white-space:nowrap}
 .wind{font-size:12px;color:var(--soft)}
@@ -170,6 +175,7 @@ function istruzioni(){
  <h4>Nella pagina della zona</h4><p>Ora per ora (vento, raffiche, direzione, marea, corrente, pioggia), curva di marea, pioggia per modello, onda in mare aperto (fuori dalle bocche, corretta con le misure della Piattaforma CNR), aria, temperatura dell'acqua, cielo, sole e luna. In alto si sceglie il giorno.</p>
  <h4>Previsione e Verifica</h4><p><b>Previsione</b> apre il dettaglio completo; <b>Verifica</b> (a giornata conclusa) confronta la previsione con le misure delle stazioni. In cima alle due pagine trovi “‹ Torna a Forecast Lagoon” e il link <b>PDF ↗</b>, per salvarla o mandarla a qualcuno.</p>
  <h4>Una previsione che impara</h4><p>Ogni giorno l'app confronta la previsione con quello che è stato misurato davvero: vento e raffiche nelle stazioni del Centro Maree, onda in mare aperto alla Piattaforma oceanografica del CNR. Questi confronti si accumulano giorno dopo giorno e servono a correggere le previsioni successive: più passa il tempo, più la previsione si adatta alla laguna.</p>
+ <h4>Vento adesso</h4><p>Sotto ogni zona e nella sua pagina c'è il vento <b>misurato adesso</b> dalla stazione del Centro Maree della zona (Laguna Nord alle Saline, Malamocco Porto, Chioggia Porto), con raffica, direzione, ora della misura e andamento delle ultime 3 ore. È una misura, non la previsione; il colore segue la stessa regola del semaforo. Se l'ultima misura ha più di 30 minuti viene indicato.</p>
  <h4>Temperatura dell'acqua</h4><p>È una <b>misura</b>, non una previsione: l'ultimo valore della stazione del Centro Maree di Punta Salute (Canal Grande), l'unica che oggi la trasmette, in gradi interi. Vale come riferimento per tutta la laguna: sui bassi fondali può essere diversa. Dopo qualche giorno compare anche la tendenza (in aumento, in calo o stabile).</p>
  <h4>Due previsioni al giorno</h4><p>Verso le ${esc(D.ora_mattino||'')} esce la <b>previsione provvisoria</b> per il giorno dopo, utile per organizzare l'uscita con un giorno di anticipo. Verso le ${esc(D.ora_aggiornamento||'')} la sostituisce la <b>previsione definitiva</b>, con il bollettino di marea del Centro Maree delle 13:30 e i modelli meteo più recenti. In cima alla previsione è scritto quale delle due stai guardando e a che ora è stata emessa. Se dopo le ${esc(D.ora_attesa||'')} c'è ancora solo la provvisoria, compare l'avviso “Aggiornamento in ritardo”.</p>
  <h4>Installarla come app</h4><p><b>iPhone</b> (Safari): Condividi → Aggiungi alla schermata Home.<br><b>Android</b> (Chrome): menu ⋮ in alto a destra → “Aggiungi a schermata Home” oppure “Installa app”.<br>Si apre a tutto schermo come un'app. Le previsioni nuove si caricano da sole quando la riapri o ci torni sopra; quando esce una nuova versione dell'app compare in basso la barra “Nuova versione disponibile · <b>Aggiorna</b>”: toccala per caricarla.</p>
@@ -193,7 +199,7 @@ function home(){
  ${ult?`<div class="oggi"><span class="dot"></span>${esc(etichetta(ult))}</div>`:''}<div class="credit">© ESA · Copernicus Sentinel-2</div></div>${ritardo(ult)}<div class="zones">`;
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
   h+=`<div class="zone ${z.attiva?'':'off'}" ${z.attiva?`onclick="location.hash='zona/${z.id}'"`:''}><div class="bar" style="background:${col(v&&v.colore)}"></div>
-  <div><div class="zname">${esc(z.nome)}</div><div class="zmeta">Bocca di ${esc(z.bocca)}${z.attiva?(v.data!==ult?' · '+esc(etichetta(v.data)):''):' · in arrivo'}</div>${z.attiva&&v?`<div class="zmeta">Previsione ${v.provvisoria?'provvisoria':'definitiva'}${v.emessa?' delle '+esc(v.emessa):''}</div>`:''}</div>   <!-- v3.8 -->
+  <div><div class="zname">${esc(z.nome)}</div><div class="zmeta">Bocca di ${esc(z.bocca)}${z.attiva?(v.data!==ult?' · '+esc(etichetta(v.data)):''):' · in arrivo'}</div>${z.attiva&&v?`<div class="zmeta">Previsione ${v.provvisoria?'provvisoria':'definitiva'}${v.emessa?' delle '+esc(v.emessa):''}</div><div class="adA" data-adh="${z.id}"></div>`:''}</div>   <!-- v3.8 -->
   <div class="badge">${v?`<span class="chip" style="background:${col(v.colore)};color:${oncol(v.colore)}">${TXT[v.colore]||'n.d.'}</span><span class="wind">${nf(s.vento_min,0)}–${nf(s.vento_max,0)} kn${s.direzione?' · '+esc(s.direzione):''}</span>`:`<span class="chip" style="background:#22394B;color:var(--mut)">In arrivo</span>`}</div></div>`});
  app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0)}
 function curva(s){
@@ -246,6 +252,7 @@ function zona(id,dsel){
  h+=`<div class="sec"><div class="verdict" style="background:${col(c)};color:${oncol(c)}"><div class="k">${esc(etichetta(v.data))} · ${esc(v.finestra||'')}</div>
  <div class="v">${TXT[c]||'n.d.'}</div>${v.emessa?`<div class="prov">${v.provvisoria?`Previsione provvisoria delle ${esc(v.emessa)} · la definitiva esce verso le ${esc(D.ora_aggiornamento||'')}`:`Previsione definitiva delle ${esc(v.emessa)}`}</div>`:''}<p>${esc(s.andamento||'')}</p>
  <div class="hours" style="grid-template-columns:repeat(${Math.max(ore.length,1)},1fr)">${ore.map(o=>`<div style="${TXT[o.sem]?`--cs:var(--${o.sem}-s);--cn:var(--on-${o.sem}-s)`:''}">${esc(o.ora)}<b>${nf(o.stima,0)}</b><u>kn</u></div>`).join('')}</div></div></div>`;
+ if(v===z.voci[0])h+=`<div class="sec"><div class="card vad" data-adz="${z.id}" style="display:none"></div></div>`;   // v3.13: vento adesso, solo sul giorno piu' recente
  h+=oraPerOra(s);
  h+=`<div class="sec grid2"><div class="card"><div class="ch">Vento medio</div><div class="big">${nf(s.vento_min,0)}–${nf(s.vento_max,0)}<small>kn</small></div><div class="note">${s.direzione?'da '+esc(s.direzione)+(s.direzione_nome?' · '+esc(s.direzione_nome):''):''}</div></div>
  <div class="card"><div class="ch">Raffiche</div><div class="big">${nf(s.raff_max,0)}<small>kn</small></div><div class="note">massimo nella finestra; non cambiano il colore</div></div></div>`;
@@ -260,14 +267,27 @@ function zona(id,dsel){
 function barra(V){if(document.querySelector('.agg'))return;const b=document.createElement('div');b.className='agg';
  b.innerHTML=`<span>Nuova versione disponibile${V.versione_sito?' · v'+esc(V.versione_sito):''}</span><b>Aggiorna</b>`;
  b.querySelector('b').onclick=e=>{e.preventDefault();e.stopPropagation();location.replace(location.pathname+'?v='+encodeURIComponent(V.codice))};document.body.append(b)}   // v3.9: Aggiorna riparte sempre dalla prima pagina
-async function controlla(){try{
+let AD=null;   // v3.13: vento misurato adesso (Worker /adesso), aggiornato all'apertura e ogni volta che si torna sull'app
+async function caricaAdesso(){if(!D||!D.adesso_url)return;try{const c=new AbortController(),t=setTimeout(()=>c.abort(),8000);
+ AD=await (await fetch(D.adesso_url,{cache:'no-store',signal:c.signal})).json();clearTimeout(t)}catch(e){AD=null}riempiAdesso()}
+function riempiAdesso(){
+ document.querySelectorAll('[data-adh]').forEach(el=>{const a=AD&&AD.zone&&AD.zone[el.dataset.adh];
+  el.innerHTML=!a?'':a.disponibile?`<i style="background:${col(a.sem)}"></i>Adesso ${a.kn} kn${a.dir?' '+esc(a.dir):''}${a.raffica_kn!=null?', raffica '+a.raffica_kn:''} <small>· ${esc(a.ora)}</small>`:`<small>Adesso: ${esc(a.motivo||'misura non disponibile')}</small>`});
+ document.querySelectorAll('[data-adz]').forEach(el=>{const a=AD&&AD.zone&&AD.zone[el.dataset.adz];if(!a){el.style.display='none';return}el.style.display='';
+  if(!a.disponibile){el.innerHTML=`<div class="t"><span>Vento adesso · misurato</span></div><div class="r" style="margin-top:6px">${esc(a.stazione)}: ${esc(a.motivo||'misura non disponibile')}</div>`;return}
+  const S=(a.serie||[]),V=S.filter(x=>x!=null),mn=Math.min(...V),mx=Math.max(...V),T=a.trend;
+  const pts=S.map((x,i)=>x==null?null:`${(i*300/Math.max(S.length-1,1)).toFixed(1)},${(30-(mx>mn?(x-mn)/(mx-mn):.5)*26).toFixed(1)}`).filter(Boolean).join(' ');
+  el.innerHTML=`<div class="t"><span>Vento adesso · misurato</span></div><div class="n"><span style="color:${col(a.sem)}">${a.kn}</span><small>kn</small>${a.dir_g!=null?`<span class="d"><span class="arr" style="display:inline-block;transform:rotate(${a.dir_g+180}deg)">↑</span> ${esc(a.dir)}</span>`:''}</div>
+  <div class="r">${a.raffica_kn!=null?'raffica '+a.raffica_kn+' kn · ':''}${esc(a.stazione)}, ${esc(a.ora)}</div>${T?`<div class="r">${esc(T.testo)}</div>`:''}
+  ${V.length>1&&T?`<div class="ln"><span>${T.da_kn}</span><svg viewBox="0 0 300 34" preserveAspectRatio="none"><polyline fill="none" stroke="#5fd3c6" stroke-width="2.5" vector-effect="non-scaling-stroke" points="${pts}"/></svg><span>${a.kn} kn</span></div>`:''}`})}
+async function controlla(){caricaAdesso();try{
  const V=await (await fetch('versione.json',{cache:'no-store'})).json();
  if(V.codice&&V.codice!==CODICE&&!CODICE.startsWith('__')){barra(V);return}
  if(D&&V.aggiornato_utc&&V.aggiornato_utc!==D.aggiornato_utc){D=await (await fetch('index.json',{cache:'no-store'})).json();vai()}
 }catch(e){}}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')controlla()});
 setInterval(controlla,15*60*1000);
-function vai(){if(!D||!G)return;const p=location.hash.replace(/^#/,'').split('/');if(p[0]==='zona')zona(p[1],p[2]);else home()}
+function vai(){if(!D||!G)return;const p=location.hash.replace(/^#/,'').split('/');if(p[0]==='zona')zona(p[1],p[2]);else home();riempiAdesso()}
 window.addEventListener('hashchange',vai);
 let T0=Date.now();   // v3.9: tocchi su fasce e mappa ignorati per 600 ms dopo il caricamento (tocco "rimbalzato" da Aggiorna)
 document.addEventListener('click',e=>{if(Date.now()-T0<600&&e.target.closest&&e.target.closest('.zone,.hero')){e.preventDefault();e.stopPropagation()}},true);

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v3.12 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v3.13 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.12"
+VERSIONE = "3.13"
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"
@@ -23,6 +23,7 @@ ZONE = [
 ALIAS_AREA = {}            # eventuali nomi di area diversi dagli id delle zone
 MARGINE_MAREA_MIN = 60
 ORA_DEFINITIVA = 14          # v3.2: previsione generata prima di quest'ora (italiana) = provvisoria del mattino (stessa soglia del workflow)
+ADESSO_URL = "https://fd-cpsm-proxy.ennioweb.workers.dev/adesso"   # v3.13: vento misurato adesso, calcolato dal Worker v2.4
 ORA_MATTINO = "08:30"        # v3.3: ora indicativa della previsione provvisoria (giro Cloudflare delle 08:25), per le istruzioni
 ORA_AGGIORNAMENTO = "16:30"  # v3.2: ora indicativa della previsione definitiva (giro Cloudflare delle 16:25), mostrata accanto alla provvisoria
 ORA_ATTESA = "17:30"        # v3.0: ora (italiana) entro cui ci si aspetta la previsione di domani; dopo, il sito avvisa del ritardo
@@ -275,7 +276,7 @@ def main():
     for z in ZONE:
         zone.append(dict(z, attiva=bool(voci[z["id"]]), voci=voci[z["id"]]))
     ora = dt.datetime.now(dt.timezone.utc)
-    json.dump({"versione_sito": VERSIONE, "autore": AUTORE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ora_aggiornamento": ORA_AGGIORNAMENTO, "ora_mattino": ORA_MATTINO, "regole": regole(), "zone": zone},
+    json.dump({"versione_sito": VERSIONE, "autore": AUTORE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ora_aggiornamento": ORA_AGGIORNAMENTO, "ora_mattino": ORA_MATTINO, "adesso_url": ADESSO_URL, "regole": regole(), "zone": zone},
               open(os.path.join(SITO, "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # v2.1: la pagina conosce la propria versione e l'impronta del suo codice; versione.json (letto senza cache)
     # dice alla pagina gia' aperta se esiste una versione nuova -> barra "Aggiorna"
