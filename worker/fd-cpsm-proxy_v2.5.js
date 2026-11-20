@@ -173,7 +173,7 @@ const SITO_URL = 'https://vksskdx22n-max.github.io/forecast-lagoon/';
 // Parametri da index.json; se il sito non risponde si usano gli ultimi validi salvati in KV.
 async function regoleAllerta(env) {
   try {
-    const j = await (await fetch(ADESSO_REGOLE_URL, { cf: { cacheTtl: 900, cacheEverything: true } })).json();
+    const j = await (await fetch(ADESSO_REGOLE_URL + '?allerta=' + Math.floor(Date.now() / 900000), { cf: { cacheTtl: 900, cacheEverything: true } })).json();   // copia in cache separata, al massimo 15 minuti
     const A = j && j.allerta;
     if (A && A.raffica_kn != null && A.salita_kn != null && A.finestra_min != null) {
       const vecchie = env.ALLERTE ? await env.ALLERTE.get('regole') : null;
