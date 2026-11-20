@@ -50,19 +50,28 @@ jobs:
         run: |
           python3 - <<'EOF'
           import os, glob, json, datetime as dt
-          oggi = dt.date.today(); domani = oggi + dt.timedelta(days=1)
+          from zoneinfo import ZoneInfo
+          # 20/11/2026: GitHub puo' far partire i giri programmati con ore di ritardo (19/11: 19:13 partito alle 01:37).
+          # Prima delle 14:00 italiane (bollettino CPSM 13:30) un giro automatico si ferma, e conta come "gia' fatta"
+          # solo una previsione generata oggi dalle 14:00 in poi.
+          ORA_MIN = 14
+          adesso = dt.datetime.now(ZoneInfo("Europe/Rome"))
+          oggi = adesso.date(); domani = oggi + dt.timedelta(days=1)
           forza = (os.environ.get("FORZA") or "").strip().lower() in ("si", "sì", "yes", "true")
           fatte = set()
           for f in glob.glob(f"Previsioni/previsione_{domani.strftime('%d-%m-%Y')}_0500-1200*_v*.json"):
               try:
                   P = json.load(open(f, encoding="utf-8"))
+                  g = dt.datetime.strptime(P.get("generato") or "", "%d/%m/%Y %H:%M")
               except ValueError:
                   continue
-              if (P.get("generato") or "").startswith(oggi.strftime("%d/%m/%Y")):
+              if g.date() == oggi and g.hour >= ORA_MIN:
                   fatte.add(P.get("area") or "centro")
-          salta = not forza and not os.environ.get("DATA_IN") and {"centro", "nord", "sud"} <= fatte
-          print("Previsione di domani gia' fatta oggi per: " + (", ".join(sorted(fatte)) or "nessuna zona"))
-          print("Giro saltato (nessun doppione)." if salta else "Giro da fare.")
+          presto = adesso.hour < ORA_MIN
+          manuale = forza or os.environ.get("DATA_IN")
+          salta = not manuale and (presto or {"centro", "nord", "sud"} <= fatte)
+          print("Previsione di domani gia' fatta oggi (dalle 14:00) per: " + (", ".join(sorted(fatte)) or "nessuna zona"))
+          print(("Giro saltato: prima delle 14:00 (giro programmato in ritardo)." if presto else "Giro saltato (nessun doppione).") if salta else "Giro da fare.")
           open(os.environ["GITHUB_OUTPUT"], "a").write(f"salta={'true' if salta else 'false'}\n")
           EOF
 

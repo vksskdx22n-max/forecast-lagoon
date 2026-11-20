@@ -64,6 +64,8 @@ h1 span{color:var(--teal)}
 .hours{display:grid;gap:4px;margin-top:14px}
 .hours div{border-radius:8px;text-align:center;padding:5px 0 4px;font-size:10px;font-weight:650;color:rgba(0,0,0,.6)}
 .hours div b{display:block;font-size:13px;color:rgba(0,0,0,.8)}
+.hours div u{display:block;text-decoration:none;font-size:9px;font-weight:600;color:rgba(0,0,0,.55)}
+.tab th u{display:block;text-decoration:none;text-transform:none;letter-spacing:0;font-size:10px;margin-top:1px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px 16px}
 .ch{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:11.5px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
 .ch span{text-transform:none;letter-spacing:0;text-align:right}
@@ -198,10 +200,10 @@ function curva(s){
  ${tick.map(t=>`<text x="${Math.min(W-14,Math.max(0,X(t)-6))}" y="${H+15}" fill="#6f8a9a" font-size="10">${String(t/60).padStart(2,'0')}</text>`).join('')}</svg>`}
 function oraPerOra(s){const O=s.ore_dettaglio||[];if(!O.length)return '';
  const fr=g=>g==null?'':`<span class="arr" style="transform:rotate(${g+180}deg)">↑</span>`;
- return `<div class="sec"><div class="card"><div class="ch">Ora per ora <span>vento medio della zona</span></div><table class="tab"><tr><th>Ora</th><th>Vento</th><th>Raff.</th><th>Da</th><th>Marea</th><th>Corrente</th><th>Pioggia</th></tr>
+ return `<div class="sec"><div class="card"><div class="ch">Ora per ora <span>vento medio della zona</span></div><table class="tab"><tr><th>Ora</th><th>Vento<u>kn</u></th><th>Raff.<u>kn</u></th><th>Da</th><th>Marea</th><th>Corrente</th><th>Pioggia</th></tr>
  ${O.map(o=>`<tr><td>${esc(o.ora)}</td><td><span class="kn"><i style="background:${col(o.sem)}"></i>${nf(o.stima,0)}</span></td><td>${nf(o.raff,0)}</td><td>${fr(o.dir_g)} ${esc(o.dir||'')}</td>
  <td>${esc(o.marea||'')}</td><td>${o.corr==null?'–':(o.verso==='entra'?'▲ ':'▼ ')+nf(o.corr,1)}</td><td>${o.pioggia_prob==null?'–':o.pioggia_prob+'%'}</td></tr>`).join('')}</table>
- <div class="note">nodi · corrente in m/s alla bocca, ▲ entra ▼ esce · pioggia = probabilità</div></div></div>`}
+ <div class="note">vento e raffiche in nodi (kn) · corrente in m/s alla bocca, ▲ entra ▼ esce · pioggia = probabilità</div></div></div>`}
 function meteoOnda(s){const M=s.meteo||{},P=M.pressione,L=M.luna;let h='<div class="sec grid2">';
  if(s.onda_laguna_max!=null)h+=`<div class="card"><div class="ch">Onda in laguna</div><div class="mini">fino a ${nf(s.onda_laguna_max,2)}<small>m</small></div><div class="note">stima, onda significativa</div></div>`;
  if(s.onda_mare_max!=null)h+=`<div class="card"><div class="ch">Mare aperto</div><div class="mini">${nf(s.onda_mare_min,1)}–${nf(s.onda_mare_max,1)}<small>m</small></div><div class="note">onda fuori dalla bocca</div></div>`;
@@ -234,7 +236,7 @@ function zona(id,dsel){
  const ore=s.ore||[];
  h+=`<div class="sec"><div class="verdict" style="background:${col(c)};color:${oncol(c)}"><div class="k">${esc(etichetta(v.data))} · ${esc(v.finestra||'')}</div>
  <div class="v">${TXT[c]||'n.d.'}</div><p>${esc(s.andamento||'')}</p>
- <div class="hours" style="grid-template-columns:repeat(${Math.max(ore.length,1)},1fr)">${ore.map(o=>`<div style="background:${o.sem===c?'rgba(0,0,0,.14)':col(o.sem)}">${esc(o.ora)}<b>${nf(o.stima,0)}</b></div>`).join('')}</div></div></div>`;
+ <div class="hours" style="grid-template-columns:repeat(${Math.max(ore.length,1)},1fr)">${ore.map(o=>`<div style="background:${o.sem===c?'rgba(0,0,0,.14)':col(o.sem)}">${esc(o.ora)}<b>${nf(o.stima,0)}</b><u>kn</u></div>`).join('')}</div></div></div>`;
  h+=oraPerOra(s);
  h+=`<div class="sec grid2"><div class="card"><div class="ch">Vento medio</div><div class="big">${nf(s.vento_min,0)}–${nf(s.vento_max,0)}<small>kn</small></div><div class="note">${s.direzione?'da '+esc(s.direzione)+(s.direzione_nome?' · '+esc(s.direzione_nome):''):''}</div></div>
  <div class="card"><div class="ch">Raffiche</div><div class="big">${nf(s.raff_max,0)}<small>kn</small></div><div class="note">massimo nella finestra; non cambiano il colore</div></div></div>`;
