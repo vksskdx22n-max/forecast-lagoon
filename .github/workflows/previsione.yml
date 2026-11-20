@@ -20,6 +20,10 @@ on:
         description: "Rifai anche se la previsione di domani c'e' gia' (si/no)"
         required: false
         default: "si"
+      giro:
+        description: "mattino = previsione provvisoria del mattino (la manda il Worker Cloudflare alle 08:25); vuoto = giro normale"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -47,6 +51,7 @@ jobs:
         env:
           FORZA: ${{ github.event.inputs.forza }}
           DATA_IN: ${{ github.event.inputs.data }}
+          GIRO: ${{ github.event.inputs.giro }}
         run: |
           python3 - <<'EOF'
           import os, glob, json, datetime as dt
@@ -54,24 +59,38 @@ jobs:
           # 20/11/2026: GitHub puo' far partire i giri programmati con ore di ritardo (19/11: 19:13 partito alle 01:37).
           # Prima delle 14:00 italiane (bollettino CPSM 13:30) un giro automatico si ferma, e conta come "gia' fatta"
           # solo una previsione generata oggi dalle 14:00 in poi.
+          # Eccezione: il giro del mattino (giro=mattino, dal Worker Cloudflare alle 08:25) fa la previsione PROVVISORIA
+          # di domani se oggi non e' ancora stata fatta per tutte le zone (a qualsiasi ora).
           ORA_MIN = 14
           adesso = dt.datetime.now(ZoneInfo("Europe/Rome"))
           oggi = adesso.date(); domani = oggi + dt.timedelta(days=1)
           forza = (os.environ.get("FORZA") or "").strip().lower() in ("si", "sì", "yes", "true")
-          fatte = set()
+          mattino = (os.environ.get("GIRO") or "").strip().lower() == "mattino"
+          fatte, fatte_oggi = set(), set()
           for f in glob.glob(f"Previsioni/previsione_{domani.strftime('%d-%m-%Y')}_0500-1200*_v*.json"):
               try:
                   P = json.load(open(f, encoding="utf-8"))
                   g = dt.datetime.strptime(P.get("generato") or "", "%d/%m/%Y %H:%M")
               except ValueError:
                   continue
-              if g.date() == oggi and g.hour >= ORA_MIN:
-                  fatte.add(P.get("area") or "centro")
+              if g.date() == oggi:
+                  fatte_oggi.add(P.get("area") or "centro")
+                  if g.hour >= ORA_MIN:
+                      fatte.add(P.get("area") or "centro")
           presto = adesso.hour < ORA_MIN
           manuale = forza or os.environ.get("DATA_IN")
-          salta = not manuale and (presto or {"centro", "nord", "sud"} <= fatte)
-          print("Previsione di domani gia' fatta oggi (dalle 14:00) per: " + (", ".join(sorted(fatte)) or "nessuna zona"))
-          print(("Giro saltato: prima delle 14:00 (giro programmato in ritardo)." if presto else "Giro saltato (nessun doppione).") if salta else "Giro da fare.")
+          tutte = {"centro", "nord", "sud"}
+          if manuale:
+              salta, motivo = False, "giro a mano"
+          elif mattino:
+              salta, motivo = tutte <= fatte_oggi, "giro del mattino: previsione di domani gia' fatta oggi"
+          elif presto:
+              salta, motivo = True, "prima delle 14:00 (giro programmato in ritardo)"
+          else:
+              salta, motivo = tutte <= fatte, "previsione di domani gia' fatta oggi dalle 14:00 (nessun doppione)"
+          print("Previsione di domani fatta oggi per: " + (", ".join(sorted(fatte_oggi)) or "nessuna zona")
+                + " · dalle 14:00: " + (", ".join(sorted(fatte)) or "nessuna zona"))
+          print(("Giro saltato: " + motivo + ".") if salta else ("Giro da fare" + (" (mattino, previsione provvisoria)." if mattino else ".")))
           open(os.environ["GITHUB_OUTPUT"], "a").write(f"salta={'true' if salta else 'false'}\n")
           EOF
 

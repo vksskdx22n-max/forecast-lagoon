@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v3.1 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v3.2 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.1"
+VERSIONE = "3.2"
 CARTELLA = "Previsioni"
 SITO = "site"
 ZONE = [
@@ -21,6 +21,8 @@ ZONE = [
 ]
 ALIAS_AREA = {}            # eventuali nomi di area diversi dagli id delle zone
 MARGINE_MAREA_MIN = 60
+ORA_DEFINITIVA = 14          # v3.2: previsione generata prima di quest'ora (italiana) = provvisoria del mattino (stessa soglia del workflow)
+ORA_AGGIORNAMENTO = "16:30"  # v3.2: ora indicativa della previsione definitiva (giro Cloudflare delle 16:25), mostrata accanto alla provvisoria
 ORA_ATTESA = "17:30"        # v3.0: ora (italiana) entro cui ci si aspetta la previsione di domani; dopo, il sito avvisa del ritardo
 CARD = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"]     # minuti di curva di marea mostrati prima e dopo la finestra
 
@@ -49,6 +51,14 @@ def scegli_ultimo(file):
 def zona_di(P):
     a = (P or {}).get("area") or "centro"
     return ALIAS_AREA.get(a, a)
+
+
+def provvisoria(P):
+    """v3.2: True se la previsione e' stata generata prima delle ORA_DEFINITIVA (giro del mattino)."""
+    try:
+        return dt.datetime.strptime(P.get("generato") or "", "%d/%m/%Y %H:%M").hour < ORA_DEFINITIVA
+    except ValueError:
+        return False
 
 
 def chiave_file(p):
@@ -231,7 +241,7 @@ def main():
         pj = scegli_ultimo(file)
         P = leggi(pj)
         voce = {"data": d.isoformat(), "titolo": P.get("titolo"), "finestra": P.get("finestra"),
-                "colore": (P.get("verdetto") or {}).get("colore"), "generato": P.get("generato"),
+                "colore": (P.get("verdetto") or {}).get("colore"), "generato": P.get("generato"), "provvisoria": provvisoria(P),
                 "versione": P.get("versione"), "sintesi": sintesi(P, d)}
         pdf = pj[:-5] + ".pdf"
         if os.path.exists(pdf):
@@ -260,7 +270,7 @@ def main():
     for z in ZONE:
         zone.append(dict(z, attiva=bool(voci[z["id"]]), voci=voci[z["id"]]))
     ora = dt.datetime.now(dt.timezone.utc)
-    json.dump({"versione_sito": VERSIONE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "regole": regole(), "zone": zone},
+    json.dump({"versione_sito": VERSIONE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ora_aggiornamento": ORA_AGGIORNAMENTO, "regole": regole(), "zone": zone},
               open(os.path.join(SITO, "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # v2.1: la pagina conosce la propria versione e l'impronta del suo codice; versione.json (letto senza cache)
     # dice alla pagina gia' aperta se esiste una versione nuova -> barra "Aggiorna"
