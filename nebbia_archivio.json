@@ -1,0 +1,294 @@
+{
+ "misure": [
+  {
+   "t": "2026-11-19 21:20",
+   "visib": 4.35,
+   "wx": null,
+   "raw": "METAR LIPZ 192120Z 30003KT 260V350 7000 BKN010 08/08 Q1001 NOSIG"
+  },
+  {
+   "t": "2026-11-19 21:50",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 192150Z 32005KT 0100 R04R/0600D FG NSC 07/07 Q1002 NOSIG"
+  },
+  {
+   "t": "2026-11-19 22:20",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 192220Z 34006KT 320V020 0100 R04R/0400N FG VV001 07/07 Q1002 NOSIG"
+  },
+  {
+   "t": "2026-11-19 22:50",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 192250Z 36005KT 340V040 0100 R04R/0450N FG VV001 08/08 Q1002 NOSIG"
+  },
+  {
+   "t": "2026-11-19 23:20",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 192320Z 34004KT 320V020 0100 R04R/0550N FG VV001 08/08 Q1003 NOSIG"
+  },
+  {
+   "t": "2026-11-19 23:50",
+   "visib": 0.62,
+   "wx": "BCFG",
+   "raw": "METAR LIPZ 192350Z VRB01KT 1000 R04R/1100U BCFG VV002 08/// Q//// NOSIG"
+  },
+  {
+   "t": "2026-11-20 00:20",
+   "visib": 0.93,
+   "wx": "BCFG",
+   "raw": "METAR LIPZ 200020Z 32002KT 1500 BCFG FEW001 OVC015 08/08 Q1003 NOSIG"
+  },
+  {
+   "t": "2026-11-20 00:50",
+   "visib": 1.86,
+   "wx": "BR",
+   "raw": "METAR LIPZ 200050Z 32004KT 3000 BR OVC015 08/08 Q1004 NOSIG"
+  },
+  {
+   "t": "2026-11-20 01:20",
+   "visib": 3.11,
+   "wx": "BR",
+   "raw": "METAR LIPZ 200120Z 35003KT 320V050 5000 BR OVC015 07/07 Q1004 NOSIG"
+  },
+  {
+   "t": "2026-11-20 01:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200150Z 04003KT 9999 BKN015 08/08 Q1004 NOSIG"
+  },
+  {
+   "t": "2026-11-20 02:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200220Z 29003KT 9999 BKN015 07/07 Q1004 NOSIG"
+  },
+  {
+   "t": "2026-11-20 02:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200250Z VRB02KT 9999 BKN015 08/08 Q1004 NOSIG"
+  },
+  {
+   "t": "2026-11-20 03:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200320Z VRB02KT 9999 BKN015 08/08 Q1005 NOSIG"
+  },
+  {
+   "t": "2026-11-20 03:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200350Z 31004KT 250V330 CAVOK 07/07 Q1005 NOSIG"
+  },
+  {
+   "t": "2026-11-20 04:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200420Z VRB01KT CAVOK 07/07 Q1005 NOSIG"
+  },
+  {
+   "t": "2026-11-20 04:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200450Z VRB02KT CAVOK 06/06 Q1005 NOSIG"
+  },
+  {
+   "t": "2026-11-20 05:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200520Z 29003KT CAVOK 06/06 Q1005 NOSIG"
+  },
+  {
+   "t": "2026-11-20 05:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200550Z VRB02KT CAVOK 06/06 Q1005 NOSIG"
+  },
+  {
+   "t": "2026-11-20 06:20",
+   "visib": 5.59,
+   "wx": "MIFG",
+   "raw": "METAR LIPZ 200620Z 34003KT 270V060 9000 MIFG NSC 05/05 Q1006 NOSIG"
+  },
+  {
+   "t": "2026-11-20 06:50",
+   "visib": 5.59,
+   "wx": "MIFG",
+   "raw": "METAR LIPZ 200650Z 29003KT 250V310 9000 MIFG NSC 06/05 Q1006 NOSIG"
+  },
+  {
+   "t": "2026-11-20 07:20",
+   "visib": "6+",
+   "wx": "MIFG",
+   "raw": "METAR LIPZ 200720Z 30003KT 9999 MIFG SCT030 06/06 Q1007 NOSIG"
+  },
+  {
+   "t": "2026-11-20 07:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200750Z 32003KT 290V350 9999 SCT010 06/06 Q1007 NOSIG"
+  },
+  {
+   "t": "2026-11-20 08:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200820Z 35005KT 310V010 9999 FEW070 10/08 Q1007 NOSIG"
+  },
+  {
+   "t": "2026-11-20 08:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200850Z 35004KT 300V020 9999 FEW070 12/09 Q1007 NOSIG"
+  },
+  {
+   "t": "2026-11-20 09:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200920Z 02005KT 350V050 9999 FEW070 11/09 Q1007 NOSIG"
+  },
+  {
+   "t": "2026-11-20 09:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 200950Z 03006KT 9999 FEW070 12/09 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 10:20",
+   "visib": 5.59,
+   "wx": null,
+   "raw": "METAR LIPZ 201020Z 35004KT 320V060 9000 SCT040 12/09 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 10:50",
+   "visib": 5.59,
+   "wx": null,
+   "raw": "METAR LIPZ 201050Z 35004KT 310V020 9000 SCT060 14/10 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 11:20",
+   "visib": 5.59,
+   "wx": null,
+   "raw": "METAR LIPZ 201120Z 34003KT 280V030 9000 SCT015 14/10 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 11:50",
+   "visib": 5.59,
+   "wx": null,
+   "raw": "METAR LIPZ 201150Z VRB02KT 9000 SCT020 15/10 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 12:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 201220Z VRB02KT 9999 SCT020 14/11 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 12:50",
+   "visib": 5.59,
+   "wx": null,
+   "raw": "METAR LIPZ 201250Z 19004KT 9000 SCT020 13/10 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 13:20",
+   "visib": 5.59,
+   "wx": null,
+   "raw": "METAR LIPZ 201320Z 21004KT 9000 SCT020 14/10 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 13:50",
+   "visib": 5.59,
+   "wx": null,
+   "raw": "METAR LIPZ 201350Z 22005KT 9000 SCT020 13/10 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 14:20",
+   "visib": 5.59,
+   "wx": null,
+   "raw": "METAR LIPZ 201420Z 22004KT 9000 FEW015 12/10 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 14:50",
+   "visib": 5.59,
+   "wx": null,
+   "raw": "METAR LIPZ 201450Z 21002KT 9000 FEW015 12/10 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 15:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 201520Z 21004KT 9999 FEW020 11/10 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 15:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 201550Z 20005KT 9999 FEW040 10/09 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-20 16:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 201620Z 20004KT 9999 FEW040 10/09 Q1009 NOSIG"
+  },
+  {
+   "t": "2026-11-20 16:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 201650Z 21004KT CAVOK 09/09 Q1009 NOSIG"
+  },
+  {
+   "t": "2026-11-20 17:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 201720Z 24002KT CAVOK 10/10 Q1009 NOSIG"
+  },
+  {
+   "t": "2026-11-20 17:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 201750Z 23004KT CAVOK 10/10 Q1009 NOSIG"
+  },
+  {
+   "t": "2026-11-20 18:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 201820Z 22004KT CAVOK 09/09 Q1009 NOSIG"
+  },
+  {
+   "t": "2026-11-20 18:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 201850Z 23003KT CAVOK 09/09 Q1010 NOSIG"
+  },
+  {
+   "t": "2026-11-20 19:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 201920Z 29003KT 240V350 CAVOK 10/09 Q1010 NOSIG"
+  },
+  {
+   "t": "2026-11-20 19:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 201950Z 24004KT CAVOK 10/09 Q1010 NOSIG"
+  },
+  {
+   "t": "2026-11-20 20:20",
+   "visib": 4.97,
+   "wx": null,
+   "raw": "METAR LIPZ 202020Z 24004KT 220V300 8000 NSC 09/08 Q1011 BECMG 4000 BR"
+  },
+  {
+   "t": "2026-11-20 20:50",
+   "visib": 3.73,
+   "wx": null,
+   "raw": "METAR LIPZ 202050Z 25003KT 6000 NSC 09/08 Q1011 BECMG 4000 BR"
+  }
+ ],
+ "versione": "1.38",
+ "nota": "METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib come nel bollettino (in metri o '6+' miglia), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato."
+}
