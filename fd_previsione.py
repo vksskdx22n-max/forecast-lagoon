@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_previsione.py v1.36 — previsione meteo-marina per un'uscita (Fishing Diary).
+"""fd_previsione.py v1.37 — previsione meteo-marina per un'uscita (Fishing Diary).
 
 All'avvio verifica da solo le previsioni concluse (fd_verifica.py, stessa cartella) e usa l'archivio
 verifica_archivio.json per la correzione di ICON-D2 (--no-verifica per saltare la verifica).
@@ -40,13 +40,13 @@ Semaforo (v1.35, scelta di Ennio 20/11/2026): vento medio dell'ora arrotondato a
 Correnti: stima del modello di Laguna Viva, v = c*f - s*f'/omega (stesse formule del doppio clic di LV 7.25+),
           valore riportato = massimo lungo il canale, in m/s.
 """
-import sys, os, re, json, math, time, datetime as dt, subprocess, shutil, statistics, tempfile
+import sys, os, re, json, math, time, glob, datetime as dt, subprocess, shutil, statistics, tempfile
 try:
     import fd_verifica as FV          # verifica automatica e correzione misurata (fd_verifica.py nella stessa cartella)
 except ImportError:
     FV = None
 
-VERSIONE = "1.36"
+VERSIONE = "1.37"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -495,6 +495,75 @@ def acqua_misurata(path=None, archivio=ACQUA_ARCHIVIO):
                 "verso": "stabile" if abs(d) < ACQUA_STABILE else ("in aumento" if d > 0 else "in calo")}
     return {"valore": misura["valore"], "data": t.strftime("%d/%m"), "ora": t.strftime("%H:%M"),
             "stazione": misura["stazione"], "fonte": "misura CPSM (Comune di Venezia)", "tendenza": tend}
+
+
+# v1.37: onda in laguna MISURATA (CPSM onde_laguna.json, solo l'ultimo valore: "Hs m, Hmax m") salvata a ogni giro, per verificare
+# la stima dell'onda in laguna prima di rimetterla sul sito. Fusina e' l'unica stazione in laguna aperta (le altre sono canali di
+# Venezia, dominati dal moto ondoso delle barche) e coincide con il punto di calcolo "C. Petroli · Fusina" dell'area centro.
+CPSM_ONDE_PROXY = ("https://fd-cpsm-proxy.ennioweb.workers.dev/onde_laguna", ["-H", "Origin: https://vksskdx22n-max.github.io"])
+ONDE_ARCHIVIO = "onde_archivio.json"
+ONDE_CONFRONTO = {"Fusina": "C. Petroli · Fusina"}     # stazione CPSM (nome_abbr) -> punto di calcolo
+
+
+def onde_misurate_archivia(path=None, archivio=ONDE_ARCHIVIO, cartella="."):
+    """Salva l'ultima misura di onda delle stazioni CPSM e, se c'e', il confronto con la stima della previsione del centro
+    per la stessa ora. Non cambia la previsione. Ritorna una riga di testo per il log."""
+    dati = None
+    if path:
+        dati = json.load(open(path, encoding="utf-8"))
+    else:
+        r = subprocess.run(["curl", "-s", "-m", "20"] + CPSM_ONDE_PROXY[1] + [CPSM_ONDE_PROXY[0]], capture_output=True, text=True)
+        try:
+            dati = json.loads(r.stdout)
+        except ValueError:
+            dati = None
+    if not isinstance(dati, list):
+        return "Onda in laguna misurata: non disponibile"
+    try:
+        A = json.load(open(archivio, encoding="utf-8")) if os.path.exists(archivio) else {}
+    except ValueError:
+        A = {}
+    A.setdefault("misure", []); A.setdefault("confronti", [])
+    gia = {(x["t"], x["stazione"]) for x in A["misure"]}
+    nuove, conf = 0, 0
+    for x in dati:
+        v = [float(n.replace(",", ".")) for n in re.findall(r"\d+(?:[.,]\d+)?", str(x.get("valore") or ""))]
+        try:
+            t = dt.datetime.strptime(str(x.get("data") or ""), "%Y-%m-%d %H:%M:%S")
+        except ValueError:
+            continue
+        st = x.get("nome_abbr") or x.get("stazione")
+        if len(v) < 2 or not st or (t.strftime("%Y-%m-%d %H:%M"), st) in gia:
+            continue
+        A["misure"].append({"t": t.strftime("%Y-%m-%d %H:%M"), "stazione": st, "hs": v[0], "hmax": v[1]})
+        nuove += 1
+        punto = ONDE_CONFRONTO.get(st)
+        if not punto:
+            continue
+        ora = (t + dt.timedelta(minutes=30)).replace(minute=0)          # ora piu' vicina
+        scelta = None
+        for f in glob.glob(os.path.join(cartella, "Previsioni", f"previsione_{t.strftime('%d-%m-%Y')}_*.json")):
+            try:
+                P = json.load(open(f, encoding="utf-8"))
+                gen = dt.datetime.strptime(P["generato"], "%d/%m/%Y %H:%M")
+                da = dt.datetime.combine(t.date(), dt.time.fromisoformat(P["finestra"].replace("-", "–").split("–")[0]))
+            except (ValueError, KeyError):
+                continue
+            if (P.get("area") or "centro") != "centro" or gen > da:
+                continue
+            riga = next((o for o in (P.get("onda_laguna") or {}).get("ore", []) if o.get("ora") == ora.strftime("%H:%M")), None)
+            if riga and riga["v"].get(punto) and (scelta is None or gen > scelta[0]):
+                scelta = (gen, os.path.basename(f), riga["v"][punto])
+        if scelta:
+            A["confronti"].append({"t": t.strftime("%Y-%m-%d %H:%M"), "stazione": st, "punto": punto, "ora_stima": ora.strftime("%H:%M"),
+                                   "mis": [v[0], v[1]], "stima": scelta[2], "previsione": scelta[1]})
+            conf += 1
+    if nuove:
+        A["versione"] = VERSIONE
+        A["nota"] = ("Onda in laguna misurata dal CPSM (onde_laguna.json: altezza significativa e massima, m), una misura per stazione e giro; "
+                     "confronti = stima della previsione del centro (emessa prima della finestra) per la stessa ora nel punto di calcolo")
+        json.dump(A, open(archivio, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    return f"Onda in laguna misurata: {nuove} misure nuove, {conf} confronti con la stima (archivio {len(A['misure'])} misure, {len(A['confronti'])} confronti)"
 
 
 def misure_aria(html_dir=None):
@@ -1197,6 +1266,7 @@ def main():
                 misure_aria(sys.argv[sys.argv.index("--misure-dir") + 1] if "--misure-dir" in sys.argv else None))
     os.makedirs("Previsioni", exist_ok=True)
     base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_{da.strftime('%H%M')}-{a.strftime('%H%M')}{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}")
+    print(onde_misurate_archivia(sys.argv[sys.argv.index("--onde-json") + 1] if "--onde-json" in sys.argv else None))   # v1.37: solo archivio
     D["acqua_misurata"] = acqua_misurata(sys.argv[sys.argv.index("--acqua-json") + 1] if "--acqua-json" in sys.argv else None)   # v1.36
     print(f"Acqua: {num(D['acqua_misurata']['valore'])} °C a {D['acqua_misurata']['stazione']} ({D['acqua_misurata']['data']} {D['acqua_misurata']['ora']})"
           if D["acqua_misurata"] else "Acqua: misura CPSM non disponibile, riquadro omesso")
