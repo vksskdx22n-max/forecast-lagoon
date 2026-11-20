@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v3.5 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v3.6 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.5"
+VERSIONE = "3.6"
 CARTELLA = "Previsioni"
 SITO = "site"
 ZONE = [
@@ -167,6 +167,8 @@ def sintesi(P, giorno):
     onde_m = [d["onda_mare"] for d in det if d["onda_mare"] is not None]
     s["onda_laguna_max"] = max(onde_l) if onde_l else None
     s["onda_mare_min"], s["onda_mare_max"] = (min(onde_m), max(onde_m)) if onde_m else (None, None)
+    # v3.6: onda in mare aperto in centimetri interi per la pagina (un solo numero se minimo e massimo coincidono)
+    s["onda_mare_cm"] = sorted({round(min(onde_m) * 100), round(max(onde_m) * 100)}) if onde_m else None
     s["note"] = [r.get("testo") for r in (P.get("riflessioni") or []) if r.get("tipo") in ("inferenza", "dato")][:3]
     s["verdetto_testo"] = (P.get("verdetto") or {}).get("testo")
     V = P.get("verdetto") or {}
