@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_previsione.py v1.35 — previsione meteo-marina per un'uscita (Fishing Diary).
+"""fd_previsione.py v1.36 — previsione meteo-marina per un'uscita (Fishing Diary).
 
 All'avvio verifica da solo le previsioni concluse (fd_verifica.py, stessa cartella) e usa l'archivio
 verifica_archivio.json per la correzione di ICON-D2 (--no-verifica per saltare la verifica).
@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.35"
+VERSIONE = "1.36"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -428,6 +428,75 @@ def storico(M, anno):
 
 
 # ------------------------------------------------------------------ calcolo
+# v1.36: temperatura dell'acqua MISURATA dal CPSM (tempacqua.json). Oggi (20/11/2026) trasmette solo Punta Salute (Canal Grande),
+# in gradi interi; Piattaforma CNR e Meda Abate sono nell'elenco ma senza valore. Il modello Open-Meteo Marine non si usa:
+# sulle celle della laguna il 20/11 dava 2-3,5 °C in piu' della misura (celle di mare). Orario come nel file CPSM.
+CPSM_ACQUA_PROXY = ("https://fd-cpsm-proxy.ennioweb.workers.dev/tempacqua", ["-H", "Origin: https://vksskdx22n-max.github.io"])
+CPSM_ACQUA_OPENDATA = ("https://dati.venezia.it/sites/default/files/dataset/opendata/tempacqua.json", [])
+ACQUA_ARCHIVIO = "acqua_archivio.json"   # una misura per giro, per la tendenza
+ACQUA_PREFERITE = ["PSalute", "Piattaforma", "M_Abate"]
+ACQUA_TEND_GIORNI = 5                    # tendenza: confronto con la misura di circa 5 giorni prima (almeno 3)
+ACQUA_STABILE = 0.5                      # °C: variazione sotto la quale la tendenza e' "stabile"
+ACQUA_MAX_ORE = 24                       # se il CPSM non risponde: ultima misura in archivio, se non piu' vecchia di cosi'
+
+
+def acqua_misurata(path=None, archivio=ACQUA_ARCHIVIO):
+    """{valore, data, ora, stazione, tendenza} dall'ultima misura CPSM della temperatura dell'acqua; None se non disponibile."""
+    dati = None
+    if path:
+        dati = json.load(open(path, encoding="utf-8"))
+    else:
+        for url, extra in (CPSM_ACQUA_PROXY, CPSM_ACQUA_OPENDATA):
+            r = subprocess.run(["curl", "-s", "-m", "20"] + extra + [url], capture_output=True, text=True)
+            try:
+                dati = json.loads(r.stdout)
+                if isinstance(dati, list) and dati:
+                    break
+            except ValueError:
+                dati = None
+    misura = None
+    if isinstance(dati, list):
+        validi = []
+        for x in dati:
+            m_v = re.search(r"-?\d+(?:[.,]\d+)?", str(x.get("valore") or ""))
+            try:
+                t = dt.datetime.strptime(str(x.get("data") or ""), "%Y-%m-%d %H:%M:%S")
+            except ValueError:
+                continue
+            if m_v:
+                validi.append((ACQUA_PREFERITE.index(x.get("nome_abbr")) if x.get("nome_abbr") in ACQUA_PREFERITE else 99,
+                               t, float(m_v.group(0).replace(",", ".")), x.get("stazione") or x.get("nome_abbr") or "CPSM"))
+        if validi:
+            _, t, v, st = min(validi, key=lambda y: (y[0], -y[1].timestamp()))
+            misura = {"t": t.strftime("%Y-%m-%d %H:%M"), "valore": v, "stazione": st}
+    try:
+        A = json.load(open(archivio, encoding="utf-8")) if os.path.exists(archivio) else {"misure": []}
+    except ValueError:
+        A = {"misure": []}
+    if misura and misura["t"] not in {x["t"] for x in A["misure"]}:
+        A["misure"] = sorted(A["misure"] + [misura], key=lambda x: x["t"])
+        A["versione"] = VERSIONE
+        A["nota"] = "Temperatura dell'acqua misurata dal CPSM (tempacqua.json), una riga per giro di fd_previsione"
+        json.dump(A, open(archivio, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    if not misura and A["misure"]:
+        u = A["misure"][-1]
+        if dt.datetime.now() - dt.datetime.strptime(u["t"], "%Y-%m-%d %H:%M") <= dt.timedelta(hours=ACQUA_MAX_ORE):
+            misura = u
+    if not misura:
+        return None
+    t = dt.datetime.strptime(misura["t"], "%Y-%m-%d %H:%M")
+    tend = None
+    prima = [x for x in A["misure"] if x["stazione"] == misura["stazione"]
+             and dt.timedelta(days=3) <= t - dt.datetime.strptime(x["t"], "%Y-%m-%d %H:%M") <= dt.timedelta(days=ACQUA_TEND_GIORNI + 2)]
+    if prima:
+        p = min(prima, key=lambda x: abs((t - dt.datetime.strptime(x["t"], "%Y-%m-%d %H:%M")).total_seconds() - ACQUA_TEND_GIORNI * 86400))
+        d = round(misura["valore"] - p["valore"], 1)
+        tend = {"giorni": (t.date() - dt.datetime.strptime(p["t"], "%Y-%m-%d %H:%M").date()).days, "diff": d,
+                "verso": "stabile" if abs(d) < ACQUA_STABILE else ("in aumento" if d > 0 else "in calo")}
+    return {"valore": misura["valore"], "data": t.strftime("%d/%m"), "ora": t.strftime("%H:%M"),
+            "stazione": misura["stazione"], "fonte": "misura CPSM (Comune di Venezia)", "tendenza": tend}
+
+
 def misure_aria(html_dir=None):
     """Ultima temperatura dell'aria misurata (CPSM): [{stazione, ora, valore}]."""
     if FV is None:
@@ -1128,6 +1197,9 @@ def main():
                 misure_aria(sys.argv[sys.argv.index("--misure-dir") + 1] if "--misure-dir" in sys.argv else None))
     os.makedirs("Previsioni", exist_ok=True)
     base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_{da.strftime('%H%M')}-{a.strftime('%H%M')}{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}")
+    D["acqua_misurata"] = acqua_misurata(sys.argv[sys.argv.index("--acqua-json") + 1] if "--acqua-json" in sys.argv else None)   # v1.36
+    print(f"Acqua: {num(D['acqua_misurata']['valore'])} °C a {D['acqua_misurata']['stazione']} ({D['acqua_misurata']['data']} {D['acqua_misurata']['ora']})"
+          if D["acqua_misurata"] else "Acqua: misura CPSM non disponibile, riquadro omesso")
     json.dump(D, open(base + ".json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     open(base + ".html", "w", encoding="utf-8").write(HTML.replace("__DATI__", json.dumps(D, ensure_ascii=False).replace("</", "<\\/")))
     print(f"Verdetto: {D['verdetto']['colore'].upper()}" + (f" ({D['verdetto']['andamento_txt']})" if D['verdetto'].get('andamento_txt') else "")

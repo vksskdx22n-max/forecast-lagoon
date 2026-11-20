@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build_site.py v3.4 - prepara la cartella site/ per GitHub Pages.
+"""build_site.py v3.5 - prepara la cartella site/ per GitHub Pages.
 
 Legge Previsioni/previsione_*.json e Previsioni/verifica_*.json, copia le pagine HTML/PDF in site/giorni/,
 copia assets/ e scrive site/index.json con le tre zone (Laguna Nord, Centro, Sud) e, per ogni giorno,
@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.4"
+VERSIONE = "3.5"
 CARTELLA = "Previsioni"
 SITO = "site"
 ZONE = [
@@ -161,6 +161,7 @@ def sintesi(P, giorno):
                     "onda_lag": max(onde) if onde else None, "pioggia_prob": pp, "pioggia_mm": p.get("mm_D2"),
                     "onda_mare": m.get("h_corr", m.get("h"))})
     s["ore_dettaglio"] = det
+    s["acqua"] = P.get("acqua_misurata")           # v3.5: temperatura dell'acqua misurata (fd_previsione >= 1.36)
     s["meteo"] = {k: Me.get(k) for k in ("aria", "aria_acqua", "aria_punto", "pressione", "nuvolosita", "luna", "fonte_meteo")}
     onde_l = [d["onda_lag"] for d in det if d["onda_lag"] is not None]
     onde_m = [d["onda_mare"] for d in det if d["onda_mare"] is not None]
