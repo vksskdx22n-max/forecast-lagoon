@@ -277,14 +277,18 @@ async function inviaPush(env, sub, dati) {
   return r.status;
 }
 async function idIscrizione(endpoint) { return 'sub:' + b64u.enc((await crypto.subtle.digest('SHA-256', testoB(endpoint)))).slice(0, 22); }
+async function elencoIscritti(env) { try { return JSON.parse((await env.ALLERTE.get('iscritti')) || '[]'); } catch (e) { return []; } }
+async function aggiornaIscritti(env, fn) { const L = await elencoIscritti(env), N = fn(L); if (JSON.stringify(N) !== JSON.stringify(L)) await env.ALLERTE.put('iscritti', JSON.stringify(N)); return N; }
 async function inviaATutti(env, dati) {
   if (!env.ALLERTE) return 'web push non configurato';
-  const elenco = await env.ALLERTE.list({ prefix: 'sub:' }); let ok = 0, tolte = 0, err = 0;
-  for (const k of elenco.keys.slice(0, 35)) {             // piano Free: max 50 richieste esterne per esecuzione
-    try { const sub = JSON.parse(await env.ALLERTE.get(k.name)); const s = await inviaPush(env, sub, dati);
-          if (s === 404 || s === 410) { await env.ALLERTE.delete(k.name); tolte++; } else if (s < 300) ok++; else err++; } catch (e) { err++; }
+  const ids = await elencoIscritti(env), scadute = []; let ok = 0, err = 0;
+  for (const id of ids.slice(0, 35)) {                    // piano Free: max 50 richieste esterne per esecuzione
+    try { const v = await env.ALLERTE.get(id); if (!v) { scadute.push(id); continue; }
+          const s = await inviaPush(env, JSON.parse(v), dati);
+          if (s === 404 || s === 410) { await env.ALLERTE.delete(id); scadute.push(id); } else if (s < 300) ok++; else err++; } catch (e) { err++; }
   }
-  return `push: ${ok} inviate, ${tolte} iscrizioni scadute tolte, ${err} errori (iscritti ${elenco.keys.length})`;
+  if (scadute.length) await aggiornaIscritti(env, L => L.filter(x => !scadute.includes(x)));
+  return `push: ${ok} inviate, ${scadute.length} iscrizioni scadute tolte, ${err} errori (iscritti ${ids.length})`;
 }
 
 async function controllaAllerte(env, forzaOra) {
@@ -341,7 +345,7 @@ async function rispostaAllerta(request, env, sotto) {
   }
   if (sotto === 'stato') {
     const S = env.ALLERTE ? JSON.parse((await env.ALLERTE.get('stato')) || '{}') : {};
-    const n = env.ALLERTE ? (await env.ALLERTE.list({ prefix: 'sub:' })).keys.length : null;
+    const n = env.ALLERTE ? (await elencoIscritti(env)).length : null;
     return json({ versione: '2.5', regole: await regoleAllerta(env), iscritti_push: n, telegram: !!(env.TELEGRAM_TOKEN && env.TELEGRAM_CHAT_ID),
                   ultime_allerte: (S.storico || []).slice(-10).map(e => ({ ...e, ora: new Date(e.t).toLocaleString('it-IT', { timeZone: 'Europe/Rome' }) })) });
   }
@@ -359,8 +363,8 @@ async function rispostaAllerta(request, env, sotto) {
   if (!sub || !sub.endpoint || !/^https:\/\//.test(sub.endpoint) || !sub.keys || !sub.keys.p256dh || !sub.keys.auth) return json({ error: 'iscrizione non valida' }, 400);
   if (!env.ALLERTE) return json({ error: 'archivio non configurato' }, 503);
   const id = await idIscrizione(sub.endpoint);
-  if (sotto === 'iscrivi') { await env.ALLERTE.put(id, JSON.stringify({ endpoint: sub.endpoint, keys: sub.keys, dal: new Date().toISOString() })); return json({ ok: true }); }
-  if (sotto === 'disiscrivi') { await env.ALLERTE.delete(id); return json({ ok: true }); }
+  if (sotto === 'iscrivi') { await env.ALLERTE.put(id, JSON.stringify({ endpoint: sub.endpoint, keys: sub.keys, dal: new Date().toISOString() })); await aggiornaIscritti(env, L => L.includes(id) ? L : L.concat(id)); return json({ ok: true }); }
+  if (sotto === 'disiscrivi') { await env.ALLERTE.delete(id); await aggiornaIscritti(env, L => L.filter(x => x !== id)); return json({ ok: true }); }
   if (sotto === 'prova') {
     const s = await inviaPush(env, sub, { titolo: '✅ Prova allerte vento', corpo: 'Le allerte vento di Forecast Lagoon arrivano su questo telefono.', url: SITO_URL, tag: 'prova' });
     return json({ push_http: s });
