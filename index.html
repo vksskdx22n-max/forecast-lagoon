@@ -169,7 +169,7 @@ function istruzioni(){
  <h4>Cos'è</h4><p>Previsione di vento e mare per uscire in barca in laguna (Nord, Centro, Sud), nella finestra ${esc(finestra()||'del mattino')}. Una previsione che impara: ogni giorno viene confrontata con le misure e corretta di conseguenza.</p>
  <h4>Il semaforo</h4><ul><li><span class="sem" style="background:var(--verde)"></span><b>Verde</b>: vento medio fino a ${k(v)} nodi</li><li><span class="sem" style="background:var(--giallo)"></span><b>Giallo</b>: da ${k1(v)} a ${km(r)} nodi</li><li><span class="sem" style="background:var(--rosso)"></span><b>Rosso</b>: da ${k(r)} nodi in su</li></ul><p>Vento medio dell'ora; le raffiche sono indicate ma non cambiano il colore.</p>
  <h4>Due previsioni al giorno</h4><p>Verso le ${esc(D.ora_mattino||'')} la <b>provvisoria</b> per il giorno dopo, verso le ${esc(D.ora_aggiornamento||'')} la <b>definitiva</b>.</p>
- <h4>Nebbia</h4><p>Accanto al nome della zona <b>🌫 80%</b> indica la probabilità massima di nebbia nella mattina (in bianco quando è alta, in giallo quando è moderata). È calcolata dagli scenari del modello e non è ancora verificata con le misure; il dettaglio ora per ora è nella pagina della zona.</p>
+ <h4>Nebbia</h4><p>Accanto al nome della zona <b>🌫 probabile</b> segnala la nebbia probabile nella mattina; nella pagina della zona c'è il dettaglio ora per ora (probabile, poco probabile, non probabile). È un'indicazione dai modelli, non ancora verificata con le misure.</p>
  <h4>Vento adesso</h4><p>Vento <b>misurato</b> in questo momento dalla stazione del Centro Maree della zona, con raffica, direzione, ora e andamento delle ultime 3 ore. È una misura, non la previsione.</p>
  ${D.allerta?`<h4>Allerte vento</h4><p>Dalle ${esc(D.allerta.ora_inizio)} alle ${esc(D.allerta.ora_fine)}, ogni ${esc(D.allerta.controllo_min)} minuti, l'app controlla le stazioni del Centro Maree. Se in una stazione la raffica arriva ad almeno <b>${esc(D.allerta.raffica_kn)} kn</b> <b>e</b> il vento medio è salito di almeno ${esc(D.allerta.salita_kn)} kn in ${esc(D.allerta.finestra_min)} minuti, arriva una notifica con stazione, raffica, direzione e ora. Si attiva da qui sotto, aprendo l'app dall'icona sulla schermata Home. In barca servono dati mobili accesi e suoneria attiva.</p><div class="avvall"><b>Attenzione.</b> Servizio sperimentale, senza garanzia: l'avviso può arrivare in ritardo o non arrivare. Non sostituisce cielo, VHF e bollettini meteo: la decisione di uscire o rientrare resta tua.</div><div id="allUI" class="allui"></div>`:''}
  <h4>Installarla come app</h4><p><b>iPhone</b> (Safari): Condividi → Aggiungi alla schermata Home.<br><b>Android</b> (Chrome): menu ⋮ → “Aggiungi a schermata Home”. Previsioni e nuove versioni si caricano da sole.</p>
@@ -222,20 +222,17 @@ function meteoOnda(s){const M=s.meteo||{},P=M.pressione,L=M.luna;let h='<div cla
  if(L)h+=`<div class="card"><div class="ch">Luna</div><div class="mini">${L[0]}<small>%</small></div><div class="note">${esc(L[1]||'')}</div></div>`;
  return h+'</div>'}
 function dettagli(s){let h='';if(s.verdetto_testo)h+=`<div class="sec"><details class="card"><summary>Il verdetto per esteso ▾</summary><p>${esc(s.verdetto_testo)}</p>${(s.note||[]).map(n=>`<p>${esc(n)}</p>`).join('')}</details></div>`;return h}
-function nebbiaHome(N){   // v3.21: in prima pagina solo se c'e' rischio
- if(!N)return '';const P=N.prob_max!=null;if(P?!N.segnala:!N.livello)return '';
- const c=P?(N.prob_max>=N.soglia_alta?'#eef4f7':'#c9a227'):(N.livello>1?'#eef4f7':'#c9a227');
- return `<span class="zneb" style="color:${c}">🌫 ${P?N.prob_max+'%':esc(N.dalle||'').slice(0,2)+'–'+esc(N.alle||'').slice(0,2)}</span>`}
-function nebbia(s){   // v3.21: probabilita' di nebbia dall'ensemble ICON-D2-EPS (v3.20: livelli se l'ensemble manca)
+function nebbiaCat(p,N){return p==null?null:p>=N.soglia_alta?2:p>=N.soglia_min?1:0}   // v3.22: categorie a parole, niente percentuali finche' non sono verificate
+const NEB_TXT=['non probabile','poco probabile','probabile'],NEB_COL=['#3a5566','#c9a227','#eef4f7'];
+function nebbiaHome(N){   // in prima pagina solo se probabile
+ if(!N)return '';const c=N.prob_max!=null?nebbiaCat(N.prob_max,N):N.livello;if(c!==2)return '';
+ return `<span class="zneb" style="color:${NEB_COL[2]}">🌫 probabile</span>`}
+function nebbia(s){
  const N=s.nebbia,O=s.nebbia_ore||[];if(!N||!O.length)return '';
- const P=N.prob_max!=null,A=N.soglia_alta,Mn=N.soglia_min;
- const colP=p=>p==null?'#3a5566':p>=A?'#eef4f7':p>=Mn?'#c9a227':'#3a5566',CL=['#3a5566','#c9a227','#eef4f7'];
- const ore=O.map(o=>`<div style="flex:1;text-align:center"><div style="height:8px;border-radius:4px;background:${P?colP(o.prob):CL[o.livello]||CL[0]}"></div><div style="font-size:10.5px;color:#6f8a9a;margin-top:4px">${esc((o.ora||'').slice(0,2))}</div>${P?`<div style="font-size:11px;font-weight:${(o.prob||0)>=A?700:400};color:${(o.prob||0)>=Mn?'#cfe0e8':'#6f8a9a'}">${o.prob==null?'–':o.prob+'%'}</div>`:''}</div>`).join('');
- const tit=P?(N.segnala?`Nebbia fino al ${N.prob_max}%${N.dalle?' · ore '+esc(N.dalle).slice(0,2)+'–'+esc(N.alle).slice(0,2):''}`:`Nebbia poco probabile (max ${N.prob_max}%)`)
-            :(N.livello?`Nebbia ${esc(N.testo)}${N.dalle?' '+esc(N.dalle)+'–'+esc(N.alle):''}`:'Nessuna nebbia prevista');
- const nota=P?`Percentuale = scenari del modello con nebbia (${esc(N.fonte_prob||'')}). Probabilità dai modelli, non ancora verificata con le misure. Non cambia il semaforo.`
-            :`Stima da umidità, vento, nubi basse e codici meteo dei modelli: da verificare. Non cambia il semaforo.`;
- return `<div class="sec"><div class="card"><div class="ch">Nebbia <span>${P?'probabilità dai modelli':'stima dai modelli'}</span></div><div class="mini">${tit}</div><div style="display:flex;gap:3px;margin-top:8px">${ore}</div><div class="note">${nota}</div></div></div>`}
+ const P=N.prob_max!=null,cat=o=>P?nebbiaCat(o.prob,N):o.livello,cmax=P?nebbiaCat(N.prob_max,N):N.livello;
+ const hh=O.filter(o=>cat(o)===cmax&&cmax>0).map(o=>o.ora.slice(0,2)),ore_t=hh.length?` · ore ${hh[0]}–${String(+hh[hh.length-1]+1).padStart(2,'0')}`:'';
+ const ore=O.map(o=>`<div style="flex:1;text-align:center"><div style="height:8px;border-radius:4px;background:${NEB_COL[cat(o)]||NEB_COL[0]}"></div><div style="font-size:10.5px;color:#6f8a9a;margin-top:4px">${esc((o.ora||'').slice(0,2))}</div></div>`).join('');
+ return `<div class="sec"><div class="card"><div class="ch">Nebbia <span>indicazione dai modelli</span></div><div class="mini">Nebbia ${NEB_TXT[cmax]||NEB_TXT[0]}${ore_t}</div><div style="display:flex;gap:3px;margin-top:8px">${ore}</div><div class="note"><b style="color:${NEB_COL[2]}">■</b> probabile · <b style="color:${NEB_COL[1]}">■</b> poco probabile · <b style="color:${NEB_COL[0]}">■</b> non probabile. Indicazione dagli scenari dei modelli, non ancora verificata con la visibilità misurata: è normale che sbagli, soprattutto sull'orario. Non cambia il semaforo.</div></div></div>`}
 function pioggia(s){
  const P=s.pioggia_ore||[];if(!P.length)return '';
  const T0=s.pioggia_tot||{},secco=Object.values(T0).every(v=>!v)&&!s.pioggia_prob_max;
