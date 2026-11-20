@@ -29,6 +29,11 @@
    "t": "2026-11-20 11:25",
    "valore": 12.0,
    "stazione": "Punta Salute Canal Grande"
+  },
+  {
+   "t": "2026-11-20 11:35",
+   "valore": 12.0,
+   "stazione": "Punta Salute Canal Grande"
   }
  ],
  "versione": "1.37",
