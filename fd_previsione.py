@@ -612,8 +612,8 @@ def nebbia_misurata_archivia(path=None, archivio=NEBBIA_ARCHIVIO):
     limite = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=NEBBIA_GIORNI)).strftime("%Y-%m-%d %H:%M")
     A["misure"] = sorted([m for m in A["misure"] if m["t"] >= limite], key=lambda m: m["t"])
     A["versione"] = VERSIONE
-    A["nota"] = ("METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib come nel bollettino "
-                 "(in metri o '6+' miglia), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato.")
+    A["nota"] = ("METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib in miglia terrestri come restituito dall'API "
+                 "('6+' = oltre 6 miglia, circa 10 km; 1 miglio = 1609 m), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato.")
     json.dump(A, open(archivio, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     u = A["misure"][-1] if A["misure"] else {}
     return f"Visibilità Tessera (METAR LIPZ): {nuove} misure nuove, archivio {len(A['misure'])}; ultima {u.get('t')} UTC: {u.get('raw')}"
