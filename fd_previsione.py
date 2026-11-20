@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_previsione.py v1.37 — previsione meteo-marina per un'uscita (Fishing Diary).
+"""fd_previsione.py v1.38 — previsione meteo-marina per un'uscita (Fishing Diary).
 
 All'avvio verifica da solo le previsioni concluse (fd_verifica.py, stessa cartella) e usa l'archivio
 verifica_archivio.json per la correzione di ICON-D2 (--no-verifica per saltare la verifica).
@@ -46,12 +46,17 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.37"
+VERSIONE = "1.38"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
 SOGLIA_VERDE, SOGLIA_ROSSO = 6.0, 12.0   # fasce di vento per correzioni e riflessioni (non piu' per il semaforo dalla v1.35)
 VERDE_FINO_A, ROSSO_DA = 6, 13       # v1.35: semaforo sul vento medio arrotondato all'intero: verde <= 6, giallo 7-12, rosso >= 13
+# v1.38: rischio nebbia ora per ora (stima dai modelli, da verificare con la visibilita' misurata a Venezia Tessera)
+NEBBIA_PROB = {"umidita": 97, "vento": 5}        # probabile: umidita' >= 97 % e vento <= 5 kn (oppure codice meteo nebbia)
+NEBBIA_POSS = {"umidita": 94, "vento": 8, "nubi_basse": 90}   # possibile: umidita' >= 94 % e vento <= 8 kn, oppure nubi basse >= 90 %
+NEBBIA_CODICI = (45, 48)                          # codici meteo WMO "nebbia" / "nebbia con brina"
+NEBBIA_LIVELLI = ["nessuna", "possibile", "probabile"]
 RAFF_AVVISO = 20.0                    # v1.28: raffiche solo come avviso, non cambiano il colore
 CPSM_ORE_MAX = 48                    # v1.30: oltre, il bollettino CPSM e' "tendenza": si usa ma e' segnalato
 SOGLIA_FERMA = 2.0                   # v1.29: cm/h, sotto questa variazione massima nella finestra la marea e' "quasi ferma"
@@ -250,6 +255,7 @@ def scarica(giorno, da, a):
     url = ("https://api.open-meteo.com/v1/forecast?"
            f"latitude={','.join(str(p[1]) for p in PUNTI)}&longitude={','.join(str(p[2]) for p in PUNTI)}"
            "&hourly=wind_speed_10m,wind_direction_10m,wind_gusts_10m,pressure_msl,temperature_2m,precipitation,precipitation_probability,cloud_cover"
+           ",relative_humidity_2m,cloud_cover_low,weather_code"   # v1.38: nebbia
            f"&models={','.join(m for m, _ in MODELLI)}&wind_speed_unit=kn&timezone=Europe%2FRome"
            f"&start_hour={g}T{max(0, da.hour - 2):02d}:00&end_hour={g}T{min(23, a.hour + 2):02d}:00&daily=sunrise,sunset&start_date={g}&end_date={g}")
     for tentativo in range(3):                      # v1.33: fino a 3 tentativi (Open-Meteo a volte non risponde)
@@ -566,6 +572,53 @@ def onde_misurate_archivia(path=None, archivio=ONDE_ARCHIVIO, cartella="."):
     return f"Onda in laguna misurata: {nuove} misure nuove, {conf} confronti con la stima (archivio {len(A['misure'])} misure, {len(A['confronti'])} confronti)"
 
 
+# v1.38: visibilita' MISURATA all'aeroporto di Venezia Tessera (METAR LIPZ, AviationWeather.gov / NOAA), salvata a ogni giro
+# per verificare il rischio nebbia stimato. Non cambia la previsione.
+METAR_URL = "https://aviationweather.gov/api/data/metar?ids=LIPZ&format=json&hours=24"
+NEBBIA_ARCHIVIO = "nebbia_archivio.json"
+NEBBIA_GIORNI = 60
+
+
+def nebbia_misurata_archivia(path=None, archivio=NEBBIA_ARCHIVIO):
+    """Ritorna una riga di testo per il log."""
+    if path:
+        dati = json.load(open(path, encoding="utf-8"))
+    else:
+        r = subprocess.run(["curl", "-s", "-m", "20", "-A", "ForecastLagoon/1.0 (github.com/vksskdx22n-max/forecast-lagoon)", METAR_URL],
+                           capture_output=True, text=True)
+        try:
+            dati = json.loads(r.stdout)
+        except ValueError:
+            return f"Visibilità Tessera (METAR LIPZ): non disponibile ({(r.stdout or r.stderr)[:120]!r})"
+    if not isinstance(dati, list) or not dati:
+        return "Visibilità Tessera (METAR LIPZ): nessun dato"
+    try:
+        A = json.load(open(archivio, encoding="utf-8")) if os.path.exists(archivio) else {}
+    except ValueError:
+        A = {}
+    A.setdefault("misure", [])
+    gia = {x["t"] for x in A["misure"]}; nuove = 0
+    for x in dati:
+        try:
+            t = dt.datetime.fromtimestamp(int(x["obsTime"]), dt.timezone.utc)
+        except (KeyError, TypeError, ValueError):
+            continue
+        tk = t.strftime("%Y-%m-%d %H:%M")
+        if tk in gia:
+            continue
+        vis = x.get("visib")
+        A["misure"].append({"t": tk, "visib": vis, "wx": x.get("wxString"), "raw": x.get("rawOb")})
+        nuove += 1
+    limite = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=NEBBIA_GIORNI)).strftime("%Y-%m-%d %H:%M")
+    A["misure"] = sorted([m for m in A["misure"] if m["t"] >= limite], key=lambda m: m["t"])
+    A["versione"] = VERSIONE
+    A["nota"] = ("METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib come nel bollettino "
+                 "(in metri o '6+' miglia), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato.")
+    json.dump(A, open(archivio, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    u = A["misure"][-1] if A["misure"] else {}
+    return f"Visibilità Tessera (METAR LIPZ): {nuove} misure nuove, archivio {len(A['misure'])}; ultima {u.get('t')} UTC: {u.get('raw')}"
+
+
 def misure_aria(html_dir=None):
     """Ultima temperatura dell'aria misurata (CPSM): [{stazione, ora, valore}]."""
     if FV is None:
@@ -818,6 +871,28 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None):
     pioggia_ore = [{"ora": f"{h:02d}:00", **{f"prob_{s}": PR[m].get(k(h)) for m, s in MODELLI},
                     **{f"mm_{s}": MMp[m].get(k(h)) for m, s in MODELLI}} for h in ore]
     prob_max = max((r["prob_D2"] for r in pioggia_ore if r["prob_D2"] is not None), default=None)
+    # v1.38: rischio nebbia ora per ora nel punto principale della zona (ICON-D2, se manca ICON-2i, se manca ECMWF)
+    RH = serie_rip(z0, "relative_humidity_2m", False); NB = serie_rip(z0, "cloud_cover_low", False)
+    WS = serie_rip(z0, "wind_speed_10m", False)
+    WC = {m: serie(z0, "weather_code", m) for m, _ in MODELLI}
+    nebbia_ore = []
+    for h in ore:
+        t_ = k(h); rh, nb, ws = RH.get(t_), NB.get(t_), WS.get(t_)
+        cod = [NOME_MOD[m] for m, _ in MODELLI if WC[m].get(t_) in NEBBIA_CODICI]
+        liv = 0
+        if cod or (rh is not None and ws is not None and rh >= NEBBIA_PROB["umidita"] and ws <= NEBBIA_PROB["vento"]):
+            liv = 2
+        elif (rh is not None and ws is not None and rh >= NEBBIA_POSS["umidita"] and ws <= NEBBIA_POSS["vento"]) or (nb is not None and nb >= NEBBIA_POSS["nubi_basse"]):
+            liv = 1
+        nebbia_ore.append({"ora": f"{h:02d}:00", "livello": liv, "umidita": None if rh is None else round(rh),
+                           "nubi_basse": None if nb is None else round(nb), "vento": None if ws is None else round(ws, 1), "codice_nebbia": cod})
+    nb_max = max((r["livello"] for r in nebbia_ore), default=0)
+    ore_n = [r["ora"] for r in nebbia_ore if r["livello"] == nb_max] if nb_max else []
+    nebbia = {"livello": nb_max, "testo": NEBBIA_LIVELLI[nb_max],
+              "dalle": ore_n[0] if ore_n else None, "alle": (f"{int(ore_n[-1][:2]) + 1:02d}:00" if ore_n else None),
+              "regola": f"probabile: umidità ≥ {NEBBIA_PROB['umidita']} % e vento ≤ {NEBBIA_PROB['vento']} kn, o codice meteo nebbia; "
+                        f"possibile: umidità ≥ {NEBBIA_POSS['umidita']} % e vento ≤ {NEBBIA_POSS['vento']} kn, o nubi basse ≥ {NEBBIA_POSS['nubi_basse']} %",
+              "nota": "stima dai modelli, non verificata"}
     note_meteo = []
     t0e, t0d = Tec.get(k(ore[0])), (T_d2_mestre if aria_punto else T_d2_acqua).get(k(ore[0]))
     if None not in (t0e, t0d) and abs(t0e - t0d) >= 3:
@@ -1021,7 +1096,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None):
                               + ("il verso è attendibile, le velocità indicative." if max(abs(v["cm_h"]) for v in vel) >= SOGLIA_QUADRATURA else
                                  f"il livello varia al massimo di {num(max(abs(v['cm_h']) for v in vel))} cm/h (marea di quadratura): correnti deboli, verso e velocità poco attendibili.")),
                      "solo_verso": (next(iter(versi)) if len(versi) == 1 else None)},
-        "meteo": {"pressione": [num(p0), num(p1), tend], "nuvolosita": None if nuv is None else round(nuv), "pioggia": num(max_ok(Rn.get(k(h)) for h in ore)), "fonte_meteo": fonte_meteo, "pioggia_prob": prob_max, "pioggia_ore": pioggia_ore,
+        "meteo": {"pressione": [num(p0), num(p1), tend], "nuvolosita": None if nuv is None else round(nuv), "pioggia": num(max_ok(Rn.get(k(h)) for h in ore)), "fonte_meteo": fonte_meteo, "pioggia_prob": prob_max, "pioggia_ore": pioggia_ore, "nebbia": nebbia, "nebbia_ore": nebbia_ore,
                   "aria": [num(min((x for x in t_ore if x is not None), default=None)), num(max_ok(t_ore))], "aria_punto": aria_punto,
                   "aria_ore": aria_ore, "aria_misure": ARIA or [],
                   "aria_acqua": ([num(min((x for x in t_acqua if x is not None), default=None)), num(max_ok(t_acqua))] if aria_punto else None),
@@ -1267,6 +1342,7 @@ def main():
     os.makedirs("Previsioni", exist_ok=True)
     base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_{da.strftime('%H%M')}-{a.strftime('%H%M')}{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}")
     print(onde_misurate_archivia(sys.argv[sys.argv.index("--onde-json") + 1] if "--onde-json" in sys.argv else None))   # v1.37: solo archivio
+    print(nebbia_misurata_archivia(sys.argv[sys.argv.index("--metar-json") + 1] if "--metar-json" in sys.argv else None))   # v1.38: solo archivio
     D["acqua_misurata"] = acqua_misurata(sys.argv[sys.argv.index("--acqua-json") + 1] if "--acqua-json" in sys.argv else None)   # v1.36
     print(f"Acqua: {num(D['acqua_misurata']['valore'])} °C a {D['acqua_misurata']['stazione']} ({D['acqua_misurata']['data']} {D['acqua_misurata']['ora']})"
           if D["acqua_misurata"] else "Acqua: misura CPSM non disponibile, riquadro omesso")

@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.19"
+VERSIONE = "3.20"
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"
@@ -150,6 +150,9 @@ def sintesi(P, giorno):
     prob = [r.get(k) for r in po for k in ("prob_D2", "prob_EC") if isinstance(r.get(k), (int, float))]
     s["pioggia_prob_max"] = max(prob) if prob else None
     s["pioggia_max_oraria"] = Me.get("pioggia")
+    # v3.20: rischio nebbia stimato (fd_previsione >= 1.38): sintesi e ore
+    s["nebbia"] = Me.get("nebbia")
+    s["nebbia_ore"] = Me.get("nebbia_ore") or []
     # v2.2: ora per ora (direzione media vettoriale delle zone, onda in laguna, probabilita' di pioggia), meteo, onda, note
     vento = P.get("vento") or {}
     zone_v = [z for z in (st.get("zone") or list(vento)) if z in vento]
