@@ -257,7 +257,7 @@ function zona(id,dsel){
  app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0)}
 function barra(V){if(document.querySelector('.agg'))return;const b=document.createElement('div');b.className='agg';
  b.innerHTML=`<span>Nuova versione disponibile${V.versione_sito?' · v'+esc(V.versione_sito):''}</span><b>Aggiorna</b>`;
- b.querySelector('b').onclick=()=>location.replace(location.pathname+'?v='+encodeURIComponent(V.codice)+location.hash);document.body.append(b)}
+ b.querySelector('b').onclick=e=>{e.preventDefault();e.stopPropagation();location.replace(location.pathname+'?v='+encodeURIComponent(V.codice))};document.body.append(b)}   // v3.9: Aggiorna riparte sempre dalla prima pagina
 async function controlla(){try{
  const V=await (await fetch('versione.json',{cache:'no-store'})).json();
  if(V.codice&&V.codice!==CODICE&&!CODICE.startsWith('__')){barra(V);return}
@@ -267,8 +267,11 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 setInterval(controlla,15*60*1000);
 function vai(){if(!D||!G)return;const p=location.hash.replace(/^#/,'').split('/');if(p[0]==='zona')zona(p[1],p[2]);else home()}
 window.addEventListener('hashchange',vai);
+let T0=Date.now();   // v3.9: tocchi su fasce e mappa ignorati per 600 ms dopo il caricamento (tocco "rimbalzato" da Aggiorna)
+document.addEventListener('click',e=>{if(Date.now()-T0<600&&e.target.closest&&e.target.closest('.zone,.hero')){e.preventDefault();e.stopPropagation()}},true);
+if(/[?&]v=/.test(location.search))history.replaceState(null,'',location.pathname+location.hash);   // v3.9: tolto ?v= dall'indirizzo
 Promise.all([fetch('index.json',{cache:'no-store'}).then(r=>r.json()),fetch('assets/laguna_bacini.json?v='+CODICE).then(r=>r.json())])
- .then(([d,g])=>{D=d;G=g;vai();controlla()}).catch(e=>{app.innerHTML=`<div class="empty">Impossibile leggere i dati: ${esc(e)}</div>`});
+ .then(([d,g])=>{D=d;G=g;T0=Date.now();vai();controlla()}).catch(e=>{app.innerHTML=`<div class="empty">Impossibile leggere i dati: ${esc(e)}</div>`});
 </script>
 </body>
 </html>
