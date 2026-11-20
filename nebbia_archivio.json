@@ -289,6 +289,6 @@
    "raw": "METAR LIPZ 202050Z 25003KT 6000 NSC 09/08 Q1011 BECMG 4000 BR"
   }
  ],
- "versione": "1.38",
- "nota": "METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib come nel bollettino (in metri o '6+' miglia), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato."
+ "versione": "1.39",
+ "nota": "METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib in miglia terrestri come restituito dall'API ('6+' = oltre 6 miglia, circa 10 km; 1 miglio = 1609 m), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato."
 }
