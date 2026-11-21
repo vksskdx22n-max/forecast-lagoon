@@ -301,7 +301,7 @@ async function allerteUI(msg){
  if(!ALLsw||!('PushManager' in window)||!('Notification' in window)){u.innerHTML=`<span class="st">${ios&&!app?'Per ricevere le allerte apri Forecast Lagoon dall\'icona sulla schermata Home (vedi «Installarla come app»).':'Questo browser non riceve notifiche: le allerte non sono disponibili qui.'}</span>`;return}
  if(!ALLkey)fetch(D.allerta.url+'/chiave').then(r=>r.json()).then(j=>{ALLkey=j.chiave||null}).catch(()=>{});
  let sub=null;try{sub=await (await navigator.serviceWorker.ready).pushManager.getSubscription()}catch(e){}
- if(sub){u.innerHTML=`<span class="st"><span style="color:var(--verde)">●</span> Allerte vento <b>attive</b> su questo dispositivo.${msg?' '+esc(msg):''}</span><button data-a="prova">Invia una prova</button><button class="sec" data-a="off">Disattiva</button>`}
+ if(sub){u.innerHTML=`<span class="st"><span style="color:var(--verde)">●</span> Allerte vento <b>attive</b> su questo dispositivo.${msg?' '+esc(msg):''}</span><button data-a="prova">Invia una prova</button><button data-a="prova20">Prova a telefono bloccato</button><button class="sec" data-a="off">Disattiva</button>`}   // v3.28: prova ritardata (Worker v2.8)
  else if(Notification.permission==='denied'){u.innerHTML=`<span class="st">Notifiche bloccate per Forecast Lagoon: riattivale in Impostazioni › Notifiche, poi riapri questa pagina.</span>`;return}
  else{u.innerHTML=`<span class="st">${msg?esc(msg):'Allerte vento non attive su questo dispositivo.'}</span><button data-a="on">Attiva allerte vento</button>`}
  u.querySelectorAll('button').forEach(b=>b.onclick=async e=>{e.stopPropagation();const a=b.dataset.a;b.disabled=true;
@@ -311,6 +311,8 @@ async function allerteUI(msg){
     const reg=await navigator.serviceWorker.ready;const s=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:ALLb64(ALLkey)});
     const r=await allPost('iscrivi',s.toJSON());allerteUI(r.ok?'Fatto: riceverai le allerte.':'Iscrizione non riuscita, riprova.')}
    else if(a==='off'){const s=await (await navigator.serviceWorker.ready).pushManager.getSubscription();if(s){await allPost('disiscrivi',s.toJSON()).catch(()=>{});await s.unsubscribe()}allerteUI('Allerte disattivate.')}
+   else if(a==='prova20'){const s=await (await navigator.serviceWorker.ready).pushManager.getSubscription();const r=await allPost('prova',{subscription:s.toJSON(),ritardo_s:20});
+    allerteUI(r.programmata?'Ora chiudi l\'app e blocca il telefono: la notifica arriva tra circa 20 secondi.':r.push_http<300?'Prova inviata subito: il servizio non è ancora aggiornato per la prova ritardata.':'Prova non riuscita ('+(r.push_http||r.error)+').')}
    else if(a==='prova'){const s=await (await navigator.serviceWorker.ready).pushManager.getSubscription();const r=await allPost('prova',s.toJSON());allerteUI(r.push_http<300?'Prova inviata: la notifica arriva tra pochi secondi.':'Prova non riuscita ('+(r.push_http||r.error)+').')}
   }catch(err){allerteUI('Errore: '+(err&&err.message||err))}})
 }
