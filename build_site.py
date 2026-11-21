@@ -11,14 +11,14 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.25"
+VERSIONE = "3.26"
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"
 ZONE = [
-    {"id": "nord", "nome": "Laguna Nord", "bocca": "Lido", "bacino": "bacino di Lido"},
-    {"id": "centro", "nome": "Laguna Centro", "bocca": "Malamocco", "bacino": "bacino di Malamocco"},
-    {"id": "sud", "nome": "Laguna Sud", "bocca": "Chioggia", "bacino": "bacino di Chioggia"},
+    {"id": "nord", "nome": "Laguna Nord", "bocca": "Lido", "bacino": "bacino di Lido", "tessera": "bordo nord della laguna"},   # v3.26: dove sta Tessera rispetto alla zona
+    {"id": "centro", "nome": "Laguna Centro", "bocca": "Malamocco", "bacino": "bacino di Malamocco", "tessera": "circa 15 km"},
+    {"id": "sud", "nome": "Laguna Sud", "bocca": "Chioggia", "bacino": "bacino di Chioggia", "tessera": "circa 35 km: indicativa"},
 ]
 ALIAS_AREA = {}            # eventuali nomi di area diversi dagli id delle zone
 MARGINE_MAREA_MIN = 60
@@ -35,6 +35,9 @@ ALLERTA = {"url": "https://fd-cpsm-proxy.ennioweb.workers.dev/allerta",
            "ora_inizio": 5, "ora_fine": 20,        # ora italiana
            "controllo_min": 5,        # frequenza del controllo (cron del Worker)
            "rotazione_gradi": 90, "rotazione_min_kn": 8}   # pre-allarme sperimentale: solo registrato, non inviato
+# v3.26: visibilita' misurata adesso a Venezia Tessera (Worker v2.6, /adesso). Si mostra solo sotto mostra_sotto_m e se il METAR
+# non e' piu' vecchio di max_min. Tre livelli scelti da Ennio (21/11): fino a 200 m fitta, fino a 500 m nebbia, sotto 1000 m leggera.
+VISIBILITA = {"mostra_sotto_m": 1000, "fitta_fino_a_m": 200, "nebbia_fino_a_m": 500, "max_min": 60}
 ORA_MATTINO = "08:30"        # v3.3: ora indicativa della previsione provvisoria (giro Cloudflare delle 08:25), per le istruzioni
 ORA_AGGIORNAMENTO = "16:30"  # v3.2: ora indicativa della previsione definitiva (giro Cloudflare delle 16:25), mostrata accanto alla provvisoria
 ORA_ATTESA = "17:30"        # v3.0: ora (italiana) entro cui ci si aspetta la previsione di domani; dopo, il sito avvisa del ritardo
@@ -290,7 +293,7 @@ def main():
     for z in ZONE:
         zone.append(dict(z, attiva=bool(voci[z["id"]]), voci=voci[z["id"]]))
     ora = dt.datetime.now(dt.timezone.utc)
-    json.dump({"versione_sito": VERSIONE, "autore": AUTORE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ora_aggiornamento": ORA_AGGIORNAMENTO, "ora_mattino": ORA_MATTINO, "adesso_url": ADESSO_URL, "allerta": ALLERTA, "regole": regole(), "zone": zone},
+    json.dump({"versione_sito": VERSIONE, "autore": AUTORE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ora_aggiornamento": ORA_AGGIORNAMENTO, "ora_mattino": ORA_MATTINO, "adesso_url": ADESSO_URL, "allerta": ALLERTA, "visibilita": VISIBILITA, "regole": regole(), "zone": zone},
               open(os.path.join(SITO, "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # v2.1: la pagina conosce la propria versione e l'impronta del suo codice; versione.json (letto senza cache)
     # dice alla pagina gia' aperta se esiste una versione nuova -> barra "Aggiorna"
