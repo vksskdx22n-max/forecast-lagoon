@@ -46,7 +46,8 @@ h1 span{color:var(--teal)}
 .zmeta{font-size:12.5px;line-height:1.15;color:var(--mut);margin-top:1px;white-space:nowrap}
 .adA{display:flex;align-items:center;gap:6px;margin-top:3px;font-size:12.5px;line-height:1.2;color:#cfe3ec;font-weight:600;white-space:nowrap}.adA:empty{display:none}
 .adA i{width:9px;height:9px;border-radius:50%;flex:none}.adA small{color:var(--mut);font-weight:500;font-size:12px}
-.vad{padding:14px 16px}.vis .n .lv{font-size:24px}.vis .n .lv.l3{background:#ffffff;color:#06131d;padding:1px 10px;border-radius:999px}.vis .n .lv.l2{color:#eef4f7}.vis .n .lv.l1{color:#b8c7d0;font-weight:600}   /* v3.26: visibilita' adesso */
+.vad{padding:14px 16px}.vis .n .lv{font-size:24px}.vis .n .mt{font-size:30px;font-weight:750;color:#ffffff}   /* v3.27: metri in evidenza */
+.vis .n .lv.l3{background:#ffffff;color:#06131d;padding:1px 10px;border-radius:999px}.vis .n .lv.l2{color:#eef4f7}.vis .n .lv.l1{color:#b8c7d0;font-weight:600}   /* v3.26: visibilita' adesso */
 .vad .t{display:flex;justify-content:space-between;gap:8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
 .vad .n{display:flex;align-items:baseline;gap:10px;margin-top:4px;font-size:30px;font-weight:700}.vad .n small{font-size:14px;color:var(--mut);font-weight:500}.vad .n .d{font-size:18px}
 .vad .r{font-size:13px;color:#b8cbd6;margin-top:2px}.vad .ln{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:11.5px;color:var(--mut)}.vad .ln svg{flex:1;height:34px}
@@ -322,8 +323,11 @@ function riempiAdesso(){
   const W=AD&&AD.visibilita,S=D.visibilita||{},z=D.zone.find(x=>x.id===el.dataset.vis)||{};
   if(!W||!W.disponibile||W.m==null||W.oltre||W.m>=(S.mostra_sotto_m||1000)||(W.eta_min!=null&&W.eta_min>(S.max_min||60))){el.style.display='none';return}
   const l=W.m<=(S.fitta_fino_a_m||200)?3:W.m<=(S.nebbia_fino_a_m||500)?2:1,t=['','Nebbia leggera','Nebbia','Nebbia fitta'][l];
-  el.style.display='';el.innerHTML=`<div class="t"><span>Visibilità adesso · misurata</span></div><div class="n"><span class="lv l${l}">${t}</span><small>${W.m} m</small></div>
-  <div class="r">Venezia Tessera (aeroporto), ${esc(W.ora||'')}${z.tessera?' · '+esc(z.tessera):''}</div>`});
+  const fm=x=>x>=10000?'oltre 10 km':x>=1000?nf(x/1000,1)+' km':x+' m',SV=(W.serie||[]).map(x=>x.m),T=W.trend,TOP=2000;   // v3.27: grafico delle ultime 3 ore (asse tagliato a 2 km)
+  const px=i=>(i*300/Math.max(SV.length-1,1)).toFixed(1),lg=x=>Math.log(Math.min(Math.max(x,50),TOP)),LV=SV.map(lg),l0=Math.min(...LV),l1=Math.max(...LV),sp=Math.max(l1-l0,Math.log(2)),lm=(l0+l1)/2,py=x=>(17-(lg(x)-lm)/sp*26).toFixed(1);   // scala logaritmica adattata ai valori (come il vento); minimo un raddoppio, cosi' 100→150 m non sembra un crollo
+  const gr=SV.length>1&&T?`<div class="ln"><span>${esc(fm(T.da_m))}</span><svg viewBox="0 0 300 34" preserveAspectRatio="none"><polyline fill="none" stroke="#cfe0e8" stroke-width="2.5" vector-effect="non-scaling-stroke" points="${SV.map((x,i)=>px(i)+','+py(x)).join(' ')}"/></svg><span>${esc(fm(W.m))}</span></div>`:'';
+  el.style.display='';el.innerHTML=`<div class="t"><span>Visibilità adesso · misurata</span></div><div class="n"><span class="lv l${l}">${t}</span><span class="mt">${W.m} m</span></div>
+  ${T?`<div class="r">${esc(T.testo)}</div>`:''}${gr}<div class="r" style="margin-top:6px">Venezia Tessera (aeroporto), ${esc(W.ora||'')}${z.tessera?' · '+esc(z.tessera):''}</div>`});
  document.querySelectorAll('[data-adz]').forEach(el=>{const a=AD&&AD.zone&&AD.zone[el.dataset.adz];if(!a){el.style.display='none';return}el.style.display='';
   if(!a.disponibile){el.innerHTML=`<div class="t"><span>Vento adesso · misurato</span></div><div class="r" style="margin-top:6px">${esc(a.stazione)}: ${esc(a.motivo||'misura non disponibile')}</div>`;return}
   const S=(a.serie||[]),V=S.filter(x=>x!=null),mn=Math.min(...V),mx=Math.max(...V),T=a.trend;
