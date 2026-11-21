@@ -509,6 +509,12 @@
    "visib": 0.06,
    "wx": "FG",
    "raw": "METAR LIPZ 211520Z VRB01KT 0100 R04R/0400N FG VV001 07/07 Q1016 NOSIG"
+  },
+  {
+   "t": "2026-11-21 15:50",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 211550Z VRB02KT 0100 R04R/0400N FG VV001 07/07 Q1016 NOSIG"
   }
  ],
  "versione": "1.39",
