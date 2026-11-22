@@ -21,8 +21,8 @@ a{color:inherit;text-decoration:none}
 .wrap{max-width:560px;margin:0 auto;position:relative}
 .testa{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:calc(env(safe-area-inset-top) + 18px) 20px 12px}
 .testa h1{font-size:34px;line-height:1.05;margin-top:6px}
-.testa .sub{max-width:none;margin-top:6px;font-size:14px}
-.hero{position:relative;height:max(240px,calc(100vh - 490px));height:max(240px,calc(100svh - 490px));overflow:hidden;background:#0b1b28}
+.testa .sub{max-width:none;margin-top:6px;font-size:clamp(12px,3.7vw,15px);white-space:nowrap}
+.hero{position:relative;height:max(240px,calc(100vh - 457px));height:max(240px,calc(100svh - 457px));overflow:hidden;background:#0b1b28}
 .hero svg{position:absolute;inset:0;width:100%;height:100%}
 .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,14,22,.9) 0%,rgba(4,14,22,.35) 30%,rgba(4,14,22,0) 52%,rgba(6,19,29,.96) 100%);pointer-events:none}
 .top{position:absolute;left:24px;right:24px;top:calc(env(safe-area-inset-top) + 28px)}
@@ -166,7 +166,7 @@ function mappa(vb,o){
  if(o.labels)D.zone.forEach(z=>{const b=G.bbox[z.id],v=ultima(z),c=v?v.colore:null,hex=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();
   const t=z.nome.replace('Laguna ',''),w=t.length*21+62,x=z.id==='nord'?b[0]+(b[2]-b[0])*.52:b[0]+(b[2]-b[0])*.18,y=z.id==='nord'?b[1]+(b[3]-b[1])*.55:(b[1]+b[3])/2;
   s+=`<g style="pointer-events:none"><rect x="${x}" y="${y-30}" width="${w}" height="52" rx="26" fill="#06131d" fill-opacity=".8" stroke="#ffffff" stroke-opacity=".18"/>
-  <circle cx="${x+27}" cy="${y-4}" r="10" fill="${hex}"/><text x="${x+47}" y="${y+8}" fill="#fff" font-size="32" font-weight="750" letter-spacing="-.5">${t}</text></g>${o.adesso?`<g data-adm="${z.id}" data-x="${x}" data-y="${y-82}" style="pointer-events:none"></g>`:''}`});
+  <circle cx="${x+27}" cy="${y-4}" r="10" fill="${hex}"/><text x="${x+47}" y="${y+8}" fill="#fff" font-size="32" font-weight="750" letter-spacing="-.5">${t}</text></g>${o.adesso?`<g data-adm="${z.id}" data-x="${x}" data-y="${y-104}" style="pointer-events:none"></g>`:''}`});
  return s+'</svg>'}
 function piede(){return `<div class="foot"><b>Fonti</b> · dati meteo e mare aperto <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (CC BY 4.0; modelli ICON-D2, ICON-2i, ECMWF; dati elaborati e corretti con misure locali) · marea, vento misurato (“Vento adesso” e allerte), temperatura dell'acqua e onda misurata alla Piattaforma CNR: stazioni CPSM Comune di Venezia · visibilità adesso: METAR di Venezia Tessera, <a href="https://aviationweather.gov/" target="_blank" rel="noopener">AviationWeather.gov</a> (NOAA) · correnti modello Laguna Viva · immagine: ${esc(G.fonte_immagine)} · costa ${esc(G.fonte_costa)}; ${esc(G.nota_confini)}.<br>Previsione indicativa: non sostituisce i bollettini ufficiali.<br>Sito v${esc(D.versione_sito)}${D.autore?' · a cura di '+esc(D.autore):''} · aggiornato ${new Date(D.aggiornato_utc).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div>`}
 function finestra(){const v=D.zone.map(ultima).filter(Boolean)[0];return v&&v.finestra}
@@ -208,8 +208,8 @@ function titoloGiorno(ult){   // v3.25: "Previsione per domani" grande sotto la 
  return {rif:prov,h:`<div class="giorno"><div class="gt">${tit}</div><div class="gd">${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</div><div class="gs">${st}</div></div>`}}
 function home(){
  const date=D.zone.map(ultima).filter(Boolean).map(v=>v.data).sort();const ult=date[date.length-1];const fin=finestra(),TG=titoloGiorno(ult);
- let h=`<div class="home"><header class="testa"><div><div class="eyebrow">Laguna di Venezia<span class="ver">v${esc(VERSIONE)}${D.autore?' · a cura di '+esc(D.autore):''}</span></div><h1>Forecast <span>Lagoon</span></h1>
- <div class="sub">Previsioni meteo-marine per la pesca in Laguna di Venezia</div></div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></header>
+ let h=`<div class="home"><header class="testa"><div><div class="eyebrow"><span class="ver" style="margin-left:0">v${esc(VERSIONE)}${D.autore?' · a cura di '+esc(D.autore):''}</span></div><h1>Forecast <span>Lagoon</span></h1>
+ <div class="sub">Previsioni meteo-marine · Laguna di Venezia</div></div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></header>
  <div class="hero">${mappa('40 -60 1000 1360',{meet:true,labels:true,click:true,k:'h',fo:.24,sw:2.5,adesso:true})}<div class="shade" style="background:linear-gradient(180deg,rgba(6,19,29,.55) 0%,rgba(6,19,29,0) 18%,rgba(6,19,29,0) 72%,rgba(6,19,29,.95) 100%)"></div>
  <div class="adMap" data-admap></div><div class="credit">© ESA · Copernicus Sentinel-2</div></div>${TG.h}${ritardo(ult)}<div class="zones">`;
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
@@ -328,11 +328,11 @@ function riempiAdesso(){
   el.innerHTML='Vento adesso · misurato'+(una?`<small>${esc(ok.map(a=>a.ora).sort().pop())}</small>`:'');
   document.querySelectorAll('[data-adm]').forEach(g=>{const a=AD.zone[g.dataset.adm],x=+g.dataset.x,y=+g.dataset.y;
    const txt=!a||!a.disponibile?'non disponibile':`${a.kn} kn${a.dir?' '+a.dir:''}${a.raffica_kn!=null?' · raff. '+a.raffica_kn:''}${!una&&a.ora?' · '+a.ora:''}`;
-   const fr=a&&a.disponibile&&a.dir_g!=null,tx=x+(fr?46:18);
-   g.innerHTML=`<rect x="${x}" y="${y}" width="10" height="44" rx="22" fill="#06131d" fill-opacity=".8" stroke="#5fd4d0" stroke-opacity=".55"/>`+
-    (fr?`<g transform="translate(${x+26},${y+22}) rotate(${a.dir_g+180})"><path d="M0,-13 L8,6 L0,2 L-8,6 Z" fill="#eaf3f7"/></g>`:'')+
-    `<text x="${tx}" y="${y+31}" fill="${a&&a.disponibile?'#eaf3f7':'#8aa6b6'}" font-size="27" font-weight="650">${esc(txt)}</text>`;
-   try{const w=g.querySelector('text').getBBox().width;g.querySelector('rect').setAttribute('width',Math.round(tx-x+w+18))}catch(e){g.querySelector('rect').setAttribute('width',txt.length*15+60)}})});
+   const fr=a&&a.disponibile&&a.dir_g!=null,tx=x+(fr?56:22);
+   g.innerHTML=`<rect x="${x}" y="${y}" width="10" height="58" rx="29" fill="#06131d" fill-opacity=".8" stroke="#5fd4d0" stroke-opacity=".55"/>`+
+    (fr?`<g transform="translate(${x+31},${y+29}) rotate(${a.dir_g+180})"><path d="M0,-17 L11,8 L0,3 L-11,8 Z" fill="#eaf3f7"/></g>`:'')+
+    `<text x="${tx}" y="${y+42}" fill="${a&&a.disponibile?'#eaf3f7':'#8aa6b6'}" font-size="37" font-weight="650">${esc(txt)}</text>`;
+   let wd=txt.length*20+76;try{wd=Math.round(tx-x+g.querySelector('text').getBBox().width+22)}catch(e){}g.querySelector('rect').setAttribute('width',wd);const vb=(g.ownerSVGElement&&g.ownerSVGElement.viewBox.baseVal)||null,dx=vb?Math.min(0,vb.x+vb.width-12-(x+wd)):0;g.setAttribute('transform',dx?`translate(${dx},0)`:'')})});
  document.querySelectorAll('[data-adh]').forEach(el=>{const a=AD&&AD.zone&&AD.zone[el.dataset.adh];
   el.innerHTML=!a?'':a.disponibile?`<i style="background:${col(a.sem)}"></i>Adesso ${a.kn} kn${a.dir?' '+esc(a.dir):''}${a.raffica_kn!=null?', raffica '+a.raffica_kn:''} <small>· ${esc(a.ora)}</small>`:`<small>Adesso: ${esc(a.motivo||'misura non disponibile')}</small>`});
  document.querySelectorAll('[data-vis]').forEach(el=>{   // v3.26: visibilita' adesso a Tessera, solo sotto la soglia e se recente
