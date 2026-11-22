@@ -1,0 +1,8 @@
+{
+ "versione": "1.0",
+ "nota": "Correzione media del vento (nodi da aggiungere) per modello e zona, dall'errore medio misurato con le stazioni CPSM: 22/08-21/11/2026, ore 05-12, Previous Runs Open-Meteo (ECMWF a 2-3 giorni, ICON-2i a 2 giorni). ICON-D2 al Centro usa la correzione di fd_verifica.",
+ "kn": {
+  "ecmwf_ifs025": {"centro": 4.5, "nord": 2.4, "sud": 4.3},
+  "italia_meteo_arpae_icon_2i": {"centro": 1.4, "nord": 0.6, "sud": 0.5}
+ }
+}

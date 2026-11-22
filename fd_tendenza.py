@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""fd_tendenza.py v1.0 — tendenza dei prossimi giorni per Forecast Lagoon (scelte di Ennio del 22/11/2026).
+"""fd_tendenza.py v1.1 — tendenza dei prossimi giorni per Forecast Lagoon (scelte di Ennio del 22/11/2026).
 
 Due giorni dopo quello della previsione (dopodomani e il giorno dopo), finestra 05-12, per Laguna Nord, Centro e Sud:
 colore indicativo (stessa regola del semaforo: media dei punti della zona ora per ora, colore piu' frequente nelle ore),
 vento minimo-massimo e direzione prevalente, probabilita' massima di pioggia, alta/bassa marea della zona.
 
 Vento ora per ora: ICON-D2 (al Centro con la correzione misurata di fd_verifica, come la previsione), se manca ICON-2i,
-se manca ECMWF, senza correzione. Pioggia: probabilita' ICON-D2, se manca ECMWF. Marea: astronomica CPSM di Punta Salute
+se manca ECMWF; ICON-2i ed ECMWF con la correzione media per zona di tendenza_correzioni.json (v1.1). Pioggia: probabilita' ICON-D2, se manca ECMWF. Marea: astronomica CPSM di Punta Salute
 spostata per zona con marea_propaga (senza l'effetto del vento). Una sola richiesta a Open-Meteo.
 Non tocca la previsione di domani, la verifica e i loro file.
 
@@ -17,12 +17,21 @@ import sys, json, math, subprocess, statistics, datetime as dt
 import fd_previsione as FP
 import marea_propaga as MP
 
-VERSIONE = "1.0"
+VERSIONE = "1.1"
+CORREZIONI = "tendenza_correzioni.json"
 GIORNI = 2
 USCITA = "tendenza.json"
 NOMI = {"nord": "Laguna Nord", "centro": "Laguna Centro", "sud": "Laguna Sud"}
 MODELLI = ["icon_d2", "italia_meteo_arpae_icon_2i", "ecmwf_ifs025"]
 NOME_MOD = {"icon_d2": "ICON-D2", "italia_meteo_arpae_icon_2i": "ICON-2i", "ecmwf_ifs025": "ECMWF"}
+
+
+def carica_correzioni():
+    try:
+        return json.load(open(CORREZIONI, encoding="utf-8")).get("kn", {})
+    except (OSError, ValueError):
+        print(f"Tendenza: {CORREZIONI} non leggibile, nessuna correzione per ICON-2i ed ECMWF")
+        return {}
 
 
 def punti_aree():
@@ -91,13 +100,14 @@ def main():
         return
     idx = {p[0]: i for i, p in enumerate(punti)}
     cfg = MP.carica_config(".")
+    CK = carica_correzioni()
     ore = [h for h in range(24) if da <= h * 60 <= a]
     out = {"versione": VERSIONE, "generato": dt.datetime.now(FP.tz_italia(dt.date.today())).strftime("%Y-%m-%d %H:%M"),
            "base": base.isoformat(), "finestra": f"{da_t.strftime('%H:%M')}–{a_t.strftime('%H:%M')}", "giorni": []}
     for g in giorni:
         G = {"data": g.isoformat(), "zone": []}
         for area in ("nord", "centro", "sud"):
-            st_ore, dirs, prob, usati = [], [], [], {}
+            st_ore, dirs, prob, usati, corr = [], [], [], {}, {}
             for h in ore:
                 t = f"{g.isoformat()}T{h:02d}:00"
                 vals = []
@@ -112,6 +122,9 @@ def main():
                             continue
                         if m == "icon_d2" and area == "centro" and not FP.riparata(z, d):
                             v = v + (FP.FV.correzione(v, d, ".", FP.zona_corr(z))[0] if FP.FV else 0.0)
+                            corr[m] = True
+                        elif m != "icon_d2" and CK.get(m, {}).get(area):
+                            v = max(0.0, v + CK[m][area]); corr[m] = True
                         vals.append((v, d)); usati[m] = usati.get(m, 0) + 1
                         break
                     p = (H.get("precipitation_probability_icon_d2") or [None] * (i + 1))[i]
@@ -128,11 +141,11 @@ def main():
             col = max(set(colori), key=lambda c: (colori.count(c), -colori.index(c)))
             fonte = max(usati, key=usati.get)
             G["zone"].append({"id": area, "nome": NOMI[area], "disponibile": True, "colore": col,
-                              "vento_min": round(min(st_ore)), "vento_max": round(max(st_ore)),
+                              "vento_min": FP.arrotonda(min(st_ore)), "vento_max": FP.arrotonda(max(st_ore)),
                               "dir": FP.card(media_dir(dirs)) if dirs else None,
                               "pioggia": round(max(prob)) if prob else None,
                               "marea": marea_giorno(area, g, da, a, cfg),
-                              "modello": NOME_MOD[fonte], "corretto": area == "centro" and fonte == "icon_d2"})
+                              "modello": NOME_MOD[fonte], "corretto": bool(corr.get(fonte))})
         out["giorni"].append(G)
         print(f"  {g.strftime('%d/%m')}: " + " · ".join(f"{z['nome']} " + (f"{z['colore']} {z['vento_min']}–{z['vento_max']} kn ({z['modello']})" if z.get("disponibile") else "non disponibile") for z in G["zone"]))
     json.dump(out, open(USCITA, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
