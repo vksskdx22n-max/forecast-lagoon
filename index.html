@@ -161,14 +161,15 @@ function mappa(vb,o){
  <filter id="gl${o.k}" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="${o.blur||5}" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
  <filter id="gr${o.k}"><feColorMatrix type="matrix" values="0.78 0 0 0 0  0 0.86 0 0 0.01  0 0 0.95 0 0.03  0 0 0 1 0"/></filter></defs>
  <image href="assets/laguna_sat.jpg" x="${G.img?G.img.x:0}" y="${G.img?G.img.y:0}" width="${G.img?G.img.w:G.w}" height="${G.img?G.img.h:G.h}" filter="url(#gr${o.k})" opacity=".9"/>`;
- D.zone.forEach(z=>{const v=ultima(z),c=v?v.colore:null,on=!o.only||o.only===z.id,hex=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();
-  s+=`<path d="${G.bacini[z.id]}" fill="${hex}" fill-opacity="${on?(o.fo||.4):.06}" stroke="${hex}" stroke-opacity="${on?.95:.25}" stroke-width="${o.sw||2}" ${on?`filter="url(#gl${o.k})"`:''} ${o.click?`style="cursor:pointer" onclick="location.hash='zona/${z.id}'"`:''}/>`;});
+ const cAd=z=>{const a=AD&&AD.zone&&AD.zone[z.id];return a&&a.disponibile?a.sem:null};   // v3.44: in prima pagina colori dal vento misurato adesso
+ D.zone.forEach(z=>{const v=ultima(z),c=o.adesso?cAd(z):(v?v.colore:null),on=!o.only||o.only===z.id,hex=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();
+  s+=`<path ${o.adesso?`data-azona="${z.id}" `:''}d="${G.bacini[z.id]}" fill="${hex}" fill-opacity="${on?(o.fo||.4):.06}" stroke="${hex}" stroke-opacity="${on?.95:.25}" stroke-width="${o.sw||2}" ${on?`filter="url(#gl${o.k})"`:''} ${o.click?`style="cursor:pointer" onclick="location.hash='zona/${z.id}'"`:''}/>`;});
  Object.values(G.bocche).forEach(([n,x,y])=>{s+=`<circle cx="${x}" cy="${y}" r="7" fill="none" stroke="#5fd4d0" stroke-width="2.5" class="pulse"/><circle cx="${x}" cy="${y}" r="6" fill="#eaf3f7" stroke="#06131d" stroke-width="2"/>
   <text x="${x+14}" y="${y+7}" fill="#fff" font-size="${o.fs||22}" font-weight="700" paint-order="stroke" stroke="#06131d" stroke-width="4" stroke-opacity=".6">${n}</text>`});
- if(o.labels)D.zone.forEach(z=>{const b=G.bbox[z.id],v=ultima(z),c=v?v.colore:null,hex=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();
+ if(o.labels)D.zone.forEach(z=>{const b=G.bbox[z.id],v=ultima(z),c=o.adesso?cAd(z):(v?v.colore:null),hex=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();
   const t=z.nome.replace('Laguna ',''),w=t.length*28+82,x=z.id==='nord'?b[0]+(b[2]-b[0])*.52:b[0]+(b[2]-b[0])*.18,y=z.id==='nord'?b[1]+(b[3]-b[1])*.55:(b[1]+b[3])/2;
   s+=`<g style="pointer-events:none"><rect x="${x}" y="${y-38}" width="${w}" height="66" rx="33" fill="#06131d" fill-opacity=".85" stroke="#ffffff" stroke-opacity=".22"/>
-  <circle cx="${x+34}" cy="${y-5}" r="13" fill="${hex}"/><text x="${x+60}" y="${y+10}" fill="#fff" font-size="43" font-weight="750" letter-spacing="-.5">${t}</text></g>${o.adesso?`<g data-adm="${z.id}" data-x="${x}" data-y="${y-110}" style="pointer-events:none"></g>`:''}`});
+  <circle ${o.adesso?`data-azona="${z.id}" `:''}cx="${x+34}" cy="${y-5}" r="13" fill="${hex}"/><text x="${x+60}" y="${y+10}" fill="#fff" font-size="43" font-weight="750" letter-spacing="-.5">${t}</text></g>${o.adesso?`<g data-adm="${z.id}" data-x="${x}" data-y="${y-110}" style="pointer-events:none"></g>`:''}`});
  return s+'</svg>'}
 function piede(){return `<div class="foot"><b>Fonti</b> · dati meteo e mare aperto <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (CC BY 4.0; modelli ICON-D2, ICON-2i, ECMWF; dati elaborati e corretti con misure locali) · marea, vento misurato (“Vento adesso” e allerte), temperatura dell'acqua e onda misurata alla Piattaforma CNR: dati CPSM – Centro Previsioni e Segnalazioni Maree, Comune di Venezia (<a href="https://dati.venezia.it/?q=content/cpsm-dati-meteomarini-laguna-e-litorale-veneziano" target="_blank" rel="noopener">dati.venezia.it</a>, CC BY) · visibilità adesso: METAR di Venezia Tessera, <a href="https://aviationweather.gov/" target="_blank" rel="noopener">AviationWeather.gov</a> (NOAA) · correnti modello Laguna Viva · immagine: ${esc(G.fonte_immagine)} · costa ${esc(G.fonte_costa)}; ${esc(G.nota_confini)}.<br>Previsione indicativa: non sostituisce i bollettini ufficiali.<br>Sito v${esc(D.versione_sito)}${D.autore?' · a cura di '+esc(D.autore):''} · aggiornato ${new Date(D.aggiornato_utc).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div>`}
 function finestra(){const v=D.zone.map(ultima).filter(Boolean)[0];return v&&v.finestra}
@@ -359,6 +360,9 @@ async function allerteUI(msg){
 async function caricaAdesso(){if(!D||!D.adesso_url)return;try{const c=new AbortController(),t=setTimeout(()=>c.abort(),8000);
  AD=await (await fetch(D.adesso_url,{cache:'no-store',signal:c.signal})).json();clearTimeout(t)}catch(e){AD=null}riempiAdesso()}
 function riempiAdesso(){try{segnaOra()}catch(e){}   // v3.42: cerchietto del livello misurato
+ document.querySelectorAll('[data-azona]').forEach(el=>{   // v3.44: colore della zona = semaforo del vento misurato adesso; grigio se manca
+  const a=AD&&AD.zone&&AD.zone[el.dataset.azona],c=a&&a.disponibile&&TXT[a.sem]?a.sem:'nd',hex=getComputedStyle(document.documentElement).getPropertyValue('--'+c).trim();
+  el.setAttribute('fill',hex);if(el.tagName.toLowerCase()==='path')el.setAttribute('stroke',hex)});
 
  document.querySelectorAll('[data-admap]').forEach(el=>{   // v3.31: vento misurato adesso sulle etichette della cartina (colore neutro)
   const Z=(D&&D.zone||[]).filter(z=>z.attiva),mi=o=>{const m=/^(\d{1,2}):(\d{2})/.exec(o||'');return m?(+m[1])*60+(+m[2]):null};
