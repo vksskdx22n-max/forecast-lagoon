@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.39"
+VERSIONE = "1.40"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -627,6 +627,41 @@ def onde_misurate_archivia(path=None, archivio=ONDE_ARCHIVIO, cartella="."):
 METAR_URL = "https://aviationweather.gov/api/data/metar?ids=LIPZ&format=json&hours=24"
 NEBBIA_ARCHIVIO = "nebbia_archivio.json"
 NEBBIA_GIORNI = 60
+
+
+NEBBIA_LOCALE_URL = ("https://fd-cpsm-proxy.ennioweb.workers.dev/nebbia/registro", ["-H", "Origin: https://vksskdx22n-max.github.io"])
+
+
+def nebbia_locale_archivia(path=None, archivio=NEBBIA_ARCHIVIO):
+    """v1.40: copia in nebbia_archivio.json (campo "locale") il registro del Worker v2.9: ogni 30 minuti umidita' e temperatura
+    dell'aria CPSM (Palazzo Cavalli, San Giorgio, Piattaforma, con punto di rugiada), vento misurato delle tre zone e visibilita'
+    di Tessera. t in UTC. Serve allo studio dell'indicatore locale di nebbia; non cambia la previsione. Ritorna una riga di log."""
+    if path:
+        dati = json.load(open(path, encoding="utf-8"))
+    else:
+        r = subprocess.run(["curl", "-s", "-m", "20"] + NEBBIA_LOCALE_URL[1] + [NEBBIA_LOCALE_URL[0]], capture_output=True, text=True)
+        try:
+            dati = json.loads(r.stdout)
+        except ValueError:
+            return f"Registro nebbia locale: non disponibile ({(r.stdout or r.stderr)[:120]!r})"
+    if not isinstance(dati, list):
+        return f"Registro nebbia locale: risposta inattesa ({str(dati)[:120]!r})"
+    try:
+        A = json.load(open(archivio, encoding="utf-8")) if os.path.exists(archivio) else {}
+    except ValueError:
+        A = {}
+    L = {x["t"]: x for x in A.get("locale", []) if isinstance(x, dict) and x.get("t")}
+    n0 = len(L)
+    for x in dati:
+        if isinstance(x, dict) and x.get("t"):
+            L[x["t"]] = x
+    limite = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=NEBBIA_GIORNI)).strftime("%Y-%m-%dT%H:%M")
+    A["locale"] = [L[k] for k in sorted(L) if k >= limite]
+    A["nota_locale"] = ("Registro del Worker (v2.9) ogni 30 minuti, t in UTC: aria = umidita' (rh, %), temperatura (t, °C), punto di rugiada (td) "
+                        "e distanza dal punto di rugiada (spread) delle stazioni CPSM; vento = vento medio misurato (kn) di Saline, Malamocco Porto, "
+                        "Chioggia Porto; vis = visibilita' di Tessera (m). Per lo studio dell'indicatore locale di nebbia.")
+    json.dump(A, open(archivio, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    return f"Registro nebbia locale: {len(A['locale']) - n0} righe nuove, totale {len(A['locale'])}"
 
 
 def nebbia_misurata_archivia(path=None, archivio=NEBBIA_ARCHIVIO):
@@ -1408,6 +1443,7 @@ def main():
     base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_{da.strftime('%H%M')}-{a.strftime('%H%M')}{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}")
     print(onde_misurate_archivia(sys.argv[sys.argv.index("--onde-json") + 1] if "--onde-json" in sys.argv else None))   # v1.37: solo archivio
     print(nebbia_misurata_archivia(sys.argv[sys.argv.index("--metar-json") + 1] if "--metar-json" in sys.argv else None))   # v1.38: solo archivio
+    print(nebbia_locale_archivia(sys.argv[sys.argv.index("--nebbia-locale-json") + 1] if "--nebbia-locale-json" in sys.argv else None))   # v1.40: solo archivio
     D["acqua_misurata"] = acqua_misurata(sys.argv[sys.argv.index("--acqua-json") + 1] if "--acqua-json" in sys.argv else None)   # v1.36
     print(f"Acqua: {num(D['acqua_misurata']['valore'])} °C a {D['acqua_misurata']['stazione']} ({D['acqua_misurata']['data']} {D['acqua_misurata']['ora']})"
           if D["acqua_misurata"] else "Acqua: misura CPSM non disponibile, riquadro omesso")
