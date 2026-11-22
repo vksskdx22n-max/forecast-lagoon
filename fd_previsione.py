@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.40"
+VERSIONE = "1.41"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -662,6 +662,89 @@ def nebbia_locale_archivia(path=None, archivio=NEBBIA_ARCHIVIO):
                         "Chioggia Porto; vis = visibilita' di Tessera (m). Per lo studio dell'indicatore locale di nebbia.")
     json.dump(A, open(archivio, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     return f"Registro nebbia locale: {len(A['locale']) - n0} righe nuove, totale {len(A['locale'])}"
+
+
+# v1.41: stazioni ARPAV intorno alla laguna (dati in diretta, non validati, CC BY 4.0 "ARPAV" www.arpa.veneto.it).
+# Stesso file JSON della mappa "Variabili meteorologiche": una richiesta per variabile e per ora, tutte le stazioni del Veneto.
+ARPAV_URL = "https://api.arpa.veneto.it/REST/v1/meteo_meteogrammi?rete=MGRAMMI&coordcd={c}&orario={o}"
+ARPAV_VAR = {"vis_km": 20059, "rh": 19, "t": 18}          # visibilita' (km), umidita' (%), temperatura aria 2 m (°C)
+ARPAV_STAZ = {160: "Cavallino-Treporti", 252: "Venezia Istituto Cavanis", 230: "Campagna Lupia - Valle Averto", 168: "Chioggia - Sant'Anna"}
+ARPAV_ORE = 24                                             # orario 0 .. -23 (storico disponibile)
+ARPAV_RILEGGI = 2                                          # le ultime ore si rileggono sempre (dati che arrivano in ritardo)
+
+
+def arpav_leggi(c, o, path=None):
+    """Una variabile (coordcd) a un'ora (orario <= 0). Ritorna (ora_solare 'YYYY-MM-DDTHH:MM' o None, {codice: valore})."""
+    if path:
+        j = json.load(open(path, encoding="utf-8")).get(f"{c}|{o}", {})
+    else:
+        r = subprocess.run(["curl", "-s", "-m", "20", "-A", "ForecastLagoon/1.0 (github.com/vksskdx22n-max/forecast-lagoon)",
+                            ARPAV_URL.format(c=c, o=o)], capture_output=True, text=True)
+        try:
+            j = json.loads(r.stdout)
+        except ValueError:
+            return None, {}
+    ora, val = None, {}
+    for s in (j.get("data") or []) if isinstance(j, dict) else []:
+        try:
+            cod = int(s["codice_stazione"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if cod not in ARPAV_STAZ:
+            continue
+        ora = ora or str(s.get("dataora", ""))[:16] or None
+        try:
+            val[cod] = float(str(s.get("valore")).replace(",", "."))
+        except (TypeError, ValueError):
+            pass
+    return ora, val
+
+
+def nebbia_arpav_archivia(path=None, archivio=NEBBIA_ARCHIVIO):
+    """v1.41: archivia in nebbia_archivio.json (campo "arpav") le ultime 24 ore orarie di visibilita' (Cavallino-Treporti),
+    umidita' e temperatura delle stazioni ARPAV intorno alla laguna. Solo archivio per la taratura; non cambia la previsione.
+    Ritorna una riga di log."""
+    try:
+        A = json.load(open(archivio, encoding="utf-8")) if os.path.exists(archivio) else {}
+    except ValueError:
+        A = {}
+    R = {x["ora_solare"]: x for x in A.get("arpav", []) if isinstance(x, dict) and x.get("ora_solare")}
+    ora0, _ = arpav_leggi(ARPAV_VAR["vis_km"], 0, path)
+    if not ora0:
+        return "ARPAV (visibilità Cavallino): non disponibile"
+    t0 = dt.datetime.strptime(ora0, "%Y-%m-%dT%H:%M")
+    nuove = 0
+    for k in range(ARPAV_ORE):
+        attesa = (t0 - dt.timedelta(hours=k)).strftime("%Y-%m-%dT%H:%M")
+        if k >= ARPAV_RILEGGI and attesa in R:
+            continue
+        riga = {"ora_solare": attesa,
+                "t": (t0 - dt.timedelta(hours=k + 1)).strftime("%Y-%m-%dT%H:%M"),    # UTC = ora solare - 1 h (inferenza: "ore solari")
+                "staz": {}}
+        ok = False
+        for nome, c in ARPAV_VAR.items():
+            ora, val = arpav_leggi(c, -k, path)
+            if ora != attesa:          # fuori dallo storico l'API restituisce l'ultima ora: scartare
+                continue
+            ok = True
+            for cod, v in val.items():
+                riga["staz"].setdefault(str(cod), {})[nome] = v
+            if not path:
+                time.sleep(0.2)
+        if ok and riga["staz"]:
+            nuove += attesa not in R
+            R[attesa] = riga
+    limite = (dt.datetime.now() - dt.timedelta(days=NEBBIA_GIORNI)).strftime("%Y-%m-%dT%H:%M")
+    A["arpav"] = [R[k] for k in sorted(R) if k >= limite]
+    A["nota_arpav"] = ("Stazioni ARPAV (dati in diretta, non validati; CC BY 4.0, fonte ARPAV www.arpa.veneto.it), un dato all'ora. "
+                       "ora_solare = ora del dato ARPAV (ora solare italiana); t = UTC (ora solare - 1 h, inferenza). staz per codice: "
+                       + ", ".join(f"{k} {v}" for k, v in ARPAV_STAZ.items())
+                       + ". vis_km = visibilita' (km, solo Cavallino-Treporti), rh = umidita' (%), t = temperatura aria 2 m (°C).")
+    json.dump(A, open(archivio, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    u = A["arpav"][-1] if A["arpav"] else {}
+    vis = (u.get("staz", {}).get("160") or {}).get("vis_km")
+    return (f"ARPAV (visibilità Cavallino): {nuove} ore nuove, archivio {len(A['arpav'])} ore; "
+            f"ultima {u.get('ora_solare')} solare: {'-' if vis is None else str(vis).replace('.', ',') + ' km'}")
 
 
 def nebbia_misurata_archivia(path=None, archivio=NEBBIA_ARCHIVIO):
@@ -1444,6 +1527,8 @@ def main():
     print(onde_misurate_archivia(sys.argv[sys.argv.index("--onde-json") + 1] if "--onde-json" in sys.argv else None))   # v1.37: solo archivio
     print(nebbia_misurata_archivia(sys.argv[sys.argv.index("--metar-json") + 1] if "--metar-json" in sys.argv else None))   # v1.38: solo archivio
     print(nebbia_locale_archivia(sys.argv[sys.argv.index("--nebbia-locale-json") + 1] if "--nebbia-locale-json" in sys.argv else None))   # v1.40: solo archivio
+    if AREA == "centro":   # v1.41: una sola lettura ARPAV per giro (le tre zone usano lo stesso archivio)
+        print(nebbia_arpav_archivia(sys.argv[sys.argv.index("--arpav-json") + 1] if "--arpav-json" in sys.argv else None))   # solo archivio
     D["acqua_misurata"] = acqua_misurata(sys.argv[sys.argv.index("--acqua-json") + 1] if "--acqua-json" in sys.argv else None)   # v1.36
     print(f"Acqua: {num(D['acqua_misurata']['valore'])} °C a {D['acqua_misurata']['stazione']} ({D['acqua_misurata']['data']} {D['acqua_misurata']['ora']})"
           if D["acqua_misurata"] else "Acqua: misura CPSM non disponibile, riquadro omesso")
