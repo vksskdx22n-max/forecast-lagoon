@@ -164,8 +164,12 @@ function mappa(vb,o){
  const cAd=z=>{const a=AD&&AD.zone&&AD.zone[z.id];return a&&a.disponibile?a.sem:null};   // v3.44: in prima pagina colori dal vento misurato adesso
  D.zone.forEach(z=>{const v=ultima(z),c=o.adesso?cAd(z):(v?v.colore:null),on=!o.only||o.only===z.id,hex=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();
   s+=`<path ${o.adesso?`data-azona="${z.id}" `:''}d="${G.bacini[z.id]}" fill="${hex}" fill-opacity="${on?(o.fo||.4):.06}" stroke="${hex}" stroke-opacity="${on?.95:.25}" stroke-width="${o.sw||2}" ${on?`filter="url(#gl${o.k})"`:''} ${o.click?`style="cursor:pointer" onclick="location.hash='zona/${z.id}'"`:''}/>`;});
+ if(o.adesso){const pt=d=>{const n=(d||'').match(/-?\d+\.?\d*/g)||[],r=[];for(let i=0;i+1<n.length;i+=2)r.push([+n[i],+n[i+1]]);return r};   // v3.45: linee di separazione tra le zone
+  [['nord','centro'],['centro','sud']].forEach(([a,b])=>{const B=pt(G.bacini[b]),S=pt(G.bacini[a]).filter(p=>B.some(q=>Math.abs(p[0]-q[0])<1.5&&Math.abs(p[1]-q[1])<1.5)).sort((p,q)=>p[0]-q[0]);
+   if(S.length<2)return;const d='M'+S.map(p=>p.join(',')).join('L');   // confine = vertici in comune tra i due bacini (laguna_bacini.json)
+   s+=`<path d="${d}" fill="none" stroke="#06131d" stroke-opacity=".8" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"/><path d="${d}" fill="none" stroke="#ffffff" stroke-opacity=".9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"/>`})}
  Object.values(G.bocche).forEach(([n,x,y])=>{s+=`<circle cx="${x}" cy="${y}" r="7" fill="none" stroke="#5fd4d0" stroke-width="2.5" class="pulse"/><circle cx="${x}" cy="${y}" r="6" fill="#eaf3f7" stroke="#06131d" stroke-width="2"/>
-  <text x="${x+14}" y="${y+7}" fill="#fff" font-size="${o.fs||22}" font-weight="700" paint-order="stroke" stroke="#06131d" stroke-width="4" stroke-opacity=".6">${n}</text>`});
+  <text x="${x+14}" y="${y+7}" fill="#fff" font-size="${o.fs||30}" font-weight="700" paint-order="stroke" stroke="#06131d" stroke-width="4" stroke-opacity=".6">${n}</text>`});
  if(o.labels)D.zone.forEach(z=>{const b=G.bbox[z.id],v=ultima(z),c=o.adesso?cAd(z):(v?v.colore:null),hex=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();
   const t=z.nome.replace('Laguna ',''),w=t.length*28+82,x=z.id==='nord'?b[0]+(b[2]-b[0])*.52:b[0]+(b[2]-b[0])*.18,y=z.id==='nord'?b[1]+(b[3]-b[1])*.55:(b[1]+b[3])/2;
   s+=`<g style="pointer-events:none"><rect x="${x}" y="${y-38}" width="${w}" height="66" rx="33" fill="#06131d" fill-opacity=".85" stroke="#ffffff" stroke-opacity=".22"/>
