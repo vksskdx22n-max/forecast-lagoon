@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.41"
+VERSIONE = "1.42"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -1488,6 +1488,22 @@ def pdf_png(pdf, png):
     return os.path.exists(png)
 
 
+def archivi_taratura():
+    """v1.42: archivi per la taratura della nebbia (Tessera, registro del Worker, ARPAV), eseguiti PRIMA delle richieste
+    a Open-Meteo. Ogni archivio e' indipendente: un errore viene scritto nel log e non ferma la previsione."""
+    def opz(nome):
+        return sys.argv[sys.argv.index(nome) + 1] if nome in sys.argv else None
+    passi = [("Visibilità Tessera (METAR LIPZ)", lambda: nebbia_misurata_archivia(opz("--metar-json"))),     # v1.38
+             ("Registro nebbia locale", lambda: nebbia_locale_archivia(opz("--nebbia-locale-json")))]      # v1.40
+    if AREA == "centro":   # v1.41: una sola lettura ARPAV per giro (le tre zone usano lo stesso archivio)
+        passi.append(("ARPAV (visibilità Cavallino)", lambda: nebbia_arpav_archivia(opz("--arpav-json"))))
+    for nome, f in passi:
+        try:
+            print(f())
+        except Exception as e:   # noqa: BLE001 - un archivio non deve mai fermare la previsione
+            print(f"{nome}: errore {type(e).__name__}: {str(e)[:120]}")
+
+
 def main():
     valori = {sys.argv[i + 1] for i, x in enumerate(sys.argv[:-1]) if x in ("--json", "--cpsm-json", "--mare-json", "--misure-dir", "--area")}
     arg = [x for x in sys.argv[1:] if not x.startswith("--") and x not in valori]
@@ -1509,6 +1525,7 @@ def main():
     elif "--no-verifica" not in sys.argv:
         for r in FV.verifica_pendenti("."):
             print(r)
+    archivi_taratura()   # v1.42: prima di Open-Meteo, cosi' i dati per la taratura si salvano anche se la previsione fallisce
     OM = json.load(open(jpath, encoding="utf-8")) if jpath else scarica(giorno, da, a)
     mpath = sys.argv[sys.argv.index("--mare-json") + 1] if "--mare-json" in sys.argv else None
     MAR = scarica_mare(giorno, mpath)
@@ -1525,10 +1542,6 @@ def main():
     os.makedirs("Previsioni", exist_ok=True)
     base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_{da.strftime('%H%M')}-{a.strftime('%H%M')}{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}")
     print(onde_misurate_archivia(sys.argv[sys.argv.index("--onde-json") + 1] if "--onde-json" in sys.argv else None))   # v1.37: solo archivio
-    print(nebbia_misurata_archivia(sys.argv[sys.argv.index("--metar-json") + 1] if "--metar-json" in sys.argv else None))   # v1.38: solo archivio
-    print(nebbia_locale_archivia(sys.argv[sys.argv.index("--nebbia-locale-json") + 1] if "--nebbia-locale-json" in sys.argv else None))   # v1.40: solo archivio
-    if AREA == "centro":   # v1.41: una sola lettura ARPAV per giro (le tre zone usano lo stesso archivio)
-        print(nebbia_arpav_archivia(sys.argv[sys.argv.index("--arpav-json") + 1] if "--arpav-json" in sys.argv else None))   # solo archivio
     D["acqua_misurata"] = acqua_misurata(sys.argv[sys.argv.index("--acqua-json") + 1] if "--acqua-json" in sys.argv else None)   # v1.36
     print(f"Acqua: {num(D['acqua_misurata']['valore'])} °C a {D['acqua_misurata']['stazione']} ({D['acqua_misurata']['data']} {D['acqua_misurata']['ora']})"
           if D["acqua_misurata"] else "Acqua: misura CPSM non disponibile, riquadro omesso")
