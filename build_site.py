@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.28"
+VERSIONE = "3.29"
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"
@@ -36,8 +36,9 @@ ALLERTA = {"url": "https://fd-cpsm-proxy.ennioweb.workers.dev/allerta",
            "controllo_min": 5,        # frequenza del controllo (cron del Worker)
            "rotazione_gradi": 90, "rotazione_min_kn": 8}   # pre-allarme sperimentale: solo registrato, non inviato
 # v3.26: visibilita' misurata adesso a Venezia Tessera (Worker v2.6, /adesso). Si mostra solo sotto mostra_sotto_m e se il METAR
-# non e' piu' vecchio di max_min. Tre livelli scelti da Ennio (21/11): fino a 200 m fitta, fino a 500 m nebbia, sotto 1000 m leggera.
-VISIBILITA = {"mostra_sotto_m": 1000, "fitta_fino_a_m": 200, "nebbia_fino_a_m": 500, "max_min": 60}
+# non e' piu' vecchio di max_min. Tre livelli scelti da Ennio (21/11): fino a 200 m fitta, fino a 500 m nebbia, fino a 1000 m leggera (1000 compreso dal v3.29).
+# v3.29: si mostra anche sopra i 1000 m se il bollettino segnala nebbia (FG, BCFG banchi, PRFG, MIFG, VCFG): "Banchi di nebbia".
+VISIBILITA = {"mostra_fino_a_m": 1000, "fitta_fino_a_m": 200, "nebbia_fino_a_m": 500, "max_min": 60}
 ORA_MATTINO = "08:30"        # v3.3: ora indicativa della previsione provvisoria (giro Cloudflare delle 08:25), per le istruzioni
 ORA_AGGIORNAMENTO = "16:30"  # v3.2: ora indicativa della previsione definitiva (giro Cloudflare delle 16:25), mostrata accanto alla provvisoria
 ORA_ATTESA = "17:30"        # v3.0: ora (italiana) entro cui ci si aspetta la previsione di domani; dopo, il sito avvisa del ritardo
