@@ -128,9 +128,9 @@
     "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ar": 10.1,
-    "raff_ar": 14.6,
-    "dir_ar": 54
+    "ar": 7.3,
+    "raff_ar": 9.9,
+    "dir_ar": 58
    },
    {
     "ora": "06:00",
@@ -147,9 +147,9 @@
     "ec": 5.0,
     "riparo": false,
     "ripiego": null,
-    "ar": 7.8,
-    "raff_ar": 13.4,
-    "dir_ar": 46
+    "ar": 6.5,
+    "raff_ar": 10.1,
+    "dir_ar": 33
    },
    {
     "ora": "07:00",
@@ -166,9 +166,9 @@
     "ec": 5.0,
     "riparo": false,
     "ripiego": null,
-    "ar": 7.2,
-    "raff_ar": 10.9,
-    "dir_ar": 14
+    "ar": 6.1,
+    "raff_ar": 8.7,
+    "dir_ar": 11
    },
    {
     "ora": "08:00",
@@ -185,9 +185,9 @@
     "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ar": 8.2,
-    "raff_ar": 10.9,
-    "dir_ar": 22
+    "ar": 6.5,
+    "raff_ar": 8.9,
+    "dir_ar": 33
    },
    {
     "ora": "09:00",
@@ -204,9 +204,9 @@
     "ec": 5.0,
     "riparo": false,
     "ripiego": null,
-    "ar": 6.6,
-    "raff_ar": 11.3,
-    "dir_ar": 56
+    "ar": 7.2,
+    "raff_ar": 9.9,
+    "dir_ar": 38
    },
    {
     "ora": "10:00",
@@ -223,9 +223,9 @@
     "ec": 4.6,
     "riparo": false,
     "ripiego": null,
-    "ar": 4.7,
-    "raff_ar": 8.9,
-    "dir_ar": 71
+    "ar": 9.6,
+    "raff_ar": 13.0,
+    "dir_ar": 52
    },
    {
     "ora": "11:00",
@@ -242,9 +242,9 @@
     "ec": 3.7,
     "riparo": false,
     "ripiego": null,
-    "ar": 6.7,
-    "raff_ar": 10.1,
-    "dir_ar": 154
+    "ar": 10.0,
+    "raff_ar": 14.2,
+    "dir_ar": 63
    },
    {
     "ora": "12:00",
@@ -261,9 +261,9 @@
     "ec": 4.7,
     "riparo": false,
     "ripiego": null,
-    "ar": 4.5,
-    "raff_ar": 8.6,
-    "dir_ar": 187
+    "ar": 9.5,
+    "raff_ar": 13.4,
+    "dir_ar": 70
    }
   ],
   "Sant'Erasmo nord": [
@@ -282,9 +282,9 @@
     "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ar": 9.1,
-    "raff_ar": 12.8,
-    "dir_ar": 55
+    "ar": 6.6,
+    "raff_ar": 9.1,
+    "dir_ar": 58
    },
    {
     "ora": "06:00",
@@ -301,9 +301,9 @@
     "ec": 5.0,
     "riparo": false,
     "ripiego": null,
-    "ar": 7.6,
-    "raff_ar": 12.2,
-    "dir_ar": 50
+    "ar": 6.3,
+    "raff_ar": 9.3,
+    "dir_ar": 40
    },
    {
     "ora": "07:00",
@@ -320,9 +320,9 @@
     "ec": 5.0,
     "riparo": false,
     "ripiego": null,
-    "ar": 8.3,
-    "raff_ar": 11.5,
-    "dir_ar": 27
+    "ar": 6.9,
+    "raff_ar": 9.9,
+    "dir_ar": 18
    },
    {
     "ora": "08:00",
@@ -339,9 +339,9 @@
     "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ar": 9.0,
-    "raff_ar": 11.7,
-    "dir_ar": 33
+    "ar": 7.0,
+    "raff_ar": 9.9,
+    "dir_ar": 39
    },
    {
     "ora": "09:00",
@@ -358,9 +358,9 @@
     "ec": 5.0,
     "riparo": false,
     "ripiego": null,
-    "ar": 5.6,
-    "raff_ar": 11.9,
-    "dir_ar": 54
+    "ar": 8.4,
+    "raff_ar": 11.3,
+    "dir_ar": 44
    },
    {
     "ora": "10:00",
@@ -377,9 +377,9 @@
     "ec": 4.6,
     "riparo": false,
     "ripiego": null,
-    "ar": 7.0,
-    "raff_ar": 10.5,
-    "dir_ar": 129
+    "ar": 9.0,
+    "raff_ar": 12.2,
+    "dir_ar": 53
    },
    {
     "ora": "11:00",
@@ -396,9 +396,9 @@
     "ec": 3.7,
     "riparo": false,
     "ripiego": null,
-    "ar": 4.8,
-    "raff_ar": 10.1,
-    "dir_ar": 166
+    "ar": 8.4,
+    "raff_ar": 13.0,
+    "dir_ar": 64
    },
    {
     "ora": "12:00",
@@ -415,9 +415,9 @@
     "ec": 4.7,
     "riparo": false,
     "ripiego": null,
-    "ar": 3.1,
-    "raff_ar": 6.8,
-    "dir_ar": 180
+    "ar": 8.0,
+    "raff_ar": 11.7,
+    "dir_ar": 64
    }
   ],
   "Murano nord": [
@@ -436,9 +436,9 @@
     "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ar": 10.0,
-    "raff_ar": 14.6,
-    "dir_ar": 47
+    "ar": 7.4,
+    "raff_ar": 10.5,
+    "dir_ar": 49
    },
    {
     "ora": "06:00",
@@ -455,9 +455,9 @@
     "ec": 5.0,
     "riparo": false,
     "ripiego": null,
-    "ar": 7.9,
-    "raff_ar": 13.0,
-    "dir_ar": 40
+    "ar": 6.9,
+    "raff_ar": 10.3,
+    "dir_ar": 25
    },
    {
     "ora": "07:00",
@@ -474,9 +474,9 @@
     "ec": 5.0,
     "riparo": false,
     "ripiego": null,
-    "ar": 7.3,
-    "raff_ar": 10.5,
-    "dir_ar": 11
+    "ar": 6.4,
+    "raff_ar": 9.3,
+    "dir_ar": 3
    },
    {
     "ora": "08:00",
@@ -493,9 +493,9 @@
     "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ar": 8.6,
-    "raff_ar": 11.1,
-    "dir_ar": 14
+    "ar": 6.4,
+    "raff_ar": 9.1,
+    "dir_ar": 29
    },
    {
     "ora": "09:00",
@@ -512,9 +512,9 @@
     "ec": 5.0,
     "riparo": false,
     "ripiego": null,
-    "ar": 7.8,
-    "raff_ar": 11.7,
-    "dir_ar": 30
+    "ar": 7.1,
+    "raff_ar": 9.5,
+    "dir_ar": 17
    },
    {
     "ora": "10:00",
@@ -531,9 +531,9 @@
     "ec": 4.6,
     "riparo": false,
     "ripiego": null,
-    "ar": 8.2,
-    "raff_ar": 10.5,
-    "dir_ar": 36
+    "ar": 8.9,
+    "raff_ar": 11.5,
+    "dir_ar": 38
    },
    {
     "ora": "11:00",
@@ -550,9 +550,9 @@
     "ec": 3.7,
     "riparo": false,
     "ripiego": null,
-    "ar": 3.3,
-    "raff_ar": 10.7,
-    "dir_ar": 135
+    "ar": 10.1,
+    "raff_ar": 13.2,
+    "dir_ar": 60
    },
    {
     "ora": "12:00",
@@ -569,9 +569,9 @@
     "ec": 4.7,
     "riparo": false,
     "ripiego": null,
-    "ar": 6.4,
-    "raff_ar": 10.7,
-    "dir_ar": 168
+    "ar": 9.2,
+    "raff_ar": 13.2,
+    "dir_ar": 65
    }
   ],
   "Giudecca sud": [
@@ -590,9 +590,9 @@
     "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ar": 8.6,
-    "raff_ar": 12.6,
-    "dir_ar": 52
+    "ar": 6.0,
+    "raff_ar": 9.9,
+    "dir_ar": 54
    },
    {
     "ora": "06:00",
@@ -609,9 +609,9 @@
     "ec": 5.0,
     "riparo": false,
     "ripiego": null,
-    "ar": 7.1,
-    "raff_ar": 12.4,
-    "dir_ar": 53
+    "ar": 6.5,
+    "raff_ar": 9.9,
+    "dir_ar": 39
    },
    {
     "ora": "07:00",
@@ -628,9 +628,9 @@
     "ec": 5.0,
     "riparo": false,
     "ripiego": null,
-    "ar": 7.1,
-    "raff_ar": 11.3,
-    "dir_ar": 26
+    "ar": 6.6,
+    "raff_ar": 9.5,
+    "dir_ar": 12
    },
    {
     "ora": "08:00",
@@ -647,9 +647,9 @@
     "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ar": 7.7,
-    "raff_ar": 11.1,
-    "dir_ar": 18
+    "ar": 6.3,
+    "raff_ar": 9.3,
+    "dir_ar": 27
    },
    {
     "ora": "09:00",
@@ -666,9 +666,9 @@
     "ec": 5.0,
     "riparo": false,
     "ripiego": null,
-    "ar": 6.4,
-    "raff_ar": 11.3,
-    "dir_ar": 23
+    "ar": 7.5,
+    "raff_ar": 11.1,
+    "dir_ar": 21
    },
    {
     "ora": "10:00",
@@ -685,9 +685,9 @@
     "ec": 4.6,
     "riparo": false,
     "ripiego": null,
-    "ar": 6.2,
-    "raff_ar": 9.5,
-    "dir_ar": 20
+    "ar": 8.1,
+    "raff_ar": 12.2,
+    "dir_ar": 33
    },
    {
     "ora": "11:00",
@@ -705,8 +705,8 @@
     "riparo": false,
     "ripiego": null,
     "ar": 7.4,
-    "raff_ar": 10.5,
-    "dir_ar": 177
+    "raff_ar": 12.2,
+    "dir_ar": 55
    },
    {
     "ora": "12:00",
@@ -723,9 +723,9 @@
     "ec": 4.7,
     "riparo": false,
     "ripiego": null,
-    "ar": 5.2,
-    "raff_ar": 10.1,
-    "dir_ar": 165
+    "ar": 7.0,
+    "raff_ar": 10.9,
+    "dir_ar": 54
    }
   ]
  },
@@ -2110,13 +2110,13 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "22/11 11:55",
-    "valore": "9,0"
+    "ora": "22/11 12:05",
+    "valore": "9,1"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "22/11 11:55",
-    "valore": "8,7"
+    "ora": "22/11 12:05",
+    "valore": "8,6"
    }
   ],
   "aria_acqua": [
@@ -2425,7 +2425,7 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: Open-Meteo (ICON-D2 DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS) · marea astronomica CPSM Punta Salute · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.44",
- "generato": "22/11/2026 12:01",
+ "generato": "22/11/2026 12:11",
  "area": "nord",
  "acqua_misurata": {
   "valore": 12.2,
