@@ -1527,6 +1527,51 @@
     "ora": "17:20",
     "eta_min": 11
    }
+  },
+  {
+   "t": "2026-11-22T17:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 95,
+     "ora": "2026-11-22 17:50:00",
+     "t": 9.5,
+     "ora_t": "2026-11-22 17:50:00",
+     "td": 8.7,
+     "spread": 0.8
+    },
+    "Piattaforma": {
+     "rh": 95,
+     "ora": "2026-11-22 17:50:00",
+     "t": 10.1,
+     "ora_t": "2026-11-22 17:50:00",
+     "td": 9.3,
+     "spread": 0.8
+    },
+    "S_Giorgio": {
+     "rh": 88,
+     "ora": "2026-11-22 17:50:00"
+    }
+   },
+   "vento": {
+    "sud": null,
+    "nord": null,
+    "centro": null
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "sud": "nessuna riga letta (842 caratteri): <html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "nord_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "nord": "nessuna riga letta (838 caratteri): <html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "centro_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "centro": "nessuna riga letta (957 caratteri): <html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t"
+   },
+   "vis": {
+    "m": 3000,
+    "oltre": false,
+    "wx": "-RA BR",
+    "ora": "17:50",
+    "eta_min": 11
+   }
   }
  ],
  "nota_locale": "Registro del Worker (v2.9) ogni 30 minuti, t in UTC: aria = umidita' (rh, %), temperatura (t, °C), punto di rugiada (td) e distanza dal punto di rugiada (spread) delle stazioni CPSM; vento = vento medio misurato (kn) di Saline, Malamocco Porto, Chioggia Porto; vis = visibilita' di Tessera (m). Per lo studio dell'indicatore locale di nebbia.",
