@@ -123,6 +123,17 @@ jobs:
           python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire --no-verifica --area sud || { echo "::warning::Previsione Laguna Sud non riuscita"; ERR=1; }
           exit $ERR
 
+      - name: Tendenza dei prossimi giorni
+        if: steps.guard.outputs.salta != 'true'
+        continue-on-error: true      # v1.0: se non riesce resta la tendenza precedente, il resto non cambia
+        env:
+          DATA_IN: ${{ github.event.inputs.data }}
+          DA_IN: ${{ github.event.inputs.da }}
+          A_IN: ${{ github.event.inputs.a }}
+        run: |
+          DATA="${DATA_IN:-$(date -d tomorrow +%F)}"
+          python3 fd_tendenza.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}"
+
       - name: Pagine per GitHub Pages
         if: steps.guard.outputs.salta != 'true'
         run: python3 build_site.py
@@ -132,7 +143,7 @@ jobs:
         run: |
           git config user.name "forecast-lagoon-bot"
           git config user.email "forecast-lagoon-bot@users.noreply.github.com"
-          git add verifica_archivio.json acqua_archivio.json onde_archivio.json nebbia_archivio.json Previsioni/*.json Previsioni/*.html Previsioni/*.pdf 2>/dev/null || true
+          git add verifica_archivio.json acqua_archivio.json onde_archivio.json nebbia_archivio.json tendenza.json Previsioni/*.json Previsioni/*.html Previsioni/*.pdf 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Nessuna modifica da salvare."
           else

@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.38"
+VERSIONE = "3.39"
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"
@@ -300,7 +300,7 @@ def main():
     for z in ZONE:
         zone.append(dict(z, attiva=bool(voci[z["id"]]), voci=voci[z["id"]]))
     ora = dt.datetime.now(dt.timezone.utc)
-    json.dump({"versione_sito": VERSIONE, "autore": AUTORE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ora_aggiornamento": ORA_AGGIORNAMENTO, "ora_mattino": ORA_MATTINO, "adesso_url": ADESSO_URL, "allerta": ALLERTA, "visibilita": VISIBILITA, "regole": regole(), "zone": zone},
+    json.dump({"versione_sito": VERSIONE, "autore": AUTORE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ora_aggiornamento": ORA_AGGIORNAMENTO, "ora_mattino": ORA_MATTINO, "adesso_url": ADESSO_URL, "allerta": ALLERTA, "visibilita": VISIBILITA, "regole": regole(), "zone": zone, "tendenza": leggi("tendenza.json")},
               open(os.path.join(SITO, "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # v2.1: la pagina conosce la propria versione e l'impronta del suo codice; versione.json (letto senza cache)
     # dice alla pagina gia' aperta se esiste una versione nuova -> barra "Aggiorna"

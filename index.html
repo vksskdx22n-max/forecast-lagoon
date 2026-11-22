@@ -36,7 +36,8 @@ h1 span{color:var(--teal)}
 .credit{position:absolute;right:12px;bottom:8px;font-size:9px;color:rgba(255,255,255,.5)}
 .zones{padding:6px 16px 0}
 .giorno{padding:2px 20px 8px}.giorno .gt{font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1.1}.giorno .gt span{color:var(--teal)}   /* v3.25: titolo del giorno sotto la cartina */
-.giorno .gd{font-size:14.5px;color:var(--txt);margin-top:2px}.giorno .gs{font-size:12.5px;color:var(--mut);margin-top:2px}
+.giorno .gd{font-size:14.5px;color:var(--txt);margin-top:2px;display:flex;justify-content:space-between;align-items:center;gap:8px}.gbtn{font-size:12px;font-weight:650;color:var(--teal);border:1px solid rgba(95,212,208,.5);background:rgba(95,212,208,.08);border-radius:999px;padding:0 9px;line-height:19px;white-space:nowrap;cursor:pointer}   /* v3.39: prossimi giorni */
+.tz{display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:10px 14px;margin-bottom:8px}.tz .tn{font-size:16px;font-weight:650;display:flex;align-items:center;gap:8px}.tz .tp{width:11px;height:11px;border-radius:50%;flex:none}.tz .tv{font-size:12.5px;color:var(--soft);text-align:right;line-height:1.35}.tday{font-size:14px;color:var(--teal);margin:16px 4px 6px;font-weight:600}.giorno .gs{font-size:12.5px;color:var(--mut);margin-top:2px}
 .piog{display:flex;width:fit-content;align-items:center;gap:5px;margin-top:1px;font-size:12px;line-height:14px;font-weight:600;white-space:nowrap;border-radius:999px}   /* v3.25: pioggia in prima pagina */
 .piog svg{width:9px;height:12px;flex:none}.piog.p0{color:var(--mut);font-weight:500}.piog.p1{color:#38b6ff}.piog.p2{background:#38b6ff;color:#06131d;padding:0 8px 0 7px;font-weight:700}
 .zone{display:grid;grid-template-columns:6px minmax(0,1fr) 74px 88px;gap:10px;align-items:center;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:20px;padding:12px 16px 12px 0;margin-bottom:10px;overflow:hidden;cursor:pointer;transition:transform .15s}
@@ -207,7 +208,7 @@ function titoloGiorno(ult){   // v3.25: "Previsione per domani" grande sotto la 
  const V=D.zone.map(ultima).filter(v=>v&&v.data===ult),np=V.filter(v=>v.provvisoria).length,prov=np*2>V.length;
  const rif=V.filter(v=>v.provvisoria===prov),em=rif.map(v=>v.emessa).filter(Boolean).sort().pop();
  const st=prov?`Provvisoria${em?' delle '+esc(em):''} · la definitiva esce verso le ${esc(D.ora_aggiornamento||'')}`:`Definitiva${em?' delle '+esc(em):''}`;
- return {rif:prov,h:`<div class="giorno"><div class="gt">${tit}</div><div class="gd">${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</div><div class="gs">${st}</div></div>`}}
+ return {rif:prov,h:`<div class="giorno"><div class="gt">${tit}</div><div class="gd"><span>${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</span>${tendGiorni(ult).length?'<span class="gbtn" role="button" onclick="location.hash=\'giorni\'">Prossimi giorni ›</span>':''}</div><div class="gs">${st}</div></div>`}}
 const MZN={};   // v3.37: curve dei mini-grafici per il segno "adesso" (zona -> {C,f,sc,data})
 function mareaMini(mz,sc,zid,data){   // v3.33-3.37: marea della zona nella finestra (curva da Punta Salute con ritardo e quota della stazione)
  if(!mz||!mz.curva||mz.curva.length<2||!sc)return '';const f=mz.fascia||[300,720],C=mz.curva.filter(p=>p[0]>=f[0]&&p[0]<=f[1]);if(C.length<2)return '';
@@ -227,6 +228,19 @@ function segnaOra(){   // v3.37: linea "adesso" sul mini-grafico della marea, so
   let h=null;for(let i=1;i<z.C.length;i++){const a=z.C[i-1],b=z.C[i];if(a[0]<=m&&m<=b[0]){h=a[1]+(b[1]-a[1])*((m-a[0])/((b[0]-a[0])||1));break}}
   const x=X(m).toFixed(1);g.innerHTML=`<line x1="${x}" y1="${T-2}" x2="${x}" y2="${B}" stroke="#f2c14e" stroke-width="1.2" stroke-dasharray="2 2"/>`+(h!=null?`<circle cx="${x}" cy="${Y(h).toFixed(1)}" r="2.4" fill="#f2c14e"/>`:'')})}
 setInterval(segnaOra,60*1000);
+function tendGiorni(ult){const T=D&&D.tendenza;return T&&T.giorni?T.giorni.filter(g=>!ult||g.data>ult):[]}   // v3.39
+function giorni(){   // v3.39: pagina "Prossimi giorni" (tendenza, colori tenui)
+ const date=D.zone.map(ultima).filter(Boolean).map(v=>v.data).sort(),ult=date[date.length-1],GG2=tendGiorni(ult),T=D.tendenza||{};
+ if(!GG2.length){location.hash='';return}
+ const tenue=c=>{const h=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();return `background:${h};opacity:.45;box-shadow:0 0 0 1.5px ${h}`};
+ let h=`<div class="home"><header class="testa"><div><div class="eyebrow"><span class="ver" style="margin-left:0">v${esc(VERSIONE)}</span></div><h1 style="font-size:30px">Prossimi <span>giorni</span></h1>
+ <div class="sub" style="white-space:normal">Tendenza ${esc(T.finestra||'')}, meno precisa della previsione di domani</div></div><div class="info" role="button" aria-label="Torna alla prima pagina" onclick="location.hash=''" style="font-style:normal">‹</div></header><div class="zones">`;
+ GG2.forEach(g=>{const d=dataDi(g.data);h+=`<div class="tday">${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</div>`;
+  g.zone.forEach(z=>{if(!z.disponibile){h+=`<div class="tz"><div class="tn">${esc(z.nome.replace(/^Laguna\s+/,''))}</div><div class="tv">non disponibile</div></div>`;return}
+   const m=z.marea?` · ${z.marea.tipo} ${esc(z.marea.ora)}`:'';
+   h+=`<div class="tz"><div class="tn"><span class="tp" style="${tenue(z.colore)}"></span>${esc(z.nome.replace(/^Laguna\s+/,''))}</div><div class="tv">${z.vento_min}–${z.vento_max} kn${z.dir?' '+esc(z.dir):''}${z.pioggia!=null?' · pioggia '+z.pioggia+'%':''}${m}</div></div>`})});
+ h+=`<div class="tday" style="color:var(--mut);font-weight:500;font-size:12px;margin-top:12px">Colore indicativo del vento medio nella finestra. Modelli ${[...new Set(GG2.flatMap(g=>g.zone.filter(z=>z.modello).map(z=>z.modello)))].map(esc).join(', ')}; marea astronomica senza l'effetto del vento.</div></div>`;
+ app.innerHTML=h+piede()+'</div>';window.scrollTo(0,0)}
 function home(){
  const date=D.zone.map(ultima).filter(Boolean).map(v=>v.data).sort();const ult=date[date.length-1];const fin=finestra(),TG=titoloGiorno(ult);
  const MC=D.zone.map(ultima).filter(v=>v&&v.sintesi&&v.sintesi.marea_zona).flatMap(v=>{const z=v.sintesi.marea_zona,f=z.fascia||[300,720];return (z.curva||[]).filter(p=>p[0]>=f[0]&&p[0]<=f[1]).map(p=>p[1])}),MSC=MC.length?[Math.min(...MC),Math.max(...MC)]:null;   // v3.33
@@ -381,7 +395,7 @@ async function controlla(){caricaAdesso();try{
 }catch(e){}}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')controlla()});
 setInterval(controlla,15*60*1000);
-function vai(){if(!D||!G)return;const p=location.hash.replace(/^#/,'').split('/');if(p[0]==='zona')zona(p[1],p[2]);else home();riempiAdesso()}
+function vai(){if(!D||!G)return;const p=location.hash.replace(/^#/,'').split('/');if(p[0]==='zona')zona(p[1],p[2]);else if(p[0]==='giorni')giorni();else home();riempiAdesso()}
 window.addEventListener('hashchange',vai);
 let T0=Date.now();   // v3.9: tocchi su fasce e mappa ignorati per 600 ms dopo il caricamento (tocco "rimbalzato" dal ricaricamento)
 document.addEventListener('click',e=>{if(Date.now()-T0<600&&e.target.closest&&e.target.closest('.zone,.hero')){e.preventDefault();e.stopPropagation()}},true);
