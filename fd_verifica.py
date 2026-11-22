@@ -65,7 +65,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.27"
+VERSIONE = "1.28"
 URL_BASE = "https://www.comune.venezia.it/sites/default/files/publicCPSM2/stazioni/temporeale/"
 URL_PROXY = "https://fd-cpsm-proxy.ennioweb.workers.dev/misure/"      # v1.22: il Comune blocca i server di GitHub; il proxy Cloudflare no
 ORIGINE_PROXY = "https://vksskdx22n-max.github.io"
@@ -899,6 +899,53 @@ NOTE_ANDAMENTO = [{"tipo": "dato", "testo": "Errore = previsto − misurato a Ma
 
 
 # ------------------------------------------------------------------ report di confronto
+NEBBIA_ARCHIVIO = "nebbia_archivio.json"
+
+
+def _metar_metri(raw):
+    """Visibilita' prevalente in metri dal bollettino METAR (gruppo a 4 cifre dopo il vento; 9999/CAVOK = oltre 10 km)."""
+    if not raw:
+        return None
+    if " CAVOK" in raw:
+        return 10000
+    m = re.search(r"KT(?: \d{3}V\d{3})? (\d{4})(?:NDV)?(?: |$)", raw)
+    return int(m.group(1)) if m else None
+
+
+def nebbia_verifica(cartella, P, giorno):
+    """v1.28: nebbia prevista ora per ora accanto alla visibilita' misurata a Venezia Tessera (METAR di nebbia_archivio.json).
+    Per ogni ora: METAR tra 30 min prima e 30 min dopo (ora italiana -> UTC), visibilita' minima. Solo da vedere, nessun punteggio."""
+    Me = P.get("meteo") or {}
+    N, O = Me.get("nebbia"), Me.get("nebbia_ore") or []
+    if not N or not O:
+        return []
+    try:
+        mis = json.load(open(os.path.join(cartella, NEBBIA_ARCHIVIO), encoding="utf-8")).get("misure") or []
+    except (OSError, ValueError):
+        mis = []
+    tz = tz_italia(giorno)
+    pr = N.get("prob_max") is not None
+    out = []
+    for o in O:
+        c = dt.datetime.combine(giorno, dt.time(int(o["ora"][:2]), 0), tz).astimezone(dt.timezone.utc)
+        vv, wx = [], []
+        for x in mis:
+            try:
+                t = dt.datetime.strptime(x["t"], "%Y-%m-%d %H:%M").replace(tzinfo=dt.timezone.utc)
+            except (KeyError, ValueError):
+                continue
+            if c - dt.timedelta(minutes=30) <= t < c + dt.timedelta(minutes=30):
+                m = _metar_metri(x.get("raw"))
+                if m is not None:
+                    vv.append(m)
+                if x.get("wx"):
+                    wx.append(x["wx"])
+        p = o.get("prob")
+        cat = (0 if p is None else 2 if p >= N.get("soglia_alta", 50) else 1 if p >= N.get("soglia_min", 20) else 0) if pr else (o.get("livello") or 0)
+        out.append({"ora": o["ora"], "cat": cat, "vis_m": min(vv) if vv else None, "wx": " ".join(dict.fromkeys(wx)) or None})
+    return out if any(x["vis_m"] is not None for x in out) else []
+
+
 def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=False):
     g, P = v["giorno"], v["P"]
     g0 = dt.datetime.combine(g, dt.time(0), tz_italia(g))
@@ -1004,8 +1051,10 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
          "sem_prev": P["verdetto"]["colore"], "fascia": [v["da"].hour * 60 + v["da"].minute, v["a"].hour * 60 + v["a"].minute],
          "zone": zone, "onda": onda_v, "liv": liv, "liv_fonte": fonte_liv, "liv_eta_h": eta_liv, "aria": v.get("aria_v") or [], "pioggia": v.get("pioggia_v") or [], "marea_zona": v.get("marea_v"),
          "andamento": andamento(A, risultati[0][0]), "archivio": riepilogo(A), "note": note,
-         "fonti": f"Misure: CPSM Comune di Venezia ({', '.join(dict.fromkeys(staz_vento + ['Malamocco Porto', 'Piattaforma CNR', 'Palazzo Cavalli']))}) · "
-                  f"Previsione: fd_previsione (Open-Meteo) · fd_verifica v{VERSIONE}",
+         "nebbia": nebbia_verifica(cartella, P, g),   # v1.28
+         "fonti": f"Misure: CPSM Comune di Venezia, dati.venezia.it, CC BY ({', '.join(dict.fromkeys(staz_vento + ['Malamocco Porto', 'Piattaforma CNR', 'Palazzo Cavalli']))}) · "
+                  f"visibilità: METAR Venezia Tessera (AviationWeather.gov) · "
+                  f"Previsione: fd_previsione (dati meteo Open-Meteo.com, CC BY 4.0) · fd_verifica v{VERSIONE}",
          "verde_fino_a": VERDE_FINO_A, "rosso_da": ROSSO_DA,
          "generato": dt.datetime.now().strftime("%d/%m/%Y %H:%M")}
     base = os.path.join(cartella, CARTELLA, f"verifica_{g.strftime('%d-%m-%Y')}_{v['da'].strftime('%H%M')}-{v['a'].strftime('%H%M')}"
@@ -1100,6 +1149,11 @@ if((D.pioggia||[]).length){const PO=D.pioggia,N=PO.length,W=380,H=270,L=58,R=6,T
   [r.mm_D2,r.cavalli_mm,r.piatt_mm].forEach((val,j)=>s+=`<text x="${x}" y="${Y(0)+54+j*13}" text-anchor="middle" style="font-size:11px">${mm(val)}</text>`);});
  s+=`<text x="2" y="${Y(0)+34}" style="font-size:11px">${OS?'In barca':'Cavalli'}</text><text x="2" y="${Y(0)+54}" style="font-size:11px">mm prev.</text><text x="2" y="${Y(0)+67}" style="font-size:11px">Cavalli</text><text x="2" y="${Y(0)+80}" style="font-size:11px">Piattaf.</text></svg>`;
  app.append(h('div',{cls:'card'},h('h2',{},'🌧 Pioggia'),h('div',{html:s}),h('div',{cls:'nota'},'Barre: probabilità ICON-D2 di più di 0,1 mm'+(ec?'; linea viola: ECMWF':'')+'. Etichetta: '+(OS?'osservazione in barca (riga PIOGGIA nelle note dell’uscita): riferimento per le zone di pesca.':'misura a Palazzo Cavalli, "pioggia" da 0,2 mm (un solo scatto del pluviometro).')+' Sotto: mm previsti da ICON-D2 e misurati a Palazzo Cavalli e alla Piattaforma CNR. Ogni ora = ora precedente (08:00 = dalle 07 alle 08). Palazzo Cavalli è a ~12 km dalle zone di pesca: confronto indicativo; la pioviggine sotto 0,2 mm/h non viene registrata.')));}
+if((D.nebbia||[]).length){const TX=['non probabile','poco probabile','probabile'],CO=['#e2e8f0','#facc15','#475569'],TC=['#334155','#334155','#fff'];   // v1.28
+ const vis=m=>m==null?'–':m>=10000?'oltre 10 km':m>=1000?n(m/1000,1)+' km':m+' m',vc=m=>m==null?'':m<=200?'font-weight:700;color:#7f1d1d':m<=1000?'font-weight:700':'';
+ const tn=h('table',{},h('tr',{},h('th',{},'Ora'),h('th',{},'Nebbia prevista'),h('th',{},'Visibilità Tessera'),h('th',{},'Fenomeni')));
+ D.nebbia.forEach(r=>tn.append(h('tr',{},h('td',{},r.ora),h('td',{},h('span',{style:'display:inline-block;padding:1px 8px;border-radius:9px;background:'+CO[r.cat]+';color:'+TC[r.cat]},TX[r.cat])),h('td',{style:vc(r.vis_m)},vis(r.vis_m)),h('td',{},r.wx||''))));
+ app.append(h('div',{cls:'card'},h('h2',{},'🌫 Nebbia'),tn,h('div',{cls:'nota'},'Nebbia prevista: scenari dei modelli (a parole, come nel sito). Visibilità: minima dei bollettini METAR di Venezia Tessera tra mezz’ora prima e mezz’ora dopo (sotto 1000 m = nebbia). Tessera è sul bordo nord della laguna, a 15–35 km dalle zone: confronto indicativo, nessun punteggio. FG nebbia, BR foschia, BCFG banchi, RA pioggia.')));}
 if(D.liv.length){const hp=D.liv.some(l=>l.prev!=null),sg=v=>(v>0?'+':'')+v+' cm';
  const tl=h('table',{},h('tr',{},h('th',{},'Ora'),h('th',{},'Misurato'),h('th',{},'Astronomica'),h('th',{},'Scarto astr.'),...(hp?[h('th',{},'Previsto ('+D.liv_fonte+')'),h('th',{},'Scarto prev.')]:[])));
  D.liv.forEach(l=>tl.append(h('tr',{},h('td',{},l.ora),h('td',{},l.mis+' cm'),h('td',{},l.astro+' cm'),h('td',{},sg(l.scarto)),...(hp?[h('td',{},l.prev!=null?l.prev+' cm':'–'),h('td',{},l.scarto_prev!=null?sg(l.scarto_prev):'–')]:[]))));

@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.46"
+VERSIONE = "1.47"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -1329,8 +1329,9 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
         "riflessioni": rifl,
         "mare": mare,
         "onda_laguna": onda_lag,
-        "fonti": f"Fonti: Open-Meteo (ICON-D2 DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS) · marea astronomica CPSM Punta Salute · "
-                 f"correnti: modello Laguna Viva · storico: diario {giorno.year} · fd_previsione v{VERSIONE}",
+        "fonti": f"Fonti: dati meteo e mare aperto Open-Meteo.com, CC BY 4.0 (ICON-D2 e ensemble ICON-D2-EPS DWD, ICON-2i ItaliaMeteo-ARPAE, "
+                 f"ECMWF IFS, AROME HD Météo-France in prova, Open-Meteo Marine) · marea astronomica, previsione di marea e misure: CPSM, "
+                 f"Comune di Venezia (dati.venezia.it, CC BY) · correnti: modello Laguna Viva · storico: diario {giorno.year} · fd_previsione v{VERSIONE}",   # v1.47
         "generato": dt.datetime.now().strftime("%d/%m/%Y %H:%M"), "area": AREA,
     }
 
@@ -1477,6 +1478,16 @@ if((Me.pioggia_ore||[]).length){const PO=Me.pioggia_ore,N=PO.length,W=380,H=250,
   s+=`<text x="2" y="${Y(0)+32}" style="font-size:11px">mm D2</text><text x="2" y="${Y(0)+45}" style="font-size:11px">mm 2i</text><text x="2" y="${Y(0)+58}" style="font-size:11px">mm EC</text></svg>`;
   cmt.append(h('h3',{style:'margin:14px 0 0;font-size:13px;color:var(--mu)'},'🌧 Pioggia ora per ora'),h('div',{html:s}),
     h('div',{cls:'nota'},'Barre: probabilità ICON-D2 di più di 0,1 mm'+(ec?'; linea viola: probabilità ECMWF':'')+'. Sotto: mm previsti da ICON-D2, ICON-2i ed ECMWF. Ogni ora si riferisce all’ora precedente (08:00 = dalle 07 alle 08). Probabilità calcolata da Open-Meteo con modelli ensemble; ICON-2i non la fornisce. Dati sul punto '+D.zone_vento[0]+'.'));}
+// v1.47: nebbia ora per ora, come nella pagina della zona del sito (solo a parole, niente percentuali)
+if(Me.nebbia&&(Me.nebbia_ore||[]).length){const N=Me.nebbia,O=Me.nebbia_ore,PR=N.prob_max!=null,
+  cat=o=>PR?(o.prob==null?0:o.prob>=N.soglia_alta?2:o.prob>=N.soglia_min?1:0):(o.livello||0),
+  TX=['non probabile','poco probabile','probabile'],CO=['#e2e8f0','#facc15','#475569'],cmax=Math.max(...O.map(cat));
+  const hh=O.filter(o=>cat(o)===cmax&&cmax>0).map(o=>o.ora.slice(0,2));
+  const bar=h('div',{style:'display:flex;gap:3px;margin-top:8px'});
+  O.forEach(o=>bar.append(h('div',{style:'flex:1;text-align:center'},h('div',{style:'height:10px;border-radius:4px;background:'+CO[cat(o)]}),h('div',{style:'font-size:11px;color:#64748b;margin-top:3px'},o.ora.slice(0,2)))));
+  cmt.append(h('h3',{style:'margin:14px 0 0;font-size:13px;color:var(--mu)'},'🌫 Nebbia ora per ora'),
+    h('div',{style:'font-weight:700;margin-top:6px'},'Nebbia '+TX[cmax]+(hh.length?' · ore '+hh[0]+'–'+String(+hh[hh.length-1]+1).padStart(2,'0'):'')),bar,
+    h('div',{cls:'nota',html:'<b style="color:'+CO[2]+'">■</b> probabile · <b style="color:'+CO[1]+'">■</b> poco probabile · <b style="color:#cbd5e1">■</b> non probabile. '+(PR?'Dagli scenari '+(N.fonte_prob||'ICON-D2-EPS')+'. ':'Dal modello deterministico (ensemble non disponibile). ')+'Indicazione dai modelli, non ancora verificata con la visibilità misurata. Non cambia il semaforo.'));}
 Me.note.forEach(t=>cmt.append(h('div',{cls:'nota'},t)));
 let MARE=null;
 if(D.mare){const cv=D.mare.righe.some(r=>r.vento!=null);
