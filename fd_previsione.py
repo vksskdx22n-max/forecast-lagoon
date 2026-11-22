@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.45"
+VERSIONE = "1.46"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -1424,7 +1424,8 @@ D.zone_vento.forEach((z,i)=>{const b=h('div',{cls:'tab'+(i?'':' on')},z);tabs.ap
   if(D.vento[z].some(r=>r.ripiego))box.append(h('div',{cls:'nota'},'† ICON-D2 non disponibile: stima = '+D.vento[z].find(r=>r.ripiego).ripiego+' senza correzione misurata, raffiche dello stesso modello (meno affidabile).'));cv.append(box);
   b.onclick=()=>{[...tabs.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');cv.querySelectorAll('.zbox').forEach((x,j)=>x.style.display=j===i?'':'none');};});
 cv.append(h('div',{cls:'nota'},D.vento_nota));
-if(D.onda_laguna&&D.onda_laguna.ore.length){const OL=D.onda_laguna;
+if(false&&D.onda_laguna&&D.onda_laguna.ore.length){const OL=D.onda_laguna;   // v1.46: nascosta (stima circa 3 volte la misura di Fusina, 22/11/2026)
+
  const to=h('table',{style:'font-size:13px'},h('tr',{},h('th',{},'Ora'),...OL.punti.map(p=>h('th',{},p))));
  OL.ore.forEach(o=>to.append(h('tr',{},h('td',{},o.ora),...OL.punti.map(p=>{const v=o.v[p];return h('td',{style:'white-space:nowrap',html:v?'<b>'+n(v[0],2)+'</b>–'+n(v[1],2):'–'});}))));
  cv.append(h('h3',{style:'margin:18px 0 6px;font-size:14px'},'🌊 Onda stimata in laguna (calcolo)'),to,h('div',{cls:'nota'},OL.nota));}
