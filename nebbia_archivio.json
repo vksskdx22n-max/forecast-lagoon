@@ -719,9 +719,21 @@
    "visib": 4.97,
    "wx": "-RA",
    "raw": "METAR LIPZ 220850Z 36006KT 8000 -RA FEW040 BKN060 07/06 Q1012 BECMG 3000 RA"
+  },
+  {
+   "t": "2026-11-22 09:20",
+   "visib": 4.97,
+   "wx": "-RA",
+   "raw": "METAR LIPZ 220920Z 02005KT 8000 -RA BKN060 07/06 Q1012 BECMG 3000 RA"
+  },
+  {
+   "t": "2026-11-22 09:50",
+   "visib": 5.59,
+   "wx": "-RA",
+   "raw": "METAR LIPZ 220950Z 02005KT 9000 -RA SCT035 BKN060 08/07 Q1011 NOSIG"
   }
  ],
- "versione": "1.43",
+ "versione": "1.44",
  "nota": "METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib in miglia terrestri come restituito dall'API ('6+' = oltre 6 miglia, circa 10 km; 1 miglio = 1609 m), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato.",
  "locale": [
   {
@@ -869,6 +881,80 @@
     "oltre": false,
     "wx": "-RA",
     "ora": "09:50",
+    "eta_min": 11
+   }
+  },
+  {
+   "t": "2026-11-22T09:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 92,
+     "ora": "2026-11-22 10:20:00",
+     "t": 8.3,
+     "ora_t": "2026-11-22 10:20:00",
+     "td": 7.1,
+     "spread": 1.2
+    },
+    "Piattaforma": {
+     "rh": 96,
+     "ora": "2026-11-22 10:20:00",
+     "t": 9,
+     "ora_t": "2026-11-22 10:20:00",
+     "td": 8.4,
+     "spread": 0.6
+    },
+    "S_Giorgio": {
+     "rh": 88,
+     "ora": "2026-11-22 10:20:00"
+    }
+   },
+   "vento": {
+    "sud": 7.8,
+    "nord": null,
+    "centro": 9.3
+   },
+   "vis": {
+    "m": 8000,
+    "oltre": false,
+    "wx": "-RA",
+    "ora": "10:20",
+    "eta_min": 11
+   }
+  },
+  {
+   "t": "2026-11-22T10:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 92,
+     "ora": "2026-11-22 10:50:00",
+     "t": 8.3,
+     "ora_t": "2026-11-22 10:50:00",
+     "td": 7.1,
+     "spread": 1.2
+    },
+    "Piattaforma": {
+     "rh": 96,
+     "ora": "2026-11-22 10:50:00",
+     "t": 8.7,
+     "ora_t": "2026-11-22 10:50:00",
+     "td": 8.1,
+     "spread": 0.6
+    },
+    "S_Giorgio": {
+     "rh": 88,
+     "ora": "2026-11-22 10:50:00"
+    }
+   },
+   "vento": {
+    "sud": null,
+    "centro": null,
+    "nord": null
+   },
+   "vis": {
+    "m": 9000,
+    "oltre": false,
+    "wx": "-RA",
+    "ora": "10:50",
     "eta_min": 11
    }
   }
@@ -1470,6 +1556,29 @@
     "252": {
      "rh": 100.0,
      "t": 7.7
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-22T11:00",
+   "t": "2026-11-22T10:00",
+   "staz": {
+    "160": {
+     "vis_km": 7.75,
+     "rh": 100.0,
+     "t": 7.8
+    },
+    "230": {
+     "rh": 100.0,
+     "t": 7.4
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 9.2
+    },
+    "252": {
+     "rh": 100.0,
+     "t": 8.0
     }
    }
   }
