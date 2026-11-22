@@ -232,7 +232,7 @@ function tendGiorni(ult){const T=D&&D.tendenza;return T&&T.giorni?T.giorni.filte
 function giorni(){   // v3.39: pagina "Prossimi giorni" (tendenza, colori tenui)
  const date=D.zone.map(ultima).filter(Boolean).map(v=>v.data).sort(),ult=date[date.length-1],GG2=tendGiorni(ult),T=D.tendenza||{};
  if(!GG2.length){location.hash='';return}
- const tenue=c=>{const h=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();return `background:${h};opacity:.45;box-shadow:0 0 0 1.5px ${h}`};
+ const tenue=c=>{const h=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();return `background:${h}`};
  let h=`<div class="home"><header class="testa"><div><div class="eyebrow"><span class="ver" style="margin-left:0">v${esc(VERSIONE)}</span></div><h1 style="font-size:30px">Prossimi <span>giorni</span></h1>
  <div class="sub" style="white-space:normal">Tendenza ${esc(T.finestra||'')}, meno precisa della previsione di domani</div></div><div class="info" role="button" aria-label="Torna alla prima pagina" onclick="location.hash=''" style="font-style:normal">‹</div></header><div class="zones">`;
  GG2.forEach(g=>{const d=dataDi(g.data);h+=`<div class="tday">${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</div>`;
