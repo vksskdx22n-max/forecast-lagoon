@@ -755,6 +755,12 @@
    "visib": 4.35,
    "wx": "-RA",
    "raw": "METAR LIPZ 221150Z 04010KT 7000 -RA BKN055 08/08 Q1008 NOSIG"
+  },
+  {
+   "t": "2026-11-22 12:20",
+   "visib": 4.35,
+   "wx": "-RA",
+   "raw": "METAR LIPZ 221220Z 03009KT 7000 -RA FEW040 BKN055 08/08 Q1007 NOSIG"
   }
  ],
  "versione": "1.44",
