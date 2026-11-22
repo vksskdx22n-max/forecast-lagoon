@@ -1,0 +1,17 @@
+{
+ "versione": "1.0",
+ "nota": "Propagazione della marea da Punta Salute (riferimento della previsione CPSM) alla stazione rappresentativa di ogni zona. Per ogni alta e bassa marea: ritardo (minuti, + = dopo Punta Salute) e differenza di quota (cm), lineari nell'escursione di Punta Salute dall'estremo precedente: valore = base + per_10cm * (escursione_cm - 60) / 10. Coefficienti dalla regressione con vento nullo (Piattaforma CNR, scirocco e bora nelle 3 ore prima); l'effetto del vento non e' usato (piccolo e poco affidabile in questi 3 mesi).",
+ "fonte": "CSV trimestrali CPSM Comune di Venezia, livelli ogni 5 minuti, 22/08-22/11/2026, analisi del 22/11/2026 (circa 160 alte e 160 basse per stazione)",
+ "escursione_rif_cm": 60,
+ "zone": {
+  "nord": {"stazione": "Laguna Nord (Saline)",
+           "alta":  {"rit_min": 68, "rit_per_10cm": 3.9, "dh_cm": -3.9, "dh_per_10cm": -1.2, "incertezza_min": 16},
+           "bassa": {"rit_min": 57, "rit_per_10cm": 1.1, "dh_cm": 7.5, "dh_per_10cm": 1.7, "incertezza_min": 14}},
+  "centro": {"stazione": "Malamocco Porto",
+           "alta":  {"rit_min": -4, "rit_per_10cm": 2.2, "dh_cm": -3.0, "dh_per_10cm": 0.0, "incertezza_min": 26},
+           "bassa": {"rit_min": -12, "rit_per_10cm": -0.2, "dh_cm": -0.4, "dh_per_10cm": 0.1, "incertezza_min": 11}},
+  "sud": {"stazione": "Chioggia Porto",
+           "alta":  {"rit_min": -20, "rit_per_10cm": 0.5, "dh_cm": -0.8, "dh_per_10cm": 0.1, "incertezza_min": 24},
+           "bassa": {"rit_min": -28, "rit_per_10cm": -1.7, "dh_cm": 1.4, "dh_per_10cm": -0.2, "incertezza_min": 12}}
+ }
+}

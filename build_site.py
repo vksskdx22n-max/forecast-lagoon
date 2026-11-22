@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.32"
+VERSIONE = "3.33"
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"
@@ -85,6 +85,84 @@ def chiave_file(p):
     d = data_da_nome(base)
     m = re.search(r"_(\d{4}-\d{4})", base)
     return (d, m.group(1) if m else None)
+
+
+MAREA_ZONE = "marea_zone.json"   # v3.33: ritardo e quota della marea per zona rispetto a Punta Salute (analisi CPSM del 22/11)
+
+
+def _minuti_estremo(e, giorno):
+    """Minuti dalla mezzanotte del giorno della previsione (negativi = giorno prima)."""
+    if isinstance(e.get("min_curva"), (int, float)):
+        return e["min_curva"]
+    m = re.match(r"(\d\d)/(\d\d) (\d\d):(\d\d)", e.get("ora") or "")
+    if not m:
+        return None
+    try:
+        d = dt.date(giorno.year, int(m.group(2)), int(m.group(1)))
+    except ValueError:
+        return None
+    if (d - giorno).days > 180:
+        d = d.replace(year=d.year - 1)
+    elif (giorno - d).days > 180:
+        d = d.replace(year=d.year + 1)
+    return (d - giorno).days * 1440 + int(m.group(3)) * 60 + int(m.group(4))
+
+
+def marea_zona(P, zona, giorno, cfg):
+    """v3.33: curva di marea della zona dalla curva di Punta Salute. Ogni semiciclo tra due estremi di Punta Salute
+    viene spostato (ritardo, lineare nel tempo) e alzato/abbassato (quota, lineare nel livello) tra i valori degli estremi; ritardo e quota
+    dipendono dal tipo (alta/bassa) e dall'escursione (coefficienti in marea_zone.json). None se mancano i dati."""
+    Z = (cfg.get("zone") or {}).get(zona)
+    M = P.get("marea") or {}
+    fascia = M.get("fascia")
+    curva = M.get("curva_cpsm") or M.get("curva") or []
+    est = M.get("cpsm") if M.get("curva_cpsm") else M.get("estremali")
+    if not Z or not fascia or len(curva) < 2 or not est:
+        return None
+    E = []
+    for e in est:
+        t = _minuti_estremo(e, giorno)
+        if t is None or e.get("cm") is None or e.get("tipo") not in ("max", "min"):
+            continue
+        E.append({"t": t, "cm": float(e["cm"]), "tipo": "alta" if e["tipo"] == "max" else "bassa"})
+    E.sort(key=lambda x: x["t"])
+    if len(E) < 2:
+        return None
+    rif = cfg.get("escursione_rif_cm", 60)
+    for i, e in enumerate(E):
+        esc = abs(e["cm"] - E[i - 1]["cm"]) if i > 0 else abs(E[1]["cm"] - e["cm"])
+        c = Z[e["tipo"]]
+        k = (esc - rif) / 10
+        e["rit"] = c["rit_min"] + c["rit_per_10cm"] * k
+        e["dh"] = c["dh_cm"] + c["dh_per_10cm"] * k
+    pts = []
+    for t, h in curva:
+        for a, b in zip(E, E[1:]):
+            if a["t"] <= t <= b["t"]:
+                f = (t - a["t"]) / (b["t"] - a["t"]) if b["t"] > a["t"] else 0
+                g = (h - a["cm"]) / (b["cm"] - a["cm"]) if b["cm"] != a["cm"] else f   # quota: interpolata sul livello, gli estremi restano estremi
+                g = min(1.0, max(0.0, g))
+                pts.append((t + a["rit"] + f * (b["rit"] - a["rit"]), h + a["dh"] + g * (b["dh"] - a["dh"])))
+                break
+    pts.sort()
+    if len(pts) < 2:
+        return None
+    out = []
+    for t in range(fascia[0] - MARGINE_MAREA_MIN, fascia[1] + MARGINE_MAREA_MIN + 1, 10):
+        if not (pts[0][0] <= t <= pts[-1][0]):
+            continue
+        for (t1, h1), (t2, h2) in zip(pts, pts[1:]):
+            if t1 <= t <= t2:
+                out.append([t, round(h1 + (h2 - h1) * ((t - t1) / (t2 - t1) if t2 > t1 else 0), 1)])
+                break
+    estremi = []
+    for e in E:
+        tz = round(e["t"] + e["rit"])
+        if fascia[0] - MARGINE_MAREA_MIN <= tz <= fascia[1] + MARGINE_MAREA_MIN:
+            estremi.append({"tipo": e["tipo"], "min": tz, "ora": f"{(tz // 60) % 24:02d}:{tz % 60:02d}", "cm": round(e["cm"] + e["dh"]),
+                            "incertezza_min": Z[e["tipo"]].get("incertezza_min")})
+    return {"stazione": Z.get("stazione"), "curva": out, "estremi": estremi, "fascia": fascia,
+            "fonte": "previsione CPSM Punta Salute" if M.get("curva_cpsm") else "marea astronomica Punta Salute"}
 
 
 def sintesi(P, giorno):
@@ -259,6 +337,8 @@ def main():
         if d and fin and V is not None:
             ver.setdefault((d, fin, zona_di(V)), []).append(p)
     voci = {z["id"]: [] for z in ZONE}
+    MZ = leggi(MAREA_ZONE) if os.path.exists(MAREA_ZONE) else {}   # v3.33
+    MZ = MZ or {}
     for (d, fin, zona), file in sorted(gruppi.items(), reverse=True):
         if zona not in voci:
             continue
@@ -267,6 +347,7 @@ def main():
         voce = {"data": d.isoformat(), "titolo": P.get("titolo"), "finestra": P.get("finestra"),
                 "colore": (P.get("verdetto") or {}).get("colore"), "generato": P.get("generato"), "provvisoria": provvisoria(P), "emessa": (P.get("generato") or "")[-5:],
                 "versione": P.get("versione"), "sintesi": sintesi(P, d)}
+        voce["sintesi"]["marea_zona"] = marea_zona(P, zona, d, MZ)   # v3.33
         pdf = pj[:-5] + ".pdf"
         if os.path.exists(pdf):
             voce["previsione_pdf"] = os.path.join("giorni", os.path.basename(pdf))

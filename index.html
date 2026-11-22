@@ -39,7 +39,7 @@ h1 span{color:var(--teal)}
 .giorno .gd{font-size:14.5px;color:var(--txt);margin-top:2px}.giorno .gs{font-size:12.5px;color:var(--mut);margin-top:2px}
 .piog{display:flex;width:fit-content;align-items:center;gap:5px;margin-top:1px;font-size:12px;line-height:14px;font-weight:600;white-space:nowrap;border-radius:999px}   /* v3.25: pioggia in prima pagina */
 .piog svg{width:9px;height:12px;flex:none}.piog.p0{color:var(--mut);font-weight:500}.piog.p1{color:#38b6ff}.piog.p2{background:#38b6ff;color:#06131d;padding:0 8px 0 7px;font-weight:700}
-.zone{display:grid;grid-template-columns:6px 1fr auto;gap:14px;align-items:center;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:20px;padding:12px 16px 12px 0;margin-bottom:10px;overflow:hidden;cursor:pointer;transition:transform .15s}
+.zone{display:grid;grid-template-columns:6px minmax(0,1fr) 74px 88px;gap:10px;align-items:center;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:20px;padding:12px 16px 12px 0;margin-bottom:10px;overflow:hidden;cursor:pointer;transition:transform .15s}
 .zone:active{transform:scale(.985)}
 .zone .bar{align-self:stretch;min-height:52px;border-radius:0 6px 6px 0}
 .zname{font-size:20px;font-weight:650;letter-spacing:-.01em;line-height:1.05}
@@ -52,7 +52,8 @@ h1 span{color:var(--teal)}
 .vad .t{display:flex;justify-content:space-between;gap:8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
 .vad .n{display:flex;align-items:baseline;gap:10px;margin-top:4px;font-size:30px;font-weight:700}.vad .n small{font-size:14px;color:var(--mut);font-weight:500}.vad .n .d{font-size:18px}
 .vad .r{font-size:13px;color:#b8cbd6;margin-top:2px}.vad .ln{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:11.5px;color:var(--mut)}.vad .ln svg{flex:1;height:34px}
-.badge{display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right}
+.mmar{display:flex;flex-direction:column;align-items:center;gap:1px;width:74px}.mmar svg{width:74px;height:30px;overflow:visible}.mmar .ml{font-size:10.5px;line-height:12px;color:var(--soft);white-space:nowrap}.mmar .ml b{font-weight:650;color:var(--txt)}   /* v3.33: marea della zona */
+.badge{display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right;white-space:nowrap}
 .chip{font-size:12px;font-weight:650;padding:5px 11px;border-radius:999px;white-space:nowrap}
 .wind{font-size:12px;color:var(--soft)}
 .zone.off{opacity:.6;cursor:default}
@@ -178,7 +179,8 @@ function istruzioni(){
  <h4>Il semaforo</h4><ul><li><span class="sem" style="background:var(--verde)"></span><b>Verde</b>: vento medio fino a ${k(v)} nodi</li><li><span class="sem" style="background:var(--giallo)"></span><b>Giallo</b>: da ${k1(v)} a ${km(r)} nodi</li><li><span class="sem" style="background:var(--rosso)"></span><b>Rosso</b>: da ${k(r)} nodi in su</li></ul><p>Vento medio dell'ora; le raffiche sono indicate ma non cambiano il colore.</p>
  <h4>Due previsioni al giorno</h4><p>Verso le ${esc(D.ora_mattino||'')} la <b>provvisoria</b> per il giorno dopo, verso le ${esc(D.ora_aggiornamento||'')} la <b>definitiva</b>.</p>
  <h4>Pioggia</h4><p>Sotto ogni zona la probabilità più alta di pioggia nella finestra e le ore in cui arriva almeno al 20%: grigia sotto il 20%, azzurra dal 20%, in evidenza dal 50%. Ora per ora nella pagina della zona.</p>
- <h4>Nebbia</h4><p>Nella pagina della zona, ora per ora: probabile, poco probabile o non probabile. È un'indicazione dai modelli, non ancora verificata con le misure.</p><p>Quando c'è nebbia adesso compare anche la <b>visibilità misurata</b> all'aeroporto di Venezia Tessera, sul bordo nord della laguna (più lontano dalla zona, più è indicativa): nebbia fitta fino a 200 m, nebbia fino a 500 m, nebbia leggera fino a 1000 m; «banchi di nebbia» quando l'aeroporto li segnala anche con visibilità migliore.</p>
+ <h4>Marea</h4><p>In ogni fascia la marea prevista nella finestra alla stazione della zona (Laguna Nord Saline, Malamocco Porto, Chioggia Porto), con l'ora dell'alta o della bassa. È la previsione del Centro Maree per Punta Salute spostata con i ritardi e le differenze di quota misurati alle stazioni, che dipendono dall'ampiezza della marea; il vento non è ancora considerato. Orario indicativo: con maree piccole il colmo è piatto e l'ora è meno precisa.</p>
+  <h4>Nebbia</h4><p>Nella pagina della zona, ora per ora: probabile, poco probabile o non probabile. È un'indicazione dai modelli, non ancora verificata con le misure.</p><p>Quando c'è nebbia adesso compare anche la <b>visibilità misurata</b> all'aeroporto di Venezia Tessera, sul bordo nord della laguna (più lontano dalla zona, più è indicativa): nebbia fitta fino a 200 m, nebbia fino a 500 m, nebbia leggera fino a 1000 m; «banchi di nebbia» quando l'aeroporto li segnala anche con visibilità migliore.</p>
  <h4>Vento adesso</h4><p>Vento <b>misurato</b> in questo momento dalla stazione del Centro Maree della zona, con raffica, direzione, ora e andamento delle ultime 3 ore. È una misura, non la previsione.</p><p>In prima pagina il vento misurato adesso è scritto sulla cartina, sotto il nome di ogni zona (nodi, direzione con freccia, raffica); le tre fasce sotto il titolo sono solo la previsione.</p>
  ${D.allerta?`<h4>Allerte vento</h4><p>Dalle ${esc(D.allerta.ora_inizio)} alle ${esc(D.allerta.ora_fine)}, ogni ${esc(D.allerta.controllo_min)} minuti, l'app controlla le stazioni del Centro Maree. Se in una stazione la raffica arriva ad almeno <b>${esc(D.allerta.raffica_kn)} kn</b> <b>e</b> il vento medio è salito di almeno ${esc(D.allerta.salita_kn)} kn in ${esc(D.allerta.finestra_min)} minuti, arriva una notifica con stazione, raffica, direzione e ora. Si attiva da qui sotto, aprendo l'app dall'icona sulla schermata Home. In barca servono dati mobili accesi e suoneria attiva.</p><div class="avvall"><b>Attenzione.</b> Servizio sperimentale, senza garanzia: l'avviso può arrivare in ritardo o non arrivare. Non sostituisce cielo, VHF e bollettini meteo: la decisione di uscire o rientrare resta tua.</div><div id="allUI" class="allui"></div>`:''}
  <h4>Installarla come app</h4><p><b>iPhone</b> (Safari): Condividi → Aggiungi alla schermata Home.<br><b>Android</b> (Chrome): menu ⋮ → “Aggiungi a schermata Home”. Previsioni e nuove versioni si caricano da sole.</p>
@@ -206,8 +208,17 @@ function titoloGiorno(ult){   // v3.25: "Previsione per domani" grande sotto la 
  const rif=V.filter(v=>v.provvisoria===prov),em=rif.map(v=>v.emessa).filter(Boolean).sort().pop();
  const st=prov?`Provvisoria${em?' delle '+esc(em):''} · la definitiva esce verso le ${esc(D.ora_aggiornamento||'')}`:`Definitiva${em?' delle '+esc(em):''}`;
  return {rif:prov,h:`<div class="giorno"><div class="gt">${tit}</div><div class="gd">${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</div><div class="gs">${st}</div></div>`}}
+function mareaMini(mz,sc){   // v3.33: marea della zona nella finestra (curva da Punta Salute con ritardo e quota della stazione)
+ if(!mz||!mz.curva||mz.curva.length<2||!sc)return '';const f=mz.fascia||[300,720],C=mz.curva.filter(p=>p[0]>=f[0]&&p[0]<=f[1]);if(C.length<2)return '';
+ const W=74,H=30,X=t=>(t-f[0])/(f[1]-f[0])*W,Y=v=>H-2-(v-sc[0])/(sc[1]-sc[0]||1)*(H-4);
+ const pl=C.map(p=>X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ');
+ const e=(mz.estremi||[]).filter(x=>x.min>=f[0]&&x.min<=f[1])[0];
+ let dot='',lab='';if(e){const c=C.reduce((a,p)=>Math.abs(p[0]-e.min)<Math.abs(a[0]-e.min)?p:a,C[0]);dot=`<circle cx="${X(e.min).toFixed(1)}" cy="${Y(c[1]).toFixed(1)}" r="2.6" fill="#eaf3f7"/>`;lab=`${e.tipo==='alta'?'alta':'bassa'} <b>${esc(e.ora)}</b>`}
+ else{const d=C[C.length-1][1]-C[0][1];lab=Math.abs(d)<3?'marea ferma':(d>0?'marea sale':'marea cala')}
+ return `<div class="mmar" aria-label="Marea ${esc(mz.stazione||'')}"><svg viewBox="0 0 ${W} ${H}"><line x1="0" y1="${H-1}" x2="${W}" y2="${H-1}" stroke="rgba(255,255,255,.12)"/><polyline points="${pl}" fill="none" stroke="#5fd4d0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>${dot}</svg><div class="ml">${lab}</div></div>`}
 function home(){
  const date=D.zone.map(ultima).filter(Boolean).map(v=>v.data).sort();const ult=date[date.length-1];const fin=finestra(),TG=titoloGiorno(ult);
+ const MC=D.zone.map(ultima).filter(v=>v&&v.sintesi&&v.sintesi.marea_zona).flatMap(v=>{const z=v.sintesi.marea_zona,f=z.fascia||[300,720];return (z.curva||[]).filter(p=>p[0]>=f[0]&&p[0]<=f[1]).map(p=>p[1])}),MSC=MC.length?[Math.min(...MC),Math.max(...MC)]:null;   // v3.33
  let h=`<div class="home"><header class="testa"><div><div class="eyebrow"><span class="ver" style="margin-left:0">v${esc(VERSIONE)}${D.autore?' · a cura di '+esc(D.autore):''}</span></div><h1>Forecast <span>Lagoon</span></h1>
  <div class="sub">Previsioni meteo-marine · Laguna di Venezia</div></div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></header>
  <div class="hero">${mappa('40 -60 1000 1360',{meet:true,labels:true,click:true,k:'h',fo:.24,sw:2.5,adesso:true})}<div class="shade" style="background:linear-gradient(180deg,rgba(6,19,29,.55) 0%,rgba(6,19,29,0) 18%,rgba(6,19,29,0) 72%,rgba(6,19,29,.95) 100%)"></div>
@@ -215,7 +226,7 @@ function home(){
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
   h+=`<div class="zone ${z.attiva?'':'off'}" ${z.attiva?`onclick="location.hash='zona/${z.id}'"`:''}><div class="bar" style="background:${col(v&&v.colore)}"></div>
   <div><div class="zname">${esc(z.nome)}</div>${z.attiva&&v&&(v.data!==ult||v.provvisoria!==TG.rif)?`<div class="zmeta">${v.data!==ult?esc(etichetta(v.data))+' · ':''}${v.provvisoria?'Provvisoria':'Definitiva'}${v.emessa?' '+esc(v.emessa):''}${v.data===ult&&v.provvisoria?' · non ancora aggiornata':''}</div>`:''}${z.attiva&&v?piogZona(s):''}</div>   <!-- v3.25: bocca tolta (e' sulla cartina), previsione nel titolo del giorno; qui solo eccezioni e pioggia -->   <!-- v3.8 -->
-  <div class="badge">${v?`<span class="chip" style="background:${col(v.colore)};color:${oncol(v.colore)}">${TXT[v.colore]||'n.d.'}</span><span class="wind">${nf(s.vento_min,0)}–${nf(s.vento_max,0)} kn${s.direzione?' · '+esc(s.direzione):''}</span>`:`<span class="chip" style="background:#22394B;color:var(--mut)">In arrivo</span>`}</div></div>`});
+  ${z.attiva&&v?mareaMini(v.sintesi&&v.sintesi.marea_zona,MSC):'<div></div>'}<div class="badge">${v?`<span class="chip" style="background:${col(v.colore)};color:${oncol(v.colore)}">${TXT[v.colore]||'n.d.'}</span><span class="wind">${nf(s.vento_min,0)}–${nf(s.vento_max,0)} kn${s.direzione?' · '+esc(s.direzione):''}</span>`:`<span class="chip" style="background:#22394B;color:var(--mut)">In arrivo</span>`}</div></div>`});
  app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0)}
 function curva(s){
  const C=s.marea_curva||[],A=s.marea_astro||[];if(C.length<2)return '';
