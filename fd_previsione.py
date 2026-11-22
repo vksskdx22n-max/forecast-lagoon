@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.42"
+VERSIONE = "1.43"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -1539,6 +1539,17 @@ def main():
                 Marea(f"marea_astronomica_{giorno.year}.json"), json.load(open("correnti_laguna.json", encoding="utf-8")), CP, MAR,
                 misure_aria(sys.argv[sys.argv.index("--misure-dir") + 1] if "--misure-dir" in sys.argv else None),
                 ENS)
+    try:                                   # v1.43: marea della zona (ritardo e quota da Punta Salute, marea_zone.json)
+        import marea_propaga as MP
+        mz = MP.marea_zona(D.get("marea") or {}, AREA, giorno, MP.carica_config("."))
+        if mz:
+            D["marea"]["zona"] = mz
+            e = (mz["estremi"] or [{}])[0]
+            print(f"Marea della zona ({mz['stazione']}, coefficienti v{mz['config']}): {len(mz['curva'])} punti" + (f", {e['tipo']} {e['ora']} {e['cm']} cm" if e else ""))
+        else:
+            print("Marea della zona: non calcolata (dati di Punta Salute o coefficienti mancanti)")
+    except Exception as ex:                # non deve mai fermare la previsione
+        print(f"Marea della zona: errore {type(ex).__name__}: {str(ex)[:120]}")
     os.makedirs("Previsioni", exist_ok=True)
     base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_{da.strftime('%H%M')}-{a.strftime('%H%M')}{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}")
     print(onde_misurate_archivia(sys.argv[sys.argv.index("--onde-json") + 1] if "--onde-json" in sys.argv else None))   # v1.37: solo archivio

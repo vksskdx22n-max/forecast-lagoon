@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_verifica.py v1.24 — verifica automatica delle previsioni di fd_previsione (Fishing Diary).
+"""fd_verifica.py v1.25 — verifica automatica delle previsioni di fd_previsione (Fishing Diary).
 
 Confronta il vento previsto per zona con le misure CPSM e accumula gli errori in verifica_archivio.json.
 fd_previsione (>= 1.9) usa l'archivio per la correzione di ICON-D2 per zona, fascia di vento previsto
@@ -52,11 +52,16 @@ Semaforo misurato (v1.24): ora per ora dalla media oraria arrotondata all'intero
   Verdetto = colore piu' frequente nelle ore, a parita' quello che viene prima (stessa regola di fd_previsione 1.27+).
   La raffica di picco su 5 minuti resta come informazione. Confronto ora per ora con il colore previsto della zona.
 
+Marea della zona (v1.25): curva della zona (marea_propaga, ritardo e quota da Punta Salute; dal JSON della previsione
+  con fd_previsione >= 1.43, altrimenti ricalcolata) confrontata con il livello misurato ogni 5 minuti nella finestra
+  (Laguna Nord Saline, Malamocco Porto, Chioggia Porto): errore medio e medio assoluto del livello e errore sull'ora
+  dell'alta/bassa (previsto - misurato), anche per la curva di Punta Salute non corretta. Archivio: campo "marea".
+
 Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_nord|_sud]_v1.24.html / .pdf
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.24"
+VERSIONE = "1.25"
 URL_BASE = "https://www.comune.venezia.it/sites/default/files/publicCPSM2/stazioni/temporeale/"
 URL_PROXY = "https://fd-cpsm-proxy.ennioweb.workers.dev/misure/"      # v1.22: il Comune blocca i server di GitHub; il proxy Cloudflare no
 ORIGINE_PROXY = "https://vksskdx22n-max.github.io"
@@ -93,7 +98,7 @@ NOMI_VENTO = ["Tramontana", "Bora", "Levante", "Scirocco", "Ostro", "Libeccio", 
 CORR_DEFAULT, CORR_SOGLIA_DEFAULT = 2.2, 4.0
 CORR_DEFAULT_FONTE = "fd_vento_confronto v1.1, 83 misure CPSM Malamocco Porto (31/05–29/10/2026), vento reale 6–12 nodi"
 CROME_MAC = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-COLONNE = [("liv", "Liv.Idrom"), ("dir", "D.Vento"), ("vel", "V.Vento med"), ("max", "V.Vento max"),
+COLONNE = [("liv", "Liv.Idrom"), ("liv", "L.Idrometrico"), ("dir", "D.Vento"), ("vel", "V.Vento med"), ("max", "V.Vento max"),
            ("onda", "Alt. sign"), ("onda_max", "Alt. max"), ("aria", "Temperatura"), ("pioggia", "Pioggia")]   # "Temp. Acqua" non coincide
 STAZ_ARIA_CITTA = "Palazzo Cavalli"
 ERR_ARIA = [("mare aperto vs Piattaforma", "mare_prev", "piatt_mis"), ("Mestre vs Palazzo Cavalli", "mestre_prev", "cavalli_mis"),
@@ -205,6 +210,8 @@ def leggi_pagina(txt):
     th = re.findall(r"<th[^>]*>(.*?)</th>", txt, re.S)
     pos = {}
     for k, chiave in COLONNE:
+        if k in pos:                          # v1.25: prima colonna trovata (il livello ha due nomi)
+            continue
         for i, h in enumerate(th):
             if chiave.lower() in re.sub(r"<[^>]*>", " ", h).lower():
                 pos[k] = i
@@ -355,6 +362,7 @@ def carica_archivio(cartella="."):
     A.setdefault("onda", [])
     A.setdefault("aria", [])
     A.setdefault("pioggia", [])
+    A.setdefault("marea", [])                  # v1.25
     for o in A["ore"]:                         # fino a fd_previsione 1.19 "raff" era la raffica di ICON-D2 senza correzione
         o["prev"].setdefault("raff_d2", o["prev"].get("raff"))
     for o in A["ore"]:                         # archivio v1.0/v1.1: solo zona Malamocco; nomi vecchi -> nuovi
@@ -576,6 +584,78 @@ def leggi_previsioni(cartella):
     return scelte
 
 
+STAZ_MAREA = {"centro": "Malamocco Porto", "nord": "Laguna Nord", "sud": "Chioggia Porto"}   # v1.25: livello misurato per area
+MIN_LIVELLI = 60               # letture da 5 min nella finestra 05-12 (85 possibili)
+
+
+def _estremo_misurato(serie, t0, tipo, raggio=120):
+    """Estremo (alta/bassa) della serie [(min, cm)] entro +-raggio min da t0: media mobile 35 min, interpolazione parabolica."""
+    xs = [p for p in serie if t0 - raggio - 20 <= p[0] <= t0 + raggio + 20]
+    if len(xs) < 20:
+        return None
+    sm = []
+    for i in range(3, len(xs) - 3):
+        w = xs[i - 3:i + 4]
+        if w[-1][0] - w[0][0] <= 40:
+            sm.append((xs[i][0], statistics.mean(x[1] for x in w)))
+    sm = [p for p in sm if t0 - raggio <= p[0] <= t0 + raggio]
+    if len(sm) < 10:
+        return None
+    k = max(range(len(sm)), key=lambda i: sm[i][1]) if tipo == "alta" else min(range(len(sm)), key=lambda i: sm[i][1])
+    if k == 0 or k == len(sm) - 1:
+        return None                           # estremo sul bordo: non e' quello cercato
+    (ta, ya), (tb, yb), (tc, yc) = sm[k - 1], sm[k], sm[k + 1]
+    d = ya - 2 * yb + yc
+    off = 0.5 * (ya - yc) / d if d else 0
+    off = max(-1.0, min(1.0, off))
+    passo = (tc - ta) / 2
+    return {"min": round(tb + off * passo), "cm": round(yb - 0.25 * (ya - yc) * off, 1)}
+
+
+def verifica_marea(v, M, cfg):
+    """v1.25: confronto marea della zona prevista / misurata nella finestra. Ritorna un dict o None."""
+    import marea_propaga as MP
+    P, area, g = v["P"], v["area"], v["giorno"]
+    Mm = P.get("marea") or {}
+    mz = Mm.get("zona") or MP.marea_zona(Mm, area, g, cfg)
+    staz = STAZ_MAREA.get(area)
+    if not mz or not staz:
+        return None
+    f = mz["fascia"]
+    g0 = dt.datetime.combine(g, dt.time(0), tz_italia(g))
+    mis = [(round((r["t"] - g0).total_seconds() / 60), r["liv"] * 100) for r in M.get(staz, []) if r.get("liv") is not None]
+    win = [p for p in mis if f[0] <= p[0] <= f[1]]
+    if len(win) < MIN_LIVELLI:
+        return None
+    ps, est_ps, fonte_ps = MP.curva_punta_salute(Mm)
+    ez, ep = [], []
+    for t, h in win:
+        a, b = MP.interpola(mz["curva"], t), MP.interpola(ps, t)
+        if a is not None and b is not None:
+            ez.append(a - h); ep.append(b - h)
+    if len(ez) < MIN_LIVELLI:
+        return None
+    out = {"data": g.isoformat(), "area": area, "stazione": staz, "generato": v["gen"].strftime("%Y-%m-%d %H:%M"),
+           "config": mz.get("config"), "fonte": mz.get("fonte"), "n": len(ez),
+           "liv_err_medio": round(statistics.mean(ez), 1), "liv_err_ass": round(statistics.mean(abs(x) for x in ez), 1),
+           "liv_err_medio_ps": round(statistics.mean(ep), 1), "liv_err_ass_ps": round(statistics.mean(abs(x) for x in ep), 1),
+           "mis_medio": round(statistics.mean(h for _, h in win), 1), "estremo": None}
+    e = next((x for x in mz.get("estremi") or [] if f[0] <= x["min"] <= f[1]), None)
+    if e:
+        m = _estremo_misurato(mis, e["min"], e["tipo"])
+        if m:
+            tps = [MP.minuti_estremo(x, g) for x in est_ps if x.get("tipo") == ("max" if e["tipo"] == "alta" else "min")]
+            tps = [t for t in tps if t is not None and abs(t - e["min"]) <= 180]
+            t_ps = min(tps, key=lambda t: abs(t - e["min"])) if tps else None
+            hh = lambda t: f"{(t // 60) % 24:02d}:{t % 60:02d}"
+            out["estremo"] = {"tipo": e["tipo"], "prev_min": e["min"], "prev_ora": e["ora"], "prev_cm": e["cm"],
+                              "mis_min": m["min"], "mis_ora": hh(m["min"]), "mis_cm": round(m["cm"]),
+                              "err_min": e["min"] - m["min"], "err_cm": round(e["cm"] - m["cm"]),
+                              "ps_min": t_ps, "ps_ora": hh(t_ps) if t_ps is not None else None,
+                              "err_ps_min": (t_ps - m["min"]) if t_ps is not None else None}
+    return out
+
+
 def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None, provvisoria=False):
     """Verifica le previsioni concluse non ancora in archivio. Ritorna righe di testo.
     provvisoria=True: finestre gia' iniziate, solo ore complete, archivio non modificato."""
@@ -588,6 +668,8 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
     if not pend:
         return [f"fd_verifica v{VERSIONE}: nessuna previsione da verificare" + (" (nessuna finestra iniziata da almeno 30 min)" if provvisoria else "")]
     M = scarica_misure(html_dir)
+    import marea_propaga as MP
+    MPCFG = MP.carica_config(cartella)             # v1.25
     inizio = min((r[0]["t"] for r in M.values() if r), default=None)
     if inizio is None:
         return [f"fd_verifica v{VERSIONE}: pagine CPSM non raggiungibili, verifica rinviata"]
@@ -659,6 +741,11 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
                                   "cavalli_mm": mc, "piatt_mm": mp, "oss": pioggia_osservata(O, v["giorno"].isoformat(), r["ora"])})
         v["pioggia_v"] = pioggia_v
         v["zeri"] = zeri
+        try:                                    # v1.25: marea della zona (solo verifica definitiva)
+            v["marea_v"] = None if provvisoria else verifica_marea(v, M, MPCFG)
+        except Exception as ex:
+            v["marea_v"] = None
+            log.append(f"  {chiave}: verifica marea non riuscita ({type(ex).__name__}: {str(ex)[:80]})")
         if not ore_tot:
             if n_rip and not n_d2:              # v1.17: tutte le ore di ripiego, non si riprova
                 if not provvisoria:
@@ -691,6 +778,9 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
                 A["aria"] += [o for o in aria_v if (o["data"], o["ora"]) not in gia]
                 gia = {(x["data"], x["ora"]) for x in A["pioggia"]}
                 A["pioggia"] += [o for o in pioggia_v if (o["data"], o["ora"]) not in gia]
+            if v.get("marea_v"):                # v1.25: una riga per giorno e area
+                mv = v["marea_v"]
+                A["marea"] = [x for x in A["marea"] if (x["data"], x["area"]) != (mv["data"], mv["area"])] + [mv]
             A["previsioni"].append({"chiave": chiave, "file": v["file"], "esito": f"verificata, {len(ore_tot)} ore",
                                     "verificata": dt.datetime.now().strftime("%Y-%m-%d %H:%M")})
         log.append(f"  {chiave}{' PROVVISORIA' if provvisoria else ''}:" + (f" {n_rip} ore di ripiego senza ICON-D2 escluse" if n_rip else ""))
@@ -698,6 +788,12 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
             log.append(f"    {zona}: {len(oz)} ore · misurato {num(statistics.mean(o['mis']['media'] for o in oz))} nodi · "
                        f"errore stima {sg(statistics.mean(o['prev']['stima'] - o['mis']['media'] for o in oz))} · "
                        f"errore ICON-D2 {sg(statistics.mean(o['prev']['d2'] - o['mis']['media'] for o in oz))} nodi")
+        mv = v.get("marea_v")
+        if mv:
+            e = mv.get("estremo")
+            log.append(f"    Marea {mv['stazione']}: livello errore medio {sg(mv['liv_err_medio'])} cm (Punta Salute non corretta {sg(mv['liv_err_medio_ps'])})"
+                       + (f" · {e['tipo']} prevista {e['prev_ora']}, misurata {e['mis_ora']}, errore {e['err_min']:+d} min"
+                          + (f" (Punta Salute {e['err_ps_min']:+d})" if e.get('err_ps_min') is not None else "") if e else ""))
         for s, nz in zeri.items():
             if nz:
                 log.append(f"    {s}: {nz} letture da 5 min a zero scartate (sensore fermo)")
@@ -873,7 +969,7 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
     D = {"versione": VERSIONE, "provvisoria": provvisoria, "ore_fino": max(o["ora"] for _, oz in risultati for o in oz), "area": area,
          "titolo": f"{P['titolo']} · {P['finestra']}", "previsione": f"{v['file']} · generata {v['gen'].strftime('%d/%m %H:%M')}{avviso}",
          "sem_prev": P["verdetto"]["colore"], "fascia": [v["da"].hour * 60 + v["da"].minute, v["a"].hour * 60 + v["a"].minute],
-         "zone": zone, "onda": onda_v, "liv": liv, "liv_fonte": fonte_liv, "liv_eta_h": eta_liv, "aria": v.get("aria_v") or [], "pioggia": v.get("pioggia_v") or [],
+         "zone": zone, "onda": onda_v, "liv": liv, "liv_fonte": fonte_liv, "liv_eta_h": eta_liv, "aria": v.get("aria_v") or [], "pioggia": v.get("pioggia_v") or [], "marea_zona": v.get("marea_v"),
          "andamento": andamento(A, risultati[0][0]), "archivio": riepilogo(A), "note": note,
          "fonti": f"Misure: CPSM Comune di Venezia ({', '.join(dict.fromkeys(staz_vento + ['Malamocco Porto', 'Piattaforma CNR', 'Palazzo Cavalli']))}) · "
                   f"Previsione: fd_previsione (Open-Meteo) · fd_verifica v{VERSIONE}",
@@ -975,6 +1071,12 @@ if(D.liv.length){const hp=D.liv.some(l=>l.prev!=null),sg=v=>(v>0?'+':'')+v+' cm'
  const tl=h('table',{},h('tr',{},h('th',{},'Ora'),h('th',{},'Misurato'),h('th',{},'Astronomica'),h('th',{},'Scarto astr.'),...(hp?[h('th',{},'Previsto ('+D.liv_fonte+')'),h('th',{},'Scarto prev.')]:[])));
  D.liv.forEach(l=>tl.append(h('tr',{},h('td',{},l.ora),h('td',{},l.mis+' cm'),h('td',{},l.astro+' cm'),h('td',{},sg(l.scarto)),...(hp?[h('td',{},l.prev!=null?l.prev+' cm':'–'),h('td',{},l.scarto_prev!=null?sg(l.scarto_prev):'–')]:[]))));
  app.append(h('div',{cls:'card'},h('h2',{},'🌊 Livello · Malamocco Porto'),tl,h('div',{cls:'nota'},'Scarto astr. = misurato − astronomica; Scarto prev. = previsto − misurato. Astronomica CPSM di Punta Salute: lo scarto include la differenza tra le stazioni.'+(D.liv_eta_h!=null?' Bollettino CPSM di '+D.liv_eta_h+' h prima della fine della finestra.':''))));}
+if(D.marea_zona){const Z=D.marea_zona,E=Z.estremo,sc=x=>(x>0?'+':'')+String(x).replace('.',','),tm=t=>(t==null?'–':(t>0?'+':'')+t+' min');   // v1.25
+ const tz=h('table',{},h('tr',{},h('th',{},''),h('th',{},'Curva della zona'),h('th',{},'Punta Salute non corretta')));
+ if(E)tz.append(h('tr',{},h('td',{},'Ora '+(E.tipo==='alta'?"dell'alta":'della bassa')),h('td',{},E.prev_ora+' · misurata '+E.mis_ora+' · errore '+tm(E.err_min)),h('td',{},E.ps_ora?E.ps_ora+' · errore '+tm(E.err_ps_min):'–')));
+ if(E)tz.append(h('tr',{},h('td',{},'Livello '+(E.tipo==='alta'?"dell'alta":'della bassa')),h('td',{},E.prev_cm+' cm · misurato '+E.mis_cm+' cm'),h('td',{},'')));
+ tz.append(h('tr',{},h('td',{},'Livello nella finestra'),h('td',{},'errore medio '+sc(Z.liv_err_medio)+' cm · medio assoluto '+String(Z.liv_err_ass).replace('.',',')+' cm'),h('td',{},'errore medio '+sc(Z.liv_err_medio_ps)+' cm · medio assoluto '+String(Z.liv_err_ass_ps).replace('.',',')+' cm')));
+ app.append(h('div',{cls:'card'},h('h2',{},'🌊 Marea della zona · '+Z.stazione),tz,h('div',{cls:'nota'},'Errore = previsto − misurato. Curva della zona: '+Z.fonte+' spostata con ritardo e quota della stazione (coefficienti v'+(Z.config||'–')+', archivio CPSM). Misurato: livello ogni 5 minuti, ora dell’estremo dalla media mobile di 35 minuti. Con maree piccole il colmo è piatto e l’ora è poco precisa.')));}
 const AN=D.andamento;
 function graf(righe,serie,tipo){const W=520,H=200,L=30,R=10,T=12,B=26,N=righe.length;if(!N)return null;
  const v=righe.flatMap(r=>serie.map(s=>r[s[0]]));const ym=Math.max(1,Math.ceil(Math.max(...v.map(Math.abs))));const y0=tipo==='ass'?0:-ym;
