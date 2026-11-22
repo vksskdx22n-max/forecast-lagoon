@@ -238,7 +238,7 @@ function giorni(){   // v3.39: pagina "Prossimi giorni" (tendenza, colori tenui)
  GG2.forEach(g=>{const d=dataDi(g.data);h+=`<div class="tday">${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</div>`;
   g.zone.forEach(z=>{if(!z.disponibile){h+=`<div class="tz"><div class="tn">${esc(z.nome.replace(/^Laguna\s+/,''))}</div><div class="tv">non disponibile</div></div>`;return}
    const m=z.marea?` · ${z.marea.tipo} ${esc(z.marea.ora)}`:'';
-   h+=`<div class="tz"><div class="tn"><span class="tp" style="${tenue(z.colore)}"></span>${esc(z.nome.replace(/^Laguna\s+/,''))}</div><div class="tv">${z.vento_min}–${z.vento_max} kn${z.dir?' '+esc(z.dir):''}${z.pioggia!=null?' · pioggia '+z.pioggia+'%':''}${m}</div></div>`})});
+   h+=`<div class="tz"><div class="tn"><span class="tp" style="${tenue(z.colore)}"></span>${esc(z.nome.replace(/^Laguna\s+/,''))}</div><div class="tv">${z.vento_min}–${z.vento_max} kn${z.dir?' '+esc(z.dir):''}${z.pioggia!=null?` · <span class="piog p${z.pioggia>=50?2:z.pioggia>=20?1:0}" style="display:inline-flex;vertical-align:-1px">pioggia ${z.pioggia}%</span>`:''}${m}</div></div>`})});
  h+=`<div class="tday" style="color:var(--mut);font-weight:500;font-size:12px;margin-top:12px">Colore indicativo del vento medio nella finestra. Modelli ${[...new Set(GG2.flatMap(g=>g.zone.filter(z=>z.modello).map(z=>z.modello)))].map(esc).join(', ')}; marea astronomica senza l'effetto del vento.</div></div>`;
  app.innerHTML=h+piede()+'</div>';window.scrollTo(0,0)}
 function home(){
