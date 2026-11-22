@@ -1340,6 +1340,29 @@
      "t": 7.5
     }
    }
+  },
+  {
+   "ora_solare": "2026-11-22T09:00",
+   "t": "2026-11-22T08:00",
+   "staz": {
+    "160": {
+     "vis_km": 6.89,
+     "rh": 100.0,
+     "t": 6.8
+    },
+    "230": {
+     "rh": 100.0,
+     "t": 6.7
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 8.4
+    },
+    "252": {
+     "rh": 100.0,
+     "t": 7.4
+    }
+   }
   }
  ],
  "nota_arpav": "Stazioni ARPAV (dati in diretta, non validati; CC BY 4.0, fonte ARPAV www.arpa.veneto.it), un dato all'ora. ora_solare = ora del dato ARPAV (ora solare italiana); t = UTC (ora solare - 1 h, inferenza). staz per codice: 160 Cavallino-Treporti, 252 Venezia Istituto Cavanis, 230 Campagna Lupia - Valle Averto, 168 Chioggia - Sant'Anna. vis_km = visibilita' (km, solo Cavallino-Treporti), rh = umidita' (%), t = temperatura aria 2 m (°C)."
