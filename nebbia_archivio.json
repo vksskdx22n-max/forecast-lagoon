@@ -701,6 +701,12 @@
    "visib": 3.11,
    "wx": "BR",
    "raw": "METAR LIPZ 220720Z 34004KT 320V020 5000 BR BKN060 06/06 Q1013 BECMG 3000 RA BR"
+  },
+  {
+   "t": "2026-11-22 07:50",
+   "visib": 4.35,
+   "wx": "-RA",
+   "raw": "METAR LIPZ 220750Z 34004KT 7000 -RA SCT040 BKN060 06/06 Q1013 BECMG 3000 RA"
   }
  ],
  "versione": "1.42",
@@ -740,6 +746,43 @@
     "oltre": false,
     "wx": "BR",
     "ora": "08:20",
+    "eta_min": 11
+   }
+  },
+  {
+   "t": "2026-11-22T08:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 91,
+     "ora": "2026-11-22 08:50:00",
+     "t": 8.2,
+     "ora_t": "2026-11-22 08:50:00",
+     "td": 6.8,
+     "spread": 1.4
+    },
+    "Piattaforma": {
+     "rh": 98,
+     "ora": "2026-11-22 08:50:00",
+     "t": 9,
+     "ora_t": "2026-11-22 08:50:00",
+     "td": 8.7,
+     "spread": 0.3
+    },
+    "S_Giorgio": {
+     "rh": 88,
+     "ora": "2026-11-22 08:50:00"
+    }
+   },
+   "vento": {
+    "sud": null,
+    "centro": null,
+    "nord": null
+   },
+   "vis": {
+    "m": 7000,
+    "oltre": false,
+    "wx": "-RA",
+    "ora": "08:50",
     "eta_min": 11
    }
   }
