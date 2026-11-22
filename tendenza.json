@@ -1,0 +1,120 @@
+{
+ "versione": "1.0",
+ "generato": "2026-11-22 11:51",
+ "base": "2026-11-23",
+ "finestra": "05:00–12:00",
+ "giorni": [
+  {
+   "data": "2026-11-24",
+   "zone": [
+    {
+     "id": "nord",
+     "nome": "Laguna Nord",
+     "disponibile": true,
+     "colore": "giallo",
+     "vento_min": 5,
+     "vento_max": 9,
+     "dir": "NE",
+     "pioggia": 0,
+     "marea": {
+      "tipo": "alta",
+      "ora": "10:49",
+      "cm": 78
+     },
+     "modello": "ICON-D2",
+     "corretto": false
+    },
+    {
+     "id": "centro",
+     "nome": "Laguna Centro",
+     "disponibile": true,
+     "colore": "giallo",
+     "vento_min": 10,
+     "vento_max": 13,
+     "dir": "NE",
+     "pioggia": 5,
+     "marea": {
+      "tipo": "alta",
+      "ora": "09:26",
+      "cm": 82
+     },
+     "modello": "ICON-D2",
+     "corretto": true
+    },
+    {
+     "id": "sud",
+     "nome": "Laguna Sud",
+     "disponibile": true,
+     "colore": "giallo",
+     "vento_min": 7,
+     "vento_max": 11,
+     "dir": "NE",
+     "pioggia": 10,
+     "marea": {
+      "tipo": "alta",
+      "ora": "09:11",
+      "cm": 85
+     },
+     "modello": "ICON-D2",
+     "corretto": false
+    }
+   ]
+  },
+  {
+   "data": "2026-11-25",
+   "zone": [
+    {
+     "id": "nord",
+     "nome": "Laguna Nord",
+     "disponibile": true,
+     "colore": "giallo",
+     "vento_min": 10,
+     "vento_max": 14,
+     "dir": "NE",
+     "pioggia": 90,
+     "marea": {
+      "tipo": "alta",
+      "ora": "11:12",
+      "cm": 76
+     },
+     "modello": "ECMWF",
+     "corretto": false
+    },
+    {
+     "id": "centro",
+     "nome": "Laguna Centro",
+     "disponibile": true,
+     "colore": "giallo",
+     "vento_min": 10,
+     "vento_max": 14,
+     "dir": "NE",
+     "pioggia": 90,
+     "marea": {
+      "tipo": "alta",
+      "ora": "09:51",
+      "cm": 80
+     },
+     "modello": "ECMWF",
+     "corretto": false
+    },
+    {
+     "id": "sud",
+     "nome": "Laguna Sud",
+     "disponibile": true,
+     "colore": "giallo",
+     "vento_min": 9,
+     "vento_max": 11,
+     "dir": "NE",
+     "pioggia": 90,
+     "marea": {
+      "tipo": "alta",
+      "ora": "09:37",
+      "cm": 83
+     },
+     "modello": "ECMWF",
+     "corretto": false
+    }
+   ]
+  }
+ ]
+}
