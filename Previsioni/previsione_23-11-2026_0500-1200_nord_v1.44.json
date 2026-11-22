@@ -1882,7 +1882,7 @@
   "nuvolosita": 54,
   "pioggia": "0,0",
   "fonte_meteo": "ICON-D2",
-  "pioggia_prob": 5,
+  "pioggia_prob": 0,
   "pioggia_ore": [
    {
     "ora": "05:00",
@@ -1895,7 +1895,7 @@
    },
    {
     "ora": "06:00",
-    "prob_D2": 5,
+    "prob_D2": 0,
     "prob_2i": null,
     "prob_EC": 2,
     "mm_D2": 0.0,
@@ -2110,13 +2110,13 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "22/11 11:40",
+    "ora": "22/11 11:50",
     "valore": "8,8"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "22/11 11:45",
-    "valore": "8,4"
+    "ora": "22/11 11:50",
+    "valore": "8,5"
    }
   ],
   "aria_acqua": [
@@ -2143,7 +2143,108 @@
    "testo": "Ore migliori per vento: 05:00–12:00 (semaforo verde). Corrente più forte verso le 07:00. Zona meno ventosa: Murano nord."
   }
  ],
- "mare": null,
+ "mare": {
+  "righe": [
+   {
+    "ora": "05:00",
+    "h": 0.28,
+    "dir": "115° ESE",
+    "dir_g": 115,
+    "per": 4.15,
+    "vento": 7.8,
+    "raff_v": 11.7,
+    "dir_v": "91° E",
+    "mod_v": "ICON-D2",
+    "nome_v": "Levante"
+   },
+   {
+    "ora": "06:00",
+    "h": 0.24,
+    "dir": "110° ESE",
+    "dir_g": 110,
+    "per": 4.0,
+    "vento": 15.0,
+    "raff_v": 18.7,
+    "dir_v": "92° E",
+    "mod_v": "ICON-D2",
+    "nome_v": "Levante"
+   },
+   {
+    "ora": "07:00",
+    "h": 0.22,
+    "dir": "104° ESE",
+    "dir_g": 104,
+    "per": 3.85,
+    "vento": 17.7,
+    "raff_v": 21.4,
+    "dir_v": "82° E",
+    "mod_v": "ICON-D2",
+    "nome_v": "Levante"
+   },
+   {
+    "ora": "08:00",
+    "h": 0.24,
+    "dir": "99° E",
+    "dir_g": 99,
+    "per": 3.65,
+    "vento": 17.3,
+    "raff_v": 22.2,
+    "dir_v": "87° E",
+    "mod_v": "ICON-D2",
+    "nome_v": "Levante"
+   },
+   {
+    "ora": "09:00",
+    "h": 0.28,
+    "dir": "93° E",
+    "dir_g": 93,
+    "per": 3.45,
+    "vento": 14.8,
+    "raff_v": 20.8,
+    "dir_v": "88° E",
+    "mod_v": "ICON-D2",
+    "nome_v": "Levante"
+   },
+   {
+    "ora": "10:00",
+    "h": 0.3,
+    "dir": "88° E",
+    "dir_g": 88,
+    "per": 3.3,
+    "vento": 12.6,
+    "raff_v": 16.7,
+    "dir_v": "87° E",
+    "mod_v": "ICON-D2",
+    "nome_v": "Levante"
+   },
+   {
+    "ora": "11:00",
+    "h": 0.28,
+    "dir": "90° E",
+    "dir_g": 90,
+    "per": 3.25,
+    "vento": 10.4,
+    "raff_v": 14.2,
+    "dir_v": "100° E",
+    "mod_v": "ICON-D2",
+    "nome_v": "Levante"
+   },
+   {
+    "ora": "12:00",
+    "h": 0.28,
+    "dir": "91° E",
+    "dir_g": 91,
+    "per": 3.3,
+    "vento": 7.1,
+    "raff_v": 11.5,
+    "dir_v": "119° ESE",
+    "mod_v": "ICON-D2",
+    "nome_v": "Scirocco"
+   }
+  ],
+  "cella": "45,292 N 12,375 E",
+  "fonte_corr": "onda con vento Levante–Scirocco: 9 ore verificate su 10 richieste"
+ },
  "onda_laguna": {
   "punti": [
    "Giudecca sud",
@@ -2324,12 +2425,12 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: Open-Meteo (ICON-D2 DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS) · marea astronomica CPSM Punta Salute · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.44",
- "generato": "22/11/2026 11:51",
+ "generato": "22/11/2026 11:56",
  "area": "nord",
  "acqua_misurata": {
-  "valore": 12.3,
+  "valore": 12.2,
   "data": "22/11",
-  "ora": "11:40",
+  "ora": "11:45",
   "stazione": "Punta Salute Canal Grande",
   "fonte": "misura CPSM (Comune di Venezia)",
   "tendenza": null
