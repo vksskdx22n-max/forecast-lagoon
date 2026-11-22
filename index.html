@@ -415,5 +415,7 @@ if(/[?&]v=/.test(location.search))history.replaceState(null,'',location.pathname
 Promise.all([fetch('index.json',{cache:'no-store'}).then(r=>r.json()),fetch('assets/laguna_bacini.json?v='+CODICE).then(r=>r.json())])
  .then(([d,g])=>{D=d;G=g;T0=Date.now();vai();controlla()}).catch(e=>{app.innerHTML=`<div class="empty">Impossibile leggere i dati: ${esc(e)}</div>`});
 </script>
+<!-- v3.46: Cloudflare Web Analytics (senza cookie, nessun dato personale): conta visite e visitatori dell'app -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "9f0e28b014a243dfb009b4faab64ed46"}'></script>
 </body>
 </html>
