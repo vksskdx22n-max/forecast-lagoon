@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_tendenza.py v1.2 — tendenza dei prossimi giorni per Forecast Lagoon (scelte di Ennio del 22/11/2026).
+"""fd_tendenza.py v1.3 — tendenza dei prossimi giorni per Forecast Lagoon (scelte di Ennio del 22/11/2026).
 
 Due giorni dopo quello della previsione (dopodomani e il giorno dopo), finestra 05-12, per Laguna Nord, Centro e Sud:
 colore indicativo (stessa regola del semaforo: media dei punti della zona ora per ora, colore piu' frequente nelle ore),
@@ -22,7 +22,7 @@ import sys, json, math, subprocess, statistics, datetime as dt
 import fd_previsione as FP
 import marea_propaga as MP
 
-VERSIONE = "1.2"
+VERSIONE = "1.3"
 CORREZIONI = "tendenza_correzioni.json"
 ARCHIVIO_T = "tendenza_archivio.json"
 GIORNI_FINESTRA = 90           # v1.2: giorni verificati usati per ricalcolare la correzione
@@ -250,6 +250,9 @@ def main():
                             continue
                         if m == "icon_d2" and area == "centro" and not FP.riparata(z, d):
                             v = v + (FP.FV.correzione(v, d, ".", FP.zona_corr(z))[0] if FP.FV else 0.0)
+                            corr[m] = True
+                        elif m == "icon_d2" and FP.FV and ZONA_MIS[area] in getattr(FP.FV, "CORR_ZONA", {}):   # v1.3: Nord e Sud
+                            v = v + FP.FV.correzione(v, d, ".", ZONA_MIS[area])[0]
                             corr[m] = True
                         elif m != "icon_d2" and CK.get(m, {}).get(area):
                             v = max(0.0, v + CK[m][area]); corr[m] = True

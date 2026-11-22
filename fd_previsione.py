@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.44"
+VERSIONE = "1.45"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -115,9 +115,14 @@ def imposta_area(nome):
 def zona_corr(z):
     """Zona da cui prendere correzione e raffiche: le zone fuori archivio usano Malamocco · Valgrande."""
     return z if FV and (z in FV.ZONE or z in getattr(FV, "CORR_DA", {})) else "Malamocco · Valgrande"
+ZONA_VERIFICA = {"nord": "Laguna Nord", "sud": "Laguna Sud"}   # v1.45: zona di fd_verifica da cui prendere la correzione
+
+
 def nota_verifica_nord_sud():
     """v1.34: nota del vento per nord e sud (prima diceva per errore "usano la correzione di Malamocco Porto")."""
     st = [FV.ZONE[z][1] for z, a in getattr(FV, "ZONE_MEDIA", {}).items() if a == AREA and z in FV.ZONE] if FV else []
+    if st and FV and ZONA_VERIFICA.get(AREA) in getattr(FV, "CORR_ZONA", {}):   # v1.45
+        return ". Correzione misurata con " + ", ".join(st) + " (media dei punti di calcolo confrontata con la stazione; raffiche non corrette)"
     return (". Verifica di controllo, nessuna correzione: media dei punti di calcolo confrontata con " + ", ".join(st)) if st else \
            ". Nessuna stazione di verifica e nessuna correzione"
 
@@ -245,8 +250,12 @@ ORD = {'verde': 0, 'giallo': 1, 'rosso': 2}
 
 def correzione(d2, dir_g, zona="Malamocco · Valgrande"):
     """Correzione da sommare a ICON-D2: misurata dalle verifiche (fd_verifica) se ci sono abbastanza ore, altrimenti fissa.
-    v1.32: solo per l'area centro; nord e sud senza correzione."""
+    v1.32: solo per l'area centro; nord e sud senza correzione.
+    v1.45: anche nord e sud, con la zona di verifica dell'area (Laguna Nord = Saline, Laguna Sud = Chioggia Porto)."""
     if AREA != "centro":
+        zv = ZONA_VERIFICA.get(AREA)
+        if FV and zv and zv in getattr(FV, "CORR_ZONA", {}):
+            return FV.correzione(d2, dir_g, ".", zv)
         return 0.0, TESTO_NO_CORR, 0
     if FV:
         return FV.correzione(d2, dir_g, ".", zona_corr(zona))

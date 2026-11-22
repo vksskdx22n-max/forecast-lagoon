@@ -65,7 +65,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.26"
+VERSIONE = "1.27"
 URL_BASE = "https://www.comune.venezia.it/sites/default/files/publicCPSM2/stazioni/temporeale/"
 URL_PROXY = "https://fd-cpsm-proxy.ennioweb.workers.dev/misure/"      # v1.22: il Comune blocca i server di GitHub; il proxy Cloudflare no
 ORIGINE_PROXY = "https://vksskdx22n-max.github.io"
@@ -100,6 +100,13 @@ SETTORI = [(22.5, 67.5, "Bora"), (67.5, 202.5, "Levante–Scirocco"), (202.5, 29
 # nomi dei venti: 8 settori da 45° centrati sui punti cardinali (stessa fonte; NE = Grecale-Bora, qui "Bora")
 NOMI_VENTO = ["Tramontana", "Bora", "Levante", "Scirocco", "Ostro", "Libeccio", "Ponente", "Maestrale"]
 CORR_DEFAULT, CORR_SOGLIA_DEFAULT = 2.2, 4.0
+# v1.27: Laguna Nord e Laguna Sud corrette come il Centro (scelta di Ennio del 22/11/2026). Finche' una fascia non ha
+# MIN_ORE_CORR_ZONA ore verificate vale la correzione fissa dell'analisi dei 3 mesi (ICON-D2 del giorno prima, media dei
+# 4 punti di calcolo, contro le misure CPSM 22/08-21/11/2026, ore 05-12; prova meta' giorni / altra meta': semaforo giusto
+# Nord 69% -> 80%, Sud 67% -> 72-75%).
+CORR_ZONA = {"Laguna Nord": (1.5, "analisi 3 mesi: ICON-D2 del giorno prima contro Laguna Nord Saline, 92 giorni, 733 ore (22/08–21/11/2026)"),
+             "Laguna Sud": (1.4, "analisi 3 mesi: ICON-D2 del giorno prima contro Chioggia Porto, 58 giorni, 453 ore (22/08–21/11/2026)")}
+MIN_ORE_CORR_ZONA = {"Laguna Nord": 40, "Laguna Sud": 40}
 CORR_DEFAULT_FONTE = "fd_vento_confronto v1.1, 83 misure CPSM Malamocco Porto (31/05–29/10/2026), vento reale 6–12 nodi"
 CROME_MAC = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 COLONNE = [("liv", "Liv.Idrom"), ("liv", "L.Idrometrico"), ("dir", "D.Vento"), ("vel", "V.Vento med"), ("max", "V.Vento max"),
@@ -383,12 +390,16 @@ def _corr_fascia(fa, se, d2, A, zona):
     """Correzione di UNA fascia di ICON-D2: misurata (settore, poi tutta la fascia) o fissa."""
     ore = [o for o in A["ore"] if o["zona"] == zona and o["fascia_d2"] == fa]
     ore_s = [o for o in ore if settore_ora(o) == se]
-    if len(ore_s) >= MIN_ORE_CORR:
+    mn = MIN_ORE_CORR_ZONA.get(zona, MIN_ORE_CORR)             # v1.27
+    if len(ore_s) >= mn:
         c = statistics.mean(o["mis"]["media"] - o["prev"]["d2"] for o in ore_s)
         return round(c, 1), f"misurata, ICON-D2 {fa} nodi con vento {se}, {len(ore_s)} ore verificate", len(ore_s)
-    if len(ore) >= MIN_ORE_CORR:
+    if len(ore) >= mn:
         c = statistics.mean(o["mis"]["media"] - o["prev"]["d2"] for o in ore)
         return round(c, 1), f"misurata, ICON-D2 {fa} nodi, {len(ore)} ore verificate", len(ore)
+    if zona in CORR_ZONA:                                        # v1.27: Nord e Sud, correzione fissa dei 3 mesi
+        c0, f0 = CORR_ZONA[zona]
+        return c0, f"fissa ({f0}); ICON-D2 {fa} nodi: {len(ore)} ore verificate su {mn} richieste", len(ore)
     # v1.11: correzione fissa graduale, 0 fino a 3 nodi di ICON-D2 e piena (+2,2) da 5 nodi (prima: scatto a 4 nodi)
     c = round(CORR_DEFAULT * min(1.0, max(0.0, (d2 - (CORR_SOGLIA_DEFAULT - 1)) / 2)), 1)
     return c, f"fissa ({CORR_DEFAULT_FONTE}); ICON-D2 {fa} nodi: {len(ore)} ore verificate su {MIN_ORE_CORR} richieste", len(ore)
@@ -970,9 +981,14 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
     else:                                       # v1.23: nord e sud, verifica di controllo
         staz_vento = [s_ for zona, _ in risultati for s_ in ZONE[zona][0]]
         punti = next((o["prev"].get("punti") for _, oz in risultati for o in oz if o["prev"].get("punti")), None) or P.get("zone_vento") or []
+        corretta = any(abs(o["prev"].get("corr") or 0) > 0 for _, oz in risultati for o in oz)   # v1.27
+        zn = [z for z, _ in risultati]
         note = [nota_misure,
-                {"tipo": "dato", "testo": f"Verifica di controllo: nessuna correzione applicata alla previsione (stima = ICON-D2 così com'è). "
-                                          f"Le ore verificate servono a decidere in seguito la correzione del vento per {', '.join(z for z, _ in risultati)}."},
+                ({"tipo": "dato", "testo": f"Stima = ICON-D2 + correzione misurata della zona: fissa (+{num(CORR_ZONA[zn[0]][0])} nodi, {CORR_ZONA[zn[0]][1]}) finché una fascia di ICON-D2 non ha "
+                                           f"{MIN_ORE_CORR_ZONA.get(zn[0], MIN_ORE_CORR)} ore verificate, poi calcolata dalle verifiche per fascia e direzione. Le raffiche non sono corrette."}
+                 if corretta and zn and zn[0] in CORR_ZONA else
+                 {"tipo": "dato", "testo": f"Verifica di controllo: nessuna correzione applicata alla previsione (stima = ICON-D2 così com'è). "
+                                           f"Le ore verificate servono a decidere in seguito la correzione del vento per {', '.join(zn)}."}),
                 {"tipo": "dato", "testo": f"Previsto della zona = media dei punti di calcolo ({', '.join(punti)}), la stessa media che decide il semaforo; "
                                           f"misurato = {', '.join(ZONE[z][1] for z, _ in risultati)}."},
                 {"tipo": "inferenza", "testo": "Una stazione rappresenta un solo punto del bacino: il confronto con la media dei punti di calcolo è indicativo."},
@@ -982,7 +998,7 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
             note.insert(3, {"tipo": "dato", "testo": "Sensore fermo: le letture da 5 min con vento medio 0,0 e raffica 0,0 sono scartate; un'ora vale con almeno "
                                                      f"{MIN_LETTURE} letture valide su 12. "
                                                      + ("Scartate in questa finestra: " + ", ".join(f"{s_} {n_}" for s_, n_ in zz.items()) + "." if zz else "Nessuna lettura scartata in questa finestra.")})
-        avviso = " · Verifica di controllo: nessuna correzione applicata alla previsione"
+        avviso = "" if corretta else " · Verifica di controllo: nessuna correzione applicata alla previsione"
     D = {"versione": VERSIONE, "provvisoria": provvisoria, "ore_fino": max(o["ora"] for _, oz in risultati for o in oz), "area": area,
          "titolo": f"{P['titolo']} · {P['finestra']}", "previsione": f"{v['file']} · generata {v['gen'].strftime('%d/%m %H:%M')}{avviso}",
          "sem_prev": P["verdetto"]["colore"], "fascia": [v["da"].hour * 60 + v["da"].minute, v["a"].hour * 60 + v["a"].minute],
