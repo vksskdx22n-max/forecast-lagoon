@@ -65,7 +65,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.28"
+VERSIONE = "1.29"
 URL_BASE = "https://www.comune.venezia.it/sites/default/files/publicCPSM2/stazioni/temporeale/"
 URL_PROXY = "https://fd-cpsm-proxy.ennioweb.workers.dev/misure/"      # v1.22: il Comune blocca i server di GitHub; il proxy Cloudflare no
 ORIGINE_PROXY = "https://vksskdx22n-max.github.io"
@@ -611,28 +611,46 @@ STAZ_MAREA = {"centro": "Malamocco Porto", "nord": "Laguna Nord", "sud": "Chiogg
 MIN_LIVELLI = 60               # letture da 5 min nella finestra 05-12 (85 possibili)
 
 
+ESTREMO_TOLL_CM = 2.0          # v1.29: tratto "in colmo" = livello (media mobile) entro 2 cm dal massimo/minimo
+ESTREMO_MEDIA_PUNTI = 7        # v1.29: media mobile su 15 letture (75 min) per togliere le oscillazioni brevi (prima 7 letture, 35 min)
+
+
 def _estremo_misurato(serie, t0, tipo, raggio=120):
-    """Estremo (alta/bassa) della serie [(min, cm)] entro +-raggio min da t0: media mobile 35 min, interpolazione parabolica."""
-    xs = [p for p in serie if t0 - raggio - 20 <= p[0] <= t0 + raggio + 20]
-    if len(xs) < 20:
+    """Estremo (alta/bassa) della serie [(min, cm)] entro +-raggio min da t0, su media mobile 75 min (v1.29; prima 35).
+    v1.29: ora = centro del tratto continuo PIU' LUNGO in cui il livello resta entro ESTREMO_TOLL_CM dal massimo (alta)
+    o dal minimo (bassa); cm = estremo di quel tratto. Prima: punto piu' alto con interpolazione parabolica, che prendeva
+    oscillazioni brevi (Chioggia Porto 22/11/2026: punta di 95 cm alle 06:50, poi pianoro 89-92 cm 07:40-10:30)."""
+    k_ = ESTREMO_MEDIA_PUNTI
+    xs = [p for p in serie if t0 - raggio - 60 <= p[0] <= t0 + raggio + 60]
+    if len(xs) < 2 * k_ + 10:
         return None
     sm = []
-    for i in range(3, len(xs) - 3):
-        w = xs[i - 3:i + 4]
-        if w[-1][0] - w[0][0] <= 40:
+    for i in range(k_, len(xs) - k_):
+        w = xs[i - k_:i + k_ + 1]
+        if w[-1][0] - w[0][0] <= 10 * k_ + 10:
             sm.append((xs[i][0], statistics.mean(x[1] for x in w)))
     sm = [p for p in sm if t0 - raggio <= p[0] <= t0 + raggio]
     if len(sm) < 10:
         return None
-    k = max(range(len(sm)), key=lambda i: sm[i][1]) if tipo == "alta" else min(range(len(sm)), key=lambda i: sm[i][1])
-    if k == 0 or k == len(sm) - 1:
-        return None                           # estremo sul bordo: non e' quello cercato
-    (ta, ya), (tb, yb), (tc, yc) = sm[k - 1], sm[k], sm[k + 1]
-    d = ya - 2 * yb + yc
-    off = 0.5 * (ya - yc) / d if d else 0
-    off = max(-1.0, min(1.0, off))
-    passo = (tc - ta) / 2
-    return {"min": round(tb + off * passo), "cm": round(yb - 0.25 * (ya - yc) * off, 1)}
+    alta = tipo == "alta"
+    ye = max(p[1] for p in sm) if alta else min(p[1] for p in sm)
+    dentro = [(alta and p[1] >= ye - ESTREMO_TOLL_CM) or (not alta and p[1] <= ye + ESTREMO_TOLL_CM) for p in sm]
+    tratti, i = [], 0
+    while i < len(sm):
+        if dentro[i]:
+            j = i
+            while j + 1 < len(sm) and dentro[j + 1] and sm[j + 1][0] - sm[j][0] <= 10:
+                j += 1
+            tratti.append((i, j))
+            i = j + 1
+        else:
+            i += 1
+    a_, b_ = max(tratti, key=lambda r: (sm[r[1]][0] - sm[r[0]][0], r[1] - r[0]))
+    if a_ == 0 or b_ == len(sm) - 1:
+        return None                           # tratto sul bordo della finestra: non e' quello cercato
+    seg = [p[1] for p in sm[a_:b_ + 1]]
+    return {"min": round((sm[a_][0] + sm[b_][0]) / 2), "cm": round(max(seg) if alta else min(seg), 1),
+            "durata_min": sm[b_][0] - sm[a_][0]}
 
 
 def verifica_marea(v, M, cfg):

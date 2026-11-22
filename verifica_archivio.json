@@ -9872,14 +9872,15 @@
     "prev_min": 526,
     "prev_ora": "08:46",
     "prev_cm": 117,
-    "mis_min": 520,
-    "mis_ora": "08:40",
+    "mis_min": 518,
+    "mis_ora": "08:38",
     "mis_cm": 85,
-    "err_min": 6,
+    "err_min": 8,
     "err_cm": 32,
     "ps_min": 530,
     "ps_ora": "08:50",
-    "err_ps_min": 10
+    "err_ps_min": 12,
+    "rilevatore": "1.29 (ricalcolato 22/11)"
    }
   },
   {
@@ -9900,14 +9901,15 @@
     "prev_min": 508,
     "prev_ora": "08:28",
     "prev_cm": 120,
-    "mis_min": 410,
-    "mis_ora": "06:50",
-    "mis_cm": 94,
-    "err_min": 98,
-    "err_cm": 26,
+    "mis_min": 542,
+    "mis_ora": "09:02",
+    "mis_cm": 92,
+    "err_min": -34,
+    "err_cm": 28,
     "ps_min": 530,
     "ps_ora": "08:50",
-    "err_ps_min": 120
+    "err_ps_min": -12,
+    "rilevatore": "1.29 (ricalcolato 22/11)"
    }
   },
   {
@@ -9928,14 +9930,15 @@
     "prev_min": 619,
     "prev_ora": "10:19",
     "prev_cm": 109,
-    "mis_min": 648,
-    "mis_ora": "10:48",
-    "mis_cm": 85,
-    "err_min": -29,
-    "err_cm": 24,
+    "mis_min": 630,
+    "mis_ora": "10:30",
+    "mis_cm": 84,
+    "err_min": -11,
+    "err_cm": 25,
     "ps_min": 530,
     "ps_ora": "08:50",
-    "err_ps_min": -118
+    "err_ps_min": -100,
+    "rilevatore": "1.29 (ricalcolato 22/11)"
    }
   }
  ]
