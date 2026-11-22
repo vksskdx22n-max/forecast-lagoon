@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.43"
+VERSIONE = "1.44"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -269,6 +269,37 @@ def scarica(giorno, da, a):
         print(f"Open-Meteo non risponde (tentativo {tentativo + 1} di 3): {(r.stdout or r.stderr)[:200]}")
         time.sleep(20 * (tentativo + 1))
     sys.exit(f"Errore Open-Meteo dopo 3 tentativi: {r.stdout[:300] or r.stderr[:300]}")
+
+
+AROME = "meteofrance_arome_france_hd"   # v1.44: Meteo-France AROME HD (1,5 km), solo in parallelo: salvato e verificato, non usato nella stima
+
+
+def scarica_arome(giorno, da, a, path=None):
+    """v1.44: vento, direzione e raffica di AROME HD sui punti di calcolo. {punto: {var: {ora: valore}}} o None (mai bloccante)."""
+    if path:
+        R = json.load(open(path, encoding="utf-8"))
+    else:
+        g = giorno.isoformat()
+        url = ("https://api.open-meteo.com/v1/forecast?"
+               f"latitude={','.join(str(p[1]) for p in PUNTI)}&longitude={','.join(str(p[2]) for p in PUNTI)}"
+               f"&hourly=wind_speed_10m,wind_direction_10m,wind_gusts_10m&models={AROME}&wind_speed_unit=kn&timezone=Europe%2FRome"
+               f"&start_hour={g}T{max(0, da.hour - 2):02d}:00&end_hour={g}T{min(23, a.hour + 2):02d}:00")
+        r = subprocess.run(["curl", "-s", "-m", "45", url], capture_output=True, text=True)
+        try:
+            R = json.loads(r.stdout)
+        except ValueError:
+            return None
+    if isinstance(R, dict):
+        R = [R]
+    if not isinstance(R, list) or len(R) != len(PUNTI):
+        return None
+    out = {}
+    for p, x in zip(PUNTI, R):
+        H = (x or {}).get("hourly") or {}
+        t = H.get("time") or []
+        out[p[0]] = {v: dict(zip(t, H.get(v) or [])) for v in ("wind_speed_10m", "wind_direction_10m", "wind_gusts_10m")}
+    n = sum(1 for z in out.values() for v in z["wind_speed_10m"].values() if v is not None)
+    return out if n else None
 
 
 def scarica_ensemble(giorno, da, a, path=None):
@@ -804,7 +835,7 @@ def misure_aria(html_dir=None):
     return out
 
 
-def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS=None):
+def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS=None, AR=None):
     tz = tz_italia(giorno)
     ore = [h for h in range(24) if da <= dt.time(h, 0) <= a]
     idx = {p[0]: i for i, p in enumerate(PUNTI)}
@@ -846,7 +877,10 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
         Rm = {m: serie(z, "wind_gusts_10m", m) for m, _ in MODELLI}
         D, R = dict(Dm["icon_d2"]), dict(Rm["icon_d2"])
         righe = []
+        Az = (AR or {}).get(z) or {}               # v1.44: AROME HD in parallelo
         for h in ore:
+            ar = {"ar": (Az.get("wind_speed_10m") or {}).get(k(h)), "raff_ar": (Az.get("wind_gusts_10m") or {}).get(k(h)),
+                  "dir_ar": (Az.get("wind_direction_10m") or {}).get(k(h))}
             d2, i2, ec = S["icon_d2"].get(k(h)), S["italia_meteo_arpae_icon_2i"].get(k(h)), S["ecmwf_ifs025"].get(k(h))
             if d2 is None:                                  # v1.26: ripiego su ICON-2i (o ECMWF) senza correzione
                 mod = "italia_meteo_arpae_icon_2i" if i2 is not None else "ecmwf_ifs025"
@@ -864,7 +898,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
                 if z in ZONE_VENTO:
                     ore_rip.add(h)
                 righe.append({"ora": f"{h:02d}:00", "dir": gradi_card(D[k(h)]), "nome": nome_vento(D[k(h)]), "dir_g": D[k(h)], "stima": stima, "corr": corr, "sem": sem,
-                              "d2": None, "i2": i2, "raff": raff, "raff_d2": None, "ec": ec, "riparo": False, "ripiego": NOME_MOD[mod]})
+                              "d2": None, "i2": i2, "raff": raff, "raff_d2": None, "ec": ec, "riparo": False, "ripiego": NOME_MOD[mod], **ar})
                 continue
             corr, corr_fonte, corr_n = correzione(d2, D[k(h)], z)
             rip = riparata(z, D[k(h)])
@@ -895,7 +929,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
                 if z in ZONE_VENTO:
                     incerte.append(f"{z} {h:02d}:00")
             righe.append({"ora": f"{h:02d}:00", "dir": gradi_card(D[k(h)]), "nome": nome_vento(D[k(h)]), "dir_g": D[k(h)], "stima": round(stima, 1), "corr": corr, "sem": sem,
-                          "d2": d2, "i2": i2, "raff": raff, "raff_d2": r_d2, "ec": ec, "riparo": rip, "ripiego": None})
+                          "d2": d2, "i2": i2, "raff": raff, "raff_d2": r_d2, "ec": ec, "riparo": rip, "ripiego": None, **ar})
         vento[z] = righe
 
     # semaforo di ogni ora = media delle zone di pesca (vento stimato e raffiche)
@@ -1535,10 +1569,16 @@ def main():
     print(f"Previsione marea CPSM: {len(CP[0])} estremali (emessa {CP[1]})" if CP[0] else "Previsione marea CPSM non disponibile: uso la marea astronomica")
     ENS = scarica_ensemble(giorno, da, a, sys.argv[sys.argv.index("--ens-json") + 1] if "--ens-json" in sys.argv else None)   # v1.39
     print(f"Ensemble ICON-D2-EPS (nebbia): {len(ENS)} punti" if ENS else "Ensemble ICON-D2-EPS non disponibile: nebbia solo come livello")
+    try:                                   # v1.44: AROME HD in parallelo (mai bloccante)
+        AR = None if jpath else scarica_arome(giorno, da, a)
+    except Exception as ex:
+        AR = None
+        print(f"AROME HD: errore {type(ex).__name__}: {str(ex)[:120]}")
+    print(f"AROME HD (in parallelo, non usato nella stima): {len(AR)} punti" if AR else "AROME HD non disponibile (in parallelo, la previsione non cambia)")
     D = calcola(giorno, da, a, OM, carica_diario(),
                 Marea(f"marea_astronomica_{giorno.year}.json"), json.load(open("correnti_laguna.json", encoding="utf-8")), CP, MAR,
                 misure_aria(sys.argv[sys.argv.index("--misure-dir") + 1] if "--misure-dir" in sys.argv else None),
-                ENS)
+                ENS, AR)
     try:                                   # v1.43: marea della zona (ritardo e quota da Punta Salute, marea_zone.json)
         import marea_propaga as MP
         mz = MP.marea_zona(D.get("marea") or {}, AREA, giorno, MP.carica_config("."))

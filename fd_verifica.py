@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_verifica.py v1.25 — verifica automatica delle previsioni di fd_previsione (Fishing Diary).
+"""fd_verifica.py v1.26 — verifica automatica delle previsioni di fd_previsione (Fishing Diary).
 
 Confronta il vento previsto per zona con le misure CPSM e accumula gli errori in verifica_archivio.json.
 fd_previsione (>= 1.9) usa l'archivio per la correzione di ICON-D2 per zona, fascia di vento previsto
@@ -57,11 +57,15 @@ Marea della zona (v1.25): curva della zona (marea_propaga, ritardo e quota da Pu
   (Laguna Nord Saline, Malamocco Porto, Chioggia Porto): errore medio e medio assoluto del livello e errore sull'ora
   dell'alta/bassa (previsto - misurato), anche per la curva di Punta Salute non corretta. Archivio: campo "marea".
 
+AROME HD in parallelo (v1.26, previsioni da fd_previsione >= 1.44): vento ("ar") e raffica ("raff_ar") di AROME HD salvati
+  nelle ore verificate; nel riepilogo errore di ICON-D2, AROME HD e della media AROME HD + ICON-D2 (grezzi, senza correzione),
+  sulle stesse ore. Non entra nella correzione.
+
 Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_nord|_sud]_v1.24.html / .pdf
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.25"
+VERSIONE = "1.26"
 URL_BASE = "https://www.comune.venezia.it/sites/default/files/publicCPSM2/stazioni/temporeale/"
 URL_PROXY = "https://fd-cpsm-proxy.ennioweb.workers.dev/misure/"      # v1.22: il Comune blocca i server di GitHub; il proxy Cloudflare no
 ORIGINE_PROXY = "https://vksskdx22n-max.github.io"
@@ -477,6 +481,12 @@ def riepilogo(A):
             if o:
                 righe.append(f"  ICON-D2 {fa} nodi: {len(o)} ore · errore ICON-D2 {sg(statistics.mean(x['prev']['d2'] - x['mis']['media'] for x in o))}"
                              f" · errore stima {sg(statistics.mean(x['prev']['stima'] - x['mis']['media'] for x in o))} nodi")
+        oa = [x for x in oz if x["prev"].get("ar") is not None and x["prev"].get("d2") is not None]   # v1.26: AROME HD in parallelo
+        if oa:
+            e = lambda f_: (statistics.mean(f_(x) - x["mis"]["media"] for x in oa), statistics.mean(abs(f_(x) - x["mis"]["media"]) for x in oa))
+            (bd, ad), (ba, aa), (bm, am) = e(lambda x: x["prev"]["d2"]), e(lambda x: x["prev"]["ar"]), e(lambda x: (x["prev"]["ar"] + x["prev"]["d2"]) / 2)
+            righe.append(f"  AROME HD in parallelo ({len(oa)} ore, senza correzione): errore medio / assoluto ICON-D2 {sg(bd)} / {num(ad)} · "
+                         f"AROME HD {sg(ba)} / {num(aa)} · media dei due {sg(bm)} / {num(am)} nodi")
         cs = [sem_ore(x) for x in oz]
         cs = [c for c in cs if None not in c]
         if cs:                                      # v1.18
@@ -551,6 +561,8 @@ def righe_zona(P, zona):
                     "i2": _media(r.get("i2") for r in rs) if all(r.get("i2") is not None for r in rs) else None,
                     "ec": _media(r.get("ec") for r in rs) if all(r.get("ec") is not None for r in rs) else None,
                     "raff": _media(r.get("raff") for r in rs), "raff_d2": _media(r.get("raff_d2", r.get("raff")) for r in rs),
+                    "ar": _media(r.get("ar") for r in rs) if all(r.get("ar") is not None for r in rs) else None,            # v1.26
+                    "raff_ar": _media(r.get("raff_ar") for r in rs) if all(r.get("raff_ar") is not None for r in rs) else None,
                     "corr": round(st - d2, 1), "dir_g": round(media_dir(dirs)) if dirs else None, "punti": punti})
     return out
 
@@ -700,7 +712,8 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
                     continue
                 ore_z.append({"data": v["giorno"].isoformat(), "ora": r["ora"], "zona": zona, "stazione": ZONE[zona][1],
                               "generato": v["gen"].strftime("%Y-%m-%d %H:%M"), "anticipo_h": round((centro - v["gen"]).total_seconds() / 3600, 1),
-                              "prev": {**{k: r.get(k) for k in ("stima", "d2", "i2", "ec", "raff", "dir_g") + (("punti",) if "punti" in r else ())},
+                              "prev": {**{k: r.get(k) for k in ("stima", "d2", "i2", "ec", "raff", "dir_g") + (("punti",) if "punti" in r else ())
+                                          + (("ar", "raff_ar") if r.get("ar") is not None else ())},   # v1.26: AROME HD in parallelo
                                        "raff_d2": r.get("raff_d2", r.get("raff")), "corr": r.get("corr", round(r["stima"] - r["d2"], 1))},
                               "mis": m, "fascia_d2": fascia(r["d2"]), "settore_d2": settore(r.get("dir_g", 0)),
                               "sem_prev": semaforo(r.get("stima"), r.get("raff")), "sem_mis": semaforo(m["media"], m["raff"])})
@@ -785,6 +798,10 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
                                     "verificata": dt.datetime.now().strftime("%Y-%m-%d %H:%M")})
         log.append(f"  {chiave}{' PROVVISORIA' if provvisoria else ''}:" + (f" {n_rip} ore di ripiego senza ICON-D2 escluse" if n_rip else ""))
         for zona, oz in risultati:
+            oa = [o for o in oz if o["prev"].get("ar") is not None]          # v1.26
+            if oa:
+                log.append(f"    {zona} AROME HD (in parallelo): {len(oa)} ore · errore AROME HD {sg(statistics.mean(o['prev']['ar'] - o['mis']['media'] for o in oa))} · "
+                           f"media AROME+D2 {sg(statistics.mean((o['prev']['ar'] + o['prev']['d2']) / 2 - o['mis']['media'] for o in oa))} nodi")
             log.append(f"    {zona}: {len(oz)} ore · misurato {num(statistics.mean(o['mis']['media'] for o in oz))} nodi · "
                        f"errore stima {sg(statistics.mean(o['prev']['stima'] - o['mis']['media'] for o in oz))} · "
                        f"errore ICON-D2 {sg(statistics.mean(o['prev']['d2'] - o['mis']['media'] for o in oz))} nodi")
