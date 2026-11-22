@@ -527,6 +527,174 @@
    "visib": 0.06,
    "wx": "FG",
    "raw": "METAR LIPZ 211650Z VRB04KT 0100 R04R/0600N FG VV001 07/07 Q1016 NOSIG"
+  },
+  {
+   "t": "2026-11-21 17:20",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 211720Z 02004KT 350V050 0100 R04R/0550N FG VV001 07/07 Q1016 NOSIG"
+  },
+  {
+   "t": "2026-11-21 17:50",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 211750Z VRB01KT 0100 R04R/0550N FG VV001 07/07 Q1017 NOSIG"
+  },
+  {
+   "t": "2026-11-21 18:20",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 211820Z 05003KT 010V070 0100 R04R/0550N FG VV001 08/08 Q1017 NOSIG"
+  },
+  {
+   "t": "2026-11-21 18:50",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 211850Z 34003KT 310V010 0100 R04R/0600N FG VV001 08/08 Q1017 NOSIG"
+  },
+  {
+   "t": "2026-11-21 19:20",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 211920Z 31004KT 0100 R04R/0650N FG VV001 07/07 Q1017 NOSIG"
+  },
+  {
+   "t": "2026-11-21 19:50",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 211950Z 31004KT 300V010 0100 R04R/0750U FG VV001 07/07 Q1018 NOSIG"
+  },
+  {
+   "t": "2026-11-21 20:20",
+   "visib": 0.19,
+   "wx": "FG",
+   "raw": "METAR LIPZ 212020Z 32004KT 300V360 0300 R04R/0900N FG VV002 07/07 Q1018 NOSIG"
+  },
+  {
+   "t": "2026-11-21 20:50",
+   "visib": 0.19,
+   "wx": "FG",
+   "raw": "METAR LIPZ 212050Z 33003KT 0300 R04R/0900D FG VV002 08/08 Q1018 NOSIG"
+  },
+  {
+   "t": "2026-11-21 21:20",
+   "visib": 0.12,
+   "wx": "FG",
+   "raw": "METAR LIPZ 212120Z 31003KT 250V340 0200 R04R/0750N FG VV002 07/07 Q1018 NOSIG"
+  },
+  {
+   "t": "2026-11-21 21:50",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 212150Z 33003KT 290V360 0100 R04R/0400N FG VV001 07/07 Q1017 NOSIG"
+  },
+  {
+   "t": "2026-11-21 22:20",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 212220Z VRB02KT 0100 R04R/0350N FG VV001 06/06 Q1017 NOSIG"
+  },
+  {
+   "t": "2026-11-21 22:50",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 212250Z 01005KT 0100 R04R/0375N FG VV001 06/06 Q1017 NOSIG"
+  },
+  {
+   "t": "2026-11-21 23:20",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 212320Z 36006KT 0100 R04R/0400N FG VV001 06/06 Q1016 NOSIG"
+  },
+  {
+   "t": "2026-11-21 23:50",
+   "visib": 0.12,
+   "wx": "FG",
+   "raw": "METAR LIPZ 212350Z 33003KT 0200 R04R/0400N FG VV001 06/06 Q1016 NOSIG"
+  },
+  {
+   "t": "2026-11-22 00:20",
+   "visib": 0.12,
+   "wx": "FG",
+   "raw": "METAR LIPZ 220020Z VRB02KT 0200 R04R/0500N FG VV001 05/05 Q1016 NOSIG"
+  },
+  {
+   "t": "2026-11-22 00:50",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 220050Z VRB02KT 0100 R04R/0450N FG VV001 05/05 Q1016 NOSIG"
+  },
+  {
+   "t": "2026-11-22 01:20",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 220120Z 34003KT 300V020 0100 R04R/0325N FG VV001 05/05 Q1016 NOSIG"
+  },
+  {
+   "t": "2026-11-22 01:50",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 220150Z VRB02KT 0100 R04R/0350N FG VV001 05/05 Q1016 NOSIG"
+  },
+  {
+   "t": "2026-11-22 02:20",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 220220Z VRB02KT 0100 R04R/0375N FG VV001 06/06 Q1016 NOSIG"
+  },
+  {
+   "t": "2026-11-22 02:50",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 220250Z 03002KT 0100 R04R/0400N FG VV001 06/// Q//// NOSIG"
+  },
+  {
+   "t": "2026-11-22 03:20",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 220320Z VRB01KT 0100 R04R/0400N FG VV001 06/06 Q1014 NOSIG"
+  },
+  {
+   "t": "2026-11-22 03:50",
+   "visib": 0.06,
+   "wx": "FG",
+   "raw": "METAR LIPZ 220350Z VRB01KT 0100 R04R/0450N FG VV001 06/06 Q1014 NOSIG"
+  },
+  {
+   "t": "2026-11-22 04:20",
+   "visib": 0.12,
+   "wx": "FG",
+   "raw": "METAR LIPZ 220420Z 33002KT 0200 R04R/0600U FG VV001 05/05 Q1014 NOSIG"
+  },
+  {
+   "t": "2026-11-22 04:50",
+   "visib": 0.31,
+   "wx": "FG",
+   "raw": "METAR LIPZ 220450Z VRB01KT 0500 R04R/0700U FG NSC 06/06 Q1013 NOSIG"
+  },
+  {
+   "t": "2026-11-22 05:20",
+   "visib": 0.62,
+   "wx": "BCFG",
+   "raw": "METAR LIPZ 220520Z 00000KT 1000 R04R/P2000N BCFG NSC 05/05 Q1013 NOSIG"
+  },
+  {
+   "t": "2026-11-22 05:50",
+   "visib": 0.62,
+   "wx": "BCFG",
+   "raw": "METAR LIPZ 220550Z VRB02KT 1000 R04R/1700U BCFG BKN060 06/06 Q1013 NOSIG"
+  },
+  {
+   "t": "2026-11-22 06:20",
+   "visib": 0.62,
+   "wx": "BCFG",
+   "raw": "METAR LIPZ 220620Z 32003KT 290V360 1000 R04R/P2000N BCFG BKN060 06/06 Q1013 NOSIG"
+  },
+  {
+   "t": "2026-11-22 06:50",
+   "visib": 0.62,
+   "wx": "BCFG",
+   "raw": "METAR LIPZ 220650Z 31003KT 300V360 1000 R04R/P2000N BCFG BKN010 06/06 Q1013 NOSIG"
   }
  ],
  "versione": "1.39",
