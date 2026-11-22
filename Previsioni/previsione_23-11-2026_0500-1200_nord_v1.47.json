@@ -1980,11 +1980,11 @@
   "nebbia": {
    "livello": 2,
    "testo": "probabile",
-   "dalle": "06:00",
-   "alle": "08:00",
+   "dalle": "05:00",
+   "alle": "09:00",
    "regola": "probabile: umidità ≥ 97 % e vento ≤ 5 kn, o codice meteo nebbia; possibile: umidità ≥ 94 % e vento ≤ 8 kn, o nubi basse ≥ 90 %",
    "nota": "probabilità dai modelli, non ancora verificata con le misure",
-   "prob_max": 50,
+   "prob_max": 42,
    "segnala": true,
    "soglia_alta": 50,
    "soglia_min": 20,
@@ -2000,7 +2000,7 @@
     "codice_nebbia": [
      "ICON-D2"
     ],
-    "prob": 44,
+    "prob": 36,
     "scenari": 80
    },
    {
@@ -2010,7 +2010,7 @@
     "nubi_basse": 81,
     "vento": 5.6,
     "codice_nebbia": [],
-    "prob": 50,
+    "prob": 42,
     "scenari": 80
    },
    {
@@ -2020,7 +2020,7 @@
     "nubi_basse": 71,
     "vento": 5.2,
     "codice_nebbia": [],
-    "prob": 50,
+    "prob": 38,
     "scenari": 80
    },
    {
@@ -2030,7 +2030,7 @@
     "nubi_basse": 46,
     "vento": 5.9,
     "codice_nebbia": [],
-    "prob": 46,
+    "prob": 22,
     "scenari": 80
    },
    {
@@ -2040,7 +2040,7 @@
     "nubi_basse": 17,
     "vento": 7.3,
     "codice_nebbia": [],
-    "prob": 45,
+    "prob": 16,
     "scenari": 80
    },
    {
@@ -2050,7 +2050,7 @@
     "nubi_basse": 42,
     "vento": 5.8,
     "codice_nebbia": [],
-    "prob": 20,
+    "prob": 15,
     "scenari": 80
    },
    {
@@ -2060,7 +2060,7 @@
     "nubi_basse": 51,
     "vento": 5.6,
     "codice_nebbia": [],
-    "prob": 10,
+    "prob": 1,
     "scenari": 80
    },
    {
@@ -2132,13 +2132,13 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "22/11 17:55",
-    "valore": "10,1"
+    "ora": "22/11 18:35",
+    "valore": "10,6"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "22/11 18:05",
-    "valore": "9,5"
+    "ora": "22/11 18:35",
+    "valore": "9,6"
    }
   ],
   "aria_acqua": [
@@ -2447,12 +2447,12 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: dati meteo e mare aperto Open-Meteo.com, CC BY 4.0 (ICON-D2 e ensemble ICON-D2-EPS DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS, AROME HD Météo-France in prova, Open-Meteo Marine) · marea astronomica, previsione di marea e misure: CPSM, Comune di Venezia (dati.venezia.it, CC BY) · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.47",
- "generato": "22/11/2026 18:09",
+ "generato": "22/11/2026 18:39",
  "area": "nord",
  "acqua_misurata": {
-  "valore": 11.9,
+  "valore": 11.8,
   "data": "22/11",
-  "ora": "18:00",
+  "ora": "18:30",
   "stazione": "Punta Salute Canal Grande",
   "fonte": "misura CPSM (Comune di Venezia)",
   "tendenza": null

@@ -815,6 +815,12 @@
    "visib": 1.86,
    "wx": "-RA BR",
    "raw": "METAR LIPZ 221650Z 03011KT 3000 -RA BR SCT004 BKN035 09/09 Q1003 NOSIG"
+  },
+  {
+   "t": "2026-11-22 17:20",
+   "visib": 3.11,
+   "wx": "-RA",
+   "raw": "METAR LIPZ 221720Z 03010KT 5000 -RA SCT003 BKN050 09/09 Q1002 NOSIG"
   }
  ],
  "versione": "1.47",
@@ -1570,6 +1576,53 @@
     "oltre": false,
     "wx": "-RA BR",
     "ora": "17:50",
+    "eta_min": 11
+   }
+  },
+  {
+   "t": "2026-11-22T17:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 95,
+     "ora": "2026-11-22 18:20:00",
+     "t": 9.6,
+     "ora_t": "2026-11-22 18:20:00",
+     "td": 8.8,
+     "spread": 0.8
+    },
+    "Piattaforma": {
+     "rh": 96,
+     "ora": "2026-11-22 18:20:00",
+     "t": 10.4,
+     "ora_t": "2026-11-22 18:20:00",
+     "td": 9.8,
+     "spread": 0.6
+    },
+    "S_Giorgio": {
+     "rh": 88,
+     "ora": "2026-11-22 18:20:00"
+    }
+   },
+   "vento": {
+    "centro": 18.7,
+    "nord": 12.8,
+    "sud": 19.4
+   },
+   "vento_dati_aperti": {
+    "centro": "18:20",
+    "nord": "18:20",
+    "sud": "18:20"
+   },
+   "vento_motivo": {
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 5000,
+    "oltre": false,
+    "wx": "-RA",
+    "ora": "18:20",
     "eta_min": 11
    }
   }
@@ -2332,6 +2385,29 @@
     "252": {
      "rh": 100.0,
      "t": 9.0
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-22T18:00",
+   "t": "2026-11-22T17:00",
+   "staz": {
+    "160": {
+     "vis_km": 4.97,
+     "rh": 100.0,
+     "t": 9.1
+    },
+    "230": {
+     "rh": 99.0,
+     "t": 8.7
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 9.5
+    },
+    "252": {
+     "rh": 100.0,
+     "t": 9.3
     }
    }
   }
