@@ -226,7 +226,10 @@ function segnaOra(){   // v3.37: linea "adesso" sul mini-grafico della marea, so
  document.querySelectorAll('[data-mnow]').forEach(g=>{const z=MZN[g.dataset.mnow];g.innerHTML='';if(!z||z.data!==oggi||m<z.f[0]||m>z.f[1])return;
   const W=74,T=11,B=30,X=t=>(t-z.f[0])/(z.f[1]-z.f[0])*W,Y=v=>B-1-(v-z.sc[0])/(z.sc[1]-z.sc[0]||1)*(B-T-2);
   let h=null;for(let i=1;i<z.C.length;i++){const a=z.C[i-1],b=z.C[i];if(a[0]<=m&&m<=b[0]){h=a[1]+(b[1]-a[1])*((m-a[0])/((b[0]-a[0])||1));break}}
-  const x=X(m).toFixed(1);g.innerHTML=`<line x1="${x}" y1="${T-2}" x2="${x}" y2="${B}" stroke="#f2c14e" stroke-width="1.2" stroke-dasharray="2 2"/>`+(h!=null?`<circle cx="${x}" cy="${Y(h).toFixed(1)}" r="2.4" fill="#f2c14e"/>`:'')})}
+  const x=X(m).toFixed(1);let s=`<line x1="${x}" y1="${T-2}" x2="${x}" y2="${B}" stroke="#f2c14e" stroke-width="1.2" stroke-dasharray="2 2"/>`+(h!=null?`<circle cx="${x}" cy="${Y(h).toFixed(1)}" r="2.4" fill="#f2c14e"/>`:'');
+  const L=AD&&AD.zone&&AD.zone[g.dataset.mnow]&&AD.zone[g.dataset.mnow].livello;   // v3.42: livello misurato adesso alla stazione (Worker >= 2.10)
+  if(L&&L.disponibile&&L.data===oggi&&L.min>=z.f[0]&&L.min<=z.f[1]&&L.cm!=null){const yl=Math.max(T+2,Math.min(B,Y(L.cm)));s+=`<circle cx="${X(L.min).toFixed(1)}" cy="${yl.toFixed(1)}" r="2.7" fill="none" stroke="#ffffff" stroke-width="1.4"/>`}
+  g.innerHTML=s})}
 setInterval(segnaOra,60*1000);
 function tendGiorni(ult){const T=D&&D.tendenza;return T&&T.giorni?T.giorni.filter(g=>!ult||g.data>ult):[]}   // v3.39
 function giorni(){   // v3.39: pagina "Prossimi giorni" (tendenza, colori tenui)
@@ -355,7 +358,8 @@ async function allerteUI(msg){
 }
 async function caricaAdesso(){if(!D||!D.adesso_url)return;try{const c=new AbortController(),t=setTimeout(()=>c.abort(),8000);
  AD=await (await fetch(D.adesso_url,{cache:'no-store',signal:c.signal})).json();clearTimeout(t)}catch(e){AD=null}riempiAdesso()}
-function riempiAdesso(){
+function riempiAdesso(){try{segnaOra()}catch(e){}   // v3.42: cerchietto del livello misurato
+
  document.querySelectorAll('[data-admap]').forEach(el=>{   // v3.31: vento misurato adesso sulle etichette della cartina (colore neutro)
   const Z=(D&&D.zone||[]).filter(z=>z.attiva),mi=o=>{const m=/^(\d{1,2}):(\d{2})/.exec(o||'');return m?(+m[1])*60+(+m[2]):null};
   if(!Z.length){el.innerHTML='';return}
