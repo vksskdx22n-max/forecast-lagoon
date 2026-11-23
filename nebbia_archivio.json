@@ -1097,9 +1097,21 @@
    "visib": "6+",
    "wx": null,
    "raw": "METAR LIPZ 231620Z 05005KT CAVOK 08/05 Q1018 NOSIG"
+  },
+  {
+   "t": "2026-11-23 16:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 231650Z 05006KT 9999 FEW035 08/05 Q1018 NOSIG"
+  },
+  {
+   "t": "2026-11-23 17:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 231720Z 06006KT CAVOK 08/05 Q1019 NOSIG"
   }
  ],
- "versione": "1.48",
+ "versione": "1.49",
  "nota": "METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib in miglia terrestri come restituito dall'API ('6+' = oltre 6 miglia, circa 10 km; 1 miglio = 1609 m), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato.",
  "locale": [
   {
@@ -3397,6 +3409,45 @@
     "ora": "17:20",
     "eta_min": 11
    }
+  },
+  {
+   "t": "2026-11-23T17:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 80,
+     "ora": "2026-11-23 17:50:00"
+    },
+    "Piattaforma": {
+     "rh": 68,
+     "ora": "2026-11-23 17:50:00"
+    },
+    "S_Giorgio": {
+     "rh": 73,
+     "ora": "2026-11-23 17:50:00"
+    }
+   },
+   "vento": {
+    "sud": 6.6,
+    "nord": 5.2,
+    "centro": 8.4
+   },
+   "vento_dati_aperti": {
+    "sud": "17:50",
+    "nord": "17:50",
+    "centro": "17:50"
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "nord_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "centro_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "17:50",
+    "eta_min": 11
+   }
   }
  ],
  "nota_locale": "Registro del Worker (v2.9) ogni 30 minuti, t in UTC: aria = umidita' (rh, %), temperatura (t, °C), punto di rugiada (td) e distanza dal punto di rugiada (spread) delle stazioni CPSM; vento = vento medio misurato (kn) di Saline, Malamocco Porto, Chioggia Porto; vis = visibilita' di Tessera (m). Per lo studio dell'indicatore locale di nebbia.",
@@ -4699,6 +4750,29 @@
     "252": {
      "rh": 79.0,
      "t": 10.5
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-23T18:00",
+   "t": "2026-11-23T17:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 99.0,
+     "t": 7.2
+    },
+    "230": {
+     "rh": 86.0,
+     "t": 8.3
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 8.9
+    },
+    "252": {
+     "rh": 84.0,
+     "t": 10.0
     }
    }
   }
