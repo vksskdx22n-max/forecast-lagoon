@@ -1,6 +1,6 @@
 {
  "versione": "1.3",
- "generato": "2026-11-23 16:26",
+ "generato": "2026-11-23 17:45",
  "base": "2026-11-24",
  "finestra": "05:00–12:00",
  "giorni": [
@@ -11,7 +11,7 @@
      "id": "nord",
      "nome": "Laguna Nord",
      "disponibile": true,
-     "colore": "rosso",
+     "colore": "giallo",
      "vento_min": 11,
      "vento_max": 14,
      "dir": "NE",
@@ -29,8 +29,8 @@
      "nome": "Laguna Centro",
      "disponibile": true,
      "colore": "rosso",
-     "vento_min": 15,
-     "vento_max": 17,
+     "vento_min": 16,
+     "vento_max": 18,
      "dir": "NE",
      "pioggia": 95,
      "marea": {
@@ -71,7 +71,7 @@
      "vento_min": 3,
      "vento_max": 6,
      "dir": "NNO",
-     "pioggia": 56,
+     "pioggia": 61,
      "marea": {
       "tipo": "bassa",
       "ora": "05:48",
@@ -88,7 +88,7 @@
      "vento_min": 5,
      "vento_max": 10,
      "dir": "OSO",
-     "pioggia": 56,
+     "pioggia": 61,
      "marea": {
       "tipo": "alta",
       "ora": "10:46",
@@ -105,7 +105,7 @@
      "vento_min": 4,
      "vento_max": 11,
      "dir": "OSO",
-     "pioggia": 56,
+     "pioggia": 61,
      "marea": {
       "tipo": "alta",
       "ora": "10:32",
