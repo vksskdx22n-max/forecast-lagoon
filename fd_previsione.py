@@ -46,7 +46,25 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.49"   # v1.49: chiusa la } mancante nel blocco nebbia (dalla v1.47 pagina di dettaglio bianca e PDF vuoto)
+VERSIONE = "1.50"   # v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
+# v1.50: fasce della giornata (scelta di Ennio 23/11/2026). La fascia della sera finisce a mezzanotte: "24:00" = 23:59 interno.
+FINE_GIORNO = dt.time(23, 59)
+PERIODI = [("mattino", 5, 12), ("pomeriggio", 13, 18), ("sera", 19, 23)]
+
+
+def ora_txt(t):
+    """v1.50: "HH:MM", con 23:59 scritto 24:00 (fine della fascia della sera)."""
+    return "24:00" if t == FINE_GIORNO else t.strftime("%H:%M")
+
+
+def ora_da_txt(x):
+    """v1.50: "24:00" -> 23:59; altrimenti dt.time."""
+    return FINE_GIORNO if x.strip() in ("24:00", "24") else dt.time.fromisoformat(x.strip())
+
+
+def periodo_ora(h):
+    """v1.50: periodo del giorno di un'ora (mattino, pomeriggio, sera); le ore di notte valgono come sera."""
+    return next((n for n, a, b in PERIODI if a <= h <= b), "sera" if h > 12 else "mattino")
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -261,21 +279,41 @@ def semaforo(kn, raff):
 ORD = {'verde': 0, 'giallo': 1, 'rosso': 2}
 
 
-def correzione(d2, dir_g, zona="Malamocco · Valgrande"):
+def correzione(d2, dir_g, zona="Malamocco · Valgrande", periodo="mattino"):
     """Correzione da sommare a ICON-D2: misurata dalle verifiche (fd_verifica) se ci sono abbastanza ore, altrimenti fissa.
     v1.32: solo per l'area centro; nord e sud senza correzione.
     v1.45: anche nord e sud, con la zona di verifica dell'area (Laguna Nord = Saline, Laguna Sud = Chioggia Porto)."""
     if AREA != "centro":
         zv = ZONA_VERIFICA.get(AREA)
         if FV and zv and zv in getattr(FV, "CORR_ZONA", {}):
-            return FV.correzione(d2, dir_g, ".", zv)
+            return FV.correzione(d2, dir_g, ".", zv, periodo)
         return 0.0, TESTO_NO_CORR, 0
     if FV:
-        return FV.correzione(d2, dir_g, ".", zona_corr(zona))
+        return FV.correzione(d2, dir_g, ".", zona_corr(zona), periodo)
     return (CORR_D2 if d2 >= CORR_SOGLIA else 0.0), CORR_FONTE, 0
 
 
 # ------------------------------------------------------------------ Open-Meteo
+def curl_om(url, sec):
+    """v1.50: richiesta a Open-Meteo con memoria per il giro (variabile FL_CACHE = cartella): le tre fasce dello stesso giorno
+    e zona usano la stessa risposta, cosi' le richieste non si triplicano (limite giornaliero di Open-Meteo)."""
+    import hashlib, types
+    cart = os.environ.get("FL_CACHE")
+    f = os.path.join(cart, hashlib.sha1(url.encode()).hexdigest() + ".json") if cart else None
+    if f and os.path.exists(f):
+        return types.SimpleNamespace(returncode=0, stdout=open(f, encoding="utf-8").read(), stderr="")
+    r = subprocess.run(["curl", "-s", "-m", str(sec), url], capture_output=True, text=True)
+    if f and r.returncode == 0:
+        try:
+            d = json.loads(r.stdout)
+            if not (isinstance(d, dict) and d.get("error")):
+                os.makedirs(cart, exist_ok=True)
+                open(f, "w", encoding="utf-8").write(r.stdout)
+        except ValueError:
+            pass
+    return r
+
+
 def scarica(giorno, da, a):
     g = giorno.isoformat()
     url = ("https://api.open-meteo.com/v1/forecast?"
@@ -283,9 +321,9 @@ def scarica(giorno, da, a):
            "&hourly=wind_speed_10m,wind_direction_10m,wind_gusts_10m,pressure_msl,temperature_2m,precipitation,precipitation_probability,cloud_cover"
            ",relative_humidity_2m,cloud_cover_low,weather_code"   # v1.38: nebbia
            f"&models={','.join(m for m, _ in MODELLI)}&wind_speed_unit=kn&timezone=Europe%2FRome"
-           f"&start_hour={g}T{max(0, da.hour - 2):02d}:00&end_hour={g}T{min(23, a.hour + 2):02d}:00&daily=sunrise,sunset&start_date={g}&end_date={g}")
+           f"&daily=sunrise,sunset&start_date={g}&end_date={g}")        # v1.50: giornata intera, la stessa per le tre fasce
     for tentativo in range(3):                      # v1.33: fino a 3 tentativi (Open-Meteo a volte non risponde)
-        r = subprocess.run(["curl", "-s", "-m", "45", url], capture_output=True, text=True)
+        r = curl_om(url, 45)
         if r.returncode == 0 and r.stdout.strip().startswith("["):
             return json.loads(r.stdout)
         print(f"Open-Meteo non risponde (tentativo {tentativo + 1} di 3): {(r.stdout or r.stderr)[:200]}")
@@ -305,8 +343,8 @@ def scarica_arome(giorno, da, a, path=None):
         url = ("https://api.open-meteo.com/v1/forecast?"
                f"latitude={','.join(str(p[1]) for p in PUNTI)}&longitude={','.join(str(p[2]) for p in PUNTI)}"
                f"&hourly=wind_speed_10m,wind_direction_10m,wind_gusts_10m&models={AROME}&wind_speed_unit=kn&timezone=Europe%2FRome"
-               f"&start_hour={g}T{max(0, da.hour - 2):02d}:00&end_hour={g}T{min(23, a.hour + 2):02d}:00")
-        r = subprocess.run(["curl", "-s", "-m", "45", url], capture_output=True, text=True)
+               f"&start_date={g}&end_date={g}")                         # v1.50: giornata intera
+        r = curl_om(url, 45)
         try:
             R = json.loads(r.stdout)
         except ValueError:
@@ -335,7 +373,7 @@ def scarica_ensemble(giorno, da, a, path=None):
            "&hourly=relative_humidity_2m,wind_speed_10m,cloud_cover_low,weather_code"
            f"&models={NEBBIA_ENS_MODELLO}&wind_speed_unit=kn&timezone=Europe%2FRome&start_date={g}&end_date={g}")
     for tentativo in range(2):
-        r = subprocess.run(["curl", "-s", "-m", "45", url], capture_output=True, text=True)
+        r = curl_om(url, 45)
         try:
             d = json.loads(r.stdout)
             d = d if isinstance(d, list) else [d]
@@ -383,7 +421,7 @@ def scarica_mare(giorno, path=None):
         g = giorno.isoformat()
         url = (f"https://marine-api.open-meteo.com/v1/marine?latitude={MARE_PUNTO[0]}&longitude={MARE_PUNTO[1]}"
                f"&hourly=wave_height,wave_direction,wave_period&timezone=Europe%2FRome&start_date={g}&end_date={g}")
-        r = subprocess.run(["curl", "-s", "-m", "20", url], capture_output=True, text=True)
+        r = curl_om(url, 20)
         d = json.loads(r.stdout)
         return d if "hourly" in d else None
     except (ValueError, OSError):
@@ -923,7 +961,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
                 righe.append({"ora": f"{h:02d}:00", "dir": gradi_card(D[k(h)]), "nome": nome_vento(D[k(h)]), "dir_g": D[k(h)], "stima": stima, "corr": corr, "sem": sem,
                               "d2": None, "i2": i2, "raff": raff, "raff_d2": None, "ec": ec, "riparo": False, "ripiego": NOME_MOD[mod], **ar})
                 continue
-            corr, corr_fonte, corr_n = correzione(d2, D[k(h)], z)
+            corr, corr_fonte, corr_n = correzione(d2, D[k(h)], z, periodo_ora(h))
             rip = riparata(z, D[k(h)])
             if rip:
                 corr, corr_fonte = 0.0, f"{z} con bora: {TESTO_RIPARO}"
@@ -942,7 +980,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
             if rip or prud:
                 cr, fr = 0.0, ("raffiche ICON-D2 senza correzione (modelli in disaccordo)" if prud else None)
             else:
-                cr, fr, _ = (FV.correzione_raffiche(D[k(h)], ".", zona_corr(z)) if FV and hasattr(FV, "correzione_raffiche") else (None, None, 0)) if AREA == "centro" else (0.0, "raffiche ICON-D2 senza correzione", 0)
+                cr, fr, _ = (FV.correzione_raffiche(D[k(h)], ".", zona_corr(z), periodo_ora(h)) if FV and hasattr(FV, "correzione_raffiche") else (None, None, 0)) if AREA == "centro" else (0.0, "raffiche ICON-D2 senza correzione", 0)
                 if cr is None:
                     cr, fr = corr, (f"stessa correzione del vento; {fr}" if fr else "stessa correzione del vento")
             if fr:
@@ -951,7 +989,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
             sem = semaforo(stima, raff)
             if ORD[sem] > ORD[sem_ore[h]]:
                 sem_ore[h] = sem
-            st2 = None if i2 is None else i2 + (0.0 if rip else correzione(i2, D[k(h)], z)[0])
+            st2 = None if i2 is None else i2 + (0.0 if rip else correzione(i2, D[k(h)], z, periodo_ora(h))[0])
             if st2 is not None and (abs(d2 - i2) > 3 or semaforo(st2, raff) != sem):
                 if z in ZONE_VENTO:
                     incerte.append(f"{z} {h:02d}:00")
@@ -1146,7 +1184,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
     note_meteo = []
     t0e, t0d = Tec.get(k(ore[0])), (T_d2_mestre if aria_punto else T_d2_acqua).get(k(ore[0]))
     if None not in (t0e, t0d) and abs(t0e - t0d) >= 3:
-        note_meteo.append(f"ECMWF dà {num(t0e)} °C alle {ore[0]:02d}:00 contro {num(t0d)} °C di ICON-D2: incertezza sulla temperatura del primo mattino.")
+        note_meteo.append(f"ECMWF dà {num(t0e)} °C alle {ore[0]:02d}:00 contro {num(t0d)} °C di ICON-D2: incertezza sulla temperatura della prima ora.")
     nuv_d2 = media_ok(serie(z0, "cloud_cover", "icon_d2").get(k(h)) for h in ore)
     if None not in (nuv_ec, nuv_d2) and abs(nuv_ec - nuv_d2) >= 40:
         note_meteo.append(f"Nuvolosità: ECMWF {round(nuv_ec)}% contro {round(nuv_d2)}% di ICON-D2.")
@@ -1327,7 +1365,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
              + (f"; previsione CPSM emessa {emessa}, {round(eta_cpsm)} h prima della fine della finestra: oltre {CPSM_ORE_MAX} h, tendenza meno affidabile (astronomica come riferimento)" if cpsm_vecchia else "")
              + ".)"] if fase_txt else []
     return {
-        "versione": VERSIONE, "titolo": titolo, "finestra": f"{da.strftime('%H:%M')}–{a.strftime('%H:%M')}", "zone": ZONE_TITOLO,
+        "versione": VERSIONE, "titolo": titolo, "finestra": f"{ora_txt(da)}–{ora_txt(a)}", "periodo": periodo_ora(da.hour), "zone": ZONE_TITOLO,
         "verdetto": {"colore": verdetto, "testo": ((f"Andamento: {andamento_txt}. ") if andamento_txt else "") + " ".join(verd),
                      "andamento": andamento, "andamento_txt": andamento_txt,
                      "nota": f"Semaforo = media delle zone {', '.join(ZONE_VENTO)} (non la zona peggiore)."
@@ -1435,7 +1473,7 @@ const colP=v=>v==null?['#f1f5f9','#64748b']:v<20?['#e6f1fb','#0c447c']:v<40?['#b
   const PO=(D.meteo&&D.meteo.pioggia_ore)||[];
   if(PO.length===S.ore.length&&PO.some(r=>r.prob_D2!=null))g.append(lab('Pioggia'),...PO.map(r=>{const c=colP(r.prob_D2);
     return h('div',{style:'text-align:center;line-height:1.1'},h('span',{style:`display:inline-block;padding:2px 7px;border-radius:10px;font-weight:700;background:${c[0]};color:${c[1]}`},r.prob_D2==null?'–':r.prob_D2+'%'),h('div',{style:'font-size:10px;color:var(--mu);margin-top:2px'},r.mm_D2==null?'':n(r.mm_D2)+' mm'));}));
-  add(h('div',{cls:'card parte1'},h('h2',{},'🕐 La mattina in breve · media delle zone'),g,
+  add(h('div',{cls:'card parte1'},h('h2',{},'🕐 '+D.finestra+' in breve · media delle zone'),g,
     h('div',{cls:'nota'},'Vento: MEDIA delle zone di pesca ('+S.zone.join(', ')+'), nodi; colore = semaforo sul vento medio (le raffiche non contano). '+(S.riparo.length?S.riparo.join(', ')+': '+D.testo_riparo+'. ':'')+'Marea: ↑ crescente, ↓ calante, ≈ quasi ferma; cm/h ('+S.fonte_marea+'). '+(((D.meteo||{}).pioggia_ore||[]).some(r=>r.prob_D2!=null)?'Pioggia: probabilità ICON-D2 e mm nell’ora precedente. ':'')
       +(S.canale?'Corrente: '+S.canale+', m/s, azzurro entra, viola esce (stima del modello). ':'')+(S.alba?'Alba '+S.alba:'')+(S.tramonto?' · tramonto '+S.tramonto:'')+'.')));})();
 const GV=[['stima','#dc2626',2.6,''],['d2','#f59e0b',1.6,''],['i2','#0d9488',1.6,''],['ec','#7c3aed',1.6,''],['raff','#64748b',1.2,'4 3']];
@@ -1548,6 +1586,158 @@ if(document.body.classList.contains('stampa')){const st=document.createElement('
 </script></body></html>"""
 
 
+# ------------------------------------------------------------------ v1.50: controllo del codice delle pagine e PDF sintetico
+def errore_js(html):
+    """v1.50: controlla la sintassi degli script della pagina con node (se c'e'); ritorna il messaggio d'errore o None.
+    Dalla v1.47 alla v1.48 una } mancante lasciava bianca la pagina di dettaglio e vuoto il PDF."""
+    node = shutil.which("node")
+    if not node:
+        return None
+    for js in re.findall(r"<script>([\s\S]*?)</script>", html):
+        with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8") as f:
+            f.write(js)
+        try:
+            r = subprocess.run([node, "--check", f.name], capture_output=True, text=True, timeout=60)
+        finally:
+            os.remove(f.name)
+        if r.returncode != 0:
+            return (r.stderr or r.stdout).strip().splitlines()[-1][:200] if (r.stderr or r.stdout).strip() else "errore di sintassi"
+    return None
+
+
+def scrivi_pagina(path, html):
+    """v1.50: scrive la pagina solo se il suo codice e' corretto; altrimenti esce con errore (resta la versione precedente)."""
+    err = errore_js(html)
+    if err:
+        print(f"::error::Pagina {os.path.basename(path)} non scritta: errore nel codice JavaScript ({err})")
+        sys.exit(3)
+    open(path, "w", encoding="utf-8").write(html)
+
+
+def _gen(P):
+    try:
+        return dt.datetime.strptime(P.get("generato") or "", "%d/%m/%Y %H:%M")
+    except ValueError:
+        return dt.datetime.min
+
+
+def dati_sintesi(giorno, cartella="Previsioni"):
+    """v1.50: dati del PDF sintetico (una pagina, tre fasce) per giorno e area, dalle previsioni gia' salvate (l'ultima per fascia)."""
+    scelte = {}
+    for f in glob.glob(os.path.join(cartella, f"previsione_{giorno.strftime('%d-%m-%Y')}_*_v*.json")):
+        try:
+            P = json.load(open(f, encoding="utf-8"))
+        except (ValueError, OSError):
+            continue
+        if (P.get("area") or "centro") != AREA or not P.get("finestra"):
+            continue
+        k = P["finestra"]
+        if k not in scelte or (_gen(P), P.get("versione") or "") > (_gen(scelte[k]), scelte[k].get("versione") or ""):
+            scelte[k] = P
+    fasce = []
+    for k in sorted(scelte, key=lambda x: ora_da_txt(x.replace("-", "–").split("–")[0])):
+        P = scelte[k]
+        ore = (P.get("striscia") or {}).get("ore") or []
+        st = [o["stima"] for o in ore if isinstance(o.get("stima"), (int, float))]
+        rf = [o["raff"] for o in ore if isinstance(o.get("raff"), (int, float))]
+        Me = P.get("meteo") or {}
+        pr = [(o.get("prob_D2") if o.get("prob_D2") is not None else o.get("prob_EC")) for o in Me.get("pioggia_ore") or []]
+        pr = [x for x in pr if x is not None]
+        N, NO = Me.get("nebbia") or {}, Me.get("nebbia_ore") or []
+        if N.get("prob_max") is not None:
+            cat = lambda o: 0 if o.get("prob") is None else 2 if o["prob"] >= N.get("soglia_alta", NEBBIA_SOGLIA_ALTA) else 1 if o["prob"] >= N.get("soglia_min", NEBBIA_SOGLIA_MIN) else 0
+        else:
+            cat = lambda o: o.get("livello") or 0
+        cmax = max((cat(o) for o in NO), default=0)
+        hn = [o["ora"][:2] for o in NO if cmax and cat(o) == cmax]
+        M = P.get("marea") or {}
+        fa = M.get("fascia") or [0, 1440]
+        est = [{"tipo": e["tipo"], "ora": e["ora"], "cm": e.get("cm")} for e in ((M.get("zona") or {}).get("estremi") or []) if fa[0] <= e.get("min", -1) <= fa[1]]
+        seq = M.get("sequenza") or []
+        mv = re.search(r"Vento da ([^.]+)\.", (P.get("verdetto") or {}).get("testo") or "")
+        g = _gen(P)
+        fasce.append({"finestra": k, "colore": (P.get("verdetto") or {}).get("colore"),
+                      "andamento": (P.get("verdetto") or {}).get("andamento_txt") or "",
+                      "ore": [{"ora": o.get("ora"), "sem": o.get("sem"), "stima": o.get("stima")} for o in ore],
+                      "vento": [arrotonda(min(st)), arrotonda(max(st))] if st else None, "raff": arrotonda(max(rf)) if rf else None,
+                      "dir": mv.group(1) if mv else None, "estremi": est, "fase": seq[0].get("fase") if seq and not est else None,
+                      "pioggia": max(pr) if pr else None, "pioggia_ore": [o["ora"][:2] for o in Me.get("pioggia_ore") or []
+                                                                         if ((o.get("prob_D2") if o.get("prob_D2") is not None else o.get("prob_EC")) or 0) >= 20],
+                      "nebbia": ["non probabile", "poco probabile", "probabile"][cmax] if NO else None,
+                      "nebbia_ore": [hn[0], f"{int(hn[-1]) + 1:02d}"] if hn else None,
+                      "incerta": [o.get("ora") for o in ore if o.get("incerta")],
+                      "generato": P.get("generato"), "provvisoria": g.date() < giorno and g.hour < 14 and g.date() == giorno - dt.timedelta(days=1),
+                      "versione": P.get("versione")})
+    if not fasce:
+        return None
+    P0 = scelte[next(iter(scelte))]
+    S0 = P0.get("striscia") or {}
+    return {"versione": VERSIONE, "titolo": P0.get("titolo"), "zone": P0.get("zone"), "area": AREA, "fasce": fasce,
+            "alba": S0.get("alba"), "tramonto": S0.get("tramonto"), "verde_fino_a": VERDE_FINO_A, "rosso_da": ROSSO_DA,
+            "sito": "https://vksskdx22n-max.github.io/forecast-lagoon/", "autore": "Ennio Tezze",
+            "fonti": "Vento e meteo: Open-Meteo.com (ICON-D2, ICON-2i, ECMWF; CC BY 4.0) corretti con le misure CPSM; marea: CPSM – Comune di Venezia (dati.venezia.it, CC BY)."}
+
+
+SINTESI_HTML = r"""<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Forecast Lagoon · sintesi</title><style>
+:root{--tx:#1e293b;--mu:#64748b;--bd:#d8e0ea;--verde:#16a34a;--giallo:#ca8a04;--rosso:#dc2626;--vs:#dcfce7;--gs:#fef3c7;--rs:#fee2e2}
+*{box-sizing:border-box}html,body{margin:0;background:#f1f5f9;color:var(--tx);font:15px/1.4 -apple-system,"Inter","Segoe UI",Roboto,sans-serif}
+.wrap{max-width:560px;margin:0 auto;padding:14px}
+.hero{border-radius:14px;padding:16px 18px;color:#fff;background:linear-gradient(135deg,#1e3a6b,#2c5aa0 60%,#4a8fd8)}
+.hero .k{font-size:11px;letter-spacing:.14em;opacity:.85;text-transform:uppercase}.hero h1{font:400 25px/1.15 Georgia,serif;margin:6px 0 4px}
+.hero .z{opacity:.92;font-size:14px}.hero .s{opacity:.85;font-size:13px;margin-top:6px}
+.card{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:14px 16px;margin-top:12px;border-left-width:7px}
+.card.verde{border-left-color:var(--verde)}.card.giallo{border-left-color:var(--giallo)}.card.rosso{border-left-color:var(--rosso)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px}.fin{font-weight:700;font-size:18px}
+.pill{display:inline-block;padding:3px 10px;border-radius:10px;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.pill.verde{background:var(--vs);color:var(--verde)}.pill.giallo{background:var(--gs);color:var(--giallo)}.pill.rosso{background:var(--rs);color:var(--rosso)}
+.and{color:var(--mu);font-size:13px;margin-top:2px}
+.ore{display:flex;gap:3px;margin:10px 0 8px}.ore div{flex:1;text-align:center;font-size:11px;color:var(--mu)}
+.ore b{display:block;border-radius:5px;color:#fff;font-size:12px;padding:3px 0;margin-bottom:2px}
+.ore b.verde{background:var(--verde)}.ore b.giallo{background:var(--giallo)}.ore b.rosso{background:var(--rosso)}
+.r{font-size:14px;margin-top:3px}.r span{color:var(--mu)}.warn{color:#b45309;font-size:13px;margin-top:5px}
+.gen{color:var(--mu);font-size:12px;margin-top:6px}.piede{color:var(--mu);font-size:11.5px;margin:12px 2px 0}
+</style></head><body><div class="wrap" id="app"></div><script>
+const D=__DATI__;const app=document.getElementById('app');
+function h(t,a,...c){const e=document.createElement(t);for(const k in(a||{})){if(k==='cls')e.className=a[k];else if(k==='html')e.innerHTML=a[k];else e.setAttribute(k,a[k]);}
+  c.flat().forEach(x=>{if(x!=null&&x!==false)e.append(x.nodeType?x:document.createTextNode(x));});return e;}
+const NOMI={verde:'verde',giallo:'giallo',rosso:'rosso'};
+app.append(h('div',{cls:'hero'},h('div',{cls:'k'},'Forecast Lagoon · sintesi · v'+D.versione),h('h1',{},D.titolo),h('div',{cls:'z'},D.zone),
+  h('div',{cls:'s'},[D.alba?'Alba '+D.alba:null,D.tramonto?'tramonto '+D.tramonto:null].filter(Boolean).join(' · '))));
+D.fasce.forEach(F=>{
+  const c=h('div',{cls:'card '+(F.colore||'')});
+  c.append(h('div',{cls:'top'},h('div',{cls:'fin'},F.finestra),h('span',{cls:'pill '+(F.colore||'')},NOMI[F.colore]||'–')));
+  if(F.andamento)c.append(h('div',{cls:'and'},F.andamento));
+  const o=h('div',{cls:'ore'});F.ore.forEach(x=>o.append(h('div',{},h('b',{cls:x.sem||''},x.stima==null?'–':String(Math.round(x.stima))),x.ora)));c.append(o);
+  if(F.vento)c.append(h('div',{cls:'r'},h('span',{},'Vento '),(F.vento[0]===F.vento[1]?F.vento[0]:F.vento[0]+'–'+F.vento[1])+' nodi'+(F.raff!=null?' · raffiche fino a '+F.raff:'')+(F.dir?' · da '+F.dir:'')));
+  if(F.estremi.length)c.append(h('div',{cls:'r'},h('span',{},'Marea '),F.estremi.map(e=>e.tipo+' '+e.ora+(e.cm!=null?' ('+e.cm+' cm)':'')).join(' · ')));
+  else if(F.fase)c.append(h('div',{cls:'r'},h('span',{},'Marea '),F.fase));
+  if(F.pioggia!=null)c.append(h('div',{cls:'r'},h('span',{},'Pioggia '),F.pioggia+' %'+(F.pioggia_ore.length?' · ore '+F.pioggia_ore[0]+'–'+String(+F.pioggia_ore[F.pioggia_ore.length-1]+1).padStart(2,'0'):'')));
+  if(F.nebbia)c.append(h('div',{cls:'r'},h('span',{},'Nebbia '),F.nebbia+(F.nebbia_ore?' · ore '+F.nebbia_ore[0]+'–'+F.nebbia_ore[1]:'')));
+  if(F.incerta.length)c.append(h('div',{cls:'warn'},'⚠ Previsione incerta alle ore '+F.incerta.join(', ')+': modelli in disaccordo.'));
+  c.append(h('div',{cls:'gen'},(F.provvisoria?'Provvisoria':'Aggiornata')+' del '+F.generato+' · previsione v'+F.versione));
+  app.append(c);});
+app.append(h('div',{cls:'piede'},'Semaforo sul vento medio della zona: verde fino a '+D.verde_fino_a+' nodi, giallo fino a '+(D.rosso_da-1)+', rosso da '+D.rosso_da+'. '+D.fonti+' Previsione indicativa: decidi sempre tu. A cura di '+D.autore+' · '+D.sito));
+if(location.hash.includes('stampa')){const st=document.createElement('style');st.textContent=`@page{size:${document.documentElement.scrollWidth}px ${document.documentElement.scrollHeight+4}px;margin:0}`;document.head.append(st);}
+</script></body></html>"""
+
+
+def crea_sintesi(giorno):
+    """v1.50: Previsioni/previsione_GG-MM-AAAA_sintesi[_area]_vX.html e .pdf (una pagina, tre fasce)."""
+    S = dati_sintesi(giorno)
+    if not S:
+        print(f"Sintesi {giorno.isoformat()} {AREA}: nessuna previsione salvata")
+        return
+    base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_sintesi{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}")
+    for vecchio in glob.glob(os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_sintesi{'' if AREA == 'centro' else '_' + AREA}_v*.*")):
+        os.remove(vecchio)                  # una sola sintesi per giorno e area (l'ultima)
+    scrivi_pagina(base + ".html", SINTESI_HTML.replace("__DATI__", json.dumps(S, ensure_ascii=False).replace("</", "<\\/")))
+    chrome = trova_chrome()
+    ok = bool(chrome) and stampa(chrome, base + ".html", "stampa", base + ".pdf")
+    print(f"Sintesi {giorno.strftime('%d/%m')} {AREA}: {len(S['fasce'])} fasce ({', '.join(f['finestra'] for f in S['fasce'])})"
+          + (f", PDF {os.path.basename(base)}.pdf" if ok else ", PDF non creato"))
+
+
 def trova_chrome():
     for c in [os.environ.get("FD_CHROME"), CROME_MAC, shutil.which("google-chrome"), shutil.which("chromium")]:
         if c and os.path.exists(c):
@@ -1604,18 +1794,22 @@ def main():
             sys.exit(f"Area sconosciuta: {nome}. Aree: centro (predefinita), {', '.join(AREE)}")
         imposta_area(nome)
     giorno = dt.date.fromisoformat(arg[0]) if arg else dt.date.today() + dt.timedelta(days=1)
-    da = dt.time.fromisoformat(arg[1]) if len(arg) > 1 else dt.time(7, 0)
-    a = dt.time.fromisoformat(arg[2]) if len(arg) > 2 else dt.time(11, 30)
+    da = ora_da_txt(arg[1]) if len(arg) > 1 else dt.time(7, 0)
+    a = ora_da_txt(arg[2]) if len(arg) > 2 else dt.time(11, 30)
+    if "--sintesi" in sys.argv:          # v1.50: solo il PDF sintetico del giorno dalle previsioni gia' salvate
+        crea_sintesi(giorno)
+        return
     for f in [f"marea_astronomica_{giorno.year}.json", "correnti_laguna.json"]:       # v1.31: il diario e' opzionale (versione pubblica su GitHub)
         if not os.path.exists(f):
             sys.exit(f"Manca {f} nella cartella {os.getcwd()}")
-    print(f"fd_previsione v{VERSIONE} — {giorno.strftime('%d/%m/%Y')} {da.strftime('%H:%M')}–{a.strftime('%H:%M')}")
+    print(f"fd_previsione v{VERSIONE} — {giorno.strftime('%d/%m/%Y')} {ora_txt(da)}–{ora_txt(a)}" + (f" · {AREA}" if AREA != "centro" else ""))
     if FV is None:
         print("fd_verifica.py non trovato: niente verifica automatica, correzione fissa +2,2 nodi.")
     elif "--no-verifica" not in sys.argv:
         for r in FV.verifica_pendenti("."):
             print(r)
-    archivi_taratura()   # v1.42: prima di Open-Meteo, cosi' i dati per la taratura si salvano anche se la previsione fallisce
+    if "--no-archivi" not in sys.argv:   # v1.50: nelle fasce successive dello stesso giro gli archivi sono gia' fatti
+        archivi_taratura()   # v1.42: prima di Open-Meteo, cosi' i dati per la taratura si salvano anche se la previsione fallisce
     OM = json.load(open(jpath, encoding="utf-8")) if jpath else scarica(giorno, da, a)
     mpath = sys.argv[sys.argv.index("--mare-json") + 1] if "--mare-json" in sys.argv else None
     MAR = scarica_mare(giorno, mpath)
@@ -1647,13 +1841,13 @@ def main():
     except Exception as ex:                # non deve mai fermare la previsione
         print(f"Marea della zona: errore {type(ex).__name__}: {str(ex)[:120]}")
     os.makedirs("Previsioni", exist_ok=True)
-    base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_{da.strftime('%H%M')}-{a.strftime('%H%M')}{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}")
+    base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_{ora_txt(da).replace(':', '')}-{ora_txt(a).replace(':', '')}{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}")
     print(onde_misurate_archivia(sys.argv[sys.argv.index("--onde-json") + 1] if "--onde-json" in sys.argv else None))   # v1.37: solo archivio
     D["acqua_misurata"] = acqua_misurata(sys.argv[sys.argv.index("--acqua-json") + 1] if "--acqua-json" in sys.argv else None)   # v1.36
     print(f"Acqua: {num(D['acqua_misurata']['valore'])} °C a {D['acqua_misurata']['stazione']} ({D['acqua_misurata']['data']} {D['acqua_misurata']['ora']})"
           if D["acqua_misurata"] else "Acqua: misura CPSM non disponibile, riquadro omesso")
     json.dump(D, open(base + ".json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    open(base + ".html", "w", encoding="utf-8").write(HTML.replace("__DATI__", json.dumps(D, ensure_ascii=False).replace("</", "<\\/")))
+    scrivi_pagina(base + ".html", HTML.replace("__DATI__", json.dumps(D, ensure_ascii=False).replace("</", "<\\/")))   # v1.50: con controllo del codice
     print(f"Verdetto: {D['verdetto']['colore'].upper()}" + (f" ({D['verdetto']['andamento_txt']})" if D['verdetto'].get('andamento_txt') else "")
           + f" — {D['verdetto']['testo']} {D['verdetto']['nota']}")
     for z in D["zone_vento"]:
@@ -1662,9 +1856,9 @@ def main():
         print(f"  Marea {q['da']} -> {q['a']}: {q['fase']}")
     for r in D["riflessioni"]:
         print(f"  [{r['tipo']}] {r['testo']}")
-    chrome = trova_chrome()
+    chrome = None if "--no-pdf" in sys.argv else trova_chrome()     # v1.50: le fasce non hanno PDF (c'e' la sintesi)
     if not chrome:
-        print("Google Chrome non trovato: creata solo la pagina HTML.")
+        print("Creata solo la pagina HTML" + (" (--no-pdf)." if "--no-pdf" in sys.argv else ": Google Chrome non trovato."))
     else:
         ok = stampa(chrome, base + ".html", "stampa", base + ".pdf")
         for i in (1, 2):

@@ -11,10 +11,10 @@ on:
         description: "Giorno della previsione AAAA-MM-GG (vuoto = domani)"
         required: false
       da:
-        description: "Ora inizio (vuoto = 05:00)"
+        description: "Ora inizio (vuoto = tre fasce 05-12, 13-18, 19-24)"
         required: false
       a:
-        description: "Ora fine (vuoto = 12:00)"
+        description: "Ora fine (vuoto = tre fasce 05-12, 13-18, 19-24)"
         required: false
       forza:
         description: "Rifai anche se la previsione di domani c'e' gia' (si/no)"
@@ -116,11 +116,30 @@ jobs:
           A_IN: ${{ github.event.inputs.a }}
         run: |
           DATA="${DATA_IN:-$(date -d tomorrow +%F)}"
-          ERR=0
-          python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire || { echo "::warning::Previsione Laguna Centro non riuscita"; ERR=1; }
-          # Laguna Nord e Sud: la verifica dei giorni conclusi e' gia' stata fatta sopra
-          python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire --no-verifica --area nord || { echo "::warning::Previsione Laguna Nord non riuscita"; ERR=1; }
-          python3 fd_previsione.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}" --non-aprire --no-verifica --area sud || { echo "::warning::Previsione Laguna Sud non riuscita"; ERR=1; }
+          OGGI=$(date +%F); ORA=$((10#$(date +%H)))
+          export FL_CACHE="$RUNNER_TEMP/om_cache"      # v1.50: una sola richiesta a Open-Meteo per giorno e zona, per tutte le fasce
+          ERR=0; PRIMA=1
+          prev() {   # giorno, da, a, area
+            local opz="--non-aprire --no-pdf"
+            [ $PRIMA -eq 1 ] || opz="$opz --no-verifica --no-archivi"   # verifica e archivi una volta sola, nel primo giro (centro)
+            PRIMA=0
+            python3 fd_previsione.py "$1" "$2" "$3" $opz --area "$4" || { echo "::warning::Previsione $4 $1 $2-$3 non riuscita"; ERR=1; }
+          }
+          if [ -n "$DA_IN" ] || [ -n "$A_IN" ]; then
+            FASCE="${DA_IN:-05:00}-${A_IN:-12:00}"            # giro a mano con una finestra scelta
+          else
+            FASCE="05:00-12:00 13:00-18:00 19:00-24:00"      # v1.50: tre fasce (scelta di Ennio 23/11/2026)
+          fi
+          GIORNI="$DATA"
+          for F in $FASCE; do for Z in centro nord sud; do prev "$DATA" "${F%-*}" "${F#*-}" "$Z"; done; done
+          # v1.50: aggiornamento delle fasce di oggi ancora da venire (mattino: 13-18 e 19-24; pomeriggio: 19-24)
+          if [ -z "$DATA_IN" ] && [ -z "$DA_IN$A_IN" ]; then
+            OGG=""
+            if [ $ORA -lt 13 ]; then OGG="13:00-18:00 19:00-24:00"; elif [ $ORA -lt 19 ]; then OGG="19:00-24:00"; fi
+            for F in $OGG; do for Z in centro nord sud; do prev "$OGGI" "${F%-*}" "${F#*-}" "$Z"; done; done
+            [ -n "$OGG" ] && GIORNI="$GIORNI $OGGI"
+          fi
+          for G in $GIORNI; do for Z in centro nord sud; do python3 fd_previsione.py "$G" --sintesi --area "$Z" || ERR=1; done; done
           exit $ERR
 
       - name: Tendenza dei prossimi giorni

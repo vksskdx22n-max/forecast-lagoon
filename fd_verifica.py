@@ -65,7 +65,34 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.30"
+VERSIONE = "1.31"   # v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+# v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
+# Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
+# 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
+# pomeriggio 13-18 errore medio +0,3 Centro, +0,3 Nord, +0,9 Sud: la correzione non migliora (al Sud peggiora il semaforo) -> 0;
+# sera 19-24 +1,2 Centro, +1,2 Nord, +0,9 Sud: errore assoluto 2,30->2,05 / 1,87->1,76 / 2,06->1,92 nodi.
+PERIODI = [("mattino", 5, 12), ("pomeriggio", 13, 18), ("sera", 19, 23)]
+CORR_PERIODO = {"pomeriggio": ({"centro": 0.0, "nord": 0.0, "sud": 0.0},
+                               "analisi F0 23/11/2026: ICON-D2 del giorno prima nel pomeriggio quasi senza errore (+0,3 / +0,3 / +0,9 nodi), nessuna correzione"),
+                "sera": ({"centro": 1.2, "nord": 1.2, "sud": 0.9},
+                         "analisi F0 23/11/2026: ICON-D2 del giorno prima, ore 19–24, 23/08–22/11/2026, misure CPSM")}
+MIN_ORE_CORR_PERIODO = 40        # ore verificate di una fascia di vento prima di usare la correzione misurata (pomeriggio e sera)
+FINE_GIORNO = dt.time(23, 59)
+
+
+def periodo_ora(h):
+    """Periodo del giorno di un'ora ("HH:MM" o intero): mattino 05-12, pomeriggio 13-18, sera 19-24 (notte = sera)."""
+    h = int(str(h)[:2]) if not isinstance(h, int) else h
+    return next((n for n, a, b in PERIODI if a <= h <= b), "sera" if h > 12 else "mattino")
+
+
+def ora_da_txt(x):
+    """v1.31: "24:00" (fine della fascia della sera) -> 23:59."""
+    return FINE_GIORNO if x.strip() in ("24:00", "24") else dt.time.fromisoformat(x.strip())
+
+
+def area_zona(zona):
+    return {"Laguna Nord": "nord", "Laguna Sud": "sud"}.get(zona, "centro")
 URL_BASE = "https://www.comune.venezia.it/sites/default/files/publicCPSM2/stazioni/temporeale/"
 URL_PROXY = "https://fd-cpsm-proxy.ennioweb.workers.dev/misure/"      # v1.22: il Comune blocca i server di GitHub; il proxy Cloudflare no
 ORIGINE_PROXY = "https://vksskdx22n-max.github.io"
@@ -386,17 +413,22 @@ def salva_archivio(A, cartella="."):
     json.dump(A, open(os.path.join(cartella, ARCHIVIO), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 
-def _corr_fascia(fa, se, d2, A, zona):
-    """Correzione di UNA fascia di ICON-D2: misurata (settore, poi tutta la fascia) o fissa."""
-    ore = [o for o in A["ore"] if o["zona"] == zona and o["fascia_d2"] == fa]
+def _corr_fascia(fa, se, d2, A, zona, periodo="mattino"):
+    """Correzione di UNA fascia di ICON-D2: misurata (settore, poi tutta la fascia) o fissa.
+    v1.31: solo con le ore verificate dello stesso periodo del giorno (mattino, pomeriggio, sera)."""
+    ore = [o for o in A["ore"] if o["zona"] == zona and o["fascia_d2"] == fa and periodo_ora(o["ora"]) == periodo]
     ore_s = [o for o in ore if settore_ora(o) == se]
-    mn = MIN_ORE_CORR_ZONA.get(zona, MIN_ORE_CORR)             # v1.27
+    mn = MIN_ORE_CORR_PERIODO if periodo != "mattino" else MIN_ORE_CORR_ZONA.get(zona, MIN_ORE_CORR)   # v1.27, v1.31
+    rp = "" if periodo == "mattino" else f" ({periodo})"
     if len(ore_s) >= mn:
         c = statistics.mean(o["mis"]["media"] - o["prev"]["d2"] for o in ore_s)
-        return round(c, 1), f"misurata, ICON-D2 {fa} nodi con vento {se}, {len(ore_s)} ore verificate", len(ore_s)
+        return round(c, 1), f"misurata{rp}, ICON-D2 {fa} nodi con vento {se}, {len(ore_s)} ore verificate", len(ore_s)
     if len(ore) >= mn:
         c = statistics.mean(o["mis"]["media"] - o["prev"]["d2"] for o in ore)
-        return round(c, 1), f"misurata, ICON-D2 {fa} nodi, {len(ore)} ore verificate", len(ore)
+        return round(c, 1), f"misurata{rp}, ICON-D2 {fa} nodi, {len(ore)} ore verificate", len(ore)
+    if periodo in CORR_PERIODO:                                 # v1.31: pomeriggio e sera, correzione fissa dell'analisi F0
+        cv, f0 = CORR_PERIODO[periodo]
+        return cv[area_zona(zona)], f"fissa {periodo} ({f0}); ICON-D2 {fa} nodi: {len(ore)} ore verificate su {mn} richieste", len(ore)
     if zona in CORR_ZONA:                                        # v1.27: Nord e Sud, correzione fissa dei 3 mesi
         c0, f0 = CORR_ZONA[zona]
         return c0, f"fissa ({f0}); ICON-D2 {fa} nodi: {len(ore)} ore verificate su {mn} richieste", len(ore)
@@ -405,7 +437,7 @@ def _corr_fascia(fa, se, d2, A, zona):
     return c, f"fissa ({CORR_DEFAULT_FONTE}); ICON-D2 {fa} nodi: {len(ore)} ore verificate su {MIN_ORE_CORR} richieste", len(ore)
 
 
-def correzione(d2, dir_g, cartella=".", zona="Malamocco · Valgrande"):
+def correzione(d2, dir_g, cartella=".", zona="Malamocco · Valgrande", periodo="mattino"):
     """(correzione_nodi, testo_fonte, n_ore) da sommare a ICON-D2 per la zona.
     v1.9: vicino ai confini tra le fasce (6 e 12 nodi, +-RACCORDO nodi) la correzione passa gradualmente
     da quella della fascia sotto a quella della fascia sopra: niente salti, la stima cresce con ICON-D2."""
@@ -413,12 +445,12 @@ def correzione(d2, dir_g, cartella=".", zona="Malamocco · Valgrande"):
     A = carica_archivio(cartella)
     se = settore(dir_g)
     fa = fascia(d2)
-    c, fonte, n = _corr_fascia(fa, se, d2, A, zona)
+    c, fonte, n = _corr_fascia(fa, se, d2, A, zona, periodo)
     for i in range(len(FASCE) - 1):
         b = FASCE[i][1]
         if b - RACCORDO <= d2 < b + RACCORDO:
-            c1, _, _ = _corr_fascia(FASCE[i][2], se, d2, A, zona)
-            c2, _, _ = _corr_fascia(FASCE[i + 1][2], se, d2, A, zona)
+            c1, _, _ = _corr_fascia(FASCE[i][2], se, d2, A, zona, periodo)
+            c2, _, _ = _corr_fascia(FASCE[i + 1][2], se, d2, A, zona, periodo)
             if c1 != c2:
                 t = (d2 - (b - RACCORDO)) / (2 * RACCORDO)
                 c = round(c1 + (c2 - c1) * t, 1)
@@ -459,12 +491,12 @@ def correzione_onda(dir_g, cartella="."):
     return round(r, 2), f"onda corretta con vento {se}: misurata alla Piattaforma CNR = modello × {num(r, 2)} in media, {len(o)} ore verificate", len(o)
 
 
-def correzione_raffiche(dir_g, cartella=".", zona="Malamocco · Valgrande"):
+def correzione_raffiche(dir_g, cartella=".", zona="Malamocco · Valgrande", periodo="mattino"):
     """v1.12: (correzione_nodi, testo, n_ore) da sommare alla raffica di ICON-D2, misurata a Malamocco Porto nello stesso
     settore; None se le ore verificate sono meno di MIN_ORE_CORR."""
     zona = CORR_DA.get(ALIAS.get(zona, zona), ALIAS.get(zona, zona))
     se = settore(dir_g)
-    o = [x for x in carica_archivio(cartella)["ore"] if x["zona"] == zona and settore_ora(x) == se
+    o = [x for x in carica_archivio(cartella)["ore"] if x["zona"] == zona and settore_ora(x) == se and periodo_ora(x["ora"]) == periodo   # v1.31
          and x["prev"].get("raff_d2") is not None and x["mis"].get("raff") is not None]
     if len(o) < MIN_ORE_CORR:
         return None, f"raffiche con vento {se}: {len(o)} ore verificate su {MIN_ORE_CORR} richieste", len(o)
@@ -589,8 +621,8 @@ def leggi_previsioni(cartella):
             g = dt.datetime.strptime(re.search(r"previsione_(\d\d-\d\d-\d{4})", f).group(1), "%d-%m-%Y").date()
             da_s, a_s = P["finestra"].replace("-", "–").split("–")
             tz = tz_italia(g)
-            da = dt.datetime.combine(g, dt.time.fromisoformat(da_s), tz)
-            a = dt.datetime.combine(g, dt.time.fromisoformat(a_s), tz)
+            da = dt.datetime.combine(g, ora_da_txt(da_s), tz)
+            a = dt.datetime.combine(g, ora_da_txt(a_s), tz)          # v1.31: "24:00" = 23:59
             gen = dt.datetime.strptime(P["generato"], "%d/%m/%Y %H:%M").replace(tzinfo=tz_italia(g))
             if not any(righe_zona(P, z) for z in ZONE):
                 continue
@@ -610,6 +642,7 @@ def leggi_previsioni(cartella):
 
 STAZ_MAREA = {"centro": "Malamocco Porto", "nord": "Laguna Nord", "sud": "Chioggia Porto"}   # v1.25: livello misurato per area
 MIN_LIVELLI = 60               # letture da 5 min nella finestra 05-12 (85 possibili)
+MIN_LIVELLI_QUOTA = 0.7        # v1.31: fasce piu' corte (13-18, 19-24): almeno il 70 % delle letture possibili
 
 
 ESTREMO_TOLL_CM = 2.0          # v1.29: tratto "in colmo" = livello (media mobile) entro 2 cm dal massimo/minimo
@@ -667,7 +700,8 @@ def verifica_marea(v, M, cfg):
     g0 = dt.datetime.combine(g, dt.time(0), tz_italia(g))
     mis = [(round((r["t"] - g0).total_seconds() / 60), r["liv"] * 100) for r in M.get(staz, []) if r.get("liv") is not None]
     win = [p for p in mis if f[0] <= p[0] <= f[1]]
-    if len(win) < MIN_LIVELLI:
+    min_l = min(MIN_LIVELLI, int(MIN_LIVELLI_QUOTA * ((f[1] - f[0]) // 5 + 1)))     # v1.31
+    if len(win) < min_l:
         return None
     ps, est_ps, fonte_ps = MP.curva_punta_salute(Mm)
     ez, ep = [], []
@@ -675,7 +709,7 @@ def verifica_marea(v, M, cfg):
         a, b = MP.interpola(mz["curva"], t), MP.interpola(ps, t)
         if a is not None and b is not None:
             ez.append(a - h); ep.append(b - h)
-    if len(ez) < MIN_LIVELLI:
+    if len(ez) < min_l:
         return None
     out = {"data": g.isoformat(), "area": area, "stazione": staz, "generato": v["gen"].strftime("%Y-%m-%d %H:%M"),
            "config": mz.get("config"), "fonte": mz.get("fonte"), "n": len(ez),

@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.48"
+VERSIONE = "3.49"   # v3.49: tre fasce della giornata (05-12, 13-18, 19-24) con i bottoni; PDF sintetico
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"
@@ -71,12 +71,20 @@ def zona_di(P):
     return ALIAS_AREA.get(a, a)
 
 
-def provvisoria(P):
-    """v3.2: True se la previsione e' stata generata prima delle ORA_DEFINITIVA (giro del mattino)."""
+def provvisoria(P, giorno=None):
+    """v3.2: True se la previsione e' stata generata prima delle ORA_DEFINITIVA (giro del mattino).
+    v3.49: solo per i giorni successivi: le fasce di oggi aggiornate al mattino non hanno una "definitiva" dopo."""
     try:
-        return dt.datetime.strptime(P.get("generato") or "", "%d/%m/%Y %H:%M").hour < ORA_DEFINITIVA
+        g = dt.datetime.strptime(P.get("generato") or "", "%d/%m/%Y %H:%M")
     except ValueError:
         return False
+    return g.hour < ORA_DEFINITIVA and (giorno is None or g.date() < giorno)
+
+
+def sintesi_pdf(giorno, zona):
+    """v3.49: PDF sintetico del giorno e della zona (fd_previsione >= 1.50, tre fasce in una pagina), il piu' recente."""
+    f = glob.glob(os.path.join(CARTELLA, f"previsione_{giorno.strftime('%d-%m-%Y')}_sintesi{'' if zona == 'centro' else '_' + zona}_v*.pdf"))
+    return max(f, key=lambda p: (ora_mod(p), p)) if f else None
 
 
 def chiave_file(p):
@@ -266,17 +274,17 @@ def main():
             ver.setdefault((d, fin, zona_di(V)), []).append(p)
     voci = {z["id"]: [] for z in ZONE}
     MZ = MP.carica_config(".")   # v3.33
-    for (d, fin, zona), file in sorted(gruppi.items(), reverse=True):
+    for (d, fin, zona), file in sorted(gruppi.items(), key=lambda x: (x[0][0], -int(x[0][1][:4])), reverse=True):   # v3.49: giorno piu' recente prima, fasce in ordine
         if zona not in voci:
             continue
         pj = scegli_ultimo(file)
         P = leggi(pj)
         voce = {"data": d.isoformat(), "titolo": P.get("titolo"), "finestra": P.get("finestra"),
-                "colore": (P.get("verdetto") or {}).get("colore"), "generato": P.get("generato"), "provvisoria": provvisoria(P), "emessa": (P.get("generato") or "")[-5:],
+                "colore": (P.get("verdetto") or {}).get("colore"), "generato": P.get("generato"), "provvisoria": provvisoria(P, d), "emessa": (P.get("generato") or "")[-5:],
                 "versione": P.get("versione"), "sintesi": sintesi(P, d)}
         voce["sintesi"]["marea_zona"] = ((P.get("marea") or {}).get("zona")                      # v3.35: dalla previsione (fd_previsione >= 1.43)
                                           or MP.marea_zona(P.get("marea") or {}, zona, d, MZ))           # previsioni vecchie: calcolata qui
-        pdf = pj[:-5] + ".pdf"
+        pdf = sintesi_pdf(d, zona) or pj[:-5] + ".pdf"           # v3.49: il PDF sintetico del giorno, se c'e'
         if os.path.exists(pdf):
             voce["previsione_pdf"] = os.path.join("giorni", os.path.basename(pdf))
             shutil.copy(pdf, os.path.join(SITO, voce["previsione_pdf"]))
