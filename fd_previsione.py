@@ -966,6 +966,15 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
         rf = media_ok(vento[z][i]["raff"] for z in ZONE_VENTO)
         media_ore[h] = (round(st, 1), None if rf is None else round(rf, 1))
         sem_ore[h] = semaforo(st, rf)
+    # v1.48: previsione incerta = ICON-D2 (media delle zone di pesca) sopra ECMWF corretto di SOGLIA_DISACCORDO nodi o piu'
+    inc_ore = {}
+    for i, h in enumerate(ore):
+        rz = [vento[z][i] for z in ZONE_VENTO]
+        inc_ore[h] = (False, None)
+        if all(r.get("d2") is not None and r.get("ec_c") is not None for r in rz):
+            md2, mec = statistics.mean(r["d2"] for r in rz), statistics.mean(r["ec_c"] for r in rz)
+            if md2 - mec >= SOGLIA_DISACCORDO:
+                inc_ore[h] = (True, [round(mec, 1), round(md2, 1)])
     conteggio = {}
     for h in ore:
         conteggio[sem_ore[h]] = conteggio.get(sem_ore[h], 0) + 1
@@ -1242,6 +1251,12 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
     if ore_rip:                                             # v1.26
         rifl.append({"tipo": "inferenza", "testo": f"ICON-D2 non copre ancora le ore {', '.join(f'{x:02d}:00' for x in sorted(ore_rip))}: stima = ICON-2i senza la correzione "
                      "misurata alle verifiche (che vale per ICON-D2). Rigenerare la previsione quando ICON-D2 copre il giorno."})
+    ore_inc = [(h, inc_ore[h][1]) for h in ore if inc_ore[h][0]]                 # v1.48
+    if ore_inc:
+        rifl.append({"tipo": "inferenza", "testo": "Previsione incerta alle " + ", ".join(f"{h:02d}:00" for h, _ in ore_inc)
+                     + ": ICON-D2 è molto sopra ECMWF corretto (modelli tra " + "; ".join(f"{num(f[0])} e {num(f[1])}" for _, f in ore_inc)
+                     + " nodi). In quelle ore la stima è ICON-D2 senza correzione; il vento reale può stare in tutta la forbice. "
+                       "Su 3 mesi, in questi casi l'errore è stato circa il 55% più alto del normale."})
     if incerte:
         rifl.append({"tipo": "inferenza", "testo": "ICON-D2 e ICON-2i non concordano (oltre 3 nodi o colore diverso) in: " + ", ".join(incerte) + "."})
     ordine = sorted(ore, key=lambda h: (ORD[sem_ore[h]], -max(c["valori"][ore.index(h)]["ms"] for c in correnti)))
@@ -1285,9 +1300,11 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
     s_ore = []
     for i, h in enumerate(ore):
         cmh = vel[i]["cm_h"]
+        inc, forb = inc_ore[h]
         s_ore.append({"ora": f"{h:02d}", "sem": sem_ore[h], "stima": media_ore[h][0], "raff": media_ore[h][1],
                       "marea": "≈" if abs(cmh) < 1.5 else ("↑" if cmh > 0 else "↓"), "cm_h": cmh,
-                      "corr": bocca["valori"][i]["ms"] if bocca else None, "verso": bocca["valori"][i]["verso"] if bocca else None})
+                      "corr": bocca["valori"][i]["ms"] if bocca else None, "verso": bocca["valori"][i]["verso"] if bocca else None,
+                      "incerta": inc, "forbice": forb})
     striscia = {"zone": ZONE_VENTO, "ore": s_ore, "riparo": [z for z in RIPARO_BORA if any(r["riparo"] for r in vento[z])], "alba": alba[-5:] if alba else None, "tramonto": tram[-5:] if tram else None,
                 "fonte_marea": fonte_liv, "canale": bocca["canale"] if bocca else None}
     titolo = f"{GIORNI[giorno.weekday()]} {giorno.strftime('%d/%m/%Y')}"

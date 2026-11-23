@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.47"
+VERSIONE = "3.48"
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"
@@ -96,7 +96,10 @@ def sintesi(P, giorno):
     st = P.get("striscia") or {}
     ore = st.get("ore") or []
     s["ore"] = [{"ora": o.get("ora"), "sem": o.get("sem"), "stima": o.get("stima"), "raff": o.get("raff"),
-                 "marea": o.get("marea"), "corr": o.get("corr"), "verso": o.get("verso")} for o in ore]
+                 "marea": o.get("marea"), "corr": o.get("corr"), "verso": o.get("verso"),
+                 "incerta": bool(o.get("incerta")), "forbice": o.get("forbice")} for o in ore]
+    # v3.48: ore con previsione incerta (fd_previsione >= 1.48: modelli in disaccordo)
+    s["incerta"] = [o.get("ora") for o in ore if o.get("incerta")]
     stime = [o["stima"] for o in ore if isinstance(o.get("stima"), (int, float))]
     raff = [o["raff"] for o in ore if isinstance(o.get("raff"), (int, float))]
     s["vento_min"] = min(stime) if stime else None
@@ -182,7 +185,7 @@ def sintesi(P, giorno):
                     "dir": CARD[int((dg + 11.25) % 360 // 22.5)] if dg is not None else None,
                     "marea": o.get("marea"), "cm_h": o.get("cm_h"), "corr": o.get("corr"), "verso": o.get("verso"),
                     "onda_lag": max(onde) if onde else None, "pioggia_prob": pp, "pioggia_mm": p.get("mm_D2"),
-                    "onda_mare": m.get("h_corr", m.get("h"))})
+                    "onda_mare": m.get("h_corr", m.get("h")), "incerta": bool(o.get("incerta")), "forbice": o.get("forbice")})
     s["ore_dettaglio"] = det
     s["acqua"] = P.get("acqua_misurata")           # v3.5: temperatura dell'acqua misurata (fd_previsione >= 1.36)
     s["meteo"] = {k: Me.get(k) for k in ("aria", "aria_acqua", "aria_punto", "pressione", "nuvolosita", "luna", "fonte_meteo")}
