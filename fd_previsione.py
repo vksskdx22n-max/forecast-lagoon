@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.47"
+VERSIONE = "1.48"
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -116,6 +116,19 @@ def zona_corr(z):
     """Zona da cui prendere correzione e raffiche: le zone fuori archivio usano Malamocco · Valgrande."""
     return z if FV and (z in FV.ZONE or z in getattr(FV, "CORR_DA", {})) else "Malamocco · Valgrande"
 ZONA_VERIFICA = {"nord": "Laguna Nord", "sud": "Laguna Sud"}   # v1.45: zona di fd_verifica da cui prendere la correzione
+
+# v1.48: regola di prudenza (analisi 23/11/2026, 3 mesi Previous Runs contro CPSM): quando ICON-D2 supera ECMWF corretto
+# (ECMWF + correzione media della zona, da tendenza_correzioni.json) di SOGLIA_DISACCORDO nodi o piu', in quell'ora
+# niente correzione: in quelle ore FL sovrastimava e ICON-D2 grezzo sbagliava meno. La riga resta marcata "prudenza".
+SOGLIA_DISACCORDO = 3.0
+TESTO_PRUDENZA = "modelli in disaccordo (ICON-D2 molto sopra ECMWF corretto): stima = ICON-D2 senza correzione, per prudenza"
+def bias_ecmwf():
+    try:
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tendenza_correzioni.json"), encoding="utf-8") as f:
+            v = json.load(f)["kn"]["ecmwf_ifs025"].get(AREA)
+        return float(v) if v is not None else None
+    except Exception:
+        return None
 
 
 def nota_verifica_nord_sud():
@@ -878,6 +891,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
     # vento per zona
     vento, sem_ore, incerte, fonti_corr, n_alte = {}, {h: 'verde' for h in ore}, [], {}, []
     ore_rip = set()                                         # v1.26: ore senza ICON-D2 (ripiego)
+    B_EC = bias_ecmwf()                                     # v1.48: correzione media di ECMWF nella zona
     fonti_raff = set()
     ZONE_CALCOLO = ZONE_VENTO + ([z for z in ["Malamocco · Valgrande"] if z not in ZONE_VENTO] if AREA == "centro" else [])   # v1.21: per la verifica
     for z in ZONE_CALCOLO:
@@ -913,6 +927,10 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
             rip = riparata(z, D[k(h)])
             if rip:
                 corr, corr_fonte = 0.0, f"{z} con bora: {TESTO_RIPARO}"
+            ec_c = None if (ec is None or B_EC is None) else round(ec + B_EC, 1)          # v1.48
+            prud = (not rip) and ec_c is not None and d2 - ec_c >= SOGLIA_DISACCORDO and corr > 0
+            if prud:
+                corr, corr_fonte = 0.0, TESTO_PRUDENZA
             stima = d2 + corr
             # v1.23: fonti uguali raggruppate (il valore orario del raccordo non fa piu' una fonte diversa per ogni ora)
             fonte_k = re.sub(r"(fascia [^(;]+?) \([+-]?\d+,\d\)", r"\1", corr_fonte) if corr_fonte.count("graduale tra") else corr_fonte
@@ -921,8 +939,8 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
                 n_alte.append(corr_n)
             # v1.20: raffica corretta (misurata a Malamocco Porto); prima di 10 ore verificate: stessa correzione del vento
             r_d2 = R.get(k(h))
-            if rip:
-                cr, fr = 0.0, None
+            if rip or prud:
+                cr, fr = 0.0, ("raffiche ICON-D2 senza correzione (modelli in disaccordo)" if prud else None)
             else:
                 cr, fr, _ = (FV.correzione_raffiche(D[k(h)], ".", zona_corr(z)) if FV and hasattr(FV, "correzione_raffiche") else (None, None, 0)) if AREA == "centro" else (0.0, "raffiche ICON-D2 senza correzione", 0)
                 if cr is None:
@@ -938,7 +956,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
                 if z in ZONE_VENTO:
                     incerte.append(f"{z} {h:02d}:00")
             righe.append({"ora": f"{h:02d}:00", "dir": gradi_card(D[k(h)]), "nome": nome_vento(D[k(h)]), "dir_g": D[k(h)], "stima": round(stima, 1), "corr": corr, "sem": sem,
-                          "d2": d2, "i2": i2, "raff": raff, "raff_d2": r_d2, "ec": ec, "riparo": rip, "ripiego": None, **ar})
+                          "d2": d2, "i2": i2, "raff": raff, "raff_d2": r_d2, "ec": ec, "riparo": rip, "ripiego": None, "ec_c": ec_c, "prudenza": prud, **ar})
         vento[z] = righe
 
     # semaforo di ogni ora = media delle zone di pesca (vento stimato e raffiche)

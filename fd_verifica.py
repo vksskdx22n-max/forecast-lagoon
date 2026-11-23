@@ -65,7 +65,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.29"
+VERSIONE = "1.30"
 URL_BASE = "https://www.comune.venezia.it/sites/default/files/publicCPSM2/stazioni/temporeale/"
 URL_PROXY = "https://fd-cpsm-proxy.ennioweb.workers.dev/misure/"      # v1.22: il Comune blocca i server di GitHub; il proxy Cloudflare no
 ORIGINE_PROXY = "https://vksskdx22n-max.github.io"
@@ -574,7 +574,8 @@ def righe_zona(P, zona):
                     "raff": _media(r.get("raff") for r in rs), "raff_d2": _media(r.get("raff_d2", r.get("raff")) for r in rs),
                     "ar": _media(r.get("ar") for r in rs) if all(r.get("ar") is not None for r in rs) else None,            # v1.26
                     "raff_ar": _media(r.get("raff_ar") for r in rs) if all(r.get("raff_ar") is not None for r in rs) else None,
-                    "corr": round(st - d2, 1), "dir_g": round(media_dir(dirs)) if dirs else None, "punti": punti})
+                    "corr": round(st - d2, 1), "dir_g": round(media_dir(dirs)) if dirs else None, "punti": punti,
+                    "prudenza": any(r.get("prudenza") for r in rs)})                                              # v1.30
     return out
 
 
@@ -742,7 +743,8 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
                 ore_z.append({"data": v["giorno"].isoformat(), "ora": r["ora"], "zona": zona, "stazione": ZONE[zona][1],
                               "generato": v["gen"].strftime("%Y-%m-%d %H:%M"), "anticipo_h": round((centro - v["gen"]).total_seconds() / 3600, 1),
                               "prev": {**{k: r.get(k) for k in ("stima", "d2", "i2", "ec", "raff", "dir_g") + (("punti",) if "punti" in r else ())
-                                          + (("ar", "raff_ar") if r.get("ar") is not None else ())},   # v1.26: AROME HD in parallelo
+                                          + (("ar", "raff_ar") if r.get("ar") is not None else ())
+                                          + (("prudenza",) if r.get("prudenza") else ())},   # v1.26: AROME HD in parallelo; v1.30: prudenza
                                        "raff_d2": r.get("raff_d2", r.get("raff")), "corr": r.get("corr", round(r["stima"] - r["d2"], 1))},
                               "mis": m, "fascia_d2": fascia(r["d2"]), "settore_d2": settore(r.get("dir_g", 0)),
                               "sem_prev": semaforo(r.get("stima"), r.get("raff")), "sem_mis": semaforo(m["media"], m["raff"])})
@@ -1000,9 +1002,9 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
                               "nome_prev": nome_vento(o["prev"]["dir_g"]) if o["prev"].get("dir_g") is not None else "",
                               "set_mis": settore_ora(o), "set_prev": settore(o["prev"].get("dir_g", 0)),
                               "sem_prev": sem_ore(o)[0], "sem_mis": sem_ore(o)[1],
-                              **{k: o["prev"].get(k) for k in ("stima", "d2", "i2", "ec", "raff", "raff_d2", "corr")}} for o in oz],
+                              **{k: o["prev"].get(k) for k in ("stima", "d2", "i2", "ec", "ar", "raff", "raff_d2", "corr", "prudenza")}} for o in oz],   # v1.30: AROME HD e prudenza
                      "errori": [dict(nome=n, **e) for n, e in [("Stima usata", err(oz, "stima")), ("ICON-D2", err(oz, "d2")), ("ICON-2i", err(oz, "i2")),
-                                                               ("ECMWF", err(oz, "ec")), ("Raffiche ICON-D2", err(oz, "raff_d2", "raff")),
+                                                               ("ECMWF", err(oz, "ec")), ("AROME HD (in parallelo)", err(oz, "ar") if any(o["prev"].get("ar") is not None for o in oz) else None), ("Raffiche ICON-D2", err(oz, "raff_d2", "raff")),
                                                                ("Raffiche stimate", err(oz, "raff", "raff") if any(o["prev"].get("raff") != o["prev"].get("raff_d2") for o in oz) else None)] if e]})
     liv = []
     Pm = P.get("marea") or {}
@@ -1136,10 +1138,10 @@ D.zone.forEach(Z=>{const S=Z.sintesi,c=h('div',{cls:'card'},h('h2',{},'💨 '+Z.
    +`Ore rosse misurate: ${S.rosse_mis.length?S.rosse_mis.join(', '):'nessuna'}; previste: ${S.rosse_prev.length?S.rosse_prev.join(', '):'nessuna'}. `
    +`Vento medio nella finestra ${n(S.media)} nodi, raffica di picco (5 min) ${n(S.raff)}. Verdetto della previsione (media delle zone): ${D.sem_prev}.`)));
  c.append(grafico(Z),h('div',{cls:'leg',html:'<span><i style="background:#1e3a6b"></i>misurato (5 min)</span><span><i style="background:#94a3b8"></i>raffica misurata</span><span style="color:#dc2626">● <b>stima</b></span><span style="color:#f59e0b">● <b>ICON-D2</b></span><span style="color:#7c3aed">● <b>ECMWF</b></span><span>fascia azzurra = finestra prevista · tratteggio: 6 e 12 nodi</span>'}));
- const t=h('table',{},h('tr',{},...['Ora','Misur.','Dir.','Stima','D2','2i','EC','Raff. mis.','Raff. prev.'].map(x=>h('th',{},x))));
+ const t=h('table',{},h('tr',{},...['Ora','Misur.','Dir.','Stima','D2','2i','EC','AR','Raff. mis.','Raff. prev.'].map(x=>h('th',{},x))));
  Z.ore.forEach(o=>t.append(h('tr',{},h('td',{},o.ora),h('td',{},h('span',{cls:'pill '+sem(o.mis,o.raff_mis)},n(o.mis,0))),h('td',{cls:'dir'},o.dir_mis,h('div',{cls:'dnome'},o.nome_mis),h('div',{cls:'dprev'+(o.set_mis===o.set_prev?'':' fuori')},'prev. '+o.dir_prev,h('br'),o.nome_prev)),
-  h('td',{},o.sem_prev?h('span',{cls:'pill '+o.sem_prev},n(o.stima,0)):n(o.stima,0)),h('td',{},n(o.d2)),h('td',{},n(o.i2)),h('td',{},n(o.ec)),h('td',{},n(o.raff_mis)),h('td',{},n(o.raff)))));
- c.append(h('h3',{},'Ora per ora (nodi)'),t,h('div',{cls:'nota'},'Colori: Misur. = semaforo misurato dell’ora (media oraria), Stima = semaforo previsto per la zona; stessa regola della previsione sul vento medio arrotondato all’intero: verde fino a '+D.verde_fino_a+' nodi, giallo da '+(D.verde_fino_a+1)+' a '+(D.rosso_da-1)+', rosso da '+D.rosso_da+'; le raffiche non cambiano il colore. Raff. prev. = raffica stimata (corretta).'));
+  h('td',{},o.sem_prev?h('span',{cls:'pill '+o.sem_prev},n(o.stima,0)):n(o.stima,0)),h('td',{},n(o.d2)),h('td',{},n(o.i2)),h('td',{},n(o.ec)),h('td',{},n(o.ar)),h('td',{},n(o.raff_mis)),h('td',{},n(o.raff)))));
+ c.append(h('h3',{},'Ora per ora (nodi)'),t,h('div',{cls:'nota'},'Colori: Misur. = semaforo misurato dell’ora (media oraria), Stima = semaforo previsto per la zona; stessa regola della previsione sul vento medio arrotondato all’intero: verde fino a '+D.verde_fino_a+' nodi, giallo da '+(D.verde_fino_a+1)+' a '+(D.rosso_da-1)+', rosso da '+D.rosso_da+'; le raffiche non cambiano il colore. Raff. prev. = raffica stimata (corretta). AR = AROME HD, in parallelo: non usato nella stima.'));
  const te=h('table',{},h('tr',{},h('th',{},'Modello'),h('th',{},'Errore medio'),h('th',{},'Errore assoluto')));
  Z.errori.forEach(e=>te.append(h('tr',{},h('td',{},e.nome),h('td',{cls:e.medio>0?'pos':'neg'},sg(e.medio)),h('td',{},n(e.ass)))));
  c.append(h('h3',{},'Errore dei modelli (previsto − misurato, nodi)'),te);app.append(c);});
