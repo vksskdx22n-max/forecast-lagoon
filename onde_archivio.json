@@ -1283,6 +1283,36 @@
    "stazione": "PS_Giud",
    "hs": 0.35,
    "hmax": 0.63
+  },
+  {
+   "t": "2026-11-23 18:55",
+   "stazione": "PSalute",
+   "hs": 0.17,
+   "hmax": 0.28
+  },
+  {
+   "t": "2026-11-23 18:55",
+   "stazione": "P_Cavalli",
+   "hs": 0.04,
+   "hmax": 0.08
+  },
+  {
+   "t": "2026-11-23 18:55",
+   "stazione": "Misericordia",
+   "hs": 0.11,
+   "hmax": 0.17
+  },
+  {
+   "t": "2026-11-23 18:55",
+   "stazione": "Fusina",
+   "hs": 0.04,
+   "hmax": 0.08
+  },
+  {
+   "t": "2026-11-23 18:55",
+   "stazione": "PS_Giud",
+   "hs": 0.27,
+   "hmax": 0.38
   }
  ],
  "confronti": [
@@ -1407,6 +1437,6 @@
    "previsione": "previsione_23-11-2026_0500-1200_v1.47.json"
   }
  ],
- "versione": "1.49",
+ "versione": "1.50",
  "nota": "Onda in laguna misurata dal CPSM (onde_laguna.json: altezza significativa e massima, m), una misura per stazione e giro; confronti = stima della previsione del centro (emessa prima della finestra) per la stessa ora nel punto di calcolo"
 }

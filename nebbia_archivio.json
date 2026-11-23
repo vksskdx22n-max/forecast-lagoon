@@ -1109,9 +1109,15 @@
    "visib": "6+",
    "wx": null,
    "raw": "METAR LIPZ 231720Z 06006KT CAVOK 08/05 Q1019 NOSIG"
+  },
+  {
+   "t": "2026-11-23 17:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 231750Z 08005KT 9999 FEW045 08/05 Q1019 NOSIG"
   }
  ],
- "versione": "1.49",
+ "versione": "1.50",
  "nota": "METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib in miglia terrestri come restituito dall'API ('6+' = oltre 6 miglia, circa 10 km; 1 miglio = 1609 m), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato.",
  "locale": [
   {
@@ -3446,6 +3452,100 @@
     "oltre": true,
     "wx": null,
     "ora": "17:50",
+    "eta_min": 11
+   }
+  },
+  {
+   "t": "2026-11-23T17:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 79,
+     "ora": "2026-11-23 18:20:00",
+     "t": 9.8,
+     "ora_t": "2026-11-23 18:20:00",
+     "td": 6.3,
+     "spread": 3.5
+    },
+    "Piattaforma": {
+     "rh": 67,
+     "ora": "2026-11-23 18:20:00",
+     "t": 12.5,
+     "ora_t": "2026-11-23 18:20:00",
+     "td": 6.5,
+     "spread": 6
+    },
+    "S_Giorgio": {
+     "rh": 74,
+     "ora": "2026-11-23 18:20:00"
+    }
+   },
+   "vento": {
+    "nord": 4.5,
+    "centro": 10.1,
+    "sud": 7.6
+   },
+   "vento_dati_aperti": {
+    "centro": "18:20",
+    "nord": "18:20",
+    "sud": "18:20"
+   },
+   "vento_motivo": {
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "18:20",
+    "eta_min": 11
+   }
+  },
+  {
+   "t": "2026-11-23T18:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 79,
+     "ora": "2026-11-23 18:50:00",
+     "t": 9.8,
+     "ora_t": "2026-11-23 18:50:00",
+     "td": 6.3,
+     "spread": 3.5
+    },
+    "Piattaforma": {
+     "rh": 65,
+     "ora": "2026-11-23 18:50:00",
+     "t": 12.5,
+     "ora_t": "2026-11-23 18:50:00",
+     "td": 6.1,
+     "spread": 6.4
+    },
+    "S_Giorgio": {
+     "rh": 70,
+     "ora": "2026-11-23 18:50:00"
+    }
+   },
+   "vento": {
+    "sud": 7.6,
+    "centro": 9.7,
+    "nord": 4.9
+   },
+   "vento_dati_aperti": {
+    "centro": "18:50",
+    "sud": "18:50",
+    "nord": "18:50"
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "18:50",
     "eta_min": 11
    }
   }
