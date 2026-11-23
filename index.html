@@ -170,7 +170,7 @@ function slotTutti(){const M={};(D.zone||[]).forEach(z=>(z.voci||[]).forEach(v=>
 function slotVisibili(){const T=slotTutti(),n=new Date(),F=T.filter(s=>s.fine>n);return (F.length?F:T.slice(-1)).slice(0,3)}
 function slotDefault(){const S=slotVisibili(),n=new Date();return (S.find(s=>s.ini>n)||S[0]||{}).k||null}
 function fsel(){const S=slotVisibili();if(!FS||!S.some(s=>s.k===FS))FS=slotDefault();return FS}
-function scegliFascia(k){FS=k;home()}
+function scegliFascia(k){FS=k;home();riempiAdesso()}   // v3.50: rimette il vento misurato sulla cartina (gia' caricato)
 function etFascia(s){const r=relativo(s.data),[a,b]=finMin(s.fin),hh=m=>String(Math.floor(m/60)).padStart(2,'0'),d=dataDi(s.data);
  return (r==='Oggi'&&a>=19*60?'Stasera':r||GG[d.getDay()]+' '+d.getDate())+' '+hh(a)+'–'+hh(b)}
 function ultima(z){const k=fsel();return (z.voci||[]).find(v=>v.data+'|'+v.finestra===k)||null}
