@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.50"   # v3.50: tre fasce anche nei Prossimi giorni; v3.49: tre fasce della giornata (05-12, 13-18, 19-24) con i bottoni; PDF sintetico
+VERSIONE = "3.51"   # v3.51: allerte vento fino alle 24; v3.50: tre fasce anche nei Prossimi giorni; v3.49: tre fasce della giornata (05-12, 13-18, 19-24) con i bottoni; PDF sintetico
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"
@@ -32,7 +32,7 @@ ALLERTA = {"url": "https://fd-cpsm-proxy.ennioweb.workers.dev/allerta",
            "pausa_min": 60,           # stessa stazione: al massimo un avviso ogni 60 minuti
            "pausa_globale_min": 30,   # dopo un avviso, 30 minuti senza altri messaggi (stesso fronte)
            "misura_max_min": 20,      # misure piu' vecchie non fanno scattare l'avviso
-           "ora_inizio": 5, "ora_fine": 20,        # ora italiana
+           "ora_inizio": 5, "ora_fine": 24,        # ora italiana (v3.51: fino alle 24, Worker >= 2.16 con il controllo esteso)
            "controllo_min": 5,        # frequenza del controllo (cron del Worker)
            "rotazione_gradi": 90, "rotazione_min_kn": 8}   # pre-allarme sperimentale: solo registrato, non inviato
 # v3.26: visibilita' misurata adesso a Venezia Tessera (Worker v2.6, /adesso). Si mostra solo sotto mostra_sotto_m e se il METAR
