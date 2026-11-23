@@ -1115,6 +1115,12 @@
    "visib": "6+",
    "wx": null,
    "raw": "METAR LIPZ 231750Z 08005KT 9999 FEW045 08/05 Q1019 NOSIG"
+  },
+  {
+   "t": "2026-11-23 18:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 231820Z 01005KT 340V050 9999 FEW040 08/05 Q1019 NOSIG"
   }
  ],
  "versione": "1.50",
@@ -3547,6 +3553,53 @@
     "wx": null,
     "ora": "18:50",
     "eta_min": 11
+   }
+  },
+  {
+   "t": "2026-11-23T18:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 78,
+     "ora": "2026-11-23 19:20:00",
+     "t": 10,
+     "ora_t": "2026-11-23 19:20:00",
+     "td": 6.3,
+     "spread": 3.7
+    },
+    "Piattaforma": {
+     "rh": 76,
+     "ora": "2026-11-23 19:20:00",
+     "t": 11.8,
+     "ora_t": "2026-11-23 19:20:00",
+     "td": 7.7,
+     "spread": 4.1
+    },
+    "S_Giorgio": {
+     "rh": 67,
+     "ora": "2026-11-23 19:20:00"
+    }
+   },
+   "vento": {
+    "sud": 6.2,
+    "centro": 7.6,
+    "nord": 4.9
+   },
+   "vento_dati_aperti": {
+    "sud": "19:25",
+    "centro": "19:25",
+    "nord": "19:25"
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "10:50",
+    "eta_min": 521
    }
   }
  ],
