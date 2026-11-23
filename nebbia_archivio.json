@@ -1123,7 +1123,7 @@
    "raw": "METAR LIPZ 231820Z 01005KT 340V050 9999 FEW040 08/05 Q1019 NOSIG"
   }
  ],
- "versione": "1.50",
+ "versione": "1.51",
  "nota": "METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib in miglia terrestri come restituito dall'API ('6+' = oltre 6 miglia, circa 10 km; 1 miglio = 1609 m), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato.",
  "locale": [
   {
