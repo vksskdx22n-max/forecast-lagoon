@@ -1,0 +1,23 @@
+name: Prova tendenza (ramo di prova)
+on:
+  push:
+    branches: [prova-fasce]
+permissions:
+  contents: write
+env:
+  TZ: Europe/Rome
+jobs:
+  prova:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Tendenza
+        run: python3 fd_tendenza.py "$(date -d tomorrow +%F)"
+      - name: Risultati sul ramo di prova
+        run: |
+          mkdir -p prova_out && cp tendenza.json tendenza_correzioni.json prova_out/
+          git config user.name "forecast-lagoon-bot"; git config user.email "forecast-lagoon-bot@users.noreply.github.com"
+          git add prova_out && git commit -q -m "Risultati della prova" && git push origin HEAD:prova-fasce

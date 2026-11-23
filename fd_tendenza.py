@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fd_tendenza.py v1.3 — tendenza dei prossimi giorni per Forecast Lagoon (scelte di Ennio del 22/11/2026).
+"""fd_tendenza.py v1.4 — tendenza dei prossimi giorni per Forecast Lagoon (scelte di Ennio del 22/11/2026).
 
 Due giorni dopo quello della previsione (dopodomani e il giorno dopo), finestra 05-12, per Laguna Nord, Centro e Sud:
 colore indicativo (stessa regola del semaforo: media dei punti della zona ora per ora, colore piu' frequente nelle ore),
@@ -15,6 +15,12 @@ verificati: errore medio (misura - previsto), solo se ci sono almeno MIN_GIORNI 
 altrimenti restano i valori iniziali (analisi del 22/11/2026). Una tendenza per giorno, zona e giorno di emissione: vale l'ultima.
 Non tocca la previsione di domani, la verifica e i loro file.
 
+v1.4 (23/11/2026): tre fasce per ogni giorno (05-12, 13-18, 19-24), come la previsione. Correzioni di ICON-2i ed ECMWF per
+fascia (INIZIALI_PERIODO: analisi del 23/11, Previous Runs a 2 giorni 23/08-22/11 contro le misure CPSM; nel pomeriggio e
+di sera ICON-2i quasi senza errore, ECMWF sottostima come al mattino); ICON-D2 con la correzione della fascia di fd_verifica.
+La verifica e il ricalcolo delle correzioni sono per fascia. In tendenza.json ogni zona ha "fasce"; i campi della zona
+restano quelli della fascia 05-12 (compatibilita').
+
 Uso:  python3 fd_tendenza.py AAAA-MM-GG [HH:MM HH:MM]      (AAAA-MM-GG = giorno della previsione, cioe' domani)
 Uscita: tendenza.json
 """
@@ -22,7 +28,29 @@ import sys, json, math, subprocess, statistics, datetime as dt
 import fd_previsione as FP
 import marea_propaga as MP
 
-VERSIONE = "1.3"
+VERSIONE = "1.4"
+FASCE_T = [("05:00–12:00", 5, 12, "mattino"), ("13:00–18:00", 13, 18, "pomeriggio"), ("19:00–24:00", 19, 23, "sera")]   # v1.4
+# v1.4: correzioni iniziali di pomeriggio e sera (nodi da aggiungere), analisi del 23/11/2026 (Previous Runs, previsione emessa
+# 2 giorni prima, 23/08-22/11, misure CPSM orarie). ICON-2i: errore medio 0,2-0,6 nodi, la correzione non migliora -> 0.
+# ECMWF: Centro +3,4 / +4,3, Sud +4,1 / +4,5, Nord sera +1,9 (errore assoluto 4,5 -> 2,7-2,9 nodi); Nord pomeriggio 0
+# (con la correzione il semaforo giusto scende dal 77 al 69 %).
+INIZIALI_PERIODO = {"pomeriggio": {"ecmwf_ifs025": {"centro": 3.4, "nord": 0.0, "sud": 4.1},
+                                   "italia_meteo_arpae_icon_2i": {"centro": 0.0, "nord": 0.0, "sud": 0.0}},
+                    "sera": {"ecmwf_ifs025": {"centro": 4.3, "nord": 1.9, "sud": 4.5},
+                             "italia_meteo_arpae_icon_2i": {"centro": 0.0, "nord": 0.0, "sud": 0.0}}}
+
+
+def periodo_ora(h):
+    h = int(h)
+    return "mattino" if h <= 12 else "pomeriggio" if h <= 18 else "sera"
+
+
+def corr_modello(C, m, area, periodo):
+    """v1.4: correzione di ICON-2i o ECMWF per zona e fascia (mattino: C["kn"]; pomeriggio e sera: C["kn_periodo"])."""
+    if periodo == "mattino":
+        return (C.get("kn", {}).get(m) or {}).get(area)
+    v = ((C.get("kn_periodo", {}).get(periodo) or {}).get(m) or {}).get(area)
+    return v if v is not None else INIZIALI_PERIODO[periodo][m][area]
 CORREZIONI = "tendenza_correzioni.json"
 ARCHIVIO_T = "tendenza_archivio.json"
 GIORNI_FINESTRA = 90           # v1.2: giorni verificati usati per ricalcolare la correzione
@@ -39,7 +67,7 @@ NOME_MOD = {"icon_d2": "ICON-D2", "italia_meteo_arpae_icon_2i": "ICON-2i", "ecmw
 
 def carica_correzioni():
     try:
-        return json.load(open(CORREZIONI, encoding="utf-8")).get("kn", {})
+        return json.load(open(CORREZIONI, encoding="utf-8"))
     except (OSError, ValueError):
         print(f"Tendenza: {CORREZIONI} non leggibile, nessuna correzione per ICON-2i ed ECMWF")
         return {}
@@ -70,13 +98,17 @@ def verifica_tendenze(A, adesso):
     except ImportError:
         print("Tendenza: fd_verifica non disponibile, verifica rinviata")
         return 0
-    fatte = {(v["data"], v["area"], v["emessa"]) for v in A["verificate"]}
+    fatte = {(v["data"], v["area"], v["emessa"], v.get("periodo", "mattino")) for v in A["verificate"]}
     pend = []
-    for e in A["emesse"]:
+    for e in A["emesse"]:                       # v1.4: ogni fascia si verifica quando e' finita (le pagine CPSM tengono 24 ore)
         g = dt.date.fromisoformat(e["data"])
-        fine = dt.datetime.combine(g, dt.time(int(max(e["ore"])), 0), FV.tz_italia(g)) + dt.timedelta(minutes=30)
-        if (e["data"], e["area"], e["emessa"]) not in fatte and fine <= adesso and (adesso - fine) < dt.timedelta(hours=23):
-            pend.append(e)
+        for per in ("mattino", "pomeriggio", "sera"):
+            oh = {h: v for h, v in e["ore"].items() if periodo_ora(h) == per}
+            if not oh:
+                continue
+            fine = dt.datetime.combine(g, dt.time(int(max(oh)), 0), FV.tz_italia(g)) + dt.timedelta(minutes=30)
+            if (e["data"], e["area"], e["emessa"], per) not in fatte and fine <= adesso and (adesso - fine) < dt.timedelta(hours=23):
+                pend.append(dict(e, ore=oh, periodo=per))
     if not pend:
         return 0
     M = FV.scarica_misure()
@@ -93,11 +125,11 @@ def verifica_tendenze(A, adesso):
                 ore.append({"ora": h, "mis": m["media"], "prev": mod})
         if len(ore) < len(e["ore"]) // 2:
             continue                                   # misure insufficienti (sensore fermo, pagina parziale)
-        A["verificate"].append({"data": e["data"], "area": e["area"], "emessa": e["emessa"], "anticipo_g": e["anticipo_g"], "ore": ore})
+        A["verificate"].append({"data": e["data"], "area": e["area"], "emessa": e["emessa"], "anticipo_g": e["anticipo_g"], "periodo": e["periodo"], "ore": ore})
         n += 1
         err = {MOD: round(statistics.mean(o["mis"] - o["prev"][MOD] for o in ore if o["prev"].get(MOD) is not None), 1)
                for MOD in MODELLI if any(o["prev"].get(MOD) is not None for o in ore)}
-        print(f"  verifica tendenza {e['data']} {NOMI[e['area']]} (emessa {e['emessa']}, {len(ore)} ore): errore medio grezzo "
+        print(f"  verifica tendenza {e['data']} {e['periodo']} {NOMI[e['area']]} (emessa {e['emessa']}, {len(ore)} ore): errore medio grezzo "
               + ", ".join(f"{NOME_MOD[k]} {v:+.1f} kn" for k, v in err.items()))
     return n
 
@@ -111,11 +143,24 @@ def aggiorna_correzioni(A, oggi):
     C.setdefault("iniziali", json.loads(json.dumps(C.get("kn", {}))))
     lim = (oggi - dt.timedelta(days=GIORNI_FINESTRA)).isoformat()
     stato = {}
+    for per in ("pomeriggio", "sera"):                       # v1.4: pomeriggio e sera, stesso metodo del mattino
+        for MOD in ("ecmwf_ifs025", "italia_meteo_arpae_icon_2i"):
+            for area in ("centro", "nord", "sud"):
+                pg = {}
+                for v in A["verificate"]:
+                    if v["area"] == area and v["data"] >= lim and v.get("periodo") == per:
+                        d = [o["mis"] - o["prev"][MOD] for o in v["ore"] if o["prev"].get(MOD) is not None]
+                        if d:
+                            pg.setdefault(v["data"], []).append(statistics.mean(d))
+                val = round(statistics.mean(statistics.mean(x) for x in pg.values()), 1) if len(pg) >= MIN_GIORNI else None
+                ok = val is not None and abs(val) <= MAX_CORR
+                C.setdefault("kn_periodo", {}).setdefault(per, {}).setdefault(MOD, {})[area] = val if ok else INIZIALI_PERIODO[per][MOD][area]
+                C.setdefault("stato_periodo", {}).setdefault(per, {}).setdefault(MOD, {})[area] = {"fonte": "misure" if ok else "iniziale", "giorni": len(pg)}
     for MOD in ("ecmwf_ifs025", "italia_meteo_arpae_icon_2i"):
         for area in ("centro", "nord", "sud"):
             per_giorno = {}
             for v in A["verificate"]:
-                if v["area"] != area or v["data"] < lim:
+                if v["area"] != area or v["data"] < lim or v.get("periodo", "mattino") != "mattino":
                     continue
                 d = [o["mis"] - o["prev"][MOD] for o in v["ore"] if o["prev"].get(MOD) is not None]
                 if d:
@@ -193,9 +238,6 @@ def marea_giorno(area, g, da, a, cfg):
 def main():
     arg = [x for x in sys.argv[1:] if not x.startswith("--")]
     base = dt.date.fromisoformat(arg[0]) if arg else dt.date.today() + dt.timedelta(days=1)
-    da_t = dt.time.fromisoformat(arg[1]) if len(arg) > 1 else dt.time(5, 0)
-    a_t = dt.time.fromisoformat(arg[2]) if len(arg) > 2 else dt.time(12, 0)
-    da, a = da_t.hour * 60 + da_t.minute, a_t.hour * 60 + a_t.minute
     giorni = [base + dt.timedelta(days=i) for i in range(1, GIORNI + 1)]
     adesso = dt.datetime.now(dt.timezone.utc)
     oggi = adesso.astimezone(FP.tz_italia(adesso.date())).date()
@@ -207,7 +249,7 @@ def main():
             salva_archivio_t(AT, oggi)
     except Exception as ex:
         print(f"Tendenza: verifica non riuscita ({ex}), si usano le correzioni attuali")
-    print(f"fd_tendenza v{VERSIONE} — {giorni[0].strftime('%d/%m')}–{giorni[-1].strftime('%d/%m/%Y')} {da_t.strftime('%H:%M')}–{a_t.strftime('%H:%M')}")
+    print(f"fd_tendenza v{VERSIONE} — {giorni[0].strftime('%d/%m')}–{giorni[-1].strftime('%d/%m/%Y')} tre fasce")
     PA = punti_aree()
     punti = [p for ps in PA.values() for p in ps]
     R = scarica(punti, giorni[0], giorni[-1])
@@ -217,72 +259,76 @@ def main():
     idx = {p[0]: i for i, p in enumerate(punti)}
     cfg = MP.carica_config(".")
     CK = carica_correzioni()
-    ore = [h for h in range(24) if da <= h * 60 <= a]
     out = {"versione": VERSIONE, "generato": dt.datetime.now(FP.tz_italia(dt.date.today())).strftime("%Y-%m-%d %H:%M"),
-           "base": base.isoformat(), "finestra": f"{da_t.strftime('%H:%M')}–{a_t.strftime('%H:%M')}", "giorni": []}
+           "base": base.isoformat(), "finestra": FASCE_T[0][0], "fasce": [f[0] for f in FASCE_T], "giorni": []}
     for g in giorni:
         G = {"data": g.isoformat(), "zone": []}
         for area in ("nord", "centro", "sud"):
-            st_ore, dirs, prob, usati, corr = [], [], [], {}, {}
             grezzi = {}                                     # v1.2: {ora: {modello: media grezza dei punti}}
-            for h in ore:
-                t0 = f"{g.isoformat()}T{h:02d}:00"
-                for m in MODELLI:
-                    xs = []
+            Z = {"id": area, "nome": NOMI[area], "fasce": []}
+            for fin, h0, h1, per in FASCE_T:
+                st_ore, dirs, prob, usati, corr = [], [], [], {}, {}
+                ore = list(range(h0, h1 + 1))
+                for h in ore:
+                    t = f"{g.isoformat()}T{h:02d}:00"
+                    for m in MODELLI:
+                        xs = []
+                        for z, _, _ in PA[area]:
+                            H = R[idx[z]]["hourly"]
+                            if t in H["time"]:
+                                x = (H.get(f"wind_speed_10m_{m}") or [None] * len(H["time"]))[H["time"].index(t)]
+                                if x is not None:
+                                    xs.append(x)
+                        if len(xs) == len(PA[area]):
+                            grezzi.setdefault(f"{h:02d}", {})[m] = round(statistics.mean(xs), 1)
+                    vals = []
                     for z, _, _ in PA[area]:
                         H = R[idx[z]]["hourly"]
-                        if t0 in H["time"]:
-                            x = (H.get(f"wind_speed_10m_{m}") or [None] * len(H["time"]))[H["time"].index(t0)]
-                            if x is not None:
-                                xs.append(x)
-                    if len(xs) == len(PA[area]):
-                        grezzi.setdefault(f"{h:02d}", {})[m] = round(statistics.mean(xs), 1)
-                t = f"{g.isoformat()}T{h:02d}:00"
-                vals = []
-                for z, _, _ in PA[area]:
-                    H = R[idx[z]]["hourly"]
-                    i = H["time"].index(t) if t in H["time"] else None
-                    if i is None:
-                        continue
-                    for m in MODELLI:
-                        v, d = (H.get(f"wind_speed_10m_{m}") or [None] * (i + 1))[i], (H.get(f"wind_direction_10m_{m}") or [None] * (i + 1))[i]
-                        if v is None or d is None:
+                        i = H["time"].index(t) if t in H["time"] else None
+                        if i is None:
                             continue
-                        if m == "icon_d2" and area == "centro" and not FP.riparata(z, d):
-                            v = v + (FP.FV.correzione(v, d, ".", FP.zona_corr(z))[0] if FP.FV else 0.0)
-                            corr[m] = True
-                        elif m == "icon_d2" and FP.FV and ZONA_MIS[area] in getattr(FP.FV, "CORR_ZONA", {}):   # v1.3: Nord e Sud
-                            v = v + FP.FV.correzione(v, d, ".", ZONA_MIS[area])[0]
-                            corr[m] = True
-                        elif m != "icon_d2" and CK.get(m, {}).get(area):
-                            v = max(0.0, v + CK[m][area]); corr[m] = True
-                        vals.append((v, d)); usati[m] = usati.get(m, 0) + 1
-                        break
-                    p = (H.get("precipitation_probability_icon_d2") or [None] * (i + 1))[i]
-                    if p is None:
-                        p = (H.get("precipitation_probability_ecmwf_ifs025") or [None] * (i + 1))[i]
-                    if p is not None:
-                        prob.append(p)
-                if vals and len(vals) == len(PA[area]):
-                    st_ore.append(statistics.mean(v for v, _ in vals)); dirs += [d for _, d in vals]
+                        for m in MODELLI:
+                            v, d = (H.get(f"wind_speed_10m_{m}") or [None] * (i + 1))[i], (H.get(f"wind_direction_10m_{m}") or [None] * (i + 1))[i]
+                            if v is None or d is None:
+                                continue
+                            if m == "icon_d2" and area == "centro" and not FP.riparata(z, d):
+                                v = v + (FP.FV.correzione(v, d, ".", FP.zona_corr(z), per)[0] if FP.FV else 0.0)
+                                corr[m] = True
+                            elif m == "icon_d2" and FP.FV and ZONA_MIS[area] in getattr(FP.FV, "CORR_ZONA", {}):   # v1.3: Nord e Sud
+                                c = FP.FV.correzione(v, d, ".", ZONA_MIS[area], per)[0]
+                                v = v + c; corr[m] = corr.get(m) or c != 0
+                            elif m != "icon_d2" and corr_modello(CK, m, area, per):
+                                v = max(0.0, v + corr_modello(CK, m, area, per)); corr[m] = True
+                            vals.append((v, d)); usati[m] = usati.get(m, 0) + 1
+                            break
+                        p = (H.get("precipitation_probability_icon_d2") or [None] * (i + 1))[i]
+                        if p is None:
+                            p = (H.get("precipitation_probability_ecmwf_ifs025") or [None] * (i + 1))[i]
+                        if p is not None:
+                            prob.append(p)
+                    if vals and len(vals) == len(PA[area]):
+                        st_ore.append(statistics.mean(v for v, _ in vals)); dirs += [d for _, d in vals]
+                if len(st_ore) < len(ore) // 2:
+                    Z["fasce"].append({"finestra": fin, "disponibile": False})
+                    continue
+                colori = [FP.semaforo(v, None) for v in st_ore]
+                col = max(set(colori), key=lambda c: (colori.count(c), -colori.index(c)))
+                fonte = max(usati, key=usati.get)
+                Z["fasce"].append({"finestra": fin, "disponibile": True, "colore": col,
+                                   "vento_min": FP.arrotonda(min(st_ore)), "vento_max": FP.arrotonda(max(st_ore)),
+                                   "dir": FP.card(media_dir(dirs)) if dirs else None,
+                                   "pioggia": round(max(prob)) if prob else None,
+                                   "marea": marea_giorno(area, g, h0 * 60, min(h1 * 60 + 59, 1439) if h1 == 23 else h1 * 60, cfg),
+                                   "modello": NOME_MOD[fonte], "corretto": bool(corr.get(fonte))})
             if grezzi:
                 AT["emesse"] = [e for e in AT["emesse"] if not (e["data"] == g.isoformat() and e["area"] == area and e["emessa"] == oggi.isoformat())]
                 AT["emesse"].append({"data": g.isoformat(), "area": area, "emessa": oggi.isoformat(),
                                      "anticipo_g": (g - oggi).days, "ore": grezzi})
-            if len(st_ore) < len(ore) // 2:
-                G["zone"].append({"id": area, "nome": NOMI[area], "disponibile": False})
-                continue
-            colori = [FP.semaforo(v, None) for v in st_ore]
-            col = max(set(colori), key=lambda c: (colori.count(c), -colori.index(c)))
-            fonte = max(usati, key=usati.get)
-            G["zone"].append({"id": area, "nome": NOMI[area], "disponibile": True, "colore": col,
-                              "vento_min": FP.arrotonda(min(st_ore)), "vento_max": FP.arrotonda(max(st_ore)),
-                              "dir": FP.card(media_dir(dirs)) if dirs else None,
-                              "pioggia": round(max(prob)) if prob else None,
-                              "marea": marea_giorno(area, g, da, a, cfg),
-                              "modello": NOME_MOD[fonte], "corretto": bool(corr.get(fonte))})
+            f0 = Z["fasce"][0]                               # compatibilita': campi della zona = fascia 05-12
+            Z.update({k: v for k, v in f0.items() if k != "finestra"})
+            G["zone"].append(Z)
         out["giorni"].append(G)
-        print(f"  {g.strftime('%d/%m')}: " + " · ".join(f"{z['nome']} " + (f"{z['colore']} {z['vento_min']}–{z['vento_max']} kn ({z['modello']})" if z.get("disponibile") else "non disponibile") for z in G["zone"]))
+        print(f"  {g.strftime('%d/%m')}: " + " · ".join(f"{z['nome']} " + " / ".join((f"{f['colore']} {f['vento_min']}–{f['vento_max']}" if f.get("disponibile") else "n.d.") for f in z["fasce"]) for z in G["zone"]))
     json.dump(out, open(USCITA, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     salva_archivio_t(AT, oggi)
     print(f"Tendenza salvata in {USCITA}")
