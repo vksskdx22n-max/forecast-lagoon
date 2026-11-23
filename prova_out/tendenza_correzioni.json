@@ -1,0 +1,147 @@
+{
+ "versione": "1.0",
+ "nota": "Correzione media del vento (nodi da aggiungere) per modello e zona, dall'errore medio misurato con le stazioni CPSM: 22/08-21/11/2026, ore 05-12, Previous Runs Open-Meteo (ECMWF a 2-3 giorni, ICON-2i a 2 giorni). ICON-D2 al Centro usa la correzione di fd_verifica.",
+ "kn": {
+  "ecmwf_ifs025": {
+   "centro": 4.5,
+   "nord": 2.4,
+   "sud": 4.3
+  },
+  "italia_meteo_arpae_icon_2i": {
+   "centro": 1.4,
+   "nord": 0.6,
+   "sud": 0.5
+  }
+ },
+ "iniziali": {
+  "ecmwf_ifs025": {
+   "centro": 4.5,
+   "nord": 2.4,
+   "sud": 4.3
+  },
+  "italia_meteo_arpae_icon_2i": {
+   "centro": 1.4,
+   "nord": 0.6,
+   "sud": 0.5
+  }
+ },
+ "stato": {
+  "ecmwf_ifs025": {
+   "centro": {
+    "fonte": "iniziale",
+    "giorni": 0
+   },
+   "nord": {
+    "fonte": "iniziale",
+    "giorni": 0
+   },
+   "sud": {
+    "fonte": "iniziale",
+    "giorni": 0
+   }
+  },
+  "italia_meteo_arpae_icon_2i": {
+   "centro": {
+    "fonte": "iniziale",
+    "giorni": 0
+   },
+   "nord": {
+    "fonte": "iniziale",
+    "giorni": 0
+   },
+   "sud": {
+    "fonte": "iniziale",
+    "giorni": 0
+   }
+  }
+ },
+ "aggiornato": "2026-11-23",
+ "kn_periodo": {
+  "pomeriggio": {
+   "ecmwf_ifs025": {
+    "centro": 3.4,
+    "nord": 0.0,
+    "sud": 4.1
+   },
+   "italia_meteo_arpae_icon_2i": {
+    "centro": 0.0,
+    "nord": 0.0,
+    "sud": 0.0
+   }
+  },
+  "sera": {
+   "ecmwf_ifs025": {
+    "centro": 4.3,
+    "nord": 1.9,
+    "sud": 4.5
+   },
+   "italia_meteo_arpae_icon_2i": {
+    "centro": 0.0,
+    "nord": 0.0,
+    "sud": 0.0
+   }
+  }
+ },
+ "stato_periodo": {
+  "pomeriggio": {
+   "ecmwf_ifs025": {
+    "centro": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "nord": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "sud": {
+     "fonte": "iniziale",
+     "giorni": 0
+    }
+   },
+   "italia_meteo_arpae_icon_2i": {
+    "centro": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "nord": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "sud": {
+     "fonte": "iniziale",
+     "giorni": 0
+    }
+   }
+  },
+  "sera": {
+   "ecmwf_ifs025": {
+    "centro": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "nord": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "sud": {
+     "fonte": "iniziale",
+     "giorni": 0
+    }
+   },
+   "italia_meteo_arpae_icon_2i": {
+    "centro": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "nord": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "sud": {
+     "fonte": "iniziale",
+     "giorni": 0
+    }
+   }
+  }
+ }
+}
