@@ -1,6 +1,6 @@
 {
  "versione": "1.3",
- "generato": "2026-11-23 08:27",
+ "generato": "2026-11-23 16:26",
  "base": "2026-11-24",
  "finestra": "05:00–12:00",
  "giorni": [
@@ -13,15 +13,15 @@
      "disponibile": true,
      "colore": "rosso",
      "vento_min": 11,
-     "vento_max": 16,
+     "vento_max": 14,
      "dir": "NE",
-     "pioggia": 100,
+     "pioggia": 90,
      "marea": {
       "tipo": "alta",
       "ora": "11:12",
       "cm": 76
      },
-     "modello": "ICON-2i",
+     "modello": "ICON-D2",
      "corretto": true
     },
     {
@@ -29,16 +29,16 @@
      "nome": "Laguna Centro",
      "disponibile": true,
      "colore": "rosso",
-     "vento_min": 16,
-     "vento_max": 21,
+     "vento_min": 15,
+     "vento_max": 17,
      "dir": "NE",
-     "pioggia": 100,
+     "pioggia": 95,
      "marea": {
       "tipo": "alta",
       "ora": "09:51",
       "cm": 80
      },
-     "modello": "ICON-2i",
+     "modello": "ICON-D2",
      "corretto": true
     },
     {
@@ -46,16 +46,16 @@
      "nome": "Laguna Sud",
      "disponibile": true,
      "colore": "rosso",
-     "vento_min": 16,
-     "vento_max": 21,
+     "vento_min": 15,
+     "vento_max": 18,
      "dir": "NE",
-     "pioggia": 100,
+     "pioggia": 90,
      "marea": {
       "tipo": "alta",
       "ora": "09:37",
       "cm": 83
      },
-     "modello": "ICON-2i",
+     "modello": "ICON-D2",
      "corretto": true
     }
    ]
@@ -67,17 +67,17 @@
      "id": "nord",
      "nome": "Laguna Nord",
      "disponibile": true,
-     "colore": "giallo",
-     "vento_min": 4,
-     "vento_max": 9,
-     "dir": "NNE",
-     "pioggia": 57,
+     "colore": "verde",
+     "vento_min": 3,
+     "vento_max": 6,
+     "dir": "NNO",
+     "pioggia": 56,
      "marea": {
       "tipo": "bassa",
       "ora": "05:48",
       "cm": 26
      },
-     "modello": "ECMWF",
+     "modello": "ICON-2i",
      "corretto": true
     },
     {
@@ -85,16 +85,16 @@
      "nome": "Laguna Centro",
      "disponibile": true,
      "colore": "giallo",
-     "vento_min": 6,
-     "vento_max": 12,
-     "dir": "NNE",
-     "pioggia": 57,
+     "vento_min": 5,
+     "vento_max": 10,
+     "dir": "OSO",
+     "pioggia": 56,
      "marea": {
       "tipo": "alta",
       "ora": "10:46",
       "cm": 77
      },
-     "modello": "ECMWF",
+     "modello": "ICON-2i",
      "corretto": true
     },
     {
@@ -102,16 +102,16 @@
      "nome": "Laguna Sud",
      "disponibile": true,
      "colore": "giallo",
-     "vento_min": 7,
-     "vento_max": 10,
-     "dir": "NNO",
-     "pioggia": 57,
+     "vento_min": 4,
+     "vento_max": 11,
+     "dir": "OSO",
+     "pioggia": 56,
      "marea": {
       "tipo": "alta",
       "ora": "10:32",
       "cm": 80
      },
-     "modello": "ECMWF",
+     "modello": "ICON-2i",
      "corretto": true
     }
    ]
