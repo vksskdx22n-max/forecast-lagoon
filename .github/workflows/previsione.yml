@@ -162,12 +162,13 @@ jobs:
         run: |
           git config user.name "forecast-lagoon-bot"
           git config user.email "forecast-lagoon-bot@users.noreply.github.com"
-          git add verifica_archivio.json acqua_archivio.json onde_archivio.json nebbia_archivio.json tendenza.json tendenza_archivio.json tendenza_correzioni.json Previsioni/*.json Previsioni/*.html Previsioni/*.pdf 2>/dev/null || true
+          git add verifica_archivio.json acqua_archivio.json onde_archivio.json nebbia_archivio.json tendenza.json tendenza_archivio.json tendenza_correzioni.json 2>/dev/null || true
+          git add -A Previsioni     # v1.50: anche le sintesi vecchie cancellate (una sola sintesi per giorno e zona)
           if git diff --cached --quiet; then
             echo "Nessuna modifica da salvare."
           else
             git commit -m "Previsione e verifica $(date +%F)"
-            git pull --rebase origin main
+            git pull --rebase --autostash origin main
             git push origin HEAD:main
           fi
 
