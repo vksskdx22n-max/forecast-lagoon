@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.50"   # v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
+VERSIONE = "1.51"   # v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
 # v1.50: fasce della giornata (scelta di Ennio 23/11/2026). La fascia della sera finisce a mezzanotte: "24:00" = 23:59 interno.
 FINE_GIORNO = dt.time(23, 59)
 PERIODI = [("mattino", 5, 12), ("pomeriggio", 13, 18), ("sera", 19, 23)]
@@ -140,10 +140,14 @@ ZONA_VERIFICA = {"nord": "Laguna Nord", "sud": "Laguna Sud"}   # v1.45: zona di 
 # niente correzione: in quelle ore FL sovrastimava e ICON-D2 grezzo sbagliava meno. La riga resta marcata "prudenza".
 SOGLIA_DISACCORDO = 3.0
 TESTO_PRUDENZA = "modelli in disaccordo (ICON-D2 molto sopra ECMWF corretto): stima = ICON-D2 senza correzione, per prudenza"
-def bias_ecmwf():
+def bias_ecmwf(periodo="mattino"):
+    """Correzione media di ECMWF nella zona (tendenza_correzioni.json). v1.51: per fascia: mattino "kn", pomeriggio e sera
+    "kn_periodo" (fd_tendenza >= 1.4); se manca la fascia, None (niente regola di prudenza in quella fascia)."""
     try:
         with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tendenza_correzioni.json"), encoding="utf-8") as f:
-            v = json.load(f)["kn"]["ecmwf_ifs025"].get(AREA)
+            C = json.load(f)
+        K = C["kn"] if periodo == "mattino" else (C.get("kn_periodo") or {}).get(periodo) or {}
+        v = (K.get("ecmwf_ifs025") or {}).get(AREA)
         return float(v) if v is not None else None
     except Exception:
         return None
@@ -929,7 +933,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
     # vento per zona
     vento, sem_ore, incerte, fonti_corr, n_alte = {}, {h: 'verde' for h in ore}, [], {}, []
     ore_rip = set()                                         # v1.26: ore senza ICON-D2 (ripiego)
-    B_EC = bias_ecmwf()                                     # v1.48: correzione media di ECMWF nella zona
+    B_ECP = {p: bias_ecmwf(p) for p, _, _ in PERIODI}       # v1.48: correzione media di ECMWF nella zona; v1.51: per fascia
     fonti_raff = set()
     ZONE_CALCOLO = ZONE_VENTO + ([z for z in ["Malamocco · Valgrande"] if z not in ZONE_VENTO] if AREA == "centro" else [])   # v1.21: per la verifica
     for z in ZONE_CALCOLO:
@@ -965,7 +969,8 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
             rip = riparata(z, D[k(h)])
             if rip:
                 corr, corr_fonte = 0.0, f"{z} con bora: {TESTO_RIPARO}"
-            ec_c = None if (ec is None or B_EC is None) else round(ec + B_EC, 1)          # v1.48
+            B_EC = B_ECP.get(periodo_ora(h))
+            ec_c = None if (ec is None or B_EC is None) else round(ec + B_EC, 1)          # v1.48, v1.51
             prud = (not rip) and ec_c is not None and d2 - ec_c >= SOGLIA_DISACCORDO and corr > 0
             if prud:
                 corr, corr_fonte = 0.0, TESTO_PRUDENZA
