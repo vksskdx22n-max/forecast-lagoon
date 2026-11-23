@@ -39,6 +39,7 @@ h1 span{color:var(--teal)}
 .corpo .fsr{padding:8px 16px 0;margin:0;column-span:all}
 .giorno{padding:2px 20px 8px}.giorno .gt{font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1.1}.giorno .gt span{color:var(--teal)}   /* v3.25: titolo del giorno sotto la cartina */
 .giorno .gd{font-size:14.5px;color:var(--txt);margin-top:2px;display:flex;justify-content:space-between;align-items:center;gap:8px}.gbtn{font-size:12px;font-weight:650;color:var(--teal);border:1px solid rgba(95,212,208,.5);background:rgba(95,212,208,.08);border-radius:999px;padding:0 9px;line-height:19px;white-space:nowrap;cursor:pointer}   /* v3.39: prossimi giorni */
+.tps{display:inline-flex;gap:4px;margin-left:8px}.tps i{width:9px;height:9px;border-radius:50%;display:inline-block}   /* v3.49: tre fasce nei Prossimi giorni */
 .tz{display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:10px 14px;margin-bottom:8px}.tz .tn{font-size:16px;font-weight:650;display:flex;align-items:center;gap:8px}.tz .tp{width:11px;height:11px;border-radius:50%;flex:none}.tz .tv{font-size:12.5px;color:var(--soft);text-align:right;line-height:1.35}.tday{font-size:14px;color:var(--teal);margin:16px 4px 6px;font-weight:600}.giorno .gs{font-size:12.5px;color:var(--mut);margin-top:2px}
 .piog{display:flex;width:fit-content;align-items:center;gap:5px;margin-top:1px;font-size:12px;line-height:14px;font-weight:600;white-space:nowrap;border-radius:999px}   /* v3.25: pioggia in prima pagina */
 .inc{display:flex;width:fit-content;align-items:center;gap:5px;margin-top:3px;font-size:12px;line-height:14px;font-weight:650;white-space:nowrap;color:var(--giallo);border:1px solid var(--giallo);border-radius:999px;padding:1px 8px}   /* v3.48: previsione incerta */
@@ -162,7 +163,7 @@ function relativo(iso){const t=new Date();t.setHours(0,0,0,0);const n=Math.round
 function etichetta(iso){const d=dataDi(iso),r=relativo(iso);return (r?r+' · ':'')+GIORNI[d.getDay()]+' '+d.getDate()+'/'+(d.getMonth()+1)}
 // v3.49: tre fasce della giornata. Bottoni sulle prossime fasce (quella in corso + le successive, al massimo 3);
 // all'apertura e' scelta la prossima che deve ancora iniziare (scelta di Ennio 23/11/2026). FS = fascia scelta "data|finestra".
-let FS=null;
+let FS=null,TFS=null;   // TFS: fascia scelta nella pagina Prossimi giorni
 function finMin(f){const m=String(f||'').split(/[–-]/).map(x=>{const [h,mm]=x.trim().split(':').map(Number);return h*60+(mm||0)});return m.length===2?m:[0,1440]}
 function slotTutti(){const M={};(D.zone||[]).forEach(z=>(z.voci||[]).forEach(v=>{const k=v.data+'|'+v.finestra;if(!M[k]){const [a,b]=finMin(v.finestra),d=dataDi(v.data);M[k]={k,data:v.data,fin:v.finestra,ini:new Date(d.getTime()+a*6e4),fine:new Date(d.getTime()+b*6e4)}}}));
  return Object.values(M).sort((x,y)=>x.ini-y.ini)}
@@ -268,12 +269,18 @@ function giorni(){   // v3.39: pagina "Prossimi giorni" (tendenza, colori tenui)
  if(!GG2.length){location.hash='';return}
  const tenue=c=>{const h=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();return `background:${h}`};
  let h=`<div class="home"><header class="testa"><div><div class="eyebrow"><span class="ver" style="margin-left:0">v${esc(VERSIONE)}</span></div><h1 style="font-size:30px">Prossimi <span>giorni</span></h1>
- <div class="sub" style="white-space:normal">Tendenza ${esc(T.finestra||'')}, meno precisa della previsione di domani</div></div><div class="info" role="button" aria-label="Torna alla prima pagina" onclick="location.hash=''" style="font-style:normal">‹</div></header><div class="zones">`;
+ <div class="sub" style="white-space:normal">Tendenza ${T.fasce?'in tre fasce':esc(T.finestra||'')}, meno precisa della previsione di domani</div></div><div class="info" role="button" aria-label="Torna alla prima pagina" onclick="location.hash=''" style="font-style:normal">‹</div></header><div class="zones">`;
+ // v3.49: tre fasce anche qui (tendenza fd_tendenza >= 1.4): bottoni in alto, per zona tre pallini e i valori della fascia scelta
+ const FT=T.fasce||[T.finestra||''],hh2=f=>{const [a,b]=finMin(f);return String(Math.floor(a/60)).padStart(2,'0')+'–'+String(Math.floor(b/60)).padStart(2,'0')};
+ const fs0=(fsel()||'').split('|')[1],tf=FT.includes(TFS)?TFS:(FT.includes(fs0)?fs0:FT[0]);
+ if(FT.length>1)h+=`<div class="fsr" style="padding:0 4px">${FT.map(f=>`<span class="fsb ${f===tf?'on':''}" role="button" onclick="TFS='${esc(f)}';giorni()">${hh2(f)}</span>`).join('')}</div>`;
  GG2.forEach(g=>{const d=dataDi(g.data);h+=`<div class="tday">${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</div>`;
-  g.zone.forEach(z=>{if(!z.disponibile){h+=`<div class="tz"><div class="tn">${esc(z.nome.replace(/^Laguna\s+/,''))}</div><div class="tv">non disponibile</div></div>`;return}
+  g.zone.forEach(z0=>{const z=(z0.fasce||[]).find(f=>f.finestra===tf)||(z0.fasce?{disponibile:false}:z0);
+   const pal=(z0.fasce||[]).length>1?`<span class="tps">${z0.fasce.map(f=>`<i title="${esc(f.finestra)}" style="${f.disponibile?tenue(f.colore):'background:var(--nd)'};${f.finestra===tf?'outline:2px solid var(--txt);outline-offset:1px':''}"></i>`).join('')}</span>`:'';
+   if(!z.disponibile){h+=`<div class="tz"><div class="tn">${esc(z0.nome.replace(/^Laguna\s+/,''))}${pal}</div><div class="tv">non disponibile</div></div>`;return}
    const m=z.marea?` · ${z.marea.tipo} ${esc(z.marea.ora)}`:'';
-   h+=`<div class="tz"><div class="tn"><span class="tp" style="${tenue(z.colore)}"></span>${esc(z.nome.replace(/^Laguna\s+/,''))}</div><div class="tv">${z.vento_min}–${z.vento_max} kn${z.dir?' '+esc(z.dir):''}${z.pioggia!=null?` · <span class="piog p${z.pioggia>=50?2:z.pioggia>=20?1:0}" style="display:inline-flex;vertical-align:-1px">pioggia ${z.pioggia}%</span>`:''}${m}</div></div>`})});
- h+=`<div class="tday" style="color:var(--mut);font-weight:500;font-size:12px;margin-top:12px">Colore indicativo del vento medio nella finestra. Modelli ${[...new Set(GG2.flatMap(g=>g.zone.filter(z=>z.modello).map(z=>z.modello)))].map(esc).join(', ')}${GG2.some(g=>g.zone.some(z=>z.corretto))?', corretti con le misure in laguna':''}; marea astronomica senza l'effetto del vento.</div></div>`;
+   h+=`<div class="tz"><div class="tn"><span class="tp" style="${tenue(z.colore)}"></span>${esc(z0.nome.replace(/^Laguna\s+/,''))}${pal}</div><div class="tv">${z.vento_min}–${z.vento_max} kn${z.dir?' '+esc(z.dir):''}${z.pioggia!=null?` · <span class="piog p${z.pioggia>=50?2:z.pioggia>=20?1:0}" style="display:inline-flex;vertical-align:-1px">pioggia ${z.pioggia}%</span>`:''}${m}</div></div>`})});
+ h+=`<div class="tday" style="color:var(--mut);font-weight:500;font-size:12px;margin-top:12px">Colore indicativo del vento medio nella finestra. Modelli ${[...new Set(GG2.flatMap(g=>g.zone.flatMap(z=>(z.fasce||[z]).filter(f=>f.modello).map(f=>f.modello))))].map(esc).join(', ')}${GG2.some(g=>g.zone.some(z=>z.corretto||(z.fasce||[]).some(f=>f.corretto)))?', corretti con le misure in laguna':''}; marea astronomica senza l'effetto del vento.</div></div>`;
  app.innerHTML=h+piede()+'</div>';window.scrollTo(0,0)}
 function home(){
  const TG=titoloGiorno(),ult=TG.data;
