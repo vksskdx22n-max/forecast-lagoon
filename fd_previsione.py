@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.48"
+VERSIONE = "1.49"   # v1.49: chiusa la } mancante nel blocco nebbia (dalla v1.47 pagina di dettaglio bianca e PDF vuoto)
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
 CORR_FONTE = "fd_vento_confronto v1.1 · 83 misure CPSM Malamocco Porto (31/05–29/10/2026) · sottostima media ICON-D2 con vento reale 6–12 nodi (34 misure)"
@@ -1522,7 +1522,7 @@ if(Me.nebbia&&(Me.nebbia_ore||[]).length){const N=Me.nebbia,O=Me.nebbia_ore,PR=N
   O.forEach(o=>bar.append(h('div',{style:'flex:1;text-align:center'},h('div',{style:'height:10px;border-radius:4px;background:'+CO[cat(o)]}),h('div',{style:'font-size:11px;color:#64748b;margin-top:3px'},o.ora.slice(0,2)))));
   cmt.append(h('h3',{style:'margin:14px 0 0;font-size:13px;color:var(--mu)'},'🌫 Nebbia ora per ora'),
     h('div',{style:'font-weight:700;margin-top:6px'},'Nebbia '+TX[cmax]+(hh.length?' · ore '+hh[0]+'–'+String(+hh[hh.length-1]+1).padStart(2,'0'):'')),bar,
-    h('div',{cls:'nota',html:'<b style="color:'+CO[2]+'">■</b> probabile · <b style="color:'+CO[1]+'">■</b> poco probabile · <b style="color:#cbd5e1">■</b> non probabile. '+(PR?'Dagli scenari '+(N.fonte_prob||'ICON-D2-EPS')+'. ':'Dal modello deterministico (ensemble non disponibile). ')+'Indicazione dai modelli, non ancora verificata con la visibilità misurata. Non cambia il semaforo.'));}
+    h('div',{cls:'nota',html:'<b style="color:'+CO[2]+'">■</b> probabile · <b style="color:'+CO[1]+'">■</b> poco probabile · <b style="color:#cbd5e1">■</b> non probabile. '+(PR?'Dagli scenari '+(N.fonte_prob||'ICON-D2-EPS')+'. ':'Dal modello deterministico (ensemble non disponibile). ')+'Indicazione dai modelli, non ancora verificata con la visibilità misurata. Non cambia il semaforo.'}));}
 Me.note.forEach(t=>cmt.append(h('div',{cls:'nota'},t)));
 let MARE=null;
 if(D.mare){const cv=D.mare.righe.some(r=>r.vento!=null);
