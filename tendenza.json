@@ -1,8 +1,13 @@
 {
- "versione": "1.3",
- "generato": "2026-11-23 19:06",
+ "versione": "1.4",
+ "generato": "2026-11-23 19:18",
  "base": "2026-11-24",
  "finestra": "05:00–12:00",
+ "fasce": [
+  "05:00–12:00",
+  "13:00–18:00",
+  "19:00–24:00"
+ ],
  "giorni": [
   {
    "data": "2026-11-25",
@@ -10,6 +15,48 @@
     {
      "id": "nord",
      "nome": "Laguna Nord",
+     "fasce": [
+      {
+       "finestra": "05:00–12:00",
+       "disponibile": true,
+       "colore": "giallo",
+       "vento_min": 11,
+       "vento_max": 14,
+       "dir": "NE",
+       "pioggia": 90,
+       "marea": {
+        "tipo": "alta",
+        "ora": "11:12",
+        "cm": 76
+       },
+       "modello": "ICON-D2",
+       "corretto": true
+      },
+      {
+       "finestra": "13:00–18:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 8,
+       "vento_max": 14,
+       "dir": "NE",
+       "pioggia": 98,
+       "marea": null,
+       "modello": "ICON-D2",
+       "corretto": false
+      },
+      {
+       "finestra": "19:00–24:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 13,
+       "vento_max": 15,
+       "dir": "NNE",
+       "pioggia": 96,
+       "marea": null,
+       "modello": "ICON-2i",
+       "corretto": false
+      }
+     ],
      "disponibile": true,
      "colore": "giallo",
      "vento_min": 11,
@@ -27,6 +74,56 @@
     {
      "id": "centro",
      "nome": "Laguna Centro",
+     "fasce": [
+      {
+       "finestra": "05:00–12:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 16,
+       "vento_max": 18,
+       "dir": "NE",
+       "pioggia": 95,
+       "marea": {
+        "tipo": "alta",
+        "ora": "09:51",
+        "cm": 80
+       },
+       "modello": "ICON-D2",
+       "corretto": true
+      },
+      {
+       "finestra": "13:00–18:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 7,
+       "vento_max": 18,
+       "dir": "ENE",
+       "pioggia": 98,
+       "marea": {
+        "tipo": "bassa",
+        "ora": "16:46",
+        "cm": -25
+       },
+       "modello": "ICON-D2",
+       "corretto": false
+      },
+      {
+       "finestra": "19:00–24:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 17,
+       "vento_max": 21,
+       "dir": "NNE",
+       "pioggia": 96,
+       "marea": {
+        "tipo": "alta",
+        "ora": "23:31",
+        "cm": 57
+       },
+       "modello": "ICON-2i",
+       "corretto": false
+      }
+     ],
      "disponibile": true,
      "colore": "rosso",
      "vento_min": 16,
@@ -44,6 +141,56 @@
     {
      "id": "sud",
      "nome": "Laguna Sud",
+     "fasce": [
+      {
+       "finestra": "05:00–12:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 15,
+       "vento_max": 18,
+       "dir": "NE",
+       "pioggia": 90,
+       "marea": {
+        "tipo": "alta",
+        "ora": "09:37",
+        "cm": 83
+       },
+       "modello": "ICON-D2",
+       "corretto": true
+      },
+      {
+       "finestra": "13:00–18:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 6,
+       "vento_max": 17,
+       "dir": "ENE",
+       "pioggia": 100,
+       "marea": {
+        "tipo": "bassa",
+        "ora": "16:25",
+        "cm": -24
+       },
+       "modello": "ICON-D2",
+       "corretto": false
+      },
+      {
+       "finestra": "19:00–24:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 10,
+       "vento_max": 21,
+       "dir": "NNE",
+       "pioggia": 96,
+       "marea": {
+        "tipo": "alta",
+        "ora": "23:15",
+        "cm": 60
+       },
+       "modello": "ICON-2i",
+       "corretto": false
+      }
+     ],
      "disponibile": true,
      "colore": "rosso",
      "vento_min": 15,
@@ -66,6 +213,48 @@
     {
      "id": "nord",
      "nome": "Laguna Nord",
+     "fasce": [
+      {
+       "finestra": "05:00–12:00",
+       "disponibile": true,
+       "colore": "verde",
+       "vento_min": 3,
+       "vento_max": 6,
+       "dir": "NNO",
+       "pioggia": 61,
+       "marea": {
+        "tipo": "bassa",
+        "ora": "05:48",
+        "cm": 26
+       },
+       "modello": "ICON-2i",
+       "corretto": true
+      },
+      {
+       "finestra": "13:00–18:00",
+       "disponibile": true,
+       "colore": "verde",
+       "vento_min": 1,
+       "vento_max": 6,
+       "dir": "NO",
+       "pioggia": 18,
+       "marea": null,
+       "modello": "ECMWF",
+       "corretto": false
+      },
+      {
+       "finestra": "19:00–24:00",
+       "disponibile": true,
+       "colore": "verde",
+       "vento_min": 5,
+       "vento_max": 7,
+       "dir": "NNE",
+       "pioggia": 4,
+       "marea": null,
+       "modello": "ECMWF",
+       "corretto": true
+      }
+     ],
      "disponibile": true,
      "colore": "verde",
      "vento_min": 3,
@@ -83,6 +272,52 @@
     {
      "id": "centro",
      "nome": "Laguna Centro",
+     "fasce": [
+      {
+       "finestra": "05:00–12:00",
+       "disponibile": true,
+       "colore": "giallo",
+       "vento_min": 5,
+       "vento_max": 10,
+       "dir": "OSO",
+       "pioggia": 61,
+       "marea": {
+        "tipo": "alta",
+        "ora": "10:46",
+        "cm": 77
+       },
+       "modello": "ICON-2i",
+       "corretto": true
+      },
+      {
+       "finestra": "13:00–18:00",
+       "disponibile": true,
+       "colore": "verde",
+       "vento_min": 4,
+       "vento_max": 7,
+       "dir": "NO",
+       "pioggia": 18,
+       "marea": {
+        "tipo": "bassa",
+        "ora": "17:37",
+        "cm": -24
+       },
+       "modello": "ECMWF",
+       "corretto": true
+      },
+      {
+       "finestra": "19:00–24:00",
+       "disponibile": true,
+       "colore": "giallo",
+       "vento_min": 7,
+       "vento_max": 9,
+       "dir": "NNE",
+       "pioggia": 4,
+       "marea": null,
+       "modello": "ECMWF",
+       "corretto": true
+      }
+     ],
      "disponibile": true,
      "colore": "giallo",
      "vento_min": 5,
@@ -100,6 +335,52 @@
     {
      "id": "sud",
      "nome": "Laguna Sud",
+     "fasce": [
+      {
+       "finestra": "05:00–12:00",
+       "disponibile": true,
+       "colore": "giallo",
+       "vento_min": 4,
+       "vento_max": 11,
+       "dir": "OSO",
+       "pioggia": 61,
+       "marea": {
+        "tipo": "alta",
+        "ora": "10:32",
+        "cm": 80
+       },
+       "modello": "ICON-2i",
+       "corretto": true
+      },
+      {
+       "finestra": "13:00–18:00",
+       "disponibile": true,
+       "colore": "giallo",
+       "vento_min": 5,
+       "vento_max": 8,
+       "dir": "ONO",
+       "pioggia": 27,
+       "marea": {
+        "tipo": "bassa",
+        "ora": "17:16",
+        "cm": -23
+       },
+       "modello": "ECMWF",
+       "corretto": true
+      },
+      {
+       "finestra": "19:00–24:00",
+       "disponibile": true,
+       "colore": "giallo",
+       "vento_min": 7,
+       "vento_max": 8,
+       "dir": "N",
+       "pioggia": 8,
+       "marea": null,
+       "modello": "ECMWF",
+       "corretto": true
+      }
+     ],
      "disponibile": true,
      "colore": "giallo",
      "vento_min": 4,

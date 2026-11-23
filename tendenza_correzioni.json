@@ -55,5 +55,93 @@
    }
   }
  },
- "aggiornato": "2026-11-23"
+ "aggiornato": "2026-11-23",
+ "kn_periodo": {
+  "pomeriggio": {
+   "ecmwf_ifs025": {
+    "centro": 3.4,
+    "nord": 0.0,
+    "sud": 4.1
+   },
+   "italia_meteo_arpae_icon_2i": {
+    "centro": 0.0,
+    "nord": 0.0,
+    "sud": 0.0
+   }
+  },
+  "sera": {
+   "ecmwf_ifs025": {
+    "centro": 4.3,
+    "nord": 1.9,
+    "sud": 4.5
+   },
+   "italia_meteo_arpae_icon_2i": {
+    "centro": 0.0,
+    "nord": 0.0,
+    "sud": 0.0
+   }
+  }
+ },
+ "stato_periodo": {
+  "pomeriggio": {
+   "ecmwf_ifs025": {
+    "centro": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "nord": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "sud": {
+     "fonte": "iniziale",
+     "giorni": 0
+    }
+   },
+   "italia_meteo_arpae_icon_2i": {
+    "centro": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "nord": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "sud": {
+     "fonte": "iniziale",
+     "giorni": 0
+    }
+   }
+  },
+  "sera": {
+   "ecmwf_ifs025": {
+    "centro": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "nord": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "sud": {
+     "fonte": "iniziale",
+     "giorni": 0
+    }
+   },
+   "italia_meteo_arpae_icon_2i": {
+    "centro": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "nord": {
+     "fonte": "iniziale",
+     "giorni": 0
+    },
+    "sud": {
+     "fonte": "iniziale",
+     "giorni": 0
+    }
+   }
+  }
+ }
 }
