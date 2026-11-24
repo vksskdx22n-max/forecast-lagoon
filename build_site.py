@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.52"   # v3.52: la cartina della pagina della zona ha il colore del giorno e della fascia scelti; v3.51: allerte vento fino alle 24; v3.50: tre fasce anche nei Prossimi giorni; v3.49: tre fasce della giornata (05-12, 13-18, 19-24) con i bottoni; PDF sintetico
+VERSIONE = "3.53"   # v3.53: fascia proposta = quella in corso (se finisce tra piu' di un'ora, altrimenti la prossima); scelta azzerata tornando all'app dopo 2 minuti; v3.52: la cartina della pagina della zona ha il colore del giorno e della fascia scelti; v3.51: allerte vento fino alle 24; v3.50: tre fasce anche nei Prossimi giorni; v3.49: tre fasce della giornata (05-12, 13-18, 19-24) con i bottoni; PDF sintetico
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"

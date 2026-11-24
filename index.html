@@ -168,7 +168,8 @@ function finMin(f){const m=String(f||'').split(/[–-]/).map(x=>{const [h,mm]=x.
 function slotTutti(){const M={};(D.zone||[]).forEach(z=>(z.voci||[]).forEach(v=>{const k=v.data+'|'+v.finestra;if(!M[k]){const [a,b]=finMin(v.finestra),d=dataDi(v.data);M[k]={k,data:v.data,fin:v.finestra,ini:new Date(d.getTime()+a*6e4),fine:new Date(d.getTime()+b*6e4)}}}));
  return Object.values(M).sort((x,y)=>x.ini-y.ini)}
 function slotVisibili(){const T=slotTutti(),n=new Date(),F=T.filter(s=>s.fine>n);return (F.length?F:T.slice(-1)).slice(0,3)}
-function slotDefault(){const S=slotVisibili(),n=new Date();return (S.find(s=>s.ini>n)||S[0]||{}).k||null}
+function slotDefault(){const S=slotVisibili(),n=new Date(),c=S.find(s=>s.ini<=n&&s.fine>n);   // v3.53: la fascia in corso, se finisce tra piu' di un'ora; altrimenti la prossima
+ if(c&&c.fine-n>60*6e4)return c.k;return (S.find(s=>s.ini>n)||S[0]||{}).k||null}
 function fsel(){const S=slotVisibili();if(!FS||!S.some(s=>s.k===FS))FS=slotDefault();return FS}
 function scegliFascia(k){FS=k;home();riempiAdesso()}   // v3.50: rimette il vento misurato sulla cartina (gia' caricato)
 function etFascia(s){const r=relativo(s.data),[a,b]=finMin(s.fin),hh=m=>String(Math.floor(m/60)).padStart(2,'0'),d=dataDi(s.data);
@@ -444,7 +445,12 @@ async function controlla(){caricaAdesso();try{
  if(V.codice&&V.codice!==CODICE&&!CODICE.startsWith('__')){autoAggiorna(V);return}
  if(D&&V.aggiornato_utc&&V.aggiornato_utc!==D.aggiornato_utc){D=await (await fetch('index.json',{cache:'no-store'})).json();vai()}
 }catch(e){}}
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')controlla()});
+let NASC=0;   // v3.53: tornando all'app dopo almeno 2 minuti la scelta di giorno e fascia riparte dalla fascia dell'orario
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){NASC=Date.now();return}
+ if(document.visibilityState!=='visible')return;
+ if(NASC&&Date.now()-NASC>=2*60*1000){FS=null;TFS=null;const p=location.hash.replace(/^#/,'').split('/');
+  if(p[0]==='zona'&&p.length>2)location.hash='zona/'+p[1];else vai()}
+ NASC=0;controlla()});
 setInterval(controlla,15*60*1000);
 function vai(){if(!D||!G)return;const p=location.hash.replace(/^#/,'').split('/');if(p[0]==='zona')zona(p[1],p[2],p[3]);else if(p[0]==='giorni')giorni();else home();riempiAdesso()}
 window.addEventListener('hashchange',vai);
