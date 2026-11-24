@@ -22,7 +22,7 @@ a{color:inherit;text-decoration:none}
 .testa{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:calc(env(safe-area-inset-top) + 18px) 20px 12px}
 .testa h1{font-size:34px;line-height:1.05;margin-top:6px}
 .testa .sub{max-width:none;margin-top:6px;font-size:clamp(12px,3.7vw,15px);white-space:nowrap}
-.hero{position:relative;height:max(232px,calc(100vh - 512px));height:max(232px,calc(100svh - 512px));overflow:hidden;background:#0b1b28}
+.hero{position:relative;height:max(232px,calc(100vh - 528px));height:max(228px,calc(100svh - 528px));overflow:hidden;background:#0b1b28}
 .hero svg{position:absolute;inset:0;width:100%;height:100%}
 .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,14,22,.9) 0%,rgba(4,14,22,.35) 30%,rgba(4,14,22,0) 52%,rgba(6,19,29,.96) 100%);pointer-events:none}
 .top{position:absolute;left:24px;right:24px;top:calc(env(safe-area-inset-top) + 28px)}
@@ -50,9 +50,10 @@ h1 span{color:var(--teal)}
 .zone .bar{align-self:stretch;min-height:52px;border-radius:0 6px 6px 0}
 .zname{font-size:20px;font-weight:650;letter-spacing:-.01em;line-height:1.05}
 .zmeta{font-size:12.5px;line-height:1.15;color:var(--mut);margin-top:1px;white-space:nowrap}
-.adMap{position:absolute;left:12px;top:8px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:650;background:rgba(6,19,29,.72);border:1px solid rgba(95,212,208,.45);border-radius:999px;padding:3px 9px;pointer-events:none}.adMap:empty{display:none}.adMap small{letter-spacing:0;text-transform:none;color:var(--soft);font-weight:500;font-size:11.5px;margin-left:4px}
-.prevband{border-top:1px solid var(--line);margin:4px 0 2px;padding:12px 0 6px}   /* v3.57: stacco netto fra ADESSO (cartina) e PREVISIONE */
-.ppill{display:inline-block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--soft);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.adMap{position:absolute;left:12px;top:10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:750;background:rgba(6,19,29,.84);border:1.5px solid rgba(95,212,208,.75);border-radius:999px;padding:6px 14px;pointer-events:none;box-shadow:0 2px 12px rgba(0,0,0,.35)}.adMap:empty{display:none}.adMap small{letter-spacing:0;text-transform:none;color:var(--soft);font-weight:600;font-size:13px;margin-left:5px}
+.prevband{display:flex;align-items:baseline;gap:10px;border-top:3px solid var(--teal);box-shadow:0 2px 10px rgba(95,212,208,.22);margin:8px 0 4px;padding:13px 0 6px}   /* v3.57/3.58: stacco netto ed evidente fra ADESSO (cartina) e PREVISIONE */
+.ptitle{font-size:18px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--txt);line-height:1}
+.pfasc{font-size:13.5px;font-weight:650;color:var(--teal)}
 .flink{color:var(--teal);font-weight:650;cursor:pointer;white-space:nowrap}   /* v3.31: vento adesso sulla cartina */
 .adA{display:flex;align-items:center;gap:6px;margin-top:3px;font-size:12.5px;line-height:1.2;color:#cfe3ec;font-weight:600;white-space:nowrap}.adA:empty{display:none}
 .adA i{width:9px;height:9px;border-radius:50%;flex:none}.adA small{color:var(--mut);font-weight:500;font-size:12px}
@@ -247,7 +248,7 @@ function titoloGiorno(){   // v3.49: bottoni delle fasce al posto del titolo gra
  const st=(oggi?`Previsione aggiornata${em?' alle '+esc(em):''}`:prov?`Previsione provvisoria${em?' delle '+esc(em):''} · la definitiva esce verso le ${esc(D.ora_aggiornamento||'')}`:`Previsione definitiva${em?' delle '+esc(em):''}`)+sole;   // v3.57: soggetto "Previsione" davanti
  const bt=S.map(s=>`<span class="fsb ${s.k===k?'on':''}" role="button" onclick="scegliFascia('${esc(s.k)}')">${esc(etFascia(s))}</span>`).join('');
  const haiProssimi=tendGiorni(slotTutti().map(s=>s.data).sort().pop()).length||D.zone.some(z=>z.attiva);   // v3.55: c'e' sempre almeno domani
- return {rif:prov,data:ult,h:`<div class="giorno"><div class="prevband"><span class="ppill">Previsione</span></div><div class="fsr">${bt}</div><div class="gd"><span>${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</span></div><div class="gs"><span>${st}</span>${haiProssimi?'<span class="gbtn" role="button" onclick="location.hash=\'giorni\'">Prossimi giorni ›</span>':''}</div></div>`}}
+ return {rif:prov,data:ult,h:`<div class="giorno"><div class="prevband"><span class="ptitle">Previsione</span><span class="pfasc">${esc(etFascia(sel))}</span></div><div class="fsr">${bt}</div><div class="gd"><span>${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</span></div><div class="gs"><span>${st}</span>${haiProssimi?'<span class="gbtn" role="button" onclick="location.hash=\'giorni\'">Prossimi giorni ›</span>':''}</div></div>`}}
 const MZN={};   // v3.37: curve dei mini-grafici per il segno "adesso" (zona -> {C,f,sc,data})
 function mareaMini(mz,sc,zid,data){   // v3.33-3.37: marea della zona nella finestra (curva da Punta Salute con ritardo e quota della stazione)
  if(!mz||!mz.curva||mz.curva.length<2||!sc)return '';const f=mz.fascia||[300,720],C=mz.curva.filter(p=>p[0]>=f[0]&&p[0]<=f[1]);if(C.length<2)return '';
