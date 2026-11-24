@@ -790,83 +790,89 @@
    "anticipo_g": 2,
    "ore": {
     "05": {
-     "icon_d2": 17.0,
+     "icon_d2": 18.9,
      "italia_meteo_arpae_icon_2i": 7.1,
-     "ecmwf_ifs025": 5.0
+     "ecmwf_ifs025": 7.2
     },
     "06": {
-     "icon_d2": 17.9,
+     "icon_d2": 16.8,
      "italia_meteo_arpae_icon_2i": 4.3,
-     "ecmwf_ifs025": 4.4
+     "ecmwf_ifs025": 7.6
     },
     "07": {
-     "icon_d2": 14.9,
+     "icon_d2": 18.8,
      "italia_meteo_arpae_icon_2i": 6.6,
-     "ecmwf_ifs025": 3.2
+     "ecmwf_ifs025": 8.0
     },
     "08": {
+     "icon_d2": 17.0,
      "italia_meteo_arpae_icon_2i": 6.6,
-     "ecmwf_ifs025": 1.0
+     "ecmwf_ifs025": 8.3
     },
     "09": {
+     "icon_d2": 13.7,
      "italia_meteo_arpae_icon_2i": 4.3,
-     "ecmwf_ifs025": 1.9
+     "ecmwf_ifs025": 8.3
     },
     "10": {
+     "icon_d2": 13.8,
      "italia_meteo_arpae_icon_2i": 4.4,
-     "ecmwf_ifs025": 3.6
+     "ecmwf_ifs025": 8.4
     },
     "11": {
+     "icon_d2": 15.6,
      "italia_meteo_arpae_icon_2i": 3.8,
-     "ecmwf_ifs025": 3.2
+     "ecmwf_ifs025": 8.3
     },
     "12": {
+     "icon_d2": 15.4,
      "italia_meteo_arpae_icon_2i": 3.0,
-     "ecmwf_ifs025": 1.9
+     "ecmwf_ifs025": 8.2
     },
     "13": {
+     "icon_d2": 14.0,
      "italia_meteo_arpae_icon_2i": 2.0,
-     "ecmwf_ifs025": 1.0
+     "ecmwf_ifs025": 7.8
     },
     "14": {
      "italia_meteo_arpae_icon_2i": 4.3,
-     "ecmwf_ifs025": 1.2
+     "ecmwf_ifs025": 6.7
     },
     "15": {
      "italia_meteo_arpae_icon_2i": 2.9,
-     "ecmwf_ifs025": 2.3
+     "ecmwf_ifs025": 5.1
     },
     "16": {
      "italia_meteo_arpae_icon_2i": 3.1,
-     "ecmwf_ifs025": 3.3
+     "ecmwf_ifs025": 3.9
     },
     "17": {
      "italia_meteo_arpae_icon_2i": 2.7,
-     "ecmwf_ifs025": 4.1
+     "ecmwf_ifs025": 3.1
     },
     "18": {
      "italia_meteo_arpae_icon_2i": 2.7,
-     "ecmwf_ifs025": 4.5
+     "ecmwf_ifs025": 2.7
     },
     "19": {
      "italia_meteo_arpae_icon_2i": 4.0,
-     "ecmwf_ifs025": 5.1
+     "ecmwf_ifs025": 2.5
     },
     "20": {
      "italia_meteo_arpae_icon_2i": 4.0,
-     "ecmwf_ifs025": 5.5
+     "ecmwf_ifs025": 2.7
     },
     "21": {
      "italia_meteo_arpae_icon_2i": 4.2,
-     "ecmwf_ifs025": 6.0
+     "ecmwf_ifs025": 3.2
     },
     "22": {
      "italia_meteo_arpae_icon_2i": 4.6,
-     "ecmwf_ifs025": 6.4
+     "ecmwf_ifs025": 3.6
     },
     "23": {
      "italia_meteo_arpae_icon_2i": 5.4,
-     "ecmwf_ifs025": 6.8
+     "ecmwf_ifs025": 3.5
     }
    }
   },
@@ -877,83 +883,89 @@
    "anticipo_g": 2,
    "ore": {
     "05": {
-     "icon_d2": 22.9,
+     "icon_d2": 23.2,
      "italia_meteo_arpae_icon_2i": 11.6,
-     "ecmwf_ifs025": 5.0
+     "ecmwf_ifs025": 7.2
     },
     "06": {
-     "icon_d2": 23.0,
+     "icon_d2": 23.3,
      "italia_meteo_arpae_icon_2i": 5.6,
-     "ecmwf_ifs025": 4.4
+     "ecmwf_ifs025": 7.6
     },
     "07": {
-     "icon_d2": 19.4,
+     "icon_d2": 22.2,
      "italia_meteo_arpae_icon_2i": 9.8,
-     "ecmwf_ifs025": 3.2
+     "ecmwf_ifs025": 8.0
     },
     "08": {
+     "icon_d2": 19.5,
      "italia_meteo_arpae_icon_2i": 7.6,
-     "ecmwf_ifs025": 1.0
+     "ecmwf_ifs025": 8.3
     },
     "09": {
+     "icon_d2": 15.5,
      "italia_meteo_arpae_icon_2i": 6.0,
-     "ecmwf_ifs025": 1.9
+     "ecmwf_ifs025": 8.3
     },
     "10": {
+     "icon_d2": 13.8,
      "italia_meteo_arpae_icon_2i": 5.0,
-     "ecmwf_ifs025": 3.6
+     "ecmwf_ifs025": 8.4
     },
     "11": {
+     "icon_d2": 17.4,
      "italia_meteo_arpae_icon_2i": 4.2,
-     "ecmwf_ifs025": 3.2
+     "ecmwf_ifs025": 8.3
     },
     "12": {
+     "icon_d2": 20.0,
      "italia_meteo_arpae_icon_2i": 3.6,
-     "ecmwf_ifs025": 1.9
+     "ecmwf_ifs025": 8.2
     },
     "13": {
+     "icon_d2": 18.2,
      "italia_meteo_arpae_icon_2i": 2.6,
-     "ecmwf_ifs025": 1.0
+     "ecmwf_ifs025": 7.8
     },
     "14": {
      "italia_meteo_arpae_icon_2i": 3.7,
-     "ecmwf_ifs025": 1.2
+     "ecmwf_ifs025": 6.7
     },
     "15": {
      "italia_meteo_arpae_icon_2i": 3.0,
-     "ecmwf_ifs025": 2.3
+     "ecmwf_ifs025": 5.1
     },
     "16": {
      "italia_meteo_arpae_icon_2i": 2.9,
-     "ecmwf_ifs025": 3.3
+     "ecmwf_ifs025": 3.9
     },
     "17": {
      "italia_meteo_arpae_icon_2i": 3.3,
-     "ecmwf_ifs025": 4.1
+     "ecmwf_ifs025": 3.1
     },
     "18": {
      "italia_meteo_arpae_icon_2i": 3.1,
-     "ecmwf_ifs025": 4.5
+     "ecmwf_ifs025": 2.7
     },
     "19": {
      "italia_meteo_arpae_icon_2i": 5.4,
-     "ecmwf_ifs025": 5.1
+     "ecmwf_ifs025": 2.5
     },
     "20": {
      "italia_meteo_arpae_icon_2i": 5.6,
-     "ecmwf_ifs025": 5.5
+     "ecmwf_ifs025": 2.7
     },
     "21": {
      "italia_meteo_arpae_icon_2i": 5.3,
-     "ecmwf_ifs025": 6.0
+     "ecmwf_ifs025": 3.2
     },
     "22": {
      "italia_meteo_arpae_icon_2i": 5.8,
-     "ecmwf_ifs025": 6.4
+     "ecmwf_ifs025": 3.6
     },
     "23": {
      "italia_meteo_arpae_icon_2i": 4.8,
-     "ecmwf_ifs025": 6.8
+     "ecmwf_ifs025": 3.5
     }
    }
   },
@@ -964,83 +976,89 @@
    "anticipo_g": 2,
    "ore": {
     "05": {
-     "icon_d2": 22.3,
+     "icon_d2": 20.2,
      "italia_meteo_arpae_icon_2i": 10.6,
-     "ecmwf_ifs025": 5.8
+     "ecmwf_ifs025": 7.5
     },
     "06": {
-     "icon_d2": 18.0,
+     "icon_d2": 21.3,
      "italia_meteo_arpae_icon_2i": 8.3,
-     "ecmwf_ifs025": 4.9
+     "ecmwf_ifs025": 6.5
     },
     "07": {
-     "icon_d2": 14.7,
+     "icon_d2": 19.8,
      "italia_meteo_arpae_icon_2i": 7.4,
-     "ecmwf_ifs025": 3.9
+     "ecmwf_ifs025": 5.8
     },
     "08": {
+     "icon_d2": 18.2,
      "italia_meteo_arpae_icon_2i": 6.5,
-     "ecmwf_ifs025": 2.6
+     "ecmwf_ifs025": 5.5
     },
     "09": {
+     "icon_d2": 14.6,
      "italia_meteo_arpae_icon_2i": 5.2,
-     "ecmwf_ifs025": 3.1
+     "ecmwf_ifs025": 5.8
     },
     "10": {
+     "icon_d2": 13.2,
      "italia_meteo_arpae_icon_2i": 5.4,
-     "ecmwf_ifs025": 4.1
+     "ecmwf_ifs025": 6.3
     },
     "11": {
+     "icon_d2": 11.3,
      "italia_meteo_arpae_icon_2i": 3.5,
-     "ecmwf_ifs025": 4.0
+     "ecmwf_ifs025": 6.1
     },
     "12": {
+     "icon_d2": 14.6,
      "italia_meteo_arpae_icon_2i": 2.5,
-     "ecmwf_ifs025": 3.5
+     "ecmwf_ifs025": 6.1
     },
     "13": {
+     "icon_d2": 17.4,
      "italia_meteo_arpae_icon_2i": 2.8,
-     "ecmwf_ifs025": 3.0
+     "ecmwf_ifs025": 6.2
     },
     "14": {
      "italia_meteo_arpae_icon_2i": 2.2,
-     "ecmwf_ifs025": 2.9
+     "ecmwf_ifs025": 5.4
     },
     "15": {
      "italia_meteo_arpae_icon_2i": 2.4,
-     "ecmwf_ifs025": 3.0
+     "ecmwf_ifs025": 4.0
     },
     "16": {
      "italia_meteo_arpae_icon_2i": 2.4,
-     "ecmwf_ifs025": 3.4
+     "ecmwf_ifs025": 3.0
     },
     "17": {
      "italia_meteo_arpae_icon_2i": 3.0,
-     "ecmwf_ifs025": 3.6
+     "ecmwf_ifs025": 2.6
     },
     "18": {
      "italia_meteo_arpae_icon_2i": 3.1,
-     "ecmwf_ifs025": 3.8
+     "ecmwf_ifs025": 2.5
     },
     "19": {
      "italia_meteo_arpae_icon_2i": 4.4,
-     "ecmwf_ifs025": 4.1
+     "ecmwf_ifs025": 2.5
     },
     "20": {
      "italia_meteo_arpae_icon_2i": 5.5,
-     "ecmwf_ifs025": 4.3
+     "ecmwf_ifs025": 2.5
     },
     "21": {
      "italia_meteo_arpae_icon_2i": 5.9,
-     "ecmwf_ifs025": 4.5
+     "ecmwf_ifs025": 2.8
     },
     "22": {
      "italia_meteo_arpae_icon_2i": 4.5,
-     "ecmwf_ifs025": 4.8
+     "ecmwf_ifs025": 2.9
     },
     "23": {
      "italia_meteo_arpae_icon_2i": 3.8,
-     "ecmwf_ifs025": 5.2
+     "ecmwf_ifs025": 2.8
     }
    }
   },
@@ -1051,61 +1069,61 @@
    "anticipo_g": 3,
    "ore": {
     "05": {
-     "ecmwf_ifs025": 8.1
-    },
-    "06": {
-     "ecmwf_ifs025": 8.4
-    },
-    "07": {
-     "ecmwf_ifs025": 8.7
-    },
-    "08": {
-     "ecmwf_ifs025": 9.1
-    },
-    "09": {
-     "ecmwf_ifs025": 9.4
-    },
-    "10": {
-     "ecmwf_ifs025": 9.5
-    },
-    "11": {
-     "ecmwf_ifs025": 9.1
-    },
-    "12": {
-     "ecmwf_ifs025": 8.2
-    },
-    "13": {
-     "ecmwf_ifs025": 7.6
-    },
-    "14": {
-     "ecmwf_ifs025": 7.0
-    },
-    "15": {
-     "ecmwf_ifs025": 6.7
-    },
-    "16": {
      "ecmwf_ifs025": 6.5
     },
-    "17": {
-     "ecmwf_ifs025": 6.7
-    },
-    "18": {
+    "06": {
      "ecmwf_ifs025": 7.3
     },
-    "19": {
-     "ecmwf_ifs025": 7.9
+    "07": {
+     "ecmwf_ifs025": 8.0
     },
-    "20": {
+    "08": {
      "ecmwf_ifs025": 8.4
     },
-    "21": {
+    "09": {
+     "ecmwf_ifs025": 8.3
+    },
+    "10": {
+     "ecmwf_ifs025": 8.3
+    },
+    "11": {
+     "ecmwf_ifs025": 8.7
+    },
+    "12": {
      "ecmwf_ifs025": 9.1
     },
+    "13": {
+     "ecmwf_ifs025": 9.2
+    },
+    "14": {
+     "ecmwf_ifs025": 8.9
+    },
+    "15": {
+     "ecmwf_ifs025": 8.2
+    },
+    "16": {
+     "ecmwf_ifs025": 8.1
+    },
+    "17": {
+     "ecmwf_ifs025": 9.0
+    },
+    "18": {
+     "ecmwf_ifs025": 10.4
+    },
+    "19": {
+     "ecmwf_ifs025": 11.5
+    },
+    "20": {
+     "ecmwf_ifs025": 12.2
+    },
+    "21": {
+     "ecmwf_ifs025": 12.6
+    },
     "22": {
-     "ecmwf_ifs025": 9.4
+     "ecmwf_ifs025": 12.8
     },
     "23": {
-     "ecmwf_ifs025": 9.5
+     "ecmwf_ifs025": 12.8
     }
    }
   },
@@ -1116,61 +1134,61 @@
    "anticipo_g": 3,
    "ore": {
     "05": {
-     "ecmwf_ifs025": 8.1
-    },
-    "06": {
-     "ecmwf_ifs025": 8.4
-    },
-    "07": {
-     "ecmwf_ifs025": 8.7
-    },
-    "08": {
-     "ecmwf_ifs025": 9.1
-    },
-    "09": {
-     "ecmwf_ifs025": 9.4
-    },
-    "10": {
-     "ecmwf_ifs025": 9.5
-    },
-    "11": {
-     "ecmwf_ifs025": 9.1
-    },
-    "12": {
-     "ecmwf_ifs025": 8.2
-    },
-    "13": {
-     "ecmwf_ifs025": 7.6
-    },
-    "14": {
-     "ecmwf_ifs025": 7.0
-    },
-    "15": {
-     "ecmwf_ifs025": 6.7
-    },
-    "16": {
      "ecmwf_ifs025": 6.5
     },
-    "17": {
-     "ecmwf_ifs025": 6.7
-    },
-    "18": {
+    "06": {
      "ecmwf_ifs025": 7.3
     },
-    "19": {
-     "ecmwf_ifs025": 7.9
+    "07": {
+     "ecmwf_ifs025": 8.0
     },
-    "20": {
+    "08": {
      "ecmwf_ifs025": 8.4
     },
-    "21": {
+    "09": {
+     "ecmwf_ifs025": 8.3
+    },
+    "10": {
+     "ecmwf_ifs025": 8.3
+    },
+    "11": {
+     "ecmwf_ifs025": 8.7
+    },
+    "12": {
      "ecmwf_ifs025": 9.1
     },
+    "13": {
+     "ecmwf_ifs025": 9.2
+    },
+    "14": {
+     "ecmwf_ifs025": 8.9
+    },
+    "15": {
+     "ecmwf_ifs025": 8.2
+    },
+    "16": {
+     "ecmwf_ifs025": 8.1
+    },
+    "17": {
+     "ecmwf_ifs025": 9.0
+    },
+    "18": {
+     "ecmwf_ifs025": 10.4
+    },
+    "19": {
+     "ecmwf_ifs025": 11.5
+    },
+    "20": {
+     "ecmwf_ifs025": 12.2
+    },
+    "21": {
+     "ecmwf_ifs025": 12.6
+    },
     "22": {
-     "ecmwf_ifs025": 9.4
+     "ecmwf_ifs025": 12.8
     },
     "23": {
-     "ecmwf_ifs025": 9.5
+     "ecmwf_ifs025": 12.8
     }
    }
   },
@@ -1181,65 +1199,300 @@
    "anticipo_g": 3,
    "ore": {
     "05": {
-     "ecmwf_ifs025": 6.3
+     "ecmwf_ifs025": 5.3
     },
     "06": {
-     "ecmwf_ifs025": 6.5
+     "ecmwf_ifs025": 5.7
     },
     "07": {
-     "ecmwf_ifs025": 6.8
+     "ecmwf_ifs025": 6.1
     },
     "08": {
-     "ecmwf_ifs025": 7.2
+     "ecmwf_ifs025": 6.2
     },
     "09": {
-     "ecmwf_ifs025": 7.9
+     "ecmwf_ifs025": 6.4
     },
     "10": {
-     "ecmwf_ifs025": 8.3
+     "ecmwf_ifs025": 6.9
     },
     "11": {
-     "ecmwf_ifs025": 8.3
+     "ecmwf_ifs025": 7.3
     },
     "12": {
-     "ecmwf_ifs025": 7.9
+     "ecmwf_ifs025": 7.8
     },
     "13": {
-     "ecmwf_ifs025": 7.6
+     "ecmwf_ifs025": 8.0
     },
     "14": {
-     "ecmwf_ifs025": 7.4
+     "ecmwf_ifs025": 8.1
     },
     "15": {
-     "ecmwf_ifs025": 7.3
+     "ecmwf_ifs025": 8.0
     },
     "16": {
-     "ecmwf_ifs025": 7.3
+     "ecmwf_ifs025": 8.2
     },
     "17": {
-     "ecmwf_ifs025": 7.7
+     "ecmwf_ifs025": 8.7
     },
     "18": {
-     "ecmwf_ifs025": 8.3
-    },
-    "19": {
-     "ecmwf_ifs025": 8.8
-    },
-    "20": {
-     "ecmwf_ifs025": 9.1
-    },
-    "21": {
      "ecmwf_ifs025": 9.4
     },
+    "19": {
+     "ecmwf_ifs025": 10.1
+    },
+    "20": {
+     "ecmwf_ifs025": 10.9
+    },
+    "21": {
+     "ecmwf_ifs025": 11.8
+    },
     "22": {
-     "ecmwf_ifs025": 9.6
+     "ecmwf_ifs025": 12.4
     },
     "23": {
-     "ecmwf_ifs025": 9.7
+     "ecmwf_ifs025": 12.6
     }
    }
   }
  ],
- "verificate": [],
+ "verificate": [
+  {
+   "data": "2026-11-24",
+   "area": "nord",
+   "emessa": "2026-11-22",
+   "anticipo_g": 2,
+   "periodo": "mattino",
+   "ore": [
+    {
+     "ora": "05",
+     "mis": 11.8,
+     "prev": {
+      "icon_d2": 5.9,
+      "italia_meteo_arpae_icon_2i": 6.6,
+      "ecmwf_ifs025": 6.9
+     }
+    },
+    {
+     "ora": "06",
+     "mis": 12.0,
+     "prev": {
+      "icon_d2": 6.8,
+      "italia_meteo_arpae_icon_2i": 5.8,
+      "ecmwf_ifs025": 7.1
+     }
+    },
+    {
+     "ora": "07",
+     "mis": 11.6,
+     "prev": {
+      "icon_d2": 6.9,
+      "italia_meteo_arpae_icon_2i": 6.3,
+      "ecmwf_ifs025": 7.1
+     }
+    },
+    {
+     "ora": "08",
+     "mis": 11.9,
+     "prev": {
+      "icon_d2": 7.5,
+      "italia_meteo_arpae_icon_2i": 7.1,
+      "ecmwf_ifs025": 7.1
+     }
+    },
+    {
+     "ora": "09",
+     "mis": 11.8,
+     "prev": {
+      "icon_d2": 8.1,
+      "italia_meteo_arpae_icon_2i": 6.3,
+      "ecmwf_ifs025": 7.0
+     }
+    },
+    {
+     "ora": "10",
+     "mis": 12.3,
+     "prev": {
+      "icon_d2": 8.8,
+      "italia_meteo_arpae_icon_2i": 7.4,
+      "ecmwf_ifs025": 7.0
+     }
+    },
+    {
+     "ora": "11",
+     "mis": 11.8,
+     "prev": {
+      "icon_d2": 8.0,
+      "italia_meteo_arpae_icon_2i": 7.3,
+      "ecmwf_ifs025": 7.1
+     }
+    },
+    {
+     "ora": "12",
+     "mis": 10.3,
+     "prev": {
+      "icon_d2": 8.3,
+      "italia_meteo_arpae_icon_2i": 8.0,
+      "ecmwf_ifs025": 7.5
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-11-24",
+   "area": "centro",
+   "emessa": "2026-11-22",
+   "anticipo_g": 2,
+   "periodo": "mattino",
+   "ore": [
+    {
+     "ora": "05",
+     "mis": 15.0,
+     "prev": {
+      "icon_d2": 7.7,
+      "italia_meteo_arpae_icon_2i": 9.5,
+      "ecmwf_ifs025": 6.9
+     }
+    },
+    {
+     "ora": "06",
+     "mis": 14.5,
+     "prev": {
+      "icon_d2": 9.8,
+      "italia_meteo_arpae_icon_2i": 6.7,
+      "ecmwf_ifs025": 7.1
+     }
+    },
+    {
+     "ora": "07",
+     "mis": 14.4,
+     "prev": {
+      "icon_d2": 11.5,
+      "italia_meteo_arpae_icon_2i": 5.3,
+      "ecmwf_ifs025": 7.1
+     }
+    },
+    {
+     "ora": "08",
+     "mis": 15.1,
+     "prev": {
+      "icon_d2": 9.1,
+      "italia_meteo_arpae_icon_2i": 8.4,
+      "ecmwf_ifs025": 7.1
+     }
+    },
+    {
+     "ora": "09",
+     "mis": 14.1,
+     "prev": {
+      "icon_d2": 11.1,
+      "italia_meteo_arpae_icon_2i": 7.2,
+      "ecmwf_ifs025": 7.0
+     }
+    },
+    {
+     "ora": "10",
+     "mis": 13.7,
+     "prev": {
+      "icon_d2": 10.4,
+      "italia_meteo_arpae_icon_2i": 12.1,
+      "ecmwf_ifs025": 7.0
+     }
+    },
+    {
+     "ora": "11",
+     "mis": 13.9,
+     "prev": {
+      "icon_d2": 10.7,
+      "italia_meteo_arpae_icon_2i": 9.9,
+      "ecmwf_ifs025": 7.1
+     }
+    },
+    {
+     "ora": "12",
+     "mis": 14.3,
+     "prev": {
+      "icon_d2": 10.9,
+      "italia_meteo_arpae_icon_2i": 10.8,
+      "ecmwf_ifs025": 7.5
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-11-24",
+   "area": "sud",
+   "emessa": "2026-11-22",
+   "anticipo_g": 2,
+   "periodo": "mattino",
+   "ore": [
+    {
+     "ora": "05",
+     "mis": 13.6,
+     "prev": {
+      "icon_d2": 7.5,
+      "italia_meteo_arpae_icon_2i": 8.5,
+      "ecmwf_ifs025": 5.1
+     }
+    },
+    {
+     "ora": "07",
+     "mis": 15.0,
+     "prev": {
+      "icon_d2": 7.7,
+      "italia_meteo_arpae_icon_2i": 4.1,
+      "ecmwf_ifs025": 5.4
+     }
+    },
+    {
+     "ora": "08",
+     "mis": 15.2,
+     "prev": {
+      "icon_d2": 10.1,
+      "italia_meteo_arpae_icon_2i": 2.9,
+      "ecmwf_ifs025": 5.6
+     }
+    },
+    {
+     "ora": "09",
+     "mis": 15.6,
+     "prev": {
+      "icon_d2": 8.4,
+      "italia_meteo_arpae_icon_2i": 2.4,
+      "ecmwf_ifs025": 5.8
+     }
+    },
+    {
+     "ora": "10",
+     "mis": 13.9,
+     "prev": {
+      "icon_d2": 8.4,
+      "italia_meteo_arpae_icon_2i": 4.2,
+      "ecmwf_ifs025": 6.0
+     }
+    },
+    {
+     "ora": "11",
+     "mis": 13.9,
+     "prev": {
+      "icon_d2": 8.8,
+      "italia_meteo_arpae_icon_2i": 14.3,
+      "ecmwf_ifs025": 6.3
+     }
+    },
+    {
+     "ora": "12",
+     "mis": 14.2,
+     "prev": {
+      "icon_d2": 9.1,
+      "italia_meteo_arpae_icon_2i": 13.6,
+      "ecmwf_ifs025": 6.8
+     }
+    }
+   ]
+  }
+ ],
  "versione": "1.4"
 }

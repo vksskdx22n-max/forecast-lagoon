@@ -29,29 +29,29 @@
   "ecmwf_ifs025": {
    "centro": {
     "fonte": "iniziale",
-    "giorni": 0
+    "giorni": 1
    },
    "nord": {
     "fonte": "iniziale",
-    "giorni": 0
+    "giorni": 1
    },
    "sud": {
     "fonte": "iniziale",
-    "giorni": 0
+    "giorni": 1
    }
   },
   "italia_meteo_arpae_icon_2i": {
    "centro": {
     "fonte": "iniziale",
-    "giorni": 0
+    "giorni": 1
    },
    "nord": {
     "fonte": "iniziale",
-    "giorni": 0
+    "giorni": 1
    },
    "sud": {
     "fonte": "iniziale",
-    "giorni": 0
+    "giorni": 1
    }
   }
  },
