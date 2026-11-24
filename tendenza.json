@@ -1,6 +1,6 @@
 {
  "versione": "1.4",
- "generato": "2026-11-24 08:26",
+ "generato": "2026-11-24 08:55",
  "base": "2026-11-25",
  "finestra": "05:00–12:00",
  "fasce": [
@@ -21,8 +21,8 @@
        "disponibile": true,
        "colore": "verde",
        "vento_min": 4,
-       "vento_max": 8,
-       "dir": "OSO",
+       "vento_max": 19,
+       "dir": "NNO",
        "pioggia": 67,
        "marea": {
         "tipo": "bassa",
@@ -60,8 +60,8 @@
      "disponibile": true,
      "colore": "verde",
      "vento_min": 4,
-     "vento_max": 8,
-     "dir": "OSO",
+     "vento_max": 19,
+     "dir": "NNO",
      "pioggia": 67,
      "marea": {
       "tipo": "bassa",
@@ -78,10 +78,10 @@
       {
        "finestra": "05:00–12:00",
        "disponibile": true,
-       "colore": "giallo",
+       "colore": "rosso",
        "vento_min": 5,
-       "vento_max": 13,
-       "dir": "OSO",
+       "vento_max": 24,
+       "dir": "NO",
        "pioggia": 67,
        "marea": {
         "tipo": "alta",
@@ -121,10 +121,10 @@
       }
      ],
      "disponibile": true,
-     "colore": "giallo",
+     "colore": "rosso",
      "vento_min": 5,
-     "vento_max": 13,
-     "dir": "OSO",
+     "vento_max": 24,
+     "dir": "NO",
      "pioggia": 67,
      "marea": {
       "tipo": "alta",
@@ -141,10 +141,10 @@
       {
        "finestra": "05:00–12:00",
        "disponibile": true,
-       "colore": "giallo",
+       "colore": "verde",
        "vento_min": 3,
-       "vento_max": 11,
-       "dir": "OSO",
+       "vento_max": 24,
+       "dir": "ONO",
        "pioggia": 67,
        "marea": {
         "tipo": "alta",
@@ -184,10 +184,10 @@
       }
      ],
      "disponibile": true,
-     "colore": "giallo",
+     "colore": "verde",
      "vento_min": 3,
-     "vento_max": 11,
-     "dir": "OSO",
+     "vento_max": 24,
+     "dir": "ONO",
      "pioggia": 67,
      "marea": {
       "tipo": "alta",

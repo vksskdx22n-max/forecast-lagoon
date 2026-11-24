@@ -4505,6 +4505,53 @@
     "ora": "07:50",
     "eta_min": 10
    }
+  },
+  {
+   "t": "2026-11-24T07:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 75,
+     "ora": "2026-11-24 08:20:00",
+     "t": 8.4,
+     "ora_t": "2026-11-24 08:20:00",
+     "td": 4.2,
+     "spread": 4.2
+    },
+    "Piattaforma": {
+     "rh": 85,
+     "ora": "2026-11-24 08:20:00",
+     "t": 10.7,
+     "ora_t": "2026-11-24 08:20:00",
+     "td": 8.3,
+     "spread": 2.4
+    },
+    "S_Giorgio": {
+     "rh": 70,
+     "ora": "2026-11-24 08:20:00"
+    }
+   },
+   "vento": {
+    "sud": 15.4,
+    "nord": 12.1,
+    "centro": 16.3
+   },
+   "vento_dati_aperti": {
+    "sud": "08:20",
+    "centro": "08:20",
+    "nord": "08:20"
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "08:20",
+    "eta_min": 10
+   }
   }
  ],
  "nota_locale": "Registro del Worker (v2.9) ogni 30 minuti, t in UTC: aria = umidita' (rh, %), temperatura (t, °C), punto di rugiada (td) e distanza dal punto di rugiada (spread) delle stazioni CPSM; vento = vento medio misurato (kn) di Saline, Malamocco Porto, Chioggia Porto; vis = visibilita' di Tessera (m). Per lo studio dell'indicatore locale di nebbia.",
