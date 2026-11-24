@@ -6,7 +6,7 @@
  "zone": "Malamocco · Valgrande · San Leonardo · Fisolo · Alberoni",
  "verdetto": {
   "colore": "rosso",
-  "testo": "Vento da 36° NE · Bora. Media delle 4 zone di pesca: 12,5–14,1 nodi, raffiche medie fino a 18,4. Per zona: Malamocco · Valgrande 11,9–14,1 nodi, raffiche fino a 18,1; San Leonardo · Melison 13,1–13,6 nodi, raffiche fino a 17,7; Fisolo 12,5–14,9 nodi, raffiche fino a 18,3; Bocca · Alberoni 12,2–13,7 nodi, raffiche fino a 19,4. Marea calante dalle 10:15 alla minima delle 17:20. Marea crescente dalle 17:20 alla massima delle 00:10. (Orari marea: previsione CPSM.)",
+  "testo": "Vento da 31° NNE · Bora in rotazione a 40° NE · Bora. Media delle 4 zone di pesca: 14,3–15,0 nodi, raffiche medie fino a 19,6. Per zona: Malamocco · Valgrande 14,0–14,9 nodi, raffiche fino a 19,4; San Leonardo · Melison 13,7–15,2 nodi, raffiche fino a 19,0; Fisolo 14,6–15,7 nodi, raffiche fino a 19,4; Bocca · Alberoni 13,5–14,3 nodi, raffiche fino a 20,8. Attenzione: raffiche fino a 20,8 nodi (Bocca · Alberoni, 15:00); non cambiano il colore, che segue il vento medio. Marea calante dalle 10:15 alla minima delle 17:20. Marea crescente dalle 17:20 alla massima delle 00:10. (Orari marea: previsione CPSM.)",
   "andamento": [
    {
     "colore": "rosso",
@@ -28,32 +28,38 @@
    {
     "ora": "13",
     "sem": "rosso",
-    "stima": 13.2,
-    "raff": 16.8,
+    "stima": 15.0,
+    "raff": 19.3,
     "marea": "↓",
     "cm_h": -19.2,
     "corr": 0.99,
     "verso": "esce",
-    "incerta": false,
-    "forbice": null
+    "incerta": true,
+    "forbice": [
+     11.3,
+     15.0
+    ]
    },
    {
     "ora": "14",
     "sem": "rosso",
-    "stima": 13.0,
-    "raff": 17.9,
+    "stima": 14.9,
+    "raff": 19.6,
     "marea": "↓",
     "cm_h": -22.2,
     "corr": 1.27,
     "verso": "esce",
-    "incerta": false,
-    "forbice": null
+    "incerta": true,
+    "forbice": [
+     11.7,
+     14.9
+    ]
    },
    {
     "ora": "15",
     "sem": "rosso",
-    "stima": 13.3,
-    "raff": 18.4,
+    "stima": 14.3,
+    "raff": 19.4,
     "marea": "↓",
     "cm_h": -21.2,
     "corr": 1.35,
@@ -64,8 +70,8 @@
    {
     "ora": "16",
     "sem": "rosso",
-    "stima": 14.1,
-    "raff": 18.1,
+    "stima": 14.4,
+    "raff": 18.9,
     "marea": "↓",
     "cm_h": -14.2,
     "corr": 1.05,
@@ -76,8 +82,8 @@
    {
     "ora": "17",
     "sem": "rosso",
-    "stima": 12.7,
-    "raff": 17.4,
+    "stima": 14.3,
+    "raff": 18.7,
     "marea": "↓",
     "cm_h": -5.1,
     "corr": 0.58,
@@ -88,8 +94,8 @@
    {
     "ora": "18",
     "sem": "rosso",
-    "stima": 12.5,
-    "raff": 16.6,
+    "stima": 14.4,
+    "raff": 19.0,
     "marea": "↑",
     "cm_h": 5.2,
     "corr": 0.02,
@@ -110,301 +116,45 @@
   "Malamocco · Valgrande": [
    {
     "ora": "13:00",
-    "dir": "36° NE",
+    "dir": "31° NNE",
     "nome": "Bora",
-    "dir_g": 36,
-    "stima": 13.2,
+    "dir_g": 31,
+    "stima": 14.9,
     "corr": 0.0,
     "sem": "rosso",
-    "d2": 13.2,
-    "i2": 14.4,
-    "raff": 16.5,
-    "raff_d2": 16.5,
-    "ec": 8.6,
+    "d2": 14.9,
+    "i2": 13.4,
+    "raff": 19.0,
+    "raff_d2": 19.0,
+    "ec": 7.9,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 12.0,
+    "ec_c": 11.3,
     "prudenza": false,
-    "ar": 16.9,
-    "raff_ar": 21.0,
-    "dir_ar": 43
-   },
-   {
-    "ora": "14:00",
-    "dir": "32° NNE",
-    "nome": "Bora",
-    "dir_g": 32,
-    "stima": 12.8,
-    "corr": 0.0,
-    "sem": "rosso",
-    "d2": 12.8,
-    "i2": 16.1,
-    "raff": 17.5,
-    "raff_d2": 17.5,
-    "ec": 8.9,
-    "riparo": false,
-    "ripiego": null,
-    "ec_c": 12.3,
-    "prudenza": false,
-    "ar": 15.3,
-    "raff_ar": 21.6,
-    "dir_ar": 39
-   },
-   {
-    "ora": "15:00",
-    "dir": "35° NE",
-    "nome": "Bora",
-    "dir_g": 35,
-    "stima": 13.3,
-    "corr": 0.0,
-    "sem": "rosso",
-    "d2": 13.3,
-    "i2": 16.9,
-    "raff": 18.1,
-    "raff_d2": 18.1,
-    "ec": 9.5,
-    "riparo": false,
-    "ripiego": null,
-    "ec_c": 12.9,
-    "prudenza": false,
-    "ar": 16.4,
-    "raff_ar": 20.4,
-    "dir_ar": 42
-   },
-   {
-    "ora": "16:00",
-    "dir": "38° NE",
-    "nome": "Bora",
-    "dir_g": 38,
-    "stima": 14.1,
-    "corr": 0.0,
-    "sem": "rosso",
-    "d2": 14.1,
-    "i2": 15.9,
-    "raff": 17.9,
-    "raff_d2": 17.9,
-    "ec": 9.9,
-    "riparo": false,
-    "ripiego": null,
-    "ec_c": 13.3,
-    "prudenza": false,
-    "ar": 17.3,
-    "raff_ar": 22.0,
-    "dir_ar": 55
-   },
-   {
-    "ora": "17:00",
-    "dir": "45° NE",
-    "nome": "Bora",
-    "dir_g": 45,
-    "stima": 12.4,
-    "corr": 0.0,
-    "sem": "giallo",
-    "d2": 12.4,
-    "i2": 15.9,
-    "raff": 17.1,
-    "raff_d2": 17.1,
-    "ec": 10.1,
-    "riparo": false,
-    "ripiego": null,
-    "ec_c": 13.5,
-    "prudenza": false,
-    "ar": 16.8,
-    "raff_ar": 22.7,
-    "dir_ar": 52
-   },
-   {
-    "ora": "18:00",
-    "dir": "52° NE",
-    "nome": "Bora",
-    "dir_g": 52,
-    "stima": 11.9,
-    "corr": 0.0,
-    "sem": "giallo",
-    "d2": 11.9,
-    "i2": 4.3,
-    "raff": 16.1,
-    "raff_d2": 16.1,
-    "ec": 10.4,
-    "riparo": false,
-    "ripiego": null,
-    "ec_c": 13.8,
-    "prudenza": false,
-    "ar": 14.9,
-    "raff_ar": 21.0,
-    "dir_ar": 57
-   }
-  ],
-  "San Leonardo · Melison": [
-   {
-    "ora": "13:00",
-    "dir": "35° NE",
-    "nome": "Bora",
-    "dir_g": 35,
-    "stima": 13.1,
-    "corr": 0.0,
-    "sem": "rosso",
-    "d2": 13.1,
-    "i2": 15.7,
-    "raff": 16.3,
-    "raff_d2": 16.3,
-    "ec": 8.6,
-    "riparo": true,
-    "ripiego": null,
-    "ec_c": 12.0,
-    "prudenza": false,
-    "ar": 17.7,
-    "raff_ar": 22.0,
-    "dir_ar": 44
-   },
-   {
-    "ora": "14:00",
-    "dir": "32° NNE",
-    "nome": "Bora",
-    "dir_g": 32,
-    "stima": 13.5,
-    "corr": 0.0,
-    "sem": "rosso",
-    "d2": 13.5,
-    "i2": 18.1,
-    "raff": 17.7,
-    "raff_d2": 17.7,
-    "ec": 8.9,
-    "riparo": true,
-    "ripiego": null,
-    "ec_c": 12.3,
-    "prudenza": false,
-    "ar": 15.3,
-    "raff_ar": 22.2,
-    "dir_ar": 39
-   },
-   {
-    "ora": "15:00",
-    "dir": "33° NNE",
-    "nome": "Bora",
-    "dir_g": 33,
-    "stima": 13.2,
-    "corr": 0.0,
-    "sem": "rosso",
-    "d2": 13.2,
-    "i2": 18.5,
-    "raff": 17.7,
-    "raff_d2": 17.7,
-    "ec": 9.5,
-    "riparo": true,
-    "ripiego": null,
-    "ec_c": 12.9,
-    "prudenza": false,
-    "ar": 16.5,
-    "raff_ar": 20.6,
-    "dir_ar": 42
-   },
-   {
-    "ora": "16:00",
-    "dir": "36° NE",
-    "nome": "Bora",
-    "dir_g": 36,
-    "stima": 13.6,
-    "corr": 0.0,
-    "sem": "rosso",
-    "d2": 13.6,
-    "i2": 17.5,
-    "raff": 17.3,
-    "raff_d2": 17.3,
-    "ec": 9.9,
-    "riparo": true,
-    "ripiego": null,
-    "ec_c": 13.3,
-    "prudenza": false,
-    "ar": 17.2,
-    "raff_ar": 21.4,
-    "dir_ar": 53
-   },
-   {
-    "ora": "17:00",
-    "dir": "43° NE",
-    "nome": "Bora",
-    "dir_g": 43,
-    "stima": 13.1,
-    "corr": 0.0,
-    "sem": "rosso",
-    "d2": 13.1,
-    "i2": 17.5,
-    "raff": 16.7,
-    "raff_d2": 16.7,
-    "ec": 10.1,
-    "riparo": true,
-    "ripiego": null,
-    "ec_c": 13.5,
-    "prudenza": false,
-    "ar": 17.7,
-    "raff_ar": 22.7,
-    "dir_ar": 54
-   },
-   {
-    "ora": "18:00",
-    "dir": "49° NE",
-    "nome": "Bora",
-    "dir_g": 49,
-    "stima": 13.4,
-    "corr": 0.0,
-    "sem": "rosso",
-    "d2": 13.4,
-    "i2": 9.7,
-    "raff": 16.9,
-    "raff_d2": 16.9,
-    "ec": 10.4,
-    "riparo": true,
-    "ripiego": null,
-    "ec_c": 13.8,
-    "prudenza": false,
-    "ar": 12.0,
-    "raff_ar": 21.6,
-    "dir_ar": 54
-   }
-  ],
-  "Fisolo": [
-   {
-    "ora": "13:00",
-    "dir": "37° NE",
-    "nome": "Bora",
-    "dir_g": 37,
-    "stima": 13.9,
-    "corr": 0.0,
-    "sem": "rosso",
-    "d2": 13.9,
-    "i2": 14.6,
-    "raff": 16.5,
-    "raff_d2": 16.5,
-    "ec": 8.6,
-    "riparo": false,
-    "ripiego": null,
-    "ec_c": 12.0,
-    "prudenza": false,
-    "ar": 16.8,
-    "raff_ar": 20.8,
-    "dir_ar": 43
+    "ar": 17.5,
+    "raff_ar": 21.8,
+    "dir_ar": 45
    },
    {
     "ora": "14:00",
     "dir": "31° NNE",
     "nome": "Bora",
     "dir_g": 31,
-    "stima": 13.6,
+    "stima": 14.7,
     "corr": 0.0,
     "sem": "rosso",
-    "d2": 13.6,
-    "i2": 16.7,
-    "raff": 17.5,
-    "raff_d2": 17.5,
-    "ec": 8.9,
+    "d2": 14.7,
+    "i2": 13.4,
+    "raff": 19.4,
+    "raff_d2": 19.4,
+    "ec": 8.3,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 12.3,
+    "ec_c": 11.7,
     "prudenza": false,
-    "ar": 15.5,
-    "raff_ar": 21.2,
-    "dir_ar": 40
+    "ar": 15.8,
+    "raff_ar": 23.7,
+    "dir_ar": 38
    },
    {
     "ora": "15:00",
@@ -415,208 +165,464 @@
     "corr": 0.0,
     "sem": "rosso",
     "d2": 14.0,
-    "i2": 17.7,
-    "raff": 18.3,
-    "raff_d2": 18.3,
-    "ec": 9.5,
+    "i2": 14.6,
+    "raff": 18.9,
+    "raff_d2": 18.9,
+    "ec": 9.0,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 12.9,
+    "ec_c": 12.4,
     "prudenza": false,
-    "ar": 16.4,
-    "raff_ar": 20.2,
-    "dir_ar": 41
+    "ar": 16.1,
+    "raff_ar": 20.8,
+    "dir_ar": 38
    },
    {
     "ora": "16:00",
     "dir": "39° NE",
     "nome": "Bora",
     "dir_g": 39,
-    "stima": 14.9,
+    "stima": 14.2,
     "corr": 0.0,
     "sem": "rosso",
-    "d2": 14.9,
-    "i2": 16.7,
-    "raff": 17.9,
-    "raff_d2": 17.9,
-    "ec": 9.9,
+    "d2": 14.2,
+    "i2": 15.4,
+    "raff": 18.5,
+    "raff_d2": 18.5,
+    "ec": 9.7,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 13.3,
+    "ec_c": 13.1,
     "prudenza": false,
-    "ar": 18.6,
-    "raff_ar": 22.7,
-    "dir_ar": 53
+    "ar": 19.0,
+    "raff_ar": 23.7,
+    "dir_ar": 21
    },
    {
     "ora": "17:00",
-    "dir": "41° NE",
+    "dir": "42° NE",
     "nome": "Bora",
-    "dir_g": 41,
-    "stima": 12.9,
+    "dir_g": 42,
+    "stima": 14.2,
     "corr": 0.0,
     "sem": "rosso",
-    "d2": 12.9,
-    "i2": 16.5,
-    "raff": 17.3,
-    "raff_d2": 17.3,
+    "d2": 14.2,
+    "i2": 15.4,
+    "raff": 18.3,
+    "raff_d2": 18.3,
     "ec": 10.1,
     "riparo": false,
     "ripiego": null,
     "ec_c": 13.5,
     "prudenza": false,
-    "ar": 16.3,
-    "raff_ar": 22.7,
-    "dir_ar": 52
+    "ar": 9.3,
+    "raff_ar": 22.9,
+    "dir_ar": 70
    },
    {
     "ora": "18:00",
-    "dir": "47° NE",
+    "dir": "40° NE",
     "nome": "Bora",
-    "dir_g": 47,
-    "stima": 12.5,
+    "dir_g": 40,
+    "stima": 14.5,
     "corr": 0.0,
     "sem": "rosso",
-    "d2": 12.5,
-    "i2": 9.7,
-    "raff": 15.9,
-    "raff_d2": 15.9,
-    "ec": 10.4,
+    "d2": 14.5,
+    "i2": 16.3,
+    "raff": 18.7,
+    "raff_d2": 18.7,
+    "ec": 10.6,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 13.8,
+    "ec_c": 14.0,
     "prudenza": false,
-    "ar": 14.7,
-    "raff_ar": 20.2,
-    "dir_ar": 59
+    "ar": 8.5,
+    "raff_ar": 18.5,
+    "dir_ar": 37
+   }
+  ],
+  "San Leonardo · Melison": [
+   {
+    "ora": "13:00",
+    "dir": "32° NNE",
+    "nome": "Bora",
+    "dir_g": 32,
+    "stima": 15.1,
+    "corr": 0.0,
+    "sem": "rosso",
+    "d2": 15.1,
+    "i2": 15.2,
+    "raff": 18.9,
+    "raff_d2": 18.9,
+    "ec": 7.9,
+    "riparo": true,
+    "ripiego": null,
+    "ec_c": 11.3,
+    "prudenza": false,
+    "ar": 18.0,
+    "raff_ar": 22.2,
+    "dir_ar": 45
+   },
+   {
+    "ora": "14:00",
+    "dir": "31° NNE",
+    "nome": "Bora",
+    "dir_g": 31,
+    "stima": 15.2,
+    "corr": 0.0,
+    "sem": "rosso",
+    "d2": 15.2,
+    "i2": 14.8,
+    "raff": 19.0,
+    "raff_d2": 19.0,
+    "ec": 8.3,
+    "riparo": true,
+    "ripiego": null,
+    "ec_c": 11.7,
+    "prudenza": false,
+    "ar": 16.3,
+    "raff_ar": 23.7,
+    "dir_ar": 40
+   },
+   {
+    "ora": "15:00",
+    "dir": "32° NNE",
+    "nome": "Bora",
+    "dir_g": 32,
+    "stima": 14.7,
+    "corr": 0.0,
+    "sem": "rosso",
+    "d2": 14.7,
+    "i2": 16.3,
+    "raff": 18.7,
+    "raff_d2": 18.7,
+    "ec": 9.0,
+    "riparo": true,
+    "ripiego": null,
+    "ec_c": 12.4,
+    "prudenza": false,
+    "ar": 15.6,
+    "raff_ar": 20.4,
+    "dir_ar": 35
+   },
+   {
+    "ora": "16:00",
+    "dir": "34° NE",
+    "nome": "Bora",
+    "dir_g": 34,
+    "stima": 15.0,
+    "corr": 0.0,
+    "sem": "rosso",
+    "d2": 15.0,
+    "i2": 16.9,
+    "raff": 18.1,
+    "raff_d2": 18.1,
+    "ec": 9.7,
+    "riparo": true,
+    "ripiego": null,
+    "ec_c": 13.1,
+    "prudenza": false,
+    "ar": 19.5,
+    "raff_ar": 24.3,
+    "dir_ar": 32
+   },
+   {
+    "ora": "17:00",
+    "dir": "39° NE",
+    "nome": "Bora",
+    "dir_g": 39,
+    "stima": 14.1,
+    "corr": 0.0,
+    "sem": "rosso",
+    "d2": 14.1,
+    "i2": 17.1,
+    "raff": 18.5,
+    "raff_d2": 18.5,
+    "ec": 10.1,
+    "riparo": true,
+    "ripiego": null,
+    "ec_c": 13.5,
+    "prudenza": false,
+    "ar": 15.0,
+    "raff_ar": 24.1,
+    "dir_ar": 62
+   },
+   {
+    "ora": "18:00",
+    "dir": "35° NE",
+    "nome": "Bora",
+    "dir_g": 35,
+    "stima": 13.7,
+    "corr": 0.0,
+    "sem": "rosso",
+    "d2": 13.7,
+    "i2": 19.6,
+    "raff": 18.1,
+    "raff_d2": 18.1,
+    "ec": 10.6,
+    "riparo": true,
+    "ripiego": null,
+    "ec_c": 14.0,
+    "prudenza": false,
+    "ar": 10.6,
+    "raff_ar": 19.0,
+    "dir_ar": 46
+   }
+  ],
+  "Fisolo": [
+   {
+    "ora": "13:00",
+    "dir": "31° NNE",
+    "nome": "Bora",
+    "dir_g": 31,
+    "stima": 15.6,
+    "corr": 0.0,
+    "sem": "rosso",
+    "d2": 15.6,
+    "i2": 13.8,
+    "raff": 19.2,
+    "raff_d2": 19.2,
+    "ec": 7.9,
+    "riparo": false,
+    "ripiego": null,
+    "ec_c": 11.3,
+    "prudenza": false,
+    "ar": 17.0,
+    "raff_ar": 21.2,
+    "dir_ar": 44
+   },
+   {
+    "ora": "14:00",
+    "dir": "31° NNE",
+    "nome": "Bora",
+    "dir_g": 31,
+    "stima": 15.7,
+    "corr": 0.0,
+    "sem": "rosso",
+    "d2": 15.7,
+    "i2": 13.8,
+    "raff": 19.4,
+    "raff_d2": 19.4,
+    "ec": 8.3,
+    "riparo": false,
+    "ripiego": null,
+    "ec_c": 11.7,
+    "prudenza": false,
+    "ar": 15.5,
+    "raff_ar": 23.3,
+    "dir_ar": 39
+   },
+   {
+    "ora": "15:00",
+    "dir": "33° NNE",
+    "nome": "Bora",
+    "dir_g": 33,
+    "stima": 15.0,
+    "corr": 0.0,
+    "sem": "rosso",
+    "d2": 15.0,
+    "i2": 15.0,
+    "raff": 19.0,
+    "raff_d2": 19.0,
+    "ec": 9.0,
+    "riparo": false,
+    "ripiego": null,
+    "ec_c": 12.4,
+    "prudenza": false,
+    "ar": 15.9,
+    "raff_ar": 21.4,
+    "dir_ar": 35
+   },
+   {
+    "ora": "16:00",
+    "dir": "36° NE",
+    "nome": "Bora",
+    "dir_g": 36,
+    "stima": 14.6,
+    "corr": 0.0,
+    "sem": "rosso",
+    "d2": 14.6,
+    "i2": 15.9,
+    "raff": 18.9,
+    "raff_d2": 18.9,
+    "ec": 9.7,
+    "riparo": false,
+    "ripiego": null,
+    "ec_c": 13.1,
+    "prudenza": false,
+    "ar": 17.5,
+    "raff_ar": 21.6,
+    "dir_ar": 15
+   },
+   {
+    "ora": "17:00",
+    "dir": "39° NE",
+    "nome": "Bora",
+    "dir_g": 39,
+    "stima": 15.1,
+    "corr": 0.0,
+    "sem": "rosso",
+    "d2": 15.1,
+    "i2": 15.7,
+    "raff": 18.3,
+    "raff_d2": 18.3,
+    "ec": 10.1,
+    "riparo": false,
+    "ripiego": null,
+    "ec_c": 13.5,
+    "prudenza": false,
+    "ar": 14.2,
+    "raff_ar": 21.6,
+    "dir_ar": 67
+   },
+   {
+    "ora": "18:00",
+    "dir": "37° NE",
+    "nome": "Bora",
+    "dir_g": 37,
+    "stima": 15.4,
+    "corr": 0.0,
+    "sem": "rosso",
+    "d2": 15.4,
+    "i2": 15.9,
+    "raff": 18.9,
+    "raff_d2": 18.9,
+    "ec": 10.6,
+    "riparo": false,
+    "ripiego": null,
+    "ec_c": 14.0,
+    "prudenza": false,
+    "ar": 11.3,
+    "raff_ar": 21.8,
+    "dir_ar": 44
    }
   ],
   "Bocca · Alberoni": [
    {
     "ora": "13:00",
-    "dir": "34° NE",
+    "dir": "31° NNE",
     "nome": "Bora",
-    "dir_g": 34,
-    "stima": 12.6,
+    "dir_g": 31,
+    "stima": 14.3,
     "corr": 0.0,
     "sem": "rosso",
-    "d2": 12.6,
-    "i2": 13.0,
-    "raff": 17.9,
-    "raff_d2": 17.9,
-    "ec": 8.6,
+    "d2": 14.3,
+    "i2": 12.4,
+    "raff": 20.2,
+    "raff_d2": 20.2,
+    "ec": 7.9,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 12.0,
+    "ec_c": 11.3,
     "prudenza": false,
-    "ar": 16.1,
-    "raff_ar": 20.8,
-    "dir_ar": 42
+    "ar": 17.0,
+    "raff_ar": 22.2,
+    "dir_ar": 45
    },
    {
     "ora": "14:00",
-    "dir": "33° NNE",
+    "dir": "31° NNE",
     "nome": "Bora",
-    "dir_g": 33,
-    "stima": 12.2,
+    "dir_g": 31,
+    "stima": 14.0,
     "corr": 0.0,
-    "sem": "giallo",
-    "d2": 12.2,
-    "i2": 14.8,
-    "raff": 18.7,
-    "raff_d2": 18.7,
-    "ec": 8.9,
+    "sem": "rosso",
+    "d2": 14.0,
+    "i2": 12.4,
+    "raff": 20.6,
+    "raff_d2": 20.6,
+    "ec": 8.3,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 12.3,
+    "ec_c": 11.7,
     "prudenza": false,
-    "ar": 14.7,
-    "raff_ar": 21.2,
-    "dir_ar": 36
+    "ar": 15.1,
+    "raff_ar": 23.9,
+    "dir_ar": 35
    },
    {
     "ora": "15:00",
-    "dir": "34° NE",
+    "dir": "35° NE",
     "nome": "Bora",
-    "dir_g": 34,
-    "stima": 12.9,
+    "dir_g": 35,
+    "stima": 13.5,
     "corr": 0.0,
     "sem": "rosso",
-    "d2": 12.9,
-    "i2": 15.7,
-    "raff": 19.4,
-    "raff_d2": 19.4,
-    "ec": 9.5,
+    "d2": 13.5,
+    "i2": 13.4,
+    "raff": 20.8,
+    "raff_d2": 20.8,
+    "ec": 9.0,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 12.9,
+    "ec_c": 12.4,
     "prudenza": false,
-    "ar": 15.6,
-    "raff_ar": 20.4,
-    "dir_ar": 38
+    "ar": 14.0,
+    "raff_ar": 20.8,
+    "dir_ar": 34
    },
    {
     "ora": "16:00",
-    "dir": "38° NE",
+    "dir": "40° NE",
     "nome": "Bora",
-    "dir_g": 38,
+    "dir_g": 40,
     "stima": 13.7,
     "corr": 0.0,
     "sem": "rosso",
     "d2": 13.7,
-    "i2": 15.4,
-    "raff": 19.2,
-    "raff_d2": 19.2,
-    "ec": 9.9,
+    "i2": 14.2,
+    "raff": 20.0,
+    "raff_d2": 20.0,
+    "ec": 9.7,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 13.3,
+    "ec_c": 13.1,
     "prudenza": false,
-    "ar": 18.2,
-    "raff_ar": 23.3,
-    "dir_ar": 55
+    "ar": 16.0,
+    "raff_ar": 22.4,
+    "dir_ar": 10
    },
    {
     "ora": "17:00",
-    "dir": "48° NE",
+    "dir": "43° NE",
     "nome": "Bora",
-    "dir_g": 48,
-    "stima": 12.3,
+    "dir_g": 43,
+    "stima": 13.8,
     "corr": 0.0,
-    "sem": "giallo",
-    "d2": 12.3,
-    "i2": 15.6,
-    "raff": 18.7,
-    "raff_d2": 18.7,
+    "sem": "rosso",
+    "d2": 13.8,
+    "i2": 14.2,
+    "raff": 19.8,
+    "raff_d2": 19.8,
     "ec": 10.1,
     "riparo": false,
     "ripiego": null,
     "ec_c": 13.5,
     "prudenza": false,
-    "ar": 17.2,
-    "raff_ar": 23.9,
-    "dir_ar": 51
+    "ar": 4.3,
+    "raff_ar": 21.0,
+    "dir_ar": 90
    },
    {
     "ora": "18:00",
-    "dir": "52° NE",
+    "dir": "41° NE",
     "nome": "Bora",
-    "dir_g": 52,
-    "stima": 12.3,
+    "dir_g": 41,
+    "stima": 14.2,
     "corr": 0.0,
-    "sem": "giallo",
-    "d2": 12.3,
-    "i2": 8.0,
-    "raff": 17.7,
-    "raff_d2": 17.7,
-    "ec": 10.4,
+    "sem": "rosso",
+    "d2": 14.2,
+    "i2": 14.6,
+    "raff": 20.4,
+    "raff_d2": 20.4,
+    "ec": 10.6,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 13.8,
+    "ec_c": 14.0,
     "prudenza": false,
-    "ar": 13.8,
-    "raff_ar": 21.6,
-    "dir_ar": 64
+    "ar": 1.7,
+    "raff_ar": 12.8,
+    "dir_ar": 360
    }
   ]
  },
@@ -628,7 +634,7 @@
  ],
  "testo_riparo": "zona riparata dalla bora: stima = ICON-D2 senza correzione; vento reale probabilmente più basso (osservazione di Ennio, non misurata)",
  "ore_ripiego": [],
- "vento_nota": "Nodi. D2 = ICON-D2, 2i = ICON-2i, Raff. = raffiche ICON-D2 corrette (stessa correzione del vento; raffiche con vento Bora: 0 ore verificate su 10 richieste), EC = ECMWF. Stima = ICON-D2 + correzione — +0,0 nodi: Malamocco · Valgrande: fissa pomeriggio (analisi F0 23/11/2026: ICON-D2 del giorno prima nel pomeriggio quasi senza errore (+0,3 / +0,3 / +0,9 nodi), nessuna correzione); ICON-D2 da 12 nodi: 0 ore verificate su 40 richieste; +0,0 nodi: Malamocco · Valgrande: fissa pomeriggio (analisi F0 23/11/2026: ICON-D2 del giorno prima nel pomeriggio quasi senza errore (+0,3 / +0,3 / +0,9 nodi), nessuna correzione); ICON-D2 6–12 nodi: 0 ore verificate su 40 richieste; +0,0 nodi: San Leonardo · Melison con bora: zona riparata dalla bora: stima = ICON-D2 senza correzione; vento reale probabilmente più basso (osservazione di Ennio, non misurata). Misure di verifica: Malamocco · Valgrande = Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande); San Leonardo · Melison, Fisolo, Bocca · Alberoni: nessuna stazione di verifica valida, usano la correzione di Malamocco Porto. Colori sul vento medio arrotondato all'intero: verde fino a 6 nodi, giallo da 7 a 12, rosso da 13 (le raffiche non cambiano il colore).",
+ "vento_nota": "Nodi. D2 = ICON-D2, 2i = ICON-2i, Raff. = raffiche ICON-D2 corrette (stessa correzione del vento; raffiche con vento Bora: 6 ore verificate su 10 richieste), EC = ECMWF. Stima = ICON-D2 + correzione — +0,0 nodi: Malamocco · Valgrande: fissa pomeriggio (analisi F0 23/11/2026: ICON-D2 del giorno prima nel pomeriggio quasi senza errore (+0,3 / +0,3 / +0,9 nodi), nessuna correzione); ICON-D2 da 12 nodi: 1 ore verificate su 40 richieste; +0,0 nodi: San Leonardo · Melison con bora: zona riparata dalla bora: stima = ICON-D2 senza correzione; vento reale probabilmente più basso (osservazione di Ennio, non misurata). Misure di verifica: Malamocco · Valgrande = Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande); San Leonardo · Melison, Fisolo, Bocca · Alberoni: nessuna stazione di verifica valida, usano la correzione di Malamocco Porto. Colori sul vento medio arrotondato all'intero: verde fino a 6 nodi, giallo da 7 a 12, rosso da 13 (le raffiche non cambiano il colore).",
  "marea": {
   "estremali": [
    {
@@ -714,10 +720,10 @@
     "min_curva": 1740
    }
   ],
-  "cpsm_emessa": "24/11 13:30",
+  "cpsm_emessa": "24/11 17:00",
   "fonte_fase": "previsione CPSM",
   "cpsm_vecchia": false,
-  "cpsm_eta_h": 28,
+  "cpsm_eta_h": 25,
   "ferma": false,
   "vel_max": 22.2,
   "sequenza": [
@@ -1576,68 +1582,68 @@
  },
  "meteo": {
   "pressione": [
-   "1015,9",
-   "1013,2",
+   "1015,6",
+   "1012,7",
    "in calo"
   ],
-  "nuvolosita": 99,
-  "pioggia": "0,4",
+  "nuvolosita": 100,
+  "pioggia": "0,6",
   "fonte_meteo": "ICON-D2",
   "pioggia_prob": 65,
   "pioggia_ore": [
    {
     "ora": "13:00",
-    "prob_D2": 55,
+    "prob_D2": 40,
     "prob_2i": null,
-    "prob_EC": 63,
-    "mm_D2": 0.4,
-    "mm_2i": 1.2,
-    "mm_EC": 0.1
+    "prob_EC": 59,
+    "mm_D2": 0.3,
+    "mm_2i": 0.1,
+    "mm_EC": 0.0
    },
    {
     "ora": "14:00",
-    "prob_D2": 35,
+    "prob_D2": 55,
     "prob_2i": null,
-    "prob_EC": 58,
-    "mm_D2": 0.1,
-    "mm_2i": 0.9,
-    "mm_EC": 0.1
+    "prob_EC": 55,
+    "mm_D2": 0.3,
+    "mm_2i": 0.0,
+    "mm_EC": 0.2
    },
    {
     "ora": "15:00",
-    "prob_D2": 30,
+    "prob_D2": 55,
     "prob_2i": null,
-    "prob_EC": 53,
-    "mm_D2": 0.0,
-    "mm_2i": 0.2,
-    "mm_EC": 0.1
+    "prob_EC": 55,
+    "mm_D2": 0.6,
+    "mm_2i": 0.0,
+    "mm_EC": 0.2
    },
    {
     "ora": "16:00",
-    "prob_D2": 45,
+    "prob_D2": 55,
     "prob_2i": null,
-    "prob_EC": 51,
-    "mm_D2": 0.0,
-    "mm_2i": 0.4,
-    "mm_EC": 0.1
+    "prob_EC": 57,
+    "mm_D2": 0.6,
+    "mm_2i": 0.0,
+    "mm_EC": 0.2
    },
    {
     "ora": "17:00",
     "prob_D2": 65,
     "prob_2i": null,
-    "prob_EC": 55,
+    "prob_EC": 61,
     "mm_D2": 0.1,
-    "mm_2i": 0.6,
-    "mm_EC": 0.2
+    "mm_2i": 0.2,
+    "mm_EC": 0.8
    },
    {
     "ora": "18:00",
-    "prob_D2": 45,
+    "prob_D2": 65,
     "prob_2i": null,
-    "prob_EC": 63,
+    "prob_EC": 68,
     "mm_D2": 0.4,
-    "mm_2i": 3.4,
-    "mm_EC": 0.2
+    "mm_2i": 0.1,
+    "mm_EC": 0.8
    }
   ],
   "nebbia": {
@@ -1659,37 +1665,37 @@
     "livello": 1,
     "umidita": 92,
     "nubi_basse": 96,
-    "vento": 13.2,
+    "vento": 14.9,
     "codice_nebbia": [],
     "prob": 0,
     "scenari": 80
    },
    {
     "ora": "14:00",
-    "livello": 1,
-    "umidita": 91,
-    "nubi_basse": 100,
-    "vento": 12.8,
+    "livello": 0,
+    "umidita": 93,
+    "nubi_basse": 79,
+    "vento": 14.7,
     "codice_nebbia": [],
     "prob": 0,
     "scenari": 80
    },
    {
     "ora": "15:00",
-    "livello": 0,
-    "umidita": 91,
-    "nubi_basse": 88,
-    "vento": 13.3,
+    "livello": 1,
+    "umidita": 94,
+    "nubi_basse": 91,
+    "vento": 14.0,
     "codice_nebbia": [],
     "prob": 0,
     "scenari": 80
    },
    {
     "ora": "16:00",
-    "livello": 0,
-    "umidita": 92,
-    "nubi_basse": 63,
-    "vento": 14.1,
+    "livello": 1,
+    "umidita": 94,
+    "nubi_basse": 99,
+    "vento": 14.2,
     "codice_nebbia": [],
     "prob": 0,
     "scenari": 80
@@ -1697,9 +1703,9 @@
    {
     "ora": "17:00",
     "livello": 1,
-    "umidita": 92,
-    "nubi_basse": 92,
-    "vento": 12.4,
+    "umidita": 93,
+    "nubi_basse": 100,
+    "vento": 14.2,
     "codice_nebbia": [],
     "prob": 0,
     "scenari": 80
@@ -1707,72 +1713,72 @@
    {
     "ora": "18:00",
     "livello": 1,
-    "umidita": 91,
-    "nubi_basse": 95,
-    "vento": 11.9,
+    "umidita": 92,
+    "nubi_basse": 97,
+    "vento": 14.5,
     "codice_nebbia": [],
     "prob": 0,
     "scenari": 80
    }
   ],
   "aria": [
-   "9,1",
-   "9,5"
+   "8,6",
+   "9,1"
   ],
   "aria_punto": "Mestre",
   "aria_ore": [
    {
     "ora": "13:00",
-    "mestre": 9.1,
-    "acqua": 9.7,
-    "mare": 10.6
+    "mestre": 8.6,
+    "acqua": 9.5,
+    "mare": 10.5
    },
    {
     "ora": "14:00",
-    "mestre": 9.3,
-    "acqua": 10.0,
-    "mare": 10.9
+    "mestre": 8.7,
+    "acqua": 9.8,
+    "mare": 10.7
    },
    {
     "ora": "15:00",
-    "mestre": 9.5,
-    "acqua": 10.4,
-    "mare": 11.6
+    "mestre": 8.9,
+    "acqua": 10.1,
+    "mare": 11.0
    },
    {
     "ora": "16:00",
-    "mestre": 9.5,
-    "acqua": 10.6,
-    "mare": 11.6
+    "mestre": 9.0,
+    "acqua": 10.3,
+    "mare": 11.3
    },
    {
     "ora": "17:00",
-    "mestre": 9.4,
-    "acqua": 10.8,
-    "mare": 11.9
+    "mestre": 9.1,
+    "acqua": 10.5,
+    "mare": 11.5
    },
    {
     "ora": "18:00",
-    "mestre": 9.4,
-    "acqua": 11.0,
-    "mare": 12.9
+    "mestre": 9.0,
+    "acqua": 10.7,
+    "mare": 12.4
    }
   ],
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "24/11 16:35",
-    "valore": "11,4"
+    "ora": "24/11 21:25",
+    "valore": "11,1"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "24/11 16:35",
-    "valore": "9,6"
+    "ora": "24/11 21:25",
+    "valore": "8,0"
    }
   ],
   "aria_acqua": [
-   "9,7",
-   "11,0"
+   "9,5",
+   "10,7"
   ],
   "acqua": null,
   "acqua_tendenza": null,
@@ -1787,7 +1793,7 @@
  "riflessioni": [
   {
    "tipo": "inferenza",
-   "testo": "Con ICON-D2 da 12 nodi in su la correzione non è ancora misurata: nelle 36 ore verificate ICON-D2 ha sbagliato di -1,9 nodi e la stima di -0,0, quindi il vento reale potrebbe stare tra ICON-D2 e la stima."
+   "testo": "Con ICON-D2 da 12 nodi in su la correzione non è ancora misurata: nelle 37 ore verificate ICON-D2 ha sbagliato di -1,9 nodi e la stima di -0,1, quindi il vento reale potrebbe stare tra ICON-D2 e la stima."
   },
   {
    "tipo": "inferenza",
@@ -1795,11 +1801,15 @@
   },
   {
    "tipo": "inferenza",
-   "testo": "ICON-D2 e ICON-2i non concordano (oltre 3 nodi o colore diverso) in: Malamocco · Valgrande 14:00, Malamocco · Valgrande 15:00, Malamocco · Valgrande 17:00, Malamocco · Valgrande 18:00, San Leonardo · Melison 14:00, San Leonardo · Melison 15:00, San Leonardo · Melison 16:00, San Leonardo · Melison 17:00, San Leonardo · Melison 18:00, Fisolo 14:00, Fisolo 15:00, Fisolo 17:00, Fisolo 18:00, Bocca · Alberoni 14:00, Bocca · Alberoni 17:00, Bocca · Alberoni 18:00."
+   "testo": "Previsione incerta alle 13:00, 14:00: ICON-D2 è molto sopra ECMWF corretto (modelli tra 11,3 e 15,0; 11,7 e 14,9 nodi). In quelle ore la stima è ICON-D2 senza correzione; il vento reale può stare in tutta la forbice. Su 3 mesi, in questi casi l'errore è stato circa il 55% più alto del normale."
+  },
+  {
+   "tipo": "inferenza",
+   "testo": "ICON-D2 e ICON-2i non concordano (oltre 3 nodi o colore diverso) in: San Leonardo · Melison 17:00, San Leonardo · Melison 18:00, Bocca · Alberoni 13:00, Bocca · Alberoni 14:00."
   },
   {
    "tipo": "opinione",
-   "testo": "Semaforo rosso per tutta la finestra: uscita sconsigliata. Se si esce, zone riparate dal vento di 36° NE · Bora e rientro anticipato."
+   "testo": "Semaforo rosso per tutta la finestra: uscita sconsigliata. Se si esce, zone riparate dal vento di 31° NNE · Bora e rientro anticipato."
   }
  ],
  "mare": {
@@ -1810,15 +1820,15 @@
     "dir": "70° ENE",
     "dir_g": 70,
     "per": 3.55,
-    "vento": 13.9,
-    "raff_v": 15.9,
-    "dir_v": "33° NNE",
+    "vento": 15.4,
+    "raff_v": 17.7,
+    "dir_v": "26° NNE",
     "mod_v": "ICON-D2",
     "nome_v": "Bora",
-    "h_corr": 1.18,
-    "rapp_h": 1.84,
+    "h_corr": 1.17,
+    "rapp_h": 1.83,
     "h_corr_min": 0.76,
-    "h_corr_max": 1.93
+    "h_corr_max": 1.66
    },
    {
     "ora": "14:00",
@@ -1826,15 +1836,15 @@
     "dir": "71° ENE",
     "dir_g": 71,
     "per": 3.55,
-    "vento": 15.8,
-    "raff_v": 17.1,
-    "dir_v": "38° NE",
+    "vento": 16.8,
+    "raff_v": 18.5,
+    "dir_v": "37° NE",
     "mod_v": "ICON-D2",
     "nome_v": "Bora",
-    "h_corr": 1.14,
-    "rapp_h": 1.84,
+    "h_corr": 1.13,
+    "rapp_h": 1.83,
     "h_corr_min": 0.74,
-    "h_corr_max": 1.87
+    "h_corr_max": 1.61
    },
    {
     "ora": "15:00",
@@ -1842,15 +1852,15 @@
     "dir": "71° ENE",
     "dir_g": 71,
     "per": 3.5,
-    "vento": 15.1,
-    "raff_v": 18.1,
-    "dir_v": "43° NE",
+    "vento": 16.8,
+    "raff_v": 19.8,
+    "dir_v": "37° NE",
     "mod_v": "ICON-D2",
     "nome_v": "Bora",
     "h_corr": 1.1,
-    "rapp_h": 1.84,
+    "rapp_h": 1.83,
     "h_corr_min": 0.71,
-    "h_corr_max": 1.81
+    "h_corr_max": 1.56
    },
    {
     "ora": "16:00",
@@ -1858,15 +1868,15 @@
     "dir": "72° ENE",
     "dir_g": 72,
     "per": 3.55,
-    "vento": 17.3,
-    "raff_v": 19.6,
-    "dir_v": "48° NE",
+    "vento": 17.4,
+    "raff_v": 20.6,
+    "dir_v": "40° NE",
     "mod_v": "ICON-D2",
     "nome_v": "Bora",
-    "h_corr": 1.07,
-    "rapp_h": 1.84,
+    "h_corr": 1.06,
+    "rapp_h": 1.83,
     "h_corr_min": 0.69,
-    "h_corr_max": 1.75
+    "h_corr_max": 1.51
    },
    {
     "ora": "17:00",
@@ -1874,15 +1884,15 @@
     "dir": "79° E",
     "dir_g": 79,
     "per": 3.65,
-    "vento": 16.6,
-    "raff_v": 20.4,
-    "dir_v": "52° NE",
+    "vento": 18.3,
+    "raff_v": 22.0,
+    "dir_v": "44° NE",
     "mod_v": "ICON-D2",
     "nome_v": "Bora",
-    "h_corr": 1.03,
-    "rapp_h": 1.84,
+    "h_corr": 1.02,
+    "rapp_h": 1.83,
     "h_corr_min": 0.67,
-    "h_corr_max": 1.69
+    "h_corr_max": 1.46
    },
    {
     "ora": "18:00",
@@ -1890,19 +1900,19 @@
     "dir": "86° E",
     "dir_g": 86,
     "per": 3.8,
-    "vento": 15.2,
-    "raff_v": 20.4,
-    "dir_v": "59° ENE",
+    "vento": 17.6,
+    "raff_v": 22.7,
+    "dir_v": "52° NE",
     "mod_v": "ICON-D2",
     "nome_v": "Bora",
     "h_corr": 0.99,
-    "rapp_h": 1.84,
+    "rapp_h": 1.83,
     "h_corr_min": 0.64,
-    "h_corr_max": 1.63
+    "h_corr_max": 1.4
    }
   ],
   "cella": "45,292 N 12,375 E",
-  "fonte_corr": "onda corretta con vento Bora: misurata alla Piattaforma CNR = modello × 1,84 in media, 69 ore verificate"
+  "fonte_corr": "onda corretta con vento Bora: misurata alla Piattaforma CNR = modello × 1,83 in media, 72 ore verificate"
  },
  "onda_laguna": {
   "punti": [
@@ -1916,20 +1926,20 @@
     "ora": "13:00",
     "v": {
      "Malamocco · Valgrande": [
-      0.25,
-      0.45
+      0.29,
+      0.53
      ],
      "San Leonardo · Melison": [
+      0.29,
+      0.52
+     ],
+     "Fisolo": [
       0.27,
       0.49
      ],
-     "Fisolo": [
-      0.24,
-      0.43
-     ],
      "C. Petroli · Fusina": [
-      0.25,
-      0.45
+      0.29,
+      0.52
      ]
     }
    },
@@ -1937,20 +1947,20 @@
     "ora": "14:00",
     "v": {
      "Malamocco · Valgrande": [
-      0.25,
-      0.45
+      0.29,
+      0.52
      ],
      "San Leonardo · Melison": [
-      0.26,
-      0.46
+      0.28,
+      0.5
      ],
      "Fisolo": [
-      0.23,
-      0.42
+      0.26,
+      0.48
      ],
      "C. Petroli · Fusina": [
-      0.24,
-      0.44
+      0.28,
+      0.5
      ]
     }
    },
@@ -1958,20 +1968,20 @@
     "ora": "15:00",
     "v": {
      "Malamocco · Valgrande": [
-      0.25,
-      0.45
+      0.26,
+      0.48
      ],
      "San Leonardo · Melison": [
-      0.26,
-      0.46
+      0.28,
+      0.5
      ],
      "Fisolo": [
-      0.23,
-      0.41
+      0.24,
+      0.44
      ],
      "C. Petroli · Fusina": [
-      0.25,
-      0.44
+      0.26,
+      0.47
      ]
     }
    },
@@ -1983,12 +1993,12 @@
       0.46
      ],
      "San Leonardo · Melison": [
-      0.28,
-      0.5
+      0.29,
+      0.53
      ],
      "Fisolo": [
       0.23,
-      0.42
+      0.41
      ],
      "C. Petroli · Fusina": [
       0.25,
@@ -2000,20 +2010,20 @@
     "ora": "17:00",
     "v": {
      "Malamocco · Valgrande": [
-      0.21,
-      0.38
+      0.25,
+      0.45
      ],
      "San Leonardo · Melison": [
-      0.28,
-      0.5
+      0.29,
+      0.52
      ],
      "Fisolo": [
-      0.2,
-      0.36
+      0.23,
+      0.41
      ],
      "C. Petroli · Fusina": [
-      0.21,
-      0.37
+      0.24,
+      0.44
      ]
     }
    },
@@ -2021,20 +2031,20 @@
     "ora": "18:00",
     "v": {
      "Malamocco · Valgrande": [
-      0.18,
-      0.33
+      0.26,
+      0.47
      ],
      "San Leonardo · Melison": [
-      0.28,
-      0.51
+      0.27,
+      0.49
      ],
      "Fisolo": [
-      0.19,
-      0.35
+      0.23,
+      0.42
      ],
      "C. Petroli · Fusina": [
-      0.2,
-      0.36
+      0.25,
+      0.46
      ]
     }
    }
@@ -2042,18 +2052,18 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: dati meteo e mare aperto Open-Meteo.com, CC BY 4.0 (ICON-D2 e ensemble ICON-D2-EPS DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS, AROME HD Météo-France in prova, Open-Meteo Marine) · marea astronomica, previsione di marea e misure: CPSM, Comune di Venezia (dati.venezia.it, CC BY) · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.51",
- "generato": "24/11/2026 16:40",
+ "generato": "24/11/2026 21:28",
  "area": "centro",
  "acqua_misurata": {
-  "valore": 11.3,
+  "valore": 11.7,
   "data": "24/11",
-  "ora": "16:30",
+  "ora": "21:20",
   "stazione": "Punta Salute Canal Grande",
   "fonte": "misura CPSM (Comune di Venezia)",
   "tendenza": {
    "giorni": 4,
-   "diff": -0.7,
-   "verso": "in calo"
+   "diff": -0.3,
+   "verso": "stabile"
   }
  }
 }
