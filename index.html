@@ -156,6 +156,7 @@ const GIORNI=['domenica','lunedì','martedì','mercoledì','giovedì','venerdì'
 let D=null,G=null;
 const col=c=>TXT[c]?`var(--${c})`:'var(--nd)', oncol=c=>TXT[c]?`var(--on-${c})`:'var(--on-nd)';
 const nf=(x,d=1)=>x==null?'–':Number(x).toLocaleString('it-IT',{minimumFractionDigits:d,maximumFractionDigits:d});
+const rng=(a,b)=>{const x=nf(a,0),y=nf(b,0);return x===y?x:x+'–'+y};   // v3.54: "8 kn" se min=max, altrimenti "8–10"
 const fresco=u=>u+(u.includes('?')?'&':'?')+'v='+encodeURIComponent((D&&D.aggiornato_utc)||CODICE);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
 function dataDi(iso){const [y,m,d]=iso.split('-').map(Number);return new Date(y,m-1,d)}
@@ -250,16 +251,19 @@ function mareaMini(mz,sc,zid,data){   // v3.33-3.37: marea della zona nella fine
  const pl=C.map(p=>X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ');
  const e=(mz.estremi||[]).filter(x=>x.min>=f[0]&&x.min<=f[1])[0];
  let dot='',lab='';if(e){const c=C.reduce((a,p)=>Math.abs(p[0]-e.min)<Math.abs(a[0]-e.min)?p:a,C[0]),x=X(e.min),y=Y(c[1]),an=x<16?'start':(x>W-16?'end':'middle'),ty=e.tipo==='alta'?y-4:Math.min(B-2,y+11);
-  dot=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.6" fill="#eaf3f7"/><text x="${x.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="${an}" font-size="9.5" font-weight="650" fill="#eaf3f7">${esc(String(e.cm))} cm</text>`;lab=`${e.tipo==='alta'?'alta':'bassa'} <b>${esc(e.ora)}</b>`}
+  dot=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.6" fill="#eaf3f7"/><text data-cm="1" data-bx="${x.toFixed(1)}" data-an="${an}" x="${x.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="${an}" font-size="9.5" font-weight="650" fill="#eaf3f7" paint-order="stroke" stroke="#06131d" stroke-width="2.6" stroke-linejoin="round" stroke-opacity=".92">${esc(String(e.cm))} cm</text>`;lab=`${e.tipo==='alta'?'alta':'bassa'} <b>${esc(e.ora)}</b>`}   // v3.54: contorno scuro e, se vicino alla linea "adesso", il numero si sposta di lato (in segnaOra)
  else{const d=C[C.length-1][1]-C[0][1];lab=Math.abs(d)<3?'marea ferma':(d>0?'marea sale':'marea cala')}
  return `<div class="mmar" aria-label="Marea ${esc(mz.stazione||'')}"><svg viewBox="0 0 ${W} ${H}"><line x1="0" y1="${B}" x2="${W}" y2="${B}" stroke="rgba(255,255,255,.12)"/><polyline points="${pl}" fill="none" stroke="#5fd4d0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><g data-mnow="${esc(zid||'')}"></g>${dot}<text x="0" y="${H-1}" font-size="9" fill="#8aa6b6">${hh(f[0])}</text><text x="${W}" y="${H-1}" text-anchor="end" font-size="9" fill="#8aa6b6">${hh(f[1])}</text></svg><div class="ml">${lab}</div></div>`}
 function segnaOra(){   // v3.37: linea "adesso" sul mini-grafico della marea, solo se la previsione e' di oggi e dentro la finestra
  const P=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));
  const oggi=`${P.year}-${P.month}-${P.day}`,m=(+P.hour)*60+(+P.minute);
- document.querySelectorAll('[data-mnow]').forEach(g=>{const z=MZN[g.dataset.mnow];g.innerHTML='';if(!z||z.data!==oggi||m<z.f[0]||m>z.f[1])return;
+ document.querySelectorAll('[data-mnow]').forEach(g=>{const z=MZN[g.dataset.mnow];g.innerHTML='';
+  const ct=g.parentNode&&g.parentNode.querySelector('[data-cm]'),base=()=>{if(ct){ct.setAttribute('text-anchor',ct.dataset.an);ct.setAttribute('x',(+ct.dataset.bx).toFixed(1))}};   // v3.54
+  if(!z||z.data!==oggi||m<z.f[0]||m>z.f[1]){base();return}
   const W=74,T=11,B=30,X=t=>(t-z.f[0])/(z.f[1]-z.f[0])*W,Y=v=>B-1-(v-z.sc[0])/(z.sc[1]-z.sc[0]||1)*(B-T-2);
   let h=null;for(let i=1;i<z.C.length;i++){const a=z.C[i-1],b=z.C[i];if(a[0]<=m&&m<=b[0]){h=a[1]+(b[1]-a[1])*((m-a[0])/((b[0]-a[0])||1));break}}
   const x=X(m).toFixed(1);let s=`<line x1="${x}" y1="${T-2}" x2="${x}" y2="${B}" stroke="#f2c14e" stroke-width="1.2" stroke-dasharray="2 2"/>`+(h!=null?`<circle cx="${x}" cy="${Y(h).toFixed(1)}" r="2.4" fill="#f2c14e"/>`:'');
+  if(ct){const bx=+ct.dataset.bx,nx=+x;if(Math.abs(bx-nx)<13){const left=bx<=nx;ct.setAttribute('text-anchor',left?'end':'start');ct.setAttribute('x',(left?bx-3:bx+3).toFixed(1))}else base()}   // v3.54: scosta il numero dei cm dalla linea "adesso"
   const L=AD&&AD.zone&&AD.zone[g.dataset.mnow]&&AD.zone[g.dataset.mnow].livello;   // v3.42: livello misurato adesso alla stazione (Worker >= 2.10)
   if(L&&L.disponibile&&L.data===oggi&&L.min>=z.f[0]&&L.min<=z.f[1]&&L.cm!=null){const yl=Math.max(T+2,Math.min(B,Y(L.cm)));s+=`<circle cx="${X(L.min).toFixed(1)}" cy="${yl.toFixed(1)}" r="2.7" fill="none" stroke="#ffffff" stroke-width="1.4"/>`}
   g.innerHTML=s})}
@@ -267,21 +271,31 @@ setInterval(segnaOra,60*1000);
 function tendGiorni(ult){const T=D&&D.tendenza;return T&&T.giorni?T.giorni.filter(g=>!ult||g.data>ult):[]}   // v3.39
 function giorni(){   // v3.39: pagina "Prossimi giorni" (tendenza, colori tenui)
  const ult=slotTutti().map(s=>s.data).sort().pop(),GG2=tendGiorni(ult),T=D.tendenza||{};
- if(!GG2.length){location.hash='';return}
+ const domaniDay=(()=>{   // v3.54: domani in cima, dalla previsione vera (non dalla tendenza)
+  const zone=(D.zone||[]).filter(z=>z.attiva).map(z=>{
+   const fasce=(z.voci||[]).filter(v=>v.data===ult).sort((a,b)=>finMin(a.finestra)[0]-finMin(b.finestra)[0]).map(v=>{
+    const s=v.sintesi||{},mz=s.marea_zona,fw=finMin(v.finestra),ex=mz&&(mz.estremi||[]).filter(x=>x.min>=fw[0]&&x.min<=fw[1])[0];
+    return {finestra:v.finestra,disponibile:true,colore:v.colore,vento_min:s.vento_min,vento_max:s.vento_max,dir:s.direzione,pioggia:s.pioggia_prob_max,marea:ex?{tipo:ex.tipo,ora:ex.ora}:null};});
+   return {nome:z.nome,id:z.id,fasce};});
+  return zone.some(z=>z.fasce.length)?{data:ult,domani:true,zone}:null;})();
+ if(!GG2.length&&!domaniDay){location.hash='';return}
  const tenue=c=>{const h=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();return `background:${h}`};
  let h=`<div class="home"><header class="testa"><div><div class="eyebrow"><span class="ver" style="margin-left:0">v${esc(VERSIONE)}</span></div><h1 style="font-size:30px">Prossimi <span>giorni</span></h1>
- <div class="sub" style="white-space:normal">Tendenza ${T.fasce?'in tre fasce':esc(T.finestra||'')}, meno precisa della previsione di domani</div></div><div class="info" role="button" aria-label="Torna alla prima pagina" onclick="location.hash=''" style="font-style:normal">‹</div></header><div class="zones">`;
+ <div class="sub" style="white-space:normal">Domani è la previsione; i giorni dopo sono tendenza, meno precisa</div></div><div class="info" role="button" aria-label="Torna alla prima pagina" onclick="location.hash=''" style="font-style:normal">‹</div></header><div class="zones">`;
  // v3.49: tre fasce anche qui (tendenza fd_tendenza >= 1.4): bottoni in alto, per zona tre pallini e i valori della fascia scelta
  const FT=T.fasce||[T.finestra||''],hh2=f=>{const [a,b]=finMin(f);return String(Math.floor(a/60)).padStart(2,'0')+'–'+String(Math.floor(b/60)).padStart(2,'0')};
  const fs0=(fsel()||'').split('|')[1],tf=FT.includes(TFS)?TFS:(FT.includes(fs0)?fs0:FT[0]);
  if(FT.length>1)h+=`<div class="fsr" style="padding:0 4px">${FT.map(f=>`<span class="fsb ${f===tf?'on':''}" role="button" onclick="TFS='${esc(f)}';giorni()">${hh2(f)}</span>`).join('')}</div>`;
- GG2.forEach(g=>{const d=dataDi(g.data);h+=`<div class="tday">${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</div>`;
+ const DAYS=domaniDay?[domaniDay].concat(GG2):GG2;   // v3.54
+ DAYS.forEach(g=>{const d=dataDi(g.data);h+=`<div class="tday">${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}${g.domani?' · <span style="color:var(--mut);font-weight:600">previsione</span>':''}</div>`;
   g.zone.forEach(z0=>{const z=(z0.fasce||[]).find(f=>f.finestra===tf)||(z0.fasce?{disponibile:false}:z0);
    const pal=(z0.fasce||[]).length>1?`<span class="tps">${z0.fasce.map(f=>`<i title="${esc(f.finestra)}" style="${f.disponibile?tenue(f.colore):'background:var(--nd)'};${f.finestra===tf?'outline:2px solid var(--txt);outline-offset:1px':''}"></i>`).join('')}</span>`:'';
    if(!z.disponibile){h+=`<div class="tz"><div class="tn">${esc(z0.nome.replace(/^Laguna\s+/,''))}${pal}</div><div class="tv">non disponibile</div></div>`;return}
    const m=z.marea?` · ${z.marea.tipo} ${esc(z.marea.ora)}`:'';
-   h+=`<div class="tz"><div class="tn"><span class="tp" style="${tenue(z.colore)}"></span>${esc(z0.nome.replace(/^Laguna\s+/,''))}${pal}</div><div class="tv">${z.vento_min}–${z.vento_max} kn${z.dir?' '+esc(z.dir):''}${z.pioggia!=null?` · <span class="piog p${z.pioggia>=50?2:z.pioggia>=20?1:0}" style="display:inline-flex;vertical-align:-1px">pioggia ${z.pioggia}%</span>`:''}${m}</div></div>`})});
- h+=`<div class="tday" style="color:var(--mut);font-weight:500;font-size:12px;margin-top:12px">Colore indicativo del vento medio nella finestra. Modelli ${[...new Set(GG2.flatMap(g=>g.zone.flatMap(z=>(z.fasce||[z]).filter(f=>f.modello).map(f=>f.modello))))].map(esc).join(', ')}${GG2.some(g=>g.zone.some(z=>z.corretto||(z.fasce||[]).some(f=>f.corretto)))?', corretti con le misure in laguna':''}; marea astronomica senza l'effetto del vento.</div></div>`;
+   const clic=g.domani&&z0.id?` role="button" style="cursor:pointer" onclick="location.hash='zona/${z0.id}/${g.data}/${tf.slice(0,2)}'"`:'';   // v3.54: domani apre la pagina della zona
+   h+=`<div class="tz"${clic}><div class="tn"><span class="tp" style="${tenue(z.colore)}"></span>${esc(z0.nome.replace(/^Laguna\s+/,''))}${pal}</div><div class="tv">${rng(z.vento_min,z.vento_max)} kn${z.dir?' '+esc(z.dir):''}${z.pioggia!=null?` · <span class="piog p${z.pioggia>=50?2:z.pioggia>=20?1:0}" style="display:inline-flex;vertical-align:-1px">pioggia ${z.pioggia}%</span>`:''}${m}</div></div>`})});
+ const mods=[...new Set(GG2.flatMap(g=>g.zone.flatMap(z=>(z.fasce||[z]).filter(f=>f.modello).map(f=>f.modello))))].map(esc).join(', ');
+ h+=`<div class="tday" style="color:var(--mut);font-weight:500;font-size:12px;margin-top:12px">Colore indicativo del vento medio nella finestra.${mods?' Tendenza dai modelli '+mods+(GG2.some(g=>g.zone.some(z=>z.corretto||(z.fasce||[]).some(f=>f.corretto)))?', corretti con le misure in laguna':'')+'.':''} Marea astronomica senza l'effetto del vento.</div></div>`;
  app.innerHTML=h+piede()+'</div>';window.scrollTo(0,0)}
 function home(){
  const TG=titoloGiorno(),ult=TG.data;
@@ -293,7 +307,7 @@ function home(){
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
   h+=`<div class="zone ${z.attiva?'':'off'}" ${z.attiva?`onclick="location.hash='zona/${z.id}${v?'/'+v.data+'/'+v.finestra.slice(0,2):''}'"`:''}><div class="bar" style="background:${col(v&&v.colore)}"></div>
   <div><div class="zname">${esc(z.nome)}</div>${z.attiva&&v&&(v.data!==ult||(v.provvisoria!==TG.rif&&relativo(v.data)!=='Oggi'))?`<div class="zmeta">${v.data!==ult?esc(etichetta(v.data))+' · ':''}${v.provvisoria?'Provvisoria':'Definitiva'}${v.emessa?' '+esc(v.emessa):''}${v.data===ult&&v.provvisoria?' · non ancora aggiornata':''}</div>`:''}${z.attiva&&v?piogZona(s)+incZona(s):''}</div>   <!-- v3.25: bocca tolta (e' sulla cartina), previsione nel titolo del giorno; qui solo eccezioni e pioggia -->   <!-- v3.8 -->
-  ${z.attiva&&v?mareaMini(v.sintesi&&v.sintesi.marea_zona,MSC,z.id,v.data):'<div></div>'}<div class="badge">${v?`<span class="chip" style="background:${col(v.colore)};color:${oncol(v.colore)}">${TXT[v.colore]||'n.d.'}</span><span class="wind">${nf(s.vento_min,0)}–${nf(s.vento_max,0)} kn${s.direzione?' · '+esc(s.direzione):''}</span>`:`<span class="chip" style="background:#22394B;color:var(--mut)">In arrivo</span>`}</div></div>`});
+  ${z.attiva&&v?mareaMini(v.sintesi&&v.sintesi.marea_zona,MSC,z.id,v.data):'<div></div>'}<div class="badge">${v?`<span class="chip" style="background:${col(v.colore)};color:${oncol(v.colore)}">${TXT[v.colore]||'n.d.'}</span><span class="wind">${rng(s.vento_min,s.vento_max)} kn${s.direzione?' · '+esc(s.direzione):''}</span>`:`<span class="chip" style="background:#22394B;color:var(--mut)">In arrivo</span>`}</div></div>`});
  app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0);segnaOra()}
 function curva(s){
  const C=s.marea_curva||[],A=s.marea_astro||[];if(C.length<2)return '';
@@ -361,7 +375,7 @@ function zona(id,dsel,fsel_){
  <div class="hours" style="grid-template-columns:repeat(${Math.max(ore.length,1)},1fr)">${ore.map(o=>`<div style="${TXT[o.sem]?`--cs:var(--${o.sem}-s);--cn:var(--on-${o.sem}-s)`:''}">${esc(o.ora)}<b>${nf(o.stima,0)}</b><u>kn</u></div>`).join('')}</div></div></div>`;
  if(relativo(v.data)==='Oggi'||v===z0)h+=`<div class="sec"><div class="card vad" data-adz="${z.id}" style="display:none"></div></div><div class="sec"><div class="card vad vis" data-vis="${z.id}" style="display:none"></div></div>`;   // v3.26: visibilita' adesso (Tessera)   // v3.13: vento adesso, solo sul giorno piu' recente
  h+=incBox(s);h+=oraPerOra(s);
- h+=`<div class="sec grid2"><div class="card"><div class="ch">Vento medio</div><div class="big">${nf(s.vento_min,0)}–${nf(s.vento_max,0)}<small>kn</small></div><div class="note">${s.direzione?'da '+esc(s.direzione)+(s.direzione_nome?' · '+esc(s.direzione_nome):''):''}</div></div>
+ h+=`<div class="sec grid2"><div class="card"><div class="ch">Vento medio</div><div class="big">${rng(s.vento_min,s.vento_max)}<small>kn</small></div><div class="note">${s.direzione?'da '+esc(s.direzione)+(s.direzione_nome?' · '+esc(s.direzione_nome):''):''}</div></div>
  <div class="card"><div class="ch">Raffiche</div><div class="big">${nf(s.raff_max,0)}<small>kn</small></div><div class="note">massimo nella finestra; non cambiano il colore</div></div></div>`;
  if((s.marea_curva||[]).length>1)h+=`<div class="sec"><div class="card"><div class="ch">Marea <span>${esc(s.marea_fonte||'')}${s.marea_eta_h!=null?' · emesso '+s.marea_eta_h+' h prima':''}${s.marea_vecchia?' · tendenza meno affidabile':''}</span></div>${curva(s)}
  <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--soft)">${(s.marea_estremali||[]).map(e=>`<span>${e.tipo==='max'?'▲':'▼'} ${e.cm>0?'+':''}${e.cm} cm · ${esc(e.ora)}</span>`).join('')}</div></div></div>`;
