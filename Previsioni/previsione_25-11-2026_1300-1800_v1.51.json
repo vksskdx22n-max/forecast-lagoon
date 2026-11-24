@@ -31,8 +31,8 @@
     "stima": 15.0,
     "raff": 19.3,
     "marea": "↓",
-    "cm_h": -19.2,
-    "corr": 0.99,
+    "cm_h": -19.9,
+    "corr": 1.03,
     "verso": "esce",
     "incerta": true,
     "forbice": [
@@ -46,8 +46,8 @@
     "stima": 14.9,
     "raff": 19.6,
     "marea": "↓",
-    "cm_h": -22.2,
-    "corr": 1.27,
+    "cm_h": -22.9,
+    "corr": 1.32,
     "verso": "esce",
     "incerta": true,
     "forbice": [
@@ -61,8 +61,8 @@
     "stima": 14.3,
     "raff": 19.4,
     "marea": "↓",
-    "cm_h": -21.2,
-    "corr": 1.35,
+    "cm_h": -21.9,
+    "corr": 1.39,
     "verso": "esce",
     "incerta": false,
     "forbice": null
@@ -73,8 +73,8 @@
     "stima": 14.4,
     "raff": 18.9,
     "marea": "↓",
-    "cm_h": -14.2,
-    "corr": 1.05,
+    "cm_h": -14.9,
+    "corr": 1.09,
     "verso": "esce",
     "incerta": false,
     "forbice": null
@@ -85,8 +85,8 @@
     "stima": 14.3,
     "raff": 18.7,
     "marea": "↓",
-    "cm_h": -5.1,
-    "corr": 0.58,
+    "cm_h": -5.7,
+    "corr": 0.62,
     "verso": "esce",
     "incerta": false,
     "forbice": null
@@ -662,10 +662,10 @@
    {
     "tipo": "max",
     "ora": "24/11 23:15",
-    "cm": 80,
+    "cm": 75,
     "astro_ora": "23:05",
     "astro_cm": 60,
-    "diff_cm": 20,
+    "diff_cm": 15,
     "diff_min": 10,
     "min_curva": -45
    },
@@ -682,10 +682,10 @@
    {
     "tipo": "max",
     "ora": "25/11 10:15",
-    "cm": 105,
+    "cm": 110,
     "astro_ora": "09:55",
     "astro_cm": 83,
-    "diff_cm": 22,
+    "diff_cm": 27,
     "diff_min": 20,
     "min_curva": 615
    },
@@ -720,12 +720,12 @@
     "min_curva": 1740
    }
   ],
-  "cpsm_emessa": "24/11 17:00",
+  "cpsm_emessa": "24/11 21:30",
   "fonte_fase": "previsione CPSM",
   "cpsm_vecchia": false,
-  "cpsm_eta_h": 25,
+  "cpsm_eta_h": 20,
   "ferma": false,
-  "vel_max": 22.2,
+  "vel_max": 22.9,
   "sequenza": [
    {
     "da": "24/11 23:05",
@@ -978,155 +978,155 @@
   "curva_cpsm": [
    [
     660,
-    106.4
+    110.8
    ],
    [
     670,
-    105.7
+    110.0
    ],
    [
     680,
-    105.0
+    109.2
    ],
    [
     690,
-    103.3
+    107.4
    ],
    [
     700,
-    102.6
+    106.6
    ],
    [
     710,
-    100.9
+    104.8
    ],
    [
     720,
-    99.2
+    103.0
    ],
    [
     730,
-    96.5
+    100.2
    ],
    [
     740,
-    94.8
+    98.4
    ],
    [
     750,
-    92.1
+    95.5
    ],
    [
     760,
-    89.4
+    92.7
    ],
    [
     770,
-    86.7
+    89.9
    ],
    [
     780,
-    83.0
+    86.1
    ],
    [
     790,
-    80.4
+    83.3
    ],
    [
     800,
-    76.7
+    79.5
    ],
    [
     810,
-    73.0
+    75.7
    ],
    [
     820,
-    69.3
+    71.9
    ],
    [
     830,
-    65.6
+    68.0
    ],
    [
     840,
-    61.9
+    64.2
    ],
    [
     850,
-    58.2
+    60.4
    ],
    [
     860,
-    54.5
+    56.6
    ],
    [
     870,
-    50.8
+    52.8
    ],
    [
     880,
-    47.1
+    49.0
    ],
    [
     890,
-    43.4
+    45.2
    ],
    [
     900,
-    39.7
+    41.4
    ],
    [
     910,
-    36.0
+    37.6
    ],
    [
     920,
-    33.3
+    34.7
    ],
    [
     930,
-    29.6
+    30.9
    ],
    [
     940,
-    26.9
+    28.1
    ],
    [
     950,
-    24.2
+    25.3
    ],
    [
     960,
-    21.6
+    22.5
    ],
    [
     970,
-    19.9
+    20.7
    ],
    [
     980,
-    17.2
+    17.9
    ],
    [
     990,
-    15.5
+    16.1
    ],
    [
     1000,
-    13.8
+    14.2
    ],
    [
     1010,
-    12.1
+    12.4
    ],
    [
     1020,
-    11.4
+    11.6
    ],
    [
     1030,
-    10.7
+    10.8
    ],
    [
     1040,
@@ -1205,23 +1205,23 @@
   "velocita": [
    {
     "ora": "13:00",
-    "cm_h": -19.2
+    "cm_h": -19.9
    },
    {
     "ora": "14:00",
-    "cm_h": -22.2
+    "cm_h": -22.9
    },
    {
     "ora": "15:00",
-    "cm_h": -21.2
+    "cm_h": -21.9
    },
    {
     "ora": "16:00",
-    "cm_h": -14.2
+    "cm_h": -14.9
    },
    {
     "ora": "17:00",
-    "cm_h": -5.1
+    "cm_h": -5.7
    },
    {
     "ora": "18:00",
@@ -1233,182 +1233,182 @@
    "curva": [
     [
      720,
-     94.9
+     98.7
     ],
     [
      730,
-     92.9
+     96.5
     ],
     [
      740,
-     90.6
+     94.0
     ],
     [
      750,
-     87.9
+     91.2
     ],
     [
      760,
-     85.2
+     88.4
     ],
     [
      770,
-     81.9
+     84.9
     ],
     [
      780,
-     79.0
+     81.9
     ],
     [
      790,
-     75.6
+     78.4
     ],
     [
      800,
-     72.0
+     74.6
     ],
     [
      810,
-     68.3
+     70.9
     ],
     [
      820,
-     64.7
+     67.0
     ],
     [
      830,
-     61.0
+     63.2
     ],
     [
      840,
-     57.4
+     59.5
     ],
     [
      850,
-     53.7
+     55.7
     ],
     [
      860,
-     50.0
+     52.0
     ],
     [
      870,
-     46.4
+     48.2
     ],
     [
      880,
-     42.7
+     44.4
     ],
     [
      890,
-     39.1
+     40.7
     ],
     [
      900,
-     35.4
+     37.0
     ],
     [
      910,
-     32.7
+     34.0
     ],
     [
      920,
-     29.1
+     30.4
     ],
     [
      930,
-     26.5
+     27.6
     ],
     [
      940,
-     23.8
+     24.8
     ],
     [
      950,
-     21.3
+     22.2
     ],
     [
      960,
-     19.5
+     20.2
     ],
     [
      970,
-     17.0
+     17.6
     ],
     [
      980,
-     15.3
+     15.8
     ],
     [
      990,
-     13.6
+     14.0
     ],
     [
      1000,
-     12.2
+     12.4
     ],
     [
      1010,
-     11.5
+     11.6
     ],
     [
      1020,
-     10.8
+     10.9
     ],
     [
      1030,
-     10.3
+     10.4
     ],
     [
      1040,
-     10.7
+     10.8
     ],
     [
      1050,
-     11.0
+     11.1
     ],
     [
      1060,
-     11.4
+     11.5
     ],
     [
      1070,
-     11.9
+     12.0
     ],
     [
      1080,
-     13.2
+     13.3
     ],
     [
      1090,
-     14.5
+     14.6
     ],
     [
      1100,
-     15.9
+     16.0
     ],
     [
      1110,
-     17.5
+     17.7
     ],
     [
      1120,
-     19.7
+     19.8
     ],
     [
      1130,
-     21.9
+     22.0
     ],
     [
      1140,
-     24.1
+     24.2
     ]
    ],
    "estremi": [
     {
      "tipo": "bassa",
-     "min": 1028,
-     "ora": "17:08",
+     "min": 1027,
+     "ora": "17:07",
      "cm": 10,
      "incertezza_min": 10
     }
@@ -1435,23 +1435,23 @@
     "canale": "Bocca di Malamocco",
     "valori": [
      {
-      "ms": 0.99,
+      "ms": 1.03,
       "verso": "esce"
      },
      {
-      "ms": 1.27,
+      "ms": 1.32,
       "verso": "esce"
      },
      {
-      "ms": 1.35,
+      "ms": 1.39,
       "verso": "esce"
      },
      {
-      "ms": 1.05,
+      "ms": 1.09,
       "verso": "esce"
      },
      {
-      "ms": 0.58,
+      "ms": 0.62,
       "verso": "esce"
      },
      {
@@ -1464,27 +1464,27 @@
     "canale": "C. Malamocco Marghera",
     "valori": [
      {
-      "ms": 0.71,
+      "ms": 0.74,
       "verso": "esce"
      },
      {
-      "ms": 0.93,
+      "ms": 0.97,
       "verso": "esce"
      },
      {
-      "ms": 1.01,
+      "ms": 1.04,
       "verso": "esce"
      },
      {
-      "ms": 0.8,
+      "ms": 0.83,
       "verso": "esce"
      },
      {
-      "ms": 0.46,
+      "ms": 0.49,
       "verso": "esce"
      },
      {
-      "ms": 0.05,
+      "ms": 0.06,
       "verso": "esce"
      }
     ]
@@ -1493,23 +1493,23 @@
     "canale": "C. Rocchetta",
     "valori": [
      {
-      "ms": 0.63,
+      "ms": 0.65,
       "verso": "esce"
      },
      {
-      "ms": 0.81,
+      "ms": 0.84,
       "verso": "esce"
      },
      {
-      "ms": 0.86,
+      "ms": 0.89,
       "verso": "esce"
      },
      {
-      "ms": 0.67,
+      "ms": 0.69,
       "verso": "esce"
      },
      {
-      "ms": 0.37,
+      "ms": 0.4,
       "verso": "esce"
      },
      {
@@ -1522,23 +1522,23 @@
     "canale": "C. Fisolo",
     "valori": [
      {
-      "ms": 0.47,
+      "ms": 0.49,
       "verso": "esce"
      },
      {
-      "ms": 0.59,
+      "ms": 0.61,
       "verso": "esce"
      },
      {
-      "ms": 0.62,
+      "ms": 0.64,
       "verso": "esce"
      },
      {
-      "ms": 0.48,
+      "ms": 0.5,
       "verso": "esce"
      },
      {
-      "ms": 0.26,
+      "ms": 0.28,
       "verso": "esce"
      },
      {
@@ -1551,23 +1551,23 @@
     "canale": "C. Darsena San Leonardo",
     "valori": [
      {
-      "ms": 0.35,
+      "ms": 0.36,
       "verso": "esce"
      },
      {
-      "ms": 0.47,
+      "ms": 0.49,
       "verso": "esce"
      },
      {
-      "ms": 0.52,
+      "ms": 0.54,
       "verso": "esce"
      },
      {
-      "ms": 0.43,
+      "ms": 0.45,
       "verso": "esce"
      },
      {
-      "ms": 0.26,
+      "ms": 0.28,
       "verso": "esce"
      },
      {
@@ -1767,13 +1767,13 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "24/11 21:25",
+    "ora": "24/11 21:45",
     "valore": "11,1"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "24/11 21:25",
-    "valore": "8,0"
+    "ora": "24/11 21:45",
+    "valore": "7,9"
    }
   ],
   "aria_acqua": [
@@ -1952,10 +1952,10 @@
      ],
      "San Leonardo · Melison": [
       0.28,
-      0.5
+      0.51
      ],
      "Fisolo": [
-      0.26,
+      0.27,
       0.48
      ],
      "C. Petroli · Fusina": [
@@ -2052,7 +2052,7 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: dati meteo e mare aperto Open-Meteo.com, CC BY 4.0 (ICON-D2 e ensemble ICON-D2-EPS DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS, AROME HD Météo-France in prova, Open-Meteo Marine) · marea astronomica, previsione di marea e misure: CPSM, Comune di Venezia (dati.venezia.it, CC BY) · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.51",
- "generato": "24/11/2026 21:28",
+ "generato": "24/11/2026 21:48",
  "area": "centro",
  "acqua_misurata": {
   "valore": 11.7,

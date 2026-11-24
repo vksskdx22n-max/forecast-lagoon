@@ -563,10 +563,10 @@
    {
     "tipo": "max",
     "ora": "24/11 23:15",
-    "cm": 80,
+    "cm": 75,
     "astro_ora": "23:05",
     "astro_cm": 60,
-    "diff_cm": 20,
+    "diff_cm": 15,
     "diff_min": 10,
     "min_curva": -45
    },
@@ -583,10 +583,10 @@
    {
     "tipo": "max",
     "ora": "25/11 10:15",
-    "cm": 105,
+    "cm": 110,
     "astro_ora": "09:55",
     "astro_cm": 83,
-    "diff_cm": 22,
+    "diff_cm": 27,
     "diff_min": 20,
     "min_curva": 615
    },
@@ -621,10 +621,10 @@
     "min_curva": 1740
    }
   ],
-  "cpsm_emessa": "24/11 17:00",
+  "cpsm_emessa": "24/11 21:30",
   "fonte_fase": "previsione CPSM",
   "cpsm_vecchia": false,
-  "cpsm_eta_h": 31,
+  "cpsm_eta_h": 26,
   "ferma": false,
   "vel_max": 21.3,
   "sequenza": [
@@ -831,11 +831,11 @@
   "curva_cpsm": [
    [
     1020,
-    11.4
+    11.6
    ],
    [
     1030,
-    10.7
+    10.8
    ],
    [
     1040,
@@ -1034,83 +1034,83 @@
    "curva": [
     [
      1080,
-     13.2
+     13.3
     ],
     [
      1090,
-     14.5
+     14.6
     ],
     [
      1100,
-     15.9
+     16.0
     ],
     [
      1110,
-     17.5
+     17.7
     ],
     [
      1120,
-     19.7
+     19.8
     ],
     [
      1130,
-     21.9
+     22.0
     ],
     [
      1140,
-     24.1
+     24.2
     ],
     [
      1150,
-     26.3
+     26.4
     ],
     [
      1160,
-     29.4
+     29.5
     ],
     [
      1170,
-     31.6
+     31.7
     ],
     [
      1180,
-     34.7
+     34.9
     ],
     [
      1190,
-     37.9
+     38.0
     ],
     [
      1200,
-     41.0
+     41.1
     ],
     [
      1210,
-     44.8
+     44.9
     ],
     [
      1220,
-     47.9
+     48.0
     ],
     [
      1230,
-     50.9
+     51.0
     ],
     [
      1240,
-     54.8
+     54.9
     ],
     [
      1250,
-     58.0
+     58.1
     ],
     [
      1260,
-     61.6
+     61.7
     ],
     [
      1270,
-     65.0
+     65.1
     ],
     [
      1280,
@@ -1122,7 +1122,7 @@
     ],
     [
      1300,
-     75.2
+     75.3
     ],
     [
      1310,
@@ -1134,11 +1134,11 @@
     ],
     [
      1330,
-     84.4
+     84.5
     ],
     [
      1340,
-     87.0
+     87.1
     ],
     [
      1350,
@@ -1150,7 +1150,7 @@
     ],
     [
      1370,
-     94.6
+     94.7
     ],
     [
      1380,
@@ -1494,13 +1494,13 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "24/11 21:25",
+    "ora": "24/11 21:45",
     "valore": "11,1"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "24/11 21:25",
-    "valore": "8,0"
+    "ora": "24/11 21:45",
+    "valore": "7,9"
    }
   ],
   "aria_acqua": [
@@ -1742,7 +1742,7 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: dati meteo e mare aperto Open-Meteo.com, CC BY 4.0 (ICON-D2 e ensemble ICON-D2-EPS DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS, AROME HD Météo-France in prova, Open-Meteo Marine) · marea astronomica, previsione di marea e misure: CPSM, Comune di Venezia (dati.venezia.it, CC BY) · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.51",
- "generato": "24/11/2026 21:29",
+ "generato": "24/11/2026 21:48",
  "area": "centro",
  "acqua_misurata": {
   "valore": 11.7,
