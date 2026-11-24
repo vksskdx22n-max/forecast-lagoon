@@ -420,22 +420,23 @@ async function allerteUI(msg){
 async function caricaAdesso(){if(!D||!D.adesso_url)return;try{const c=new AbortController(),t=setTimeout(()=>c.abort(),8000);
  AD=await (await fetch(D.adesso_url,{cache:'no-store',signal:c.signal})).json();clearTimeout(t)}catch(e){AD=null}riempiAdesso()}
 function riempiAdesso(){try{segnaOra()}catch(e){}   // v3.42: cerchietto del livello misurato
+ const usa=a=>a&&a.kn!=null&&(a.disponibile||(a.eta_min!=null&&a.eta_min<=45));   // v3.56: sulla cartina vale anche una misura fino a 45 min (l'ora viene mostrata); le allerte restano a 20 min
  document.querySelectorAll('[data-azona]').forEach(el=>{   // v3.44: colore della zona = semaforo del vento misurato adesso; grigio se manca
-  const a=AD&&AD.zone&&AD.zone[el.dataset.azona],c=a&&a.disponibile&&TXT[a.sem]?a.sem:'nd',hex=getComputedStyle(document.documentElement).getPropertyValue('--'+c).trim();
+  const a=AD&&AD.zone&&AD.zone[el.dataset.azona],c=usa(a)&&TXT[a.sem]?a.sem:'nd',hex=getComputedStyle(document.documentElement).getPropertyValue('--'+c).trim();
   el.setAttribute('fill',hex);if(el.tagName.toLowerCase()==='path')el.setAttribute('stroke',hex)});
 
  document.querySelectorAll('[data-admap]').forEach(el=>{   // v3.31: vento misurato adesso sulle etichette della cartina (colore neutro)
   const Z=(D&&D.zone||[]).filter(z=>z.attiva),mi=o=>{const m=/^(\d{1,2}):(\d{2})/.exec(o||'');return m?(+m[1])*60+(+m[2]):null};
   if(!Z.length){el.innerHTML='';return}
   if(!AD||!AD.zone){el.innerHTML='Vento adesso<small>misure non disponibili</small>';document.querySelectorAll('[data-adm]').forEach(g=>g.innerHTML='');return}
-  const ok=Z.map(z=>AD.zone[z.id]).filter(a=>a&&a.disponibile&&mi(a.ora)!=null),mm=ok.map(a=>mi(a.ora)),una=mm.length&&Math.max(...mm)-Math.min(...mm)<=10;
+  const ok=Z.map(z=>AD.zone[z.id]).filter(a=>usa(a)&&a.disponibile&&mi(a.ora)!=null),mm=ok.map(a=>mi(a.ora)),una=mm.length===Z.length&&Math.max(...mm)-Math.min(...mm)<=10;   // v3.56: ora unica solo se tutte fresche e allineate
   el.innerHTML='Vento adesso · misurato'+(una?`<small>${esc(ok.map(a=>a.ora).sort().pop())}</small>`:'');
   document.querySelectorAll('[data-adm]').forEach(g=>{const a=AD.zone[g.dataset.adm],x=+g.dataset.x,y=+g.dataset.y;
-   const txt=!a||!a.disponibile?'non disponibile':`${a.kn} kn${a.dir?' '+a.dir:''}${a.raffica_kn!=null?' · raff. '+a.raffica_kn:''}${!una&&a.ora?' · '+a.ora:''}`;
-   const fr=a&&a.disponibile&&a.dir_g!=null,tx=x+(fr?56:22);
+   const txt=!usa(a)?'non disponibile':`${a.kn} kn${a.dir?' '+a.dir:''}${a.raffica_kn!=null?' · raff. '+a.raffica_kn:''}${(!una||!a.disponibile)&&a.ora?' · '+a.ora:''}`;   // v3.56: misura vecchia (fino a 45 min) mostrata con l'ora
+   const fr=usa(a)&&a.dir_g!=null,tx=x+(fr?56:22);
    g.innerHTML=`<rect x="${x}" y="${y}" width="10" height="58" rx="29" fill="#06131d" fill-opacity=".8" stroke="#5fd4d0" stroke-opacity=".55"/>`+
     (fr?`<g transform="translate(${x+31},${y+29}) rotate(${a.dir_g+180})"><path d="M0,-17 L11,8 L0,3 L-11,8 Z" fill="#eaf3f7"/></g>`:'')+
-    `<text x="${tx}" y="${y+42}" fill="${a&&a.disponibile?'#eaf3f7':'#8aa6b6'}" font-size="37" font-weight="650">${esc(txt)}</text>`;
+    `<text x="${tx}" y="${y+42}" fill="${usa(a)?(a.disponibile?'#eaf3f7':'#b9ccd8'):'#8aa6b6'}" font-size="37" font-weight="650">${esc(txt)}</text>`;   // v3.56: misura vecchia leggermente piu' tenue
    let wd=txt.length*20+76;try{wd=Math.round(tx-x+g.querySelector('text').getBBox().width+22)}catch(e){}g.querySelector('rect').setAttribute('width',wd);const vb=(g.ownerSVGElement&&g.ownerSVGElement.viewBox.baseVal)||null,dx=vb?Math.min(0,vb.x+vb.width-12-(x+wd)):0;g.setAttribute('transform',dx?`translate(${dx},0)`:'')})});
  document.querySelectorAll('[data-adh]').forEach(el=>{const a=AD&&AD.zone&&AD.zone[el.dataset.adh];
   el.innerHTML=!a?'':a.disponibile?`<i style="background:${col(a.sem)}"></i>Adesso ${a.kn} kn${a.dir?' '+esc(a.dir):''}${a.raffica_kn!=null?', raffica '+a.raffica_kn:''} <small>· ${esc(a.ora)}</small>`:`<small>Adesso: ${esc(a.motivo||'misura non disponibile')}</small>`});
