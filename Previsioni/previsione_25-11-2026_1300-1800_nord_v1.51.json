@@ -1750,13 +1750,13 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "24/11 21:45",
-    "valore": "11,1"
+    "ora": "24/11 22:30",
+    "valore": "11,0"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "24/11 21:45",
-    "valore": "7,9"
+    "ora": "24/11 22:30",
+    "valore": "8,1"
    }
   ],
   "aria_acqua": [
@@ -2035,17 +2035,17 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: dati meteo e mare aperto Open-Meteo.com, CC BY 4.0 (ICON-D2 e ensemble ICON-D2-EPS DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS, AROME HD Météo-France in prova, Open-Meteo Marine) · marea astronomica, previsione di marea e misure: CPSM, Comune di Venezia (dati.venezia.it, CC BY) · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.51",
- "generato": "24/11/2026 21:48",
+ "generato": "24/11/2026 22:35",
  "area": "nord",
  "acqua_misurata": {
-  "valore": 11.7,
+  "valore": 11.6,
   "data": "24/11",
-  "ora": "21:20",
+  "ora": "22:25",
   "stazione": "Punta Salute Canal Grande",
   "fonte": "misura CPSM (Comune di Venezia)",
   "tendenza": {
    "giorni": 4,
-   "diff": -0.3,
+   "diff": -0.4,
    "verso": "stabile"
   }
  }

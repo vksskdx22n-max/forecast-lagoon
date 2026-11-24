@@ -1433,6 +1433,18 @@
    "visib": "6+",
    "wx": null,
    "raw": "METAR LIPZ 242020Z 04010KT 9999 BKN020 07/06 Q1024 NOSIG"
+  },
+  {
+   "t": "2026-11-24 20:50",
+   "visib": "6+",
+   "wx": "-RA",
+   "raw": "METAR LIPZ 242050Z 04011KT 9999 -RA BKN020 07/06 Q1023 NOSIG"
+  },
+  {
+   "t": "2026-11-24 21:20",
+   "visib": "6+",
+   "wx": "-RA",
+   "raw": "METAR LIPZ 242120Z 04011KT 9999 -RA BKN020 07/06 Q1023 NOSIG"
   }
  ],
  "versione": "1.51",
@@ -5900,6 +5912,100 @@
     "ora": "21:20",
     "eta_min": 10
    }
+  },
+  {
+   "t": "2026-11-24T21:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 88,
+     "ora": "2026-11-24 21:50:00",
+     "t": 7.8,
+     "ora_t": "2026-11-24 21:50:00",
+     "td": 5.9,
+     "spread": 1.9
+    },
+    "Piattaforma": {
+     "rh": 88,
+     "ora": "2026-11-24 21:50:00",
+     "t": 11.2,
+     "ora_t": "2026-11-24 21:50:00",
+     "td": 9.3,
+     "spread": 1.9
+    },
+    "S_Giorgio": {
+     "rh": 83,
+     "ora": "2026-11-24 21:50:00"
+    }
+   },
+   "vento": {
+    "nord": 14.2,
+    "sud": 10.5,
+    "centro": 18.7
+   },
+   "vento_dati_aperti": {
+    "nord": "21:50",
+    "sud": "21:45",
+    "centro": "21:50"
+   },
+   "vento_motivo": {
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": "-RA",
+    "ora": "21:50",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-24T21:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 88,
+     "ora": "2026-11-24 22:20:00",
+     "t": 8.2,
+     "ora_t": "2026-11-24 22:20:00",
+     "td": 6.3,
+     "spread": 1.9
+    },
+    "Piattaforma": {
+     "rh": 88,
+     "ora": "2026-11-24 22:20:00",
+     "t": 10.9,
+     "ora_t": "2026-11-24 22:20:00",
+     "td": 9,
+     "spread": 1.9
+    },
+    "S_Giorgio": {
+     "rh": 83,
+     "ora": "2026-11-24 22:20:00"
+    }
+   },
+   "vento": {
+    "sud": 14.6,
+    "nord": 13.2,
+    "centro": 18.9
+   },
+   "vento_dati_aperti": {
+    "sud": "22:25",
+    "nord": "22:25",
+    "centro": "22:25"
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": "-RA",
+    "ora": "22:20",
+    "eta_min": 10
+   }
   }
  ],
  "nota_locale": "Registro del Worker (v2.9) ogni 30 minuti, t in UTC: aria = umidita' (rh, %), temperatura (t, °C), punto di rugiada (td) e distanza dal punto di rugiada (spread) delle stazioni CPSM; vento = vento medio misurato (kn) di Saline, Malamocco Porto, Chioggia Porto; vis = visibilita' di Tessera (m). Per lo studio dell'indicatore locale di nebbia.",
@@ -7835,6 +7941,29 @@
     "252": {
      "rh": 99.0,
      "t": 7.9
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-24T22:00",
+   "t": "2026-11-24T21:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 100.0,
+     "t": 7.3
+    },
+    "230": {
+     "rh": 90.0,
+     "t": 8.0
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 9.3
+    },
+    "252": {
+     "rh": 99.0,
+     "t": 7.7
     }
    }
   }
