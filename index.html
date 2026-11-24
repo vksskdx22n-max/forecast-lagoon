@@ -199,7 +199,7 @@ function mappa(vb,o){
  if(o.labels)D.zone.forEach(z=>{const b=G.bbox[z.id],v=ultima(z),c=o.adesso?cAd(z):o.colori&&o.colori[z.id]!==undefined?o.colori[z.id]:(v?v.colore:null),hex=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();
   const t=z.nome.replace('Laguna ',''),w=t.length*28+82,x=z.id==='nord'?b[0]+(b[2]-b[0])*.52:b[0]+(b[2]-b[0])*.18,y=z.id==='nord'?b[1]+(b[3]-b[1])*.55:(b[1]+b[3])/2;
   s+=`<g style="pointer-events:none"><rect x="${x}" y="${y-38}" width="${w}" height="66" rx="33" fill="#06131d" fill-opacity=".85" stroke="#ffffff" stroke-opacity=".22"/>
-  <circle ${o.adesso?`data-azona="${z.id}" `:''}cx="${x+34}" cy="${y-5}" r="13" fill="${hex}"/><text x="${x+60}" y="${y+10}" fill="#fff" font-size="43" font-weight="750" letter-spacing="-.5">${t}</text></g>${o.adesso?`<g data-adm="${z.id}" data-x="${x}" data-y="${y-110}" style="pointer-events:none"></g>`:''}`});
+  <circle ${o.adesso?`data-azona="${z.id}" `:''}cx="${x+34}" cy="${y-5}" r="13" fill="${hex}"/><text x="${x+60}" y="${y+10}" fill="#fff" font-size="43" font-weight="750" letter-spacing="-.5">${t}</text></g>${o.adesso?`<g data-adm="${z.id}" data-x="${x}" data-y="${y-126}" style="pointer-events:none"></g>`:''}`});   // v3.59: targhetta nodi piu' in alto (pillola piu' grande)
  return s+'</svg>'}
 function piede(){return `<div class="foot">Previsione indicativa: non sostituisce i bollettini ufficiali. <b>Fonti e licenze</b> → <span class="flink" role="button" onclick="istruzioni()">istruzioni (i)</span><br>Sito v${esc(D.versione_sito)}${D.autore?' · a cura di '+esc(D.autore):''} · aggiornato ${new Date(D.aggiornato_utc).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div>`}   // v3.57: fonti spostate nelle istruzioni, qui solo il rimando
 function finestra(){return null}   // v3.49: tre fasce (05–12, 13–18, 19–24)
@@ -440,11 +440,11 @@ function riempiAdesso(){try{segnaOra()}catch(e){}   // v3.42: cerchietto del liv
   el.innerHTML='Vento adesso · misurato'+(una?`<small>${esc(ok.map(a=>a.ora).sort().pop())}</small>`:'');
   document.querySelectorAll('[data-adm]').forEach(g=>{const a=AD.zone[g.dataset.adm],x=+g.dataset.x,y=+g.dataset.y;
    const txt=!usa(a)?'non disponibile':`${a.kn} kn${a.dir?' '+a.dir:''}${a.raffica_kn!=null?' · raff. '+a.raffica_kn:''}${(!una||!a.disponibile)&&a.ora?' · '+a.ora:''}`;   // v3.56: misura vecchia (fino a 45 min) mostrata con l'ora
-   const fr=usa(a)&&a.dir_g!=null,tx=x+(fr?56:22);
-   g.innerHTML=`<rect x="${x}" y="${y}" width="10" height="58" rx="29" fill="#06131d" fill-opacity=".8" stroke="#5fd4d0" stroke-opacity=".55"/>`+
-    (fr?`<g transform="translate(${x+31},${y+29}) rotate(${a.dir_g+180})"><path d="M0,-17 L11,8 L0,3 L-11,8 Z" fill="#eaf3f7"/></g>`:'')+
-    `<text x="${tx}" y="${y+42}" fill="${usa(a)?(a.disponibile?'#eaf3f7':'#b9ccd8'):'#8aa6b6'}" font-size="37" font-weight="650">${esc(txt)}</text>`;   // v3.56: misura vecchia leggermente piu' tenue
-   let wd=txt.length*20+76;try{wd=Math.round(tx-x+g.querySelector('text').getBBox().width+22)}catch(e){}g.querySelector('rect').setAttribute('width',wd);const vb=(g.ownerSVGElement&&g.ownerSVGElement.viewBox.baseVal)||null,dx=vb?Math.min(0,vb.x+vb.width-12-(x+wd)):0;g.setAttribute('transform',dx?`translate(${dx},0)`:'')})});
+   const fr=usa(a)&&a.dir_g!=null,tx=x+(fr?66:28);   // v3.59: scritte dei nodi piu' grandi sulla cartina
+   g.innerHTML=`<rect x="${x}" y="${y}" width="10" height="72" rx="36" fill="#06131d" fill-opacity=".82" stroke="#5fd4d0" stroke-opacity=".55"/>`+
+    (fr?`<g transform="translate(${x+35},${y+36}) rotate(${a.dir_g+180}) scale(1.28)"><path d="M0,-17 L11,8 L0,3 L-11,8 Z" fill="#eaf3f7"/></g>`:'')+
+    `<text x="${tx}" y="${y+51}" fill="${usa(a)?(a.disponibile?'#eaf3f7':'#b9ccd8'):'#8aa6b6'}" font-size="47" font-weight="700">${esc(txt)}</text>`;   // v3.59: nodi 47 (prima 37)
+   let wd=txt.length*25+92;try{wd=Math.round(tx-x+g.querySelector('text').getBBox().width+28)}catch(e){}g.querySelector('rect').setAttribute('width',wd);const vb=(g.ownerSVGElement&&g.ownerSVGElement.viewBox.baseVal)||null,dx=vb?Math.min(0,vb.x+vb.width-12-(x+wd)):0;g.setAttribute('transform',dx?`translate(${dx},0)`:'')})});
  document.querySelectorAll('[data-adh]').forEach(el=>{const a=AD&&AD.zone&&AD.zone[el.dataset.adh];
   el.innerHTML=!a?'':a.disponibile?`<i style="background:${col(a.sem)}"></i>Adesso ${a.kn} kn${a.dir?' '+esc(a.dir):''}${a.raffica_kn!=null?', raffica '+a.raffica_kn:''} <small>· ${esc(a.ora)}</small>`:`<small>Adesso: ${esc(a.motivo||'misura non disponibile')}</small>`});
  document.querySelectorAll('[data-vis]').forEach(el=>{   // v3.26: visibilita' adesso a Tessera, solo sotto la soglia e se recente
@@ -481,8 +481,15 @@ window.addEventListener('hashchange',vai);
 let T0=Date.now();   // v3.9: tocchi su fasce e mappa ignorati per 600 ms dopo il caricamento (tocco "rimbalzato" dal ricaricamento)
 document.addEventListener('click',e=>{if(Date.now()-T0<600&&e.target.closest&&e.target.closest('.zone,.hero')){e.preventDefault();e.stopPropagation()}},true);
 if(/[?&]v=/.test(location.search))history.replaceState(null,'',location.pathname+location.hash);   // v3.9: tolto ?v= dall'indirizzo
+// v3.59: protezione all'avvio — se i dati tardano, un ritentativo automatico una volta, poi un tasto "Ricarica" invece di restare su "Caricamento…"
+let BOOT=false;
+function schermataRicarica(msg){app.innerHTML=`<div class="empty">${esc(msg)}<br><br><span class="flink" role="button" onclick="try{sessionStorage.removeItem('fl_boot')}catch(e){};location.reload()">Ricarica</span></div>`}
+setTimeout(()=>{if(BOOT)return;let r=false;try{r=!!sessionStorage.getItem('fl_boot')}catch(e){}
+ if(!r){try{sessionStorage.setItem('fl_boot','1')}catch(e){}location.reload();return}
+ schermataRicarica('Caricamento non riuscito. Controlla la connessione.')},9000);
 Promise.all([fetch('index.json',{cache:'no-store'}).then(r=>r.json()),fetch('assets/laguna_bacini.json?v='+CODICE).then(r=>r.json())])
- .then(([d,g])=>{D=d;G=g;T0=Date.now();vai();controlla()}).catch(e=>{app.innerHTML=`<div class="empty">Impossibile leggere i dati: ${esc(e)}</div>`});
+ .then(([d,g])=>{BOOT=true;try{sessionStorage.removeItem('fl_boot')}catch(e){}D=d;G=g;T0=Date.now();vai();controlla()})
+ .catch(e=>{BOOT=true;schermataRicarica('Impossibile leggere i dati.')});
 </script>
 <!-- v3.46: Cloudflare Web Analytics (senza cookie, nessun dato personale): conta visite e visitatori dell'app -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "9f0e28b014a243dfb009b4faab64ed46"}'></script>
