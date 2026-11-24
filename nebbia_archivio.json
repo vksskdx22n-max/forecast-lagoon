@@ -5300,6 +5300,53 @@
     "ora": "15:20",
     "eta_min": 10
    }
+  },
+  {
+   "t": "2026-11-24T15:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 79,
+     "ora": "2026-11-24 15:50:00",
+     "t": 9.8,
+     "ora_t": "2026-11-24 15:50:00",
+     "td": 6.3,
+     "spread": 3.5
+    },
+    "Piattaforma": {
+     "rh": 85,
+     "ora": "2026-11-24 15:50:00",
+     "t": 12.3,
+     "ora_t": "2026-11-24 15:50:00",
+     "td": 9.8,
+     "spread": 2.5
+    },
+    "S_Giorgio": {
+     "rh": 74,
+     "ora": "2026-11-24 15:50:00"
+    }
+   },
+   "vento": {
+    "nord": 9.7,
+    "sud": 15.6,
+    "centro": 13.8
+   },
+   "vento_dati_aperti": {
+    "nord": "15:50",
+    "sud": "15:50",
+    "centro": "15:50"
+   },
+   "vento_motivo": {
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "15:50",
+    "eta_min": 10
+   }
   }
  ],
  "nota_locale": "Registro del Worker (v2.9) ogni 30 minuti, t in UTC: aria = umidita' (rh, %), temperatura (t, °C), punto di rugiada (td) e distanza dal punto di rugiada (spread) delle stazioni CPSM; vento = vento medio misurato (kn) di Saline, Malamocco Porto, Chioggia Porto; vis = visibilita' di Tessera (m). Per lo studio dell'indicatore locale di nebbia.",
@@ -7103,6 +7150,24 @@
     "252": {
      "rh": 82.0,
      "t": 9.7
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-24T16:00",
+   "t": "2026-11-24T15:00",
+   "staz": {
+    "230": {
+     "rh": 79.0,
+     "t": 9.4
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 10.4
+    },
+    "252": {
+     "rh": 85.0,
+     "t": 9.5
     }
    }
   }
