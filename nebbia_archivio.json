@@ -1139,6 +1139,144 @@
    "visib": "6+",
    "wx": null,
    "raw": "METAR LIPZ 231950Z 03005KT 9999 BKN040 08/05 Q1020 NOSIG"
+  },
+  {
+   "t": "2026-11-23 20:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 232020Z 05006KT 9999 BKN040 08/05 Q1020 NOSIG"
+  },
+  {
+   "t": "2026-11-23 20:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 232050Z 03006KT 9999 BKN045 08/05 Q1021 NOSIG"
+  },
+  {
+   "t": "2026-11-23 21:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 232120Z 03007KT 9999 BKN040 08/05 Q1021 NOSIG"
+  },
+  {
+   "t": "2026-11-23 21:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 232150Z 03007KT 9999 BKN045 07/05 Q1021 NOSIG"
+  },
+  {
+   "t": "2026-11-23 22:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 232220Z 04007KT 9999 BKN045 07/05 Q1021 NOSIG"
+  },
+  {
+   "t": "2026-11-23 22:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 232250Z 04008KT 9999 BKN055 07/05 Q1021 NOSIG"
+  },
+  {
+   "t": "2026-11-23 23:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 232320Z 04007KT 9999 BKN050 07/05 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-23 23:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 232350Z 04007KT 9999 FEW035 BKN055 07/05 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-24 00:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240020Z 03008KT 9999 FEW035 BKN055 07/04 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-24 00:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240050Z 03008KT 9999 FEW035 BKN050 07/04 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-24 01:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240120Z 03007KT 9999 BKN050 07/04 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-24 01:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240150Z 04009KT 9999 FEW035 BKN060 07/03 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-24 02:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240220Z 01008KT 9999 BKN060 07/03 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-24 02:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240250Z 03008KT 9999 BKN050 07/03 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-24 03:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240320Z 03007KT 9999 BKN060 07/03 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-24 03:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240350Z 03008KT 9999 BKN060 07/03 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-24 04:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240420Z 03009KT 9999 BKN060 07/02 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-24 04:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240450Z 05009KT 9999 BKN060 07/02 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-24 05:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240520Z 04008KT 9999 BKN060 06/02 Q1022 NOSIG"
+  },
+  {
+   "t": "2026-11-24 05:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240550Z 05007KT 9999 BKN065 06/02 Q1023 NOSIG"
+  },
+  {
+   "t": "2026-11-24 06:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240620Z 04008KT 9999 BKN060 06/02 Q1023 NOSIG"
+  },
+  {
+   "t": "2026-11-24 06:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240650Z 04008KT 9999 BKN040 06/02 Q1023 NOSIG"
+  },
+  {
+   "t": "2026-11-24 07:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 240720Z 05008KT 9999 BKN040 06/02 Q1023 NOSIG"
   }
  ],
  "versione": "1.51",
@@ -3713,6 +3851,660 @@
     "ora": "20:20",
     "eta_min": 11
    }
+  },
+  {
+   "t": "2026-11-23T20:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 82,
+     "ora": "2026-11-23 21:20:00",
+     "t": 9.6,
+     "ora_t": "2026-11-23 21:20:00",
+     "td": 6.7,
+     "spread": 2.9
+    },
+    "Piattaforma": {
+     "rh": 77,
+     "ora": "2026-11-23 21:20:00",
+     "t": 12.2,
+     "ora_t": "2026-11-23 21:20:00",
+     "td": 8.3,
+     "spread": 3.9
+    },
+    "S_Giorgio": {
+     "rh": 76,
+     "ora": "2026-11-23 21:20:00"
+    }
+   },
+   "vento": {
+    "nord": 8.2,
+    "sud": 6.4,
+    "centro": 7.6
+   },
+   "vento_dati_aperti": {
+    "centro": "21:20",
+    "sud": "21:20",
+    "nord": "21:20"
+   },
+   "vento_motivo": {
+    "nord_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "sud_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "21:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-23T21:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 82,
+     "ora": "2026-11-23 21:50:00",
+     "t": 9.3,
+     "ora_t": "2026-11-23 21:50:00",
+     "td": 6.4,
+     "spread": 2.9
+    },
+    "Piattaforma": {
+     "rh": 81,
+     "ora": "2026-11-23 21:50:00",
+     "t": 11.7,
+     "ora_t": "2026-11-23 21:50:00",
+     "td": 8.5,
+     "spread": 3.2
+    },
+    "S_Giorgio": {
+     "rh": 78,
+     "ora": "2026-11-23 21:50:00"
+    }
+   },
+   "vento": {
+    "centro": 4.1,
+    "sud": 8.2,
+    "nord": 8.7
+   },
+   "vento_dati_aperti": {
+    "sud": "21:50",
+    "centro": "21:50",
+    "nord": "21:50"
+   },
+   "vento_motivo": {
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "21:50",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-23T21:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 83,
+     "ora": "2026-11-23 22:20:00",
+     "t": 9.1,
+     "ora_t": "2026-11-23 22:20:00",
+     "td": 6.4,
+     "spread": 2.7
+    },
+    "Piattaforma": {
+     "rh": 85,
+     "ora": "2026-11-23 22:20:00",
+     "t": 11.5,
+     "ora_t": "2026-11-23 22:20:00",
+     "td": 9.1,
+     "spread": 2.4
+    },
+    "S_Giorgio": {
+     "rh": 78,
+     "ora": "2026-11-23 22:20:00"
+    }
+   },
+   "vento": {
+    "centro": 8.9,
+    "nord": 10.3,
+    "sud": 7.8
+   },
+   "vento_dati_aperti": {
+    "centro": "22:20",
+    "nord": "22:20",
+    "sud": "22:20"
+   },
+   "vento_motivo": {
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "22:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-23T22:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 83,
+     "ora": "2026-11-23 22:50:00",
+     "t": 8.5,
+     "ora_t": "2026-11-23 22:50:00",
+     "td": 5.8,
+     "spread": 2.7
+    },
+    "Piattaforma": {
+     "rh": 86,
+     "ora": "2026-11-23 22:50:00",
+     "t": 11,
+     "ora_t": "2026-11-23 22:50:00",
+     "td": 8.7,
+     "spread": 2.3
+    },
+    "S_Giorgio": {
+     "rh": 79,
+     "ora": "2026-11-23 22:50:00"
+    }
+   },
+   "vento": {
+    "sud": 8.7,
+    "nord": 8.6,
+    "centro": 10.9
+   },
+   "vento_dati_aperti": {
+    "sud": "22:45",
+    "nord": "22:45",
+    "centro": "22:45"
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "22:50",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-23T22:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 83,
+     "ora": "2026-11-23 23:20:00",
+     "t": 8.5,
+     "ora_t": "2026-11-23 23:20:00",
+     "td": 5.8,
+     "spread": 2.7
+    },
+    "Piattaforma": {
+     "rh": 86,
+     "ora": "2026-11-23 23:20:00",
+     "t": 11.4,
+     "ora_t": "2026-11-23 23:20:00",
+     "td": 9.1,
+     "spread": 2.3
+    },
+    "S_Giorgio": {
+     "rh": 77,
+     "ora": "2026-11-23 23:20:00"
+    }
+   },
+   "vento": {
+    "sud": 10.5,
+    "nord": 8.9,
+    "centro": 11.1
+   },
+   "vento_dati_aperti": {
+    "nord": "23:20",
+    "sud": "23:20",
+    "centro": "23:20"
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "23:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-24T03:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 78,
+     "ora": "2026-11-24 03:50:00",
+     "t": 7.8,
+     "ora_t": "2026-11-24 03:50:00",
+     "td": 4.2,
+     "spread": 3.6
+    },
+    "Piattaforma": {
+     "rh": 84,
+     "ora": "2026-11-24 03:50:00",
+     "t": 9.6,
+     "ora_t": "2026-11-24 03:50:00",
+     "td": 7,
+     "spread": 2.6
+    },
+    "S_Giorgio": {
+     "rh": 72,
+     "ora": "2026-11-24 03:50:00"
+    }
+   },
+   "vento": {
+    "nord": null,
+    "centro": null,
+    "sud": null
+   },
+   "vento_motivo": {
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "03:50",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-24T03:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 76,
+     "ora": "2026-11-24 04:20:00",
+     "t": 8.2,
+     "ora_t": "2026-11-24 04:20:00",
+     "td": 4.2,
+     "spread": 4
+    },
+    "Piattaforma": {
+     "rh": 86,
+     "ora": "2026-11-24 04:20:00",
+     "t": 10.5,
+     "ora_t": "2026-11-24 04:20:00",
+     "td": 8.3,
+     "spread": 2.2
+    },
+    "S_Giorgio": {
+     "rh": 71,
+     "ora": "2026-11-24 04:20:00"
+    }
+   },
+   "vento": {
+    "sud": null,
+    "nord": null,
+    "centro": null
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "04:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-24T04:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 78,
+     "ora": "2026-11-24 04:55:00",
+     "t": 7.7,
+     "ora_t": "2026-11-24 04:50:00",
+     "td": 4.1,
+     "spread": 3.6
+    },
+    "Piattaforma": {
+     "rh": 87,
+     "ora": "2026-11-24 04:55:00",
+     "t": 11.1,
+     "ora_t": "2026-11-24 04:50:00",
+     "td": 9,
+     "spread": 2.1
+    },
+    "S_Giorgio": {
+     "rh": 71,
+     "ora": "2026-11-24 04:55:00"
+    }
+   },
+   "vento": {
+    "sud": 14.2,
+    "centro": 15,
+    "nord": 11.7
+   },
+   "vento_dati_aperti": {
+    "sud": "04:50",
+    "centro": "04:50",
+    "nord": "04:50"
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "04:50",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-24T04:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 78,
+     "ora": "2026-11-24 05:20:00",
+     "t": 7.7,
+     "ora_t": "2026-11-24 05:20:00",
+     "td": 4.1,
+     "spread": 3.6
+    },
+    "Piattaforma": {
+     "rh": 86,
+     "ora": "2026-11-24 05:20:00",
+     "t": 11.4,
+     "ora_t": "2026-11-24 05:20:00",
+     "td": 9.1,
+     "spread": 2.3
+    },
+    "S_Giorgio": {
+     "rh": 72,
+     "ora": "2026-11-24 05:20:00"
+    }
+   },
+   "vento": {
+    "centro": 15.6,
+    "nord": 11.5,
+    "sud": 14.6
+   },
+   "vento_dati_aperti": {
+    "centro": "05:20",
+    "nord": "05:20",
+    "sud": "05:15"
+   },
+   "vento_motivo": {
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "05:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-24T05:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 77,
+     "ora": "2026-11-24 05:50:00",
+     "t": 7.6,
+     "ora_t": "2026-11-24 05:50:00",
+     "td": 3.8,
+     "spread": 3.8
+    },
+    "Piattaforma": {
+     "rh": 85,
+     "ora": "2026-11-24 05:50:00",
+     "t": 11.6,
+     "ora_t": "2026-11-24 05:50:00",
+     "td": 9.2,
+     "spread": 2.4
+    },
+    "S_Giorgio": {
+     "rh": 72,
+     "ora": "2026-11-24 05:50:00"
+    }
+   },
+   "vento": {
+    "nord": 12.4,
+    "sud": 14.8,
+    "centro": 15.4
+   },
+   "vento_dati_aperti": {
+    "nord": "05:50",
+    "sud": "05:45",
+    "centro": "05:50"
+   },
+   "vento_motivo": {
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "05:50",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-24T05:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 77,
+     "ora": "2026-11-24 06:20:00",
+     "t": 7.5,
+     "ora_t": "2026-11-24 06:20:00",
+     "td": 3.7,
+     "spread": 3.8
+    },
+    "Piattaforma": {
+     "rh": 85,
+     "ora": "2026-11-24 06:20:00",
+     "t": 11.7,
+     "ora_t": "2026-11-24 06:20:00",
+     "td": 9.3,
+     "spread": 2.4
+    },
+    "S_Giorgio": {
+     "rh": 72,
+     "ora": "2026-11-24 06:20:00"
+    }
+   },
+   "vento": {
+    "nord": 12.2,
+    "centro": 14,
+    "sud": 14.8
+   },
+   "vento_dati_aperti": {
+    "nord": "06:20",
+    "centro": "06:20",
+    "sud": "06:20"
+   },
+   "vento_motivo": {
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "06:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-24T06:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 75,
+     "ora": "2026-11-24 06:50:00",
+     "t": 7.7,
+     "ora_t": "2026-11-24 06:50:00",
+     "td": 3.5,
+     "spread": 4.2
+    },
+    "Piattaforma": {
+     "rh": 84,
+     "ora": "2026-11-24 06:50:00",
+     "t": 11.4,
+     "ora_t": "2026-11-24 06:50:00",
+     "td": 8.8,
+     "spread": 2.6
+    },
+    "S_Giorgio": {
+     "rh": 69,
+     "ora": "2026-11-24 06:50:00"
+    }
+   },
+   "vento": {
+    "sud": 15.2,
+    "centro": 14.2,
+    "nord": 11.3
+   },
+   "vento_dati_aperti": {
+    "centro": "06:50",
+    "sud": "06:45",
+    "nord": "06:50"
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "06:50",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-24T06:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 75,
+     "ora": "2026-11-24 07:20:00",
+     "t": 7.8,
+     "ora_t": "2026-11-24 07:20:00",
+     "td": 3.6,
+     "spread": 4.2
+    },
+    "Piattaforma": {
+     "rh": 83,
+     "ora": "2026-11-24 07:20:00",
+     "t": 11.7,
+     "ora_t": "2026-11-24 07:20:00",
+     "td": 8.9,
+     "spread": 2.8
+    },
+    "S_Giorgio": {
+     "rh": 67,
+     "ora": "2026-11-24 07:20:00"
+    }
+   },
+   "vento": {
+    "sud": 15.2,
+    "nord": 11.1,
+    "centro": 15
+   },
+   "vento_dati_aperti": {
+    "sud": "07:15",
+    "nord": "07:20",
+    "centro": "07:20"
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "07:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-24T07:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 75,
+     "ora": "2026-11-24 07:50:00",
+     "t": 7.7,
+     "ora_t": "2026-11-24 07:50:00",
+     "td": 3.5,
+     "spread": 4.2
+    },
+    "Piattaforma": {
+     "rh": 80,
+     "ora": "2026-11-24 07:50:00",
+     "t": 11.9,
+     "ora_t": "2026-11-24 07:50:00",
+     "td": 8.6,
+     "spread": 3.3
+    },
+    "S_Giorgio": {
+     "rh": 68,
+     "ora": "2026-11-24 07:50:00"
+    }
+   },
+   "vento": {
+    "sud": 15.2,
+    "nord": 11.7,
+    "centro": 14.8
+   },
+   "vento_dati_aperti": {
+    "sud": "07:35",
+    "nord": "07:50",
+    "centro": "07:50"
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "07:50",
+    "eta_min": 10
+   }
   }
  ],
  "nota_locale": "Registro del Worker (v2.9) ogni 30 minuti, t in UTC: aria = umidita' (rh, %), temperatura (t, °C), punto di rugiada (td) e distanza dal punto di rugiada (spread) delle stazioni CPSM; vento = vento medio misurato (kn) di Saline, Malamocco Porto, Chioggia Porto; vis = visibilita' di Tessera (m). Per lo studio dell'indicatore locale di nebbia.",
@@ -5107,6 +5899,259 @@
     "252": {
      "rh": 87.0,
      "t": 9.5
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-23T22:00",
+   "t": "2026-11-23T21:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 90.0,
+     "t": 8.3
+    },
+    "230": {
+     "rh": 91.0,
+     "t": 7.6
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 9.1
+    },
+    "252": {
+     "rh": 89.0,
+     "t": 8.8
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-23T23:00",
+   "t": "2026-11-23T22:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 86.0,
+     "t": 7.9
+    },
+    "230": {
+     "rh": 87.0,
+     "t": 8.0
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 9.4
+    },
+    "252": {
+     "rh": 92.0,
+     "t": 8.4
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-24T00:00",
+   "t": "2026-11-23T23:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 88.0,
+     "t": 7.6
+    },
+    "230": {
+     "rh": 85.0,
+     "t": 7.6
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 9.6
+    },
+    "252": {
+     "rh": 86.0,
+     "t": 8.4
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-24T01:00",
+   "t": "2026-11-24T00:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 89.0,
+     "t": 7.5
+    },
+    "230": {
+     "rh": 82.0,
+     "t": 7.6
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 9.3
+    },
+    "252": {
+     "rh": 86.0,
+     "t": 8.2
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-24T02:00",
+   "t": "2026-11-24T01:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 86.0,
+     "t": 7.4
+    },
+    "230": {
+     "rh": 82.0,
+     "t": 7.7
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 9.6
+    },
+    "252": {
+     "rh": 85.0,
+     "t": 7.7
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-24T03:00",
+   "t": "2026-11-24T02:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 87.0,
+     "t": 7.4
+    },
+    "230": {
+     "rh": 82.0,
+     "t": 7.3
+    },
+    "168": {
+     "rh": 99.0,
+     "t": 9.0
+    },
+    "252": {
+     "rh": 86.0,
+     "t": 7.6
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-24T04:00",
+   "t": "2026-11-24T03:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 85.0,
+     "t": 7.1
+    },
+    "230": {
+     "rh": 81.0,
+     "t": 7.0
+    },
+    "168": {
+     "rh": 98.0,
+     "t": 9.1
+    },
+    "252": {
+     "rh": 81.0,
+     "t": 7.7
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-24T05:00",
+   "t": "2026-11-24T04:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 83.0,
+     "t": 6.9
+    },
+    "230": {
+     "rh": 79.0,
+     "t": 6.9
+    },
+    "168": {
+     "rh": 97.0,
+     "t": 8.8
+    },
+    "252": {
+     "rh": 84.0,
+     "t": 7.3
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-24T06:00",
+   "t": "2026-11-24T05:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 86.0,
+     "t": 6.6
+    },
+    "230": {
+     "rh": 78.0,
+     "t": 6.6
+    },
+    "168": {
+     "rh": 99.0,
+     "t": 8.6
+    },
+    "252": {
+     "rh": 80.0,
+     "t": 7.4
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-24T07:00",
+   "t": "2026-11-24T06:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 85.0,
+     "t": 6.4
+    },
+    "230": {
+     "rh": 78.0,
+     "t": 6.4
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 8.7
+    },
+    "252": {
+     "rh": 76.0,
+     "t": 7.7
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-24T08:00",
+   "t": "2026-11-24T07:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 85.0,
+     "t": 6.5
+    },
+    "230": {
+     "rh": 80.0,
+     "t": 6.2
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 10.1
+    },
+    "252": {
+     "rh": 80.0,
+     "t": 7.7
     }
    }
   }
