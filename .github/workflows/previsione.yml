@@ -11,17 +11,17 @@ on:
         description: "Giorno della previsione AAAA-MM-GG (vuoto = domani)"
         required: false
       da:
-        description: "Ora inizio (vuoto = tre fasce 05-12, 13-18, 19-24)"
+        description: "Ora inizio (vuoto = tre fasce 05-12, 12-18, 18-24)"
         required: false
       a:
-        description: "Ora fine (vuoto = tre fasce 05-12, 13-18, 19-24)"
+        description: "Ora fine (vuoto = tre fasce 05-12, 12-18, 18-24)"
         required: false
       forza:
         description: "Rifai anche se la previsione di domani c'e' gia' (si/no)"
         required: false
         default: "si"
       giro:
-        description: "mattino = previsione provvisoria del mattino (la manda il Worker Cloudflare alle 08:25); vuoto = giro normale"
+        description: "mattino (08:25) e meteo (05:30, 11:15, 18:30) = aggiornamento del vento; marea = nuovo bollettino, solo marea e correnti; vuoto = giro principale. Li manda il Worker Cloudflare"
         required: false
         default: ""
 
@@ -57,40 +57,35 @@ jobs:
           import os, glob, json, datetime as dt
           from zoneinfo import ZoneInfo
           # 20/11/2026: GitHub puo' far partire i giri programmati con ore di ritardo (19/11: 19:13 partito alle 01:37).
-          # Prima delle 14:00 italiane (bollettino CPSM 13:30) un giro automatico si ferma, e conta come "gia' fatta"
-          # solo una previsione generata oggi dalle 14:00 in poi.
-          # Eccezione: il giro del mattino (giro=mattino, dal Worker Cloudflare alle 08:25) fa la previsione PROVVISORIA
-          # di domani se oggi non e' ancora stata fatta per tutte le zone (a qualsiasi ora).
-          ORA_MIN = 14
+          # Il giro principale automatico si ferma prima delle 14:00 italiane, e conta come "gia' fatta" solo una previsione
+          # generata oggi dalle 16:00 in poi (cosi' un giro a mano del primo pomeriggio non fa saltare quello delle 16:25).
+          # 25/11/2026: i giri del Worker (mattino, meteo, marea) si fanno sempre: un giro a mano non li fa saltare.
+          ORA_MIN, ORA_FATTA = 14, 16
           adesso = dt.datetime.now(ZoneInfo("Europe/Rome"))
           oggi = adesso.date(); domani = oggi + dt.timedelta(days=1)
           forza = (os.environ.get("FORZA") or "").strip().lower() in ("si", "sì", "yes", "true")
-          mattino = (os.environ.get("GIRO") or "").strip().lower() == "mattino"
-          fatte, fatte_oggi = set(), set()
+          giro = (os.environ.get("GIRO") or "").strip().lower()
+          fatte = set()
           for f in glob.glob(f"Previsioni/previsione_{domani.strftime('%d-%m-%Y')}_0500-1200*_v*.json"):
               try:
                   P = json.load(open(f, encoding="utf-8"))
                   g = dt.datetime.strptime(P.get("generato") or "", "%d/%m/%Y %H:%M")
               except ValueError:
                   continue
-              if g.date() == oggi:
-                  fatte_oggi.add(P.get("area") or "centro")
-                  if g.hour >= ORA_MIN:
-                      fatte.add(P.get("area") or "centro")
-          presto = adesso.hour < ORA_MIN
+              if g.date() == oggi and g.hour >= ORA_FATTA:
+                  fatte.add(P.get("area") or "centro")
           manuale = forza or os.environ.get("DATA_IN")
           tutte = {"centro", "nord", "sud"}
           if manuale:
               salta, motivo = False, "giro a mano"
-          elif mattino:
-              salta, motivo = tutte <= fatte_oggi, "giro del mattino: previsione di domani gia' fatta oggi"
-          elif presto:
+          elif giro in ("mattino", "meteo", "marea"):
+              salta, motivo = False, ""
+          elif adesso.hour < ORA_MIN:
               salta, motivo = True, "prima delle 14:00 (giro programmato in ritardo)"
           else:
-              salta, motivo = tutte <= fatte, "previsione di domani gia' fatta oggi dalle 14:00 (nessun doppione)"
-          print("Previsione di domani fatta oggi per: " + (", ".join(sorted(fatte_oggi)) or "nessuna zona")
-                + " · dalle 14:00: " + (", ".join(sorted(fatte)) or "nessuna zona"))
-          print(("Giro saltato: " + motivo + ".") if salta else ("Giro da fare" + (" (mattino, previsione provvisoria)." if mattino else ".")))
+              salta, motivo = tutte <= fatte, "previsione di domani gia' fatta oggi dalle 16:00 (nessun doppione)"
+          print("Previsione di domani fatta oggi dalle 16:00 per: " + (", ".join(sorted(fatte)) or "nessuna zona"))
+          print(("Giro saltato: " + motivo + ".") if salta else f"Giro da fare ({giro or 'principale'}).")
           open(os.environ["GITHUB_OUTPUT"], "a").write(f"salta={'true' if salta else 'false'}\n")
           EOF
 
@@ -107,6 +102,14 @@ jobs:
             [ -f "$f" ] || { echo "::error::Manca $f nel repository: caricalo (vedi README)"; exit 1; }
           done
 
+      - name: Memoria dei dati Open-Meteo e delle correzioni (per ricalcolare la marea senza nuove richieste)
+        if: steps.guard.outputs.salta != 'true'
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/om_cache
+          key: om-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: om-
+
       - name: Previsione (con la verifica dei giorni conclusi)
         if: steps.guard.outputs.salta != 'true'
         continue-on-error: true      # se un servizio esterno non risponde, il sito si pubblica lo stesso con i dati gia' presenti
@@ -114,36 +117,49 @@ jobs:
           DATA_IN: ${{ github.event.inputs.data }}
           DA_IN: ${{ github.event.inputs.da }}
           A_IN: ${{ github.event.inputs.a }}
+          GIRO: ${{ github.event.inputs.giro }}
         run: |
           DATA="${DATA_IN:-$(date -d tomorrow +%F)}"
-          OGGI=$(date +%F); ORA=$((10#$(date +%H)))
+          OGGI=$(date +%F); ORA=$((10#$(date +%H))); MIN=$((10#$(date +%H) * 60 + 10#$(date +%M)))
           export FL_CACHE="$RUNNER_TEMP/om_cache"      # v1.50: una sola richiesta a Open-Meteo per giorno e zona, per tutte le fasce
+          mkdir -p "$FL_CACHE"; find "$FL_CACHE" -mindepth 1 -maxdepth 1 -mtime +3 -exec rm -rf {} +
+          export FL_INIZIO=$(date +%s)                 # i dati in memoria di giri precedenti valgono solo per il ricalcolo della marea
           ERR=0; PRIMA=1
           prev() {   # giorno, da, a, area
             local opz="--non-aprire --no-pdf"
-            [ $PRIMA -eq 1 ] || opz="$opz --no-verifica --no-archivi"   # verifica e archivi una volta sola, nel primo giro (centro)
+            if [ "$GIRO" = "marea" ]; then opz="$opz --solo-marea"
+            elif [ $PRIMA -ne 1 ]; then opz="$opz --no-verifica --no-archivi"; fi   # verifica e archivi una volta sola, nel primo giro (centro)
             PRIMA=0
             python3 fd_previsione.py "$1" "$2" "$3" $opz --area "$4" || { echo "::warning::Previsione $4 $1 $2-$3 non riuscita"; ERR=1; }
           }
+          TUTTE="05:00-12:00 12:00-18:00 18:00-24:00"      # 25/11/2026: tre fasce senza ore scoperte tra le 05 e le 24
           if [ -n "$DA_IN" ] || [ -n "$A_IN" ]; then
             FASCE="${DA_IN:-05:00}-${A_IN:-12:00}"            # giro a mano con una finestra scelta
           else
-            FASCE="05:00-12:00 13:00-18:00 19:00-24:00"      # v1.50: tre fasce (scelta di Ennio 23/11/2026)
+            FASCE="$TUTTE"
           fi
-          GIORNI="$DATA"
-          for F in $FASCE; do for Z in centro nord sud; do prev "$DATA" "${F%-*}" "${F#*-}" "$Z"; done; done
-          # v1.50: aggiornamento delle fasce di oggi ancora da venire (mattino: 13-18 e 19-24; pomeriggio: 19-24)
-          if [ -z "$DATA_IN" ] && [ -z "$DA_IN$A_IN" ]; then
-            OGG=""
-            if [ $ORA -lt 13 ]; then OGG="13:00-18:00 19:00-24:00"; elif [ $ORA -lt 19 ]; then OGG="19:00-24:00"; fi
-            for F in $OGG; do for Z in centro nord sud; do prev "$OGGI" "${F%-*}" "${F#*-}" "$Z"; done; done
-            [ -n "$OGG" ] && GIORNI="$GIORNI $OGGI"
+          # fasce di oggi non ancora finite (almeno 30 minuti alla fine): si aggiorna anche quella in corso
+          OGG=""
+          if [ -z "$DATA_IN$DA_IN$A_IN" ]; then
+            for F in $TUTTE; do FINE="${F#*-}"; [ $((10#${FINE%:*} * 60 - MIN)) -ge 30 ] && OGG="$OGG $F"; done
           fi
+          # domani: nel giro principale, in quelli a mano e nei giri del Worker dalle 08:00
+          DOMANI_SI=1
+          if [ "$GIRO" = "meteo" ] && [ $ORA -lt 8 ]; then DOMANI_SI=0; fi
+          GIORNI=""
+          if [ $DOMANI_SI -eq 1 ]; then
+            if [ "$GIRO" != "marea" ] || ls Previsioni/previsione_$(date -d "$DATA" +%d-%m-%Y)_*.json >/dev/null 2>&1; then
+              for F in $FASCE; do for Z in centro nord sud; do prev "$DATA" "${F%-*}" "${F#*-}" "$Z"; done; done
+              GIORNI="$DATA"
+            fi
+          fi
+          for F in $OGG; do for Z in centro nord sud; do prev "$OGGI" "${F%-*}" "${F#*-}" "$Z"; done; done
+          [ -n "$OGG" ] && GIORNI="$GIORNI $OGGI"
           for G in $GIORNI; do for Z in centro nord sud; do python3 fd_previsione.py "$G" --sintesi --area "$Z" || ERR=1; done; done
           exit $ERR
 
       - name: Tendenza dei prossimi giorni
-        if: steps.guard.outputs.salta != 'true'
+        if: steps.guard.outputs.salta != 'true' && github.event.inputs.giro != 'marea' && github.event.inputs.giro != 'meteo'
         continue-on-error: true      # v1.0: se non riesce resta la tendenza precedente, il resto non cambia
         env:
           DATA_IN: ${{ github.event.inputs.data }}
@@ -159,15 +175,18 @@ jobs:
 
       - name: Salvataggio di archivio e previsioni nel repository
         if: steps.guard.outputs.salta != 'true'
+        env:
+          GIRO: ${{ github.event.inputs.giro }}
         run: |
           git config user.name "forecast-lagoon-bot"
           git config user.email "forecast-lagoon-bot@users.noreply.github.com"
           git add verifica_archivio.json acqua_archivio.json onde_archivio.json nebbia_archivio.json tendenza.json tendenza_archivio.json tendenza_correzioni.json 2>/dev/null || true
+          git add marea_cpsm.json 2>/dev/null || true
           git add -A Previsioni     # v1.50: anche le sintesi vecchie cancellate (una sola sintesi per giorno e zona)
           if git diff --cached --quiet; then
             echo "Nessuna modifica da salvare."
           else
-            git commit -m "Previsione e verifica $(date +%F)"
+            git commit -m "Previsione e verifica $(date +%F)${GIRO:+ ($GIRO)}"
             git pull --rebase --autostash origin main
             git push origin HEAD:main
           fi
