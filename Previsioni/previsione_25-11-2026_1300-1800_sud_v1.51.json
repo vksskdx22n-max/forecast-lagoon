@@ -6,7 +6,7 @@
  "zone": "Laguna Sud · bacino di Chioggia",
  "verdetto": {
   "colore": "rosso",
-  "testo": "Vento da 32° NNE · Bora in rotazione a 47° NE · Bora. Media delle 4 zone di pesca: 13,0–14,6 nodi, raffiche medie fino a 22,5. Per zona: Pellestrina interno 15,6–17,6 nodi, raffiche fino a 22,9; Chioggia · Canale Lombardo 11,3–12,7 nodi, raffiche fino a 22,9; Sud ovest · verso Fogolana 12,5–14,3 nodi, raffiche fino a 22,2; Millecampi 12,5–14,3 nodi, raffiche fino a 22,2. Attenzione: raffiche fino a 22,9 nodi (Pellestrina interno, 16:00); non cambiano il colore, che segue il vento medio. Marea calante dalle 10:15 alla minima delle 17:20. Marea crescente dalle 17:20 alla massima delle 00:10. (Orari marea: previsione CPSM.)",
+  "testo": "Vento da 32° NNE · Bora in rotazione a 47° NE · Bora. Media delle 4 zone di pesca: 13,0–14,6 nodi, raffiche medie fino a 22,5. Per zona: Pellestrina interno 15,6–17,6 nodi, raffiche fino a 22,9; Chioggia · Canale Lombardo 11,3–12,7 nodi, raffiche fino a 22,9; Sud ovest · verso Fogolana 12,5–14,3 nodi, raffiche fino a 22,2; Millecampi 12,5–14,3 nodi, raffiche fino a 22,2. Attenzione: raffiche fino a 22,9 nodi (Pellestrina interno, 16:00); non cambiano il colore, che segue il vento medio. Marea calante dalle 10:45 alla minima delle 17:20. Marea crescente dalle 17:20 alla massima delle 23:25. (Orari marea: previsione CPSM.)",
   "andamento": [
    {
     "colore": "rosso",
@@ -31,8 +31,8 @@
     "stima": 13.4,
     "raff": 19.7,
     "marea": "↓",
-    "cm_h": -19.9,
-    "corr": 0.7,
+    "cm_h": -16.3,
+    "corr": 0.5,
     "verso": "esce",
     "incerta": false,
     "forbice": null
@@ -43,8 +43,8 @@
     "stima": 14.4,
     "raff": 21.1,
     "marea": "↓",
-    "cm_h": -22.9,
-    "corr": 0.9,
+    "cm_h": -22.3,
+    "corr": 0.86,
     "verso": "esce",
     "incerta": false,
     "forbice": null
@@ -55,8 +55,8 @@
     "stima": 14.6,
     "raff": 21.9,
     "marea": "↓",
-    "cm_h": -21.9,
-    "corr": 0.96,
+    "cm_h": -21.3,
+    "corr": 0.94,
     "verso": "esce",
     "incerta": false,
     "forbice": null
@@ -67,8 +67,8 @@
     "stima": 14.1,
     "raff": 22.5,
     "marea": "↓",
-    "cm_h": -14.9,
-    "corr": 0.76,
+    "cm_h": -15.1,
+    "corr": 0.77,
     "verso": "esce",
     "incerta": false,
     "forbice": null
@@ -79,8 +79,8 @@
     "stima": 13.7,
     "raff": 20.6,
     "marea": "↓",
-    "cm_h": -5.7,
-    "corr": 0.45,
+    "cm_h": -4.4,
+    "corr": 0.41,
     "verso": "esce",
     "incerta": false,
     "forbice": null
@@ -91,9 +91,9 @@
     "stima": 13.0,
     "raff": 20.9,
     "marea": "↑",
-    "cm_h": 5.2,
-    "corr": 0.01,
-    "verso": "esce",
+    "cm_h": 6.6,
+    "corr": 0.04,
+    "verso": "entra",
     "incerta": false,
     "forbice": null
    }
@@ -653,33 +653,13 @@
   "cpsm": [
    {
     "tipo": "max",
-    "ora": "24/11 23:15",
-    "cm": 75,
-    "astro_ora": "23:05",
-    "astro_cm": 60,
-    "diff_cm": 15,
-    "diff_min": 10,
-    "min_curva": -45
-   },
-   {
-    "tipo": "min",
-    "ora": "25/11 04:20",
-    "cm": 30,
-    "astro_ora": "03:50",
-    "astro_cm": 22,
-    "diff_cm": 8,
-    "diff_min": 30,
-    "min_curva": 260
-   },
-   {
-    "tipo": "max",
-    "ora": "25/11 10:15",
-    "cm": 110,
+    "ora": "25/11 10:45",
+    "cm": 95,
     "astro_ora": "09:55",
     "astro_cm": 83,
-    "diff_cm": 27,
-    "diff_min": 20,
-    "min_curva": 615
+    "diff_cm": 12,
+    "diff_min": 50,
+    "min_curva": 645
    },
    {
     "tipo": "min",
@@ -693,31 +673,31 @@
    },
    {
     "tipo": "max",
-    "ora": "26/11 00:10",
+    "ora": "25/11 23:25",
     "cm": 110,
     "astro_ora": "23:35",
     "astro_cm": 60,
     "diff_cm": 50,
-    "diff_min": 35,
-    "min_curva": 1450
+    "diff_min": -10,
+    "min_curva": 1405
    },
    {
     "tipo": "min",
     "ora": "26/11 05:00",
-    "cm": 80,
+    "cm": 60,
     "astro_ora": "04:45",
     "astro_cm": 25,
-    "diff_cm": 55,
+    "diff_cm": 35,
     "diff_min": 15,
     "min_curva": 1740
    }
   ],
-  "cpsm_emessa": "24/11 21:30",
+  "cpsm_emessa": "25/11 08:45",
   "fonte_fase": "previsione CPSM",
   "cpsm_vecchia": false,
-  "cpsm_eta_h": 20,
+  "cpsm_eta_h": 9,
   "ferma": false,
-  "vel_max": 22.9,
+  "vel_max": 22.3,
   "sequenza": [
    {
     "da": "24/11 23:05",
@@ -970,155 +950,155 @@
   "curva_cpsm": [
    [
     660,
-    110.8
+    95.9
    ],
    [
     670,
-    110.0
+    96.5
    ],
    [
     680,
-    109.2
+    97.0
    ],
    [
     690,
-    107.4
+    96.9
    ],
    [
     700,
-    106.6
+    96.4
    ],
    [
     710,
-    104.8
+    95.8
    ],
    [
     720,
-    103.0
+    95.2
    ],
    [
     730,
-    100.2
+    93.7
    ],
    [
     740,
-    98.4
+    92.1
    ],
    [
     750,
-    95.5
-   ],
-   [
-    760,
-    92.7
-   ],
-   [
-    770,
     89.9
    ],
    [
+    760,
+    87.9
+   ],
+   [
+    770,
+    85.4
+   ],
+   [
     780,
-    86.1
+    82.8
    ],
    [
     790,
-    83.3
+    80.0
    ],
    [
     800,
-    79.5
+    76.3
    ],
    [
     810,
-    75.7
+    73.6
    ],
    [
     820,
-    71.9
+    69.9
    ],
    [
     830,
-    68.0
+    66.2
    ],
    [
     840,
-    64.2
+    62.4
    ],
    [
     850,
-    60.4
+    58.7
    ],
    [
     860,
-    56.6
+    55.0
    ],
    [
     870,
-    52.8
+    51.3
    ],
    [
     880,
-    49.0
+    47.5
    ],
    [
     890,
-    45.2
+    43.8
    ],
    [
     900,
-    41.4
+    40.1
    ],
    [
     910,
-    37.6
+    36.4
    ],
    [
     920,
-    34.7
+    32.8
    ],
    [
     930,
-    30.9
+    29.9
    ],
    [
     940,
-    28.1
+    26.7
    ],
    [
     950,
-    25.3
+    24.1
    ],
    [
     960,
-    22.5
+    21.6
    ],
    [
     970,
-    20.7
+    19.0
    ],
    [
     980,
-    17.9
+    16.4
    ],
    [
     990,
-    16.1
+    14.8
    ],
    [
     1000,
-    14.2
+    13.3
    ],
    [
     1010,
-    12.4
+    11.7
    ],
    [
     1020,
-    11.6
+    11.1
    ],
    [
     1030,
-    10.8
+    10.6
    ],
    [
     1040,
@@ -1130,63 +1110,63 @@
    ],
    [
     1060,
-    10.7
+    10.8
    ],
    [
     1070,
-    11.1
+    11.2
    ],
    [
     1080,
-    11.5
+    12.3
    ],
    [
     1090,
-    12.8
+    13.9
    ],
    [
     1100,
-    14.2
+    15.5
    ],
    [
     1110,
-    15.6
+    17.0
    ],
    [
     1120,
-    17.3
-   ],
-   [
-    1130,
     19.6
    ],
    [
+    1130,
+    22.2
+   ],
+   [
     1140,
-    21.9
+    24.8
    ],
    [
     1150,
-    24.2
+    27.3
    ],
    [
     1160,
-    26.5
+    30.9
    ],
    [
     1170,
-    29.8
+    34.5
    ],
    [
     1180,
-    32.1
+    38.1
    ],
    [
     1190,
-    35.4
+    41.6
    ],
    [
     1200,
-    38.7
+    45.8
    ]
   ],
   "fonte_livello": "previsione CPSM",
@@ -1197,27 +1177,27 @@
   "velocita": [
    {
     "ora": "13:00",
-    "cm_h": -19.9
+    "cm_h": -16.3
    },
    {
     "ora": "14:00",
-    "cm_h": -22.9
+    "cm_h": -22.3
    },
    {
     "ora": "15:00",
-    "cm_h": -21.9
+    "cm_h": -21.3
    },
    {
     "ora": "16:00",
-    "cm_h": -14.9
+    "cm_h": -15.1
    },
    {
     "ora": "17:00",
-    "cm_h": -5.7
+    "cm_h": -4.4
    },
    {
     "ora": "18:00",
-    "cm_h": 5.2
+    "cm_h": 6.6
    }
   ],
   "zona": {
@@ -1225,87 +1205,87 @@
    "curva": [
     [
      720,
-     97.5
+     91.6
     ],
     [
      730,
-     94.6
+     89.5
     ],
     [
      740,
-     91.7
+     87.3
     ],
     [
      750,
-     88.4
+     84.8
     ],
     [
      760,
-     85.1
+     82.1
     ],
     [
      770,
-     81.7
+     78.9
     ],
     [
      780,
-     77.8
+     75.6
     ],
     [
      790,
-     74.0
+     72.5
     ],
     [
      800,
-     70.0
+     68.8
     ],
     [
      810,
-     66.1
+     65.0
     ],
     [
      820,
-     62.3
+     61.2
     ],
     [
      830,
-     58.4
+     57.5
     ],
     [
      840,
-     54.5
+     53.8
     ],
     [
      850,
-     50.7
+     50.0
     ],
     [
      860,
-     46.8
+     46.3
     ],
     [
      870,
-     42.9
+     42.6
     ],
     [
      880,
-     39.1
+     38.8
     ],
     [
      890,
-     36.0
+     35.2
     ],
     [
      900,
-     32.2
+     32.1
     ],
     [
      910,
-     29.4
+     28.9
     ],
     [
      920,
-     26.5
+     26.2
     ],
     [
      930,
@@ -1313,23 +1293,23 @@
     ],
     [
      940,
-     21.8
+     21.1
     ],
     [
      950,
-     19.1
+     18.5
     ],
     [
      960,
-     17.2
+     16.7
     ],
     [
      970,
-     15.3
+     15.2
     ],
     [
      980,
-     13.7
+     13.6
     ],
     [
      990,
@@ -1337,70 +1317,70 @@
     ],
     [
      1000,
-     12.1
+     12.4
     ],
     [
      1010,
-     11.6
+     11.8
     ],
     [
      1020,
-     12.0
+     12.2
     ],
     [
      1030,
-     12.3
+     12.6
     ],
     [
      1040,
-     12.7
+     13.0
     ],
     [
      1050,
-     13.2
+     14.0
     ],
     [
      1060,
-     14.5
+     15.5
     ],
     [
      1070,
-     15.8
+     17.0
     ],
     [
      1080,
-     17.2
+     18.5
     ],
     [
      1090,
-     18.9
+     20.8
     ],
     [
      1100,
-     21.1
-    ],
-    [
-     1110,
      23.3
     ],
     [
+     1110,
+     25.8
+    ],
+    [
      1120,
-     25.5
+     28.2
     ],
     [
      1130,
-     27.7
+     31.4
     ],
     [
      1140,
-     30.8
+     34.9
     ]
    ],
    "estremi": [
     {
      "tipo": "bassa",
-     "min": 1007,
-     "ora": "16:47",
+     "min": 1010,
+     "ora": "16:50",
      "cm": 12,
      "incertezza_min": 12
     }
@@ -1427,28 +1407,28 @@
     "canale": "Bocca di Chioggia",
     "valori": [
      {
-      "ms": 0.7,
+      "ms": 0.5,
       "verso": "esce"
      },
      {
-      "ms": 0.9,
+      "ms": 0.86,
       "verso": "esce"
      },
      {
-      "ms": 0.96,
+      "ms": 0.94,
       "verso": "esce"
      },
      {
-      "ms": 0.76,
+      "ms": 0.77,
       "verso": "esce"
      },
      {
-      "ms": 0.45,
+      "ms": 0.41,
       "verso": "esce"
      },
      {
-      "ms": 0.01,
-      "verso": "esce"
+      "ms": 0.04,
+      "verso": "entra"
      }
     ]
    },
@@ -1456,27 +1436,27 @@
     "canale": "C. Lombardo",
     "valori": [
      {
-      "ms": 0.45,
+      "ms": 0.32,
       "verso": "esce"
      },
      {
-      "ms": 0.57,
+      "ms": 0.54,
       "verso": "esce"
      },
      {
-      "ms": 0.6,
+      "ms": 0.59,
       "verso": "esce"
      },
      {
-      "ms": 0.47,
+      "ms": 0.48,
       "verso": "esce"
      },
      {
-      "ms": 0.27,
+      "ms": 0.25,
       "verso": "esce"
      },
      {
-      "ms": 0.01,
+      "ms": 0.04,
       "verso": "entra"
      }
     ]
@@ -1485,27 +1465,27 @@
     "canale": "C. Pellestrina",
     "valori": [
      {
-      "ms": 0.31,
+      "ms": 0.21,
       "verso": "esce"
      },
      {
-      "ms": 0.43,
+      "ms": 0.4,
       "verso": "esce"
      },
      {
-      "ms": 0.47,
+      "ms": 0.46,
       "verso": "esce"
      },
      {
-      "ms": 0.39,
+      "ms": 0.4,
       "verso": "esce"
      },
      {
-      "ms": 0.26,
+      "ms": 0.24,
       "verso": "esce"
      },
      {
-      "ms": 0.05,
+      "ms": 0.03,
       "verso": "esce"
      }
     ]
@@ -1514,27 +1494,27 @@
     "canale": "C. Ca' Roman",
     "valori": [
      {
-      "ms": 0.59,
+      "ms": 0.4,
       "verso": "esce"
      },
      {
-      "ms": 0.77,
+      "ms": 0.73,
       "verso": "esce"
      },
      {
-      "ms": 0.84,
+      "ms": 0.82,
       "verso": "esce"
      },
      {
-      "ms": 0.68,
+      "ms": 0.69,
       "verso": "esce"
      },
      {
-      "ms": 0.42,
+      "ms": 0.39,
       "verso": "esce"
      },
      {
-      "ms": 0.04,
+      "ms": 0.02,
       "verso": "esce"
      }
     ]
@@ -1543,7 +1523,11 @@
     "canale": "C. Sottomarina",
     "valori": [
      {
-      "ms": 0.59,
+      "ms": 0.45,
+      "verso": "esce"
+     },
+     {
+      "ms": 0.7,
       "verso": "esce"
      },
      {
@@ -1551,19 +1535,15 @@
       "verso": "esce"
      },
      {
-      "ms": 0.74,
+      "ms": 0.56,
       "verso": "esce"
      },
      {
-      "ms": 0.55,
+      "ms": 0.25,
       "verso": "esce"
      },
      {
-      "ms": 0.28,
-      "verso": "esce"
-     },
-     {
-      "ms": 0.07,
+      "ms": 0.1,
       "verso": "entra"
      }
     ]
@@ -1759,13 +1739,13 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "25/11 08:10",
-    "valore": "8,7"
+    "ora": "25/11 08:50",
+    "valore": "8,9"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "25/11 08:10",
-    "valore": "7,1"
+    "ora": "25/11 08:50",
+    "valore": "7,2"
    }
   ],
   "aria_acqua": [
@@ -1927,7 +1907,7 @@
      ],
      "Millecampi": [
       0.33,
-      0.6
+      0.59
      ]
     }
    },
@@ -1943,8 +1923,8 @@
       0.34
      ],
      "Sud ovest · verso Fogolana": [
-      0.33,
-      0.59
+      0.32,
+      0.58
      ],
      "Millecampi": [
       0.35,
@@ -1965,11 +1945,11 @@
      ],
      "Sud ovest · verso Fogolana": [
       0.29,
-      0.53
+      0.52
      ],
      "Millecampi": [
-      0.28,
-      0.5
+      0.27,
+      0.48
      ]
     }
    },
@@ -1985,7 +1965,7 @@
       0.29
      ],
      "Sud ovest · verso Fogolana": [
-      0.26,
+      0.25,
       0.46
      ],
      "Millecampi": [
@@ -2040,17 +2020,17 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: dati meteo e mare aperto Open-Meteo.com, CC BY 4.0 (ICON-D2 e ensemble ICON-D2-EPS DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS, AROME HD Météo-France in prova, Open-Meteo Marine) · marea astronomica, previsione di marea e misure: CPSM, Comune di Venezia (dati.venezia.it, CC BY) · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.51",
- "generato": "25/11/2026 08:15",
+ "generato": "25/11/2026 08:57",
  "area": "sud",
  "acqua_misurata": {
-  "valore": 11.9,
+  "valore": 12.0,
   "data": "25/11",
-  "ora": "08:05",
+  "ora": "08:50",
   "stazione": "Punta Salute Canal Grande",
   "fonte": "misura CPSM (Comune di Venezia)",
   "tendenza": {
    "giorni": 5,
-   "diff": -0.1,
+   "diff": 0.0,
    "verso": "stabile"
   }
  }
