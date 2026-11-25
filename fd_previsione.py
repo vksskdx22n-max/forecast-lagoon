@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.52"   # v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
+VERSIONE = "1.53"   # v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
 # v1.50: fasce della giornata (scelta di Ennio 23/11/2026). La fascia della sera finisce a mezzanotte: "24:00" = 23:59 interno.
 FINE_GIORNO = dt.time(23, 59)
 PERIODI = [("mattino", 5, 12), ("pomeriggio", 13, 18), ("sera", 19, 23)]
@@ -1399,7 +1399,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
     if ore_inc:
         rifl.append({"tipo": "inferenza", "testo": "Previsione incerta alle " + ", ".join(f"{h:02d}:00" for h, _ in ore_inc)
                      + ": ICON-D2 è molto sopra ECMWF corretto (modelli tra " + "; ".join(f"{num(f[0])} e {num(f[1])}" for _, f in ore_inc)
-                     + " nodi). In quelle ore la stima è ICON-D2 senza correzione; il vento reale può stare in tutta la forbice. "
+                     + " nodi). Per prudenza la stima segue ICON-D2, il più alto dei due; il vento reale può stare in tutta la forbice. "
                        "Su 3 mesi, in questi casi l'errore è stato circa il 55% più alto del normale."})
     if incerte:
         rifl.append({"tipo": "inferenza", "testo": "ICON-D2 e ICON-2i non concordano (oltre 3 nodi o colore diverso) in: " + ", ".join(incerte) + "."})
