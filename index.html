@@ -87,7 +87,9 @@ h1 span{color:var(--teal)}
 .vis .n .lv.l3{background:#ffffff;color:#06131d;padding:1px 10px;border-radius:999px}.vis .n .lv.l2{color:#eef4f7}.vis .n .lv.l1,.vis .n .lv.l0{color:#b8c7d0;font-weight:600}   /* v3.26: visibilita' adesso */
 .vad .t{display:flex;justify-content:space-between;gap:8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
 .vad .n{display:flex;align-items:baseline;gap:10px;margin-top:4px;font-size:30px;font-weight:700}.vad .n small{font-size:14px;color:var(--mut);font-weight:500}.vad .n .d{font-size:18px}
-.vad .r{font-size:13px;color:#b8cbd6;margin-top:2px}.vad .ln{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:11.5px;color:var(--mut)}.vad .ln svg{flex:1;height:34px}
+.vad .r{font-size:13px;color:#b8cbd6;margin-top:2px}
+.vgr .n{display:flex;align-items:baseline;gap:10px;margin-top:4px}.vgr .n b{font-size:40px;line-height:1.1}.vgr .n small{font-size:14px;color:var(--mut)}.vgr .n .d{font-size:20px;font-weight:700}.vgr .r{font-size:13px;color:#b8cbd6;margin-top:4px}
+.vgr .gv{display:block;margin-top:10px}.vgr .lg{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font-size:12px;color:var(--mut)}.vgr .lg span{display:flex;align-items:center;gap:6px;white-space:nowrap}
 .mmar{display:flex;flex-direction:column;align-items:center;gap:1px;width:74px}.mmar svg{width:74px;height:40px;overflow:visible}.mmar .ml{font-size:10.5px;line-height:12px;color:var(--soft);white-space:nowrap}.mmar .ml b{font-weight:650;color:var(--txt)}   /* v3.33: marea della zona */
 .badge{display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right;white-space:nowrap}
 .chip{font-size:12px;font-weight:650;padding:5px 11px;border-radius:999px;white-space:nowrap}
@@ -238,7 +240,7 @@ function istruzioni(){
  <h4>Marea</h4><p>Il grafico copre tutte le 24 ore alla stazione della zona (Laguna Nord Saline, Malamocco Porto, Chioggia Porto), con ora e centimetri sullo zero di Punta Salute di alte e basse; la barretta turchese sulle ore indica la fascia scelta, la linea gialla è adesso, il cerchietto bianco il livello misurato. Il tratto già passato è in grigio: è l'ultima previsione, non una misura. È la previsione del Centro Maree per Punta Salute spostata con i ritardi e le differenze di quota misurati alle stazioni; il passaggio da Punta Salute alle zone non considera il vento. La Laguna Nord (Saline) arriva circa 70–90 minuti dopo Punta Salute, Malamocco e Chioggia quasi non ritardano. Nella pagina della zona si tocca il grafico per leggere ora e livello; la linea tratteggiata è la marea astronomica. Orario indicativo: con maree piccole il colmo è piatto e l'ora è meno precisa.</p>
   <h4>Nebbia</h4><p>Nella pagina della zona, ora per ora: probabile, poco probabile o non probabile. È un'indicazione dai modelli, non ancora verificata con le misure.</p><p>Quando c'è nebbia adesso compare anche la <b>visibilità misurata</b> all'aeroporto di Venezia Tessera, sul bordo nord della laguna (più lontano dalla zona, più è indicativa): nebbia fitta fino a 200 m, nebbia fino a 500 m, nebbia leggera fino a 1000 m; «banchi di nebbia» quando l'aeroporto li segnala anche con visibilità migliore.</p>
  <h4>Previsione incerta ⚠</h4><p>Compare quando i modelli non sono d’accordo: ICON-D2 prevede almeno 3 nodi più di ECMWF (già corretto). In quelle ore per prudenza la stima segue ICON-D2, il più alto dei due, e il vento reale può stare in tutta la forbice. In prima pagina il ⚠ compare accanto al vento solo se la forbice va da un colore del semaforo a un altro; il dettaglio ora per ora è nella pagina della zona. Succede in media circa un giorno su cinque al Centro, meno a Nord e Sud.</p>
- <h4>Vento adesso</h4><p>Vento <b>misurato</b> in questo momento dalla stazione del Centro Maree della zona, con raffica, direzione, ora e andamento delle ultime 3 ore. È una misura, non la previsione.</p><p>In prima pagina il vento misurato adesso è scritto sulla cartina, sotto il nome di ogni zona (nodi, direzione con freccia, raffica); le tre fasce sotto il titolo sono solo la previsione.</p>
+ <h4>Vento adesso</h4><p>Nella pagina della zona, sotto la tabella ora per ora, il grafico di oggi unisce il vento <b>misurato</b> dalla stazione del Centro Maree della zona (in bianco, ultime 3 ore, con raffica, direzione, ora e andamento) e la <b>stima</b> delle prossime ore, fino a 8 (in turchese). La linea tratteggiata turchese è la stima sulle ore già passate, per vedere se il vento sta andando come previsto; i puntini sono le raffiche previste, la barretta verticale la forbice dei modelli, le fasce colorate il semaforo. Negli altri giorni il grafico mostra solo la previsione della fascia scelta.</p><p>In prima pagina il vento misurato adesso è scritto sulla cartina, sotto il nome di ogni zona (nodi, direzione con freccia, raffica); le tre fasce sotto il titolo sono solo la previsione.</p>
  ${D.allerta?`<h4>Allerte vento</h4><p>Dalle ${esc(D.allerta.ora_inizio)} alle ${esc(D.allerta.ora_fine)}, ogni ${esc(D.allerta.controllo_min)} minuti, l'app controlla le stazioni del Centro Maree. Se in una stazione la raffica arriva ad almeno <b>${esc(D.allerta.raffica_kn)} kn</b> <b>e</b> il vento medio è salito di almeno ${esc(D.allerta.salita_kn)} kn in ${esc(D.allerta.finestra_min)} minuti, arriva una notifica con stazione, raffica, direzione e ora. Si attiva da qui sotto, aprendo l'app dall'icona sulla schermata Home. In barca servono dati mobili accesi e suoneria attiva.</p><div class="avvall"><b>Attenzione.</b> Servizio sperimentale, senza garanzia: l'avviso può arrivare in ritardo o non arrivare. Non sostituisce cielo, VHF e bollettini meteo: la decisione di uscire o rientrare resta tua.</div><div id="allUI" class="allui"></div>`:''}
  <h4>Installarla come app</h4><p><b>iPhone</b> (Safari): Condividi → Aggiungi alla schermata Home.<br><b>Android</b> (Chrome): menu ⋮ → “Aggiungi a schermata Home”. Previsioni e nuove versioni si caricano da sole.</p>
  <h4>Avvertenza</h4><p>Previsione indicativa: non sostituisce i bollettini ufficiali. Prima di uscire controlla anche il bollettino <a href="https://www.arpa.veneto.it/dati-ambientali/bollettini/meteo/bollettino-meteo-veneto" target="_blank" rel="noopener">Meteo Veneto di ARPAV</a> e gli eventuali avvisi meteo.</p>
@@ -449,8 +451,10 @@ function zona(id,dsel,fsel_,prov){
  <div class="v">${TXT[c]||'n.d.'}</div>${v.emessa?`<div class="prov">${relativo(v.data)==='Oggi'?`Previsione aggiornata alle ${esc(v.emessa)}`:v.provvisoria?`Previsione provvisoria delle ${esc(v.emessa)} · la definitiva esce verso le ${esc(D.ora_aggiornamento||'')}`:`Previsione definitiva delle ${esc(v.emessa)}`}</div>`:''}<p>${esc(s.andamento||'')}</p>
  <div class="hours" style="grid-template-columns:repeat(${Math.max(ore.length,1)},1fr)">${ore.map(o=>`<div style="${TXT[o.sem]?`--cs:var(--${o.sem}-s);--cn:var(--on-${o.sem}-s)`:''}">${esc(o.ora)}<b>${nf(o.stima,0)}</b><u>kn</u></div>`).join('')}</div></div></div>`;
  h+=scheda24(id,v);   // v3.64
- if(relativo(v.data)==='Oggi'||v===z0)h+=`<div class="sec"><div class="card vad" data-adz="${z.id}" style="display:none"></div></div><div class="sec"><div class="card vad vis" data-vis="${z.id}" style="display:none"></div></div>`;   // v3.26: visibilita' adesso (Tessera)   // v3.13: vento adesso, solo sul giorno piu' recente
+ if(relativo(v.data)==='Oggi'||v===z0)h+=`<div class="sec"><div class="card vad vis" data-vis="${z.id}" style="display:none"></div></div>`;   // v3.26: visibilita' adesso (Tessera)   // v3.13: vento adesso, solo sul giorno piu' recente
  h+=incBox(s);h+=oraPerOra(s);
+ const oggi=adessoIT().d,live=v.data===oggi||(v===z0&&!z.voci.some(a=>a.data===oggi));VG={z,v,live};   // v3.66
+ if(live||(s.ore_dettaglio||[]).length>1)h+=`<div class="sec"><div class="card vgr" id="vgraf"></div></div>`;
  h+=`<div class="sec grid2"><div class="card"><div class="ch">Vento medio</div><div class="big">${rng(s.vento_min,s.vento_max)}<small>kn</small></div><div class="note">${s.direzione?'da '+esc(s.direzione)+(s.direzione_nome?' · '+esc(s.direzione_nome):''):''}</div></div>
  <div class="card"><div class="ch">Raffiche</div><div class="big">${nf(s.raff_max,0)}<small>kn</small></div><div class="note">massimo nella finestra; non cambiano il colore</div></div></div>`;
  if(!m24(v.data,id)&&(s.marea_curva||[]).length>1)h+=`<div class="sec"><div class="card"><div class="ch">Marea <span>${esc(s.marea_fonte||'')}${s.marea_eta_h!=null?' · emesso '+s.marea_eta_h+' h prima':''}${s.marea_vecchia?' · tendenza meno affidabile':''}</span></div>${curva(s)}
@@ -460,7 +464,52 @@ function zona(id,dsel,fsel_,prov){
  h+=dettagli(s);
  h+=`<div class="btns">${v.previsione?`<a class="btn p" href="${esc(fresco(v.previsione))}">Previsione</a>`:''}${v.verifica?`<a class="btn" href="${esc(fresco(v.verifica))}">Verifica${v.verifica_provvisoria?' *':''}</a>`:''}</div>`;
  if(z.voci.length>1)h+=`<div class="list"><div class="ttl">Archivio</div>${z.voci.map(a=>`<div class="row"><span class="l"><i style="background:${col(a.colore)}"></i>${esc(a.titolo||a.data)} · ${esc((a.finestra||'').replace(/:00/g,''))}</span><span class="r">${a.previsione?`<a href="${esc(fresco(a.previsione))}">previsione</a>`:''}${a.verifica?`<a href="${esc(fresco(a.verifica))}">verifica</a>`:''}</span></div>`).join('')}</div>`;
- app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0);disegna24()}
+ app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0);disegna24();disegnaVento()}
+let VG=null;   // v3.66: grafico del vento sotto la tabella: misurato (grigio chiaro) e stima (turchese)
+function disegnaVento(){const el=document.getElementById('vgraf');if(!el||!VG)return;
+ const {z,v,live}=VG,N=adessoIT(),R=D.regole||{},mi=o=>{const m=/^(\d\d):(\d\d)/.exec(o||'');return m?+m[1]*60+ +m[2]:null};
+ const H={};(live?z.voci.filter(a=>a.data===N.d).sort((a,b)=>a.finestra.localeCompare(b.finestra)):[v]).forEach(a=>((a.sintesi||{}).ore_dettaglio||[]).forEach(o=>H[parseInt(o.ora,10)]=o));
+ let P=Object.keys(H).map(Number).sort((a,b)=>a-b).map(k=>{const o=H[k];return {t:k*60,v:o.stima,r:o.raff,g:o.dir_g,f:o.incerta?o.forbice:null}}).filter(p=>p.v!=null);
+ const a=live&&AD&&AD.zone&&AD.zone[z.id],ok=!!(a&&a.disponibile&&a.kn!=null&&mi(a.ora)!=null);let ora=null,M=[],x0,x1;
+ if(live){ora=ok?mi(a.ora):N.m;if(ora>N.m+60)ora-=1440;
+  if(ok){const S=a.serie||[],passo=180/Math.max(S.length,1);M=S.map((k,i)=>k==null?null:[ora-180+(i+.5)*passo,k]).filter(Boolean).concat([[ora,a.kn]])}
+  const h=Math.floor(ora/60),ult=P.length?P[P.length-1].t:0;
+  x0=Math.floor((ora-180)/60)*60;x1=Math.min((h+8)*60,Math.max(ult,Math.ceil((ora+1)/60)*60));
+ }else{if(P.length<2){el.parentElement.style.display='none';return}x0=P[0].t;x1=P[P.length-1].t}
+ const V=P.filter(p=>p.t>=x0&&p.t<=x1);
+ if(!V.length&&!M.length&&!a){el.parentElement.style.display='none';return}
+ el.parentElement.style.display='';
+ const mx=Math.max(0,...V.flatMap(p=>[p.v,p.r||0,p.f?p.f[1]:0]),...M.map(p=>p[1]),ok&&a.raffica_kn||0),top=Math.max(15,(Math.floor(mx/5)+1)*5);
+ const W=330,L=22,RT=10,T=14,Hh=150,B=42,X=t=>L+(t-x0)/((x1-x0)||1)*(W-L-RT),Y=k=>T+Hh-k/top*Hh,pt=q=>q.map(p=>X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ');
+ let g='';
+ if(R.verde_fino_a!=null&&R.rosso_da!=null){const p=R.verde_fino_a+.5,q=R.rosso_da-.5;
+  [[0,p,'verde'],[p,q,'giallo'],[q,top,'rosso']].forEach(([i,j,c])=>g+=`<rect x="${L}" y="${Y(j)}" width="${W-L-RT}" height="${Y(i)-Y(j)}" fill="var(--${c})" opacity=".13"/><rect x="${L-3}" y="${Y(j)}" width="3" height="${Y(i)-Y(j)}" fill="var(--${c})" opacity=".85"/>`)}
+ for(let k=0;k<=top;k+=top>40?10:5)g+=`<line x1="${L}" x2="${W-RT}" y1="${Y(k)}" y2="${Y(k)}" stroke="#fff" opacity=".07"/><text x="${L-7}" y="${Y(k)+3.5}" text-anchor="end" fill="#6f8a9a" font-size="10">${k}</text>`;
+ const taglio=ora==null?x0:ora;
+ const at=(q,t)=>{for(let i=1;i<q.length;i++)if(q[i-1][0]<=t&&t<=q[i][0])return q[i-1][1]+(q[i][1]-q[i-1][1])*(t-q[i-1][0])/(q[i][0]-q[i-1][0]);return null};
+ const tratti=chiave=>{const q=P.filter(p=>p[chiave]!=null).map(p=>[p.t,p[chiave]]),y=at(q,taglio),m=y==null||ora==null?[]:[[taglio,y]],dentro=p=>p[0]>=x0&&p[0]<=x1;
+  return {pas:ora==null?[]:q.filter(p=>dentro(p)&&p[0]<taglio).concat(m),fut:m.concat(q.filter(p=>dentro(p)&&(ora==null||p[0]>taglio)))}};
+ const S=tratti('v'),G=tratti('r'),futuri=V.filter(p=>ora==null||p.t>ora);
+ if(G.fut.length>1)g+=`<polyline points="${pt(G.fut)}" fill="none" stroke="#cfe0e8" stroke-width="1.6" stroke-dasharray="1.5 4" stroke-linecap="round"/>`;
+ futuri.filter(p=>p.f).forEach(p=>g+=`<line class="forb" x1="${X(p.t)}" x2="${X(p.t)}" y1="${Y(p.f[0])}" y2="${Y(p.f[1])}" stroke="#5fd4d0" stroke-width="7" opacity=".32" stroke-linecap="round"/>`);
+ if(S.pas.length>1)g+=`<polyline class="spas" points="${pt(S.pas)}" fill="none" stroke="#5fd4d0" stroke-width="1.5" stroke-dasharray="4 4" opacity=".65"/>`;
+ if(S.fut.length>1)g+=`<polyline class="sfut" points="${pt(S.fut)}" fill="none" stroke="#5fd4d0" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>`;
+ if(M.length>1)g+=`<polyline class="mis" points="${pt(M.filter(p=>p[0]>=x0))}" fill="none" stroke="#e6eef2" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>`;
+ if(ora!=null)g+=`<line x1="${X(ora)}" x2="${X(ora)}" y1="${T-3}" y2="${Y(0)}" stroke="#f2c14e" stroke-dasharray="3 3"/><text x="${Math.min(W-RT-18,Math.max(L+18,X(ora)))}" y="10" text-anchor="middle" fill="#f2c14e" font-size="10">adesso</text>`;
+ futuri.forEach(p=>{const x=X(p.t),fine=p.t===x1,inizio=p.t===x0,giu=Y(p.v)+17<Y(0)-3;g+=`<circle cx="${x}" cy="${Y(p.v)}" r="3" fill="#0f2231" stroke="#5fd4d0" stroke-width="1.8"/>`;
+  if(ora==null||p.t-ora>=20)g+=`<text x="${fine?x+5:inizio?x-2:x}" y="${giu?Y(p.v)+17:Y(p.v)-8}" text-anchor="${fine?'end':inizio?'start':'middle'}" fill="#fff" font-size="11.5" font-weight="700" stroke="#0f2231" stroke-width="2.5" paint-order="stroke">${Math.round(p.v)}</text>`});
+ if(ok)g+=`<circle cx="${X(ora)}" cy="${Y(a.kn)}" r="4.5" fill="#fff" stroke="#0f2231" stroke-width="1.5"/>`;
+ for(let t=x0;t<=x1;t+=60){const p=V.find(q=>q.t===t),x=X(t),fu=ora==null||t>ora;
+  g+=`<text x="${x}" y="${Y(0)+16}" text-anchor="middle" fill="${fu?'#cfe0e8':'#6f8a9a'}" font-size="10.5">${String(((t/60)%24+24)%24).padStart(2,'0')}</text>`;
+  if(p&&p.g!=null)g+=`<g transform="translate(${x},${Y(0)+31}) rotate(${p.g+180})" opacity="${fu?1:.4}" stroke="#5fd4d0" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M0 6V-6M-4 -2L0 -6L4 -2"/></g>`}
+ const lg=(c,d,txt,o,w)=>`<span><svg width="18" height="12"><line x1="${w?9:1}" x2="${w?9:17}" y1="${w?3.5:6}" y2="${w?8.5:6}" stroke="${c}" stroke-width="${w||2.4}" stroke-dasharray="${d}" opacity="${o||1}" stroke-linecap="round"/></svg>${txt}</span>`;
+ const leg=(M.length>1?lg('#e6eef2','0','misurato'):'')+(futuri.length?lg('#5fd4d0','0','stima'):'')+(G.fut.length>1?lg('#cfe0e8','1.5 4','raffiche previste'):'')+(futuri.some(p=>p.f)?lg('#5fd4d0','0','forbice dei modelli',.4,7):'')+(S.pas.length>1?lg('#5fd4d0','4 4','stima sulle ore passate',.65):'');
+ const [p0,p1]=live?[null,null]:finMin(v.finestra),hh=m=>String(Math.floor(m/60)).padStart(2,'0');
+ let h=`<div class="ch">${live?'Vento: adesso e prossime ore':'Vento previsto'} <span>${esc(live?(a&&a.stazione)||'':hh(p0)+'–'+hh(p1))}</span></div>`;
+ if(ok)h+=`<div class="n"><b style="color:${col(a.sem)}">${a.kn}</b><small>kn</small>${a.dir_g!=null?`<span class="d"><span class="arr" style="display:inline-block;transform:rotate(${a.dir_g+180}deg)">↑</span> ${esc(a.dir)}</span>`:''}</div>
+  <div class="r">misurato alle ${esc(a.ora)}${a.raffica_kn!=null?' · raffica '+a.raffica_kn+' kn':''}${a.trend?' · '+esc(a.trend.testo):''}</div>`;
+ else if(live&&AD)h+=`<div class="r">${a?esc(a.stazione)+': '+esc(a.motivo||'misura non disponibile'):'Vento misurato non disponibile'}</div>`;
+ el.innerHTML=h+`<svg class="gv" viewBox="0 0 ${W} ${T+Hh+B}" width="100%">${g}</svg><div class="lg">${leg}</div>`}
 function autoAggiorna(V){   // v3.19: nuova versione -> ricarica subito dalla prima pagina (al massimo una volta per versione)
  const k='fl_agg_'+V.codice;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1')}catch(e){}
  location.replace(location.pathname+'?v='+encodeURIComponent(V.codice))}
@@ -524,13 +573,7 @@ function riempiAdesso(){try{disegna24()}catch(e){console.error(e)}   // v3.42: c
   const gr=SV.length>1&&T?`<div class="ln"><span>${esc(fm(T.da_m))}</span><svg viewBox="0 0 300 34" preserveAspectRatio="none"><polyline fill="none" stroke="#cfe0e8" stroke-width="2.5" vector-effect="non-scaling-stroke" points="${SV.map((x,i)=>px(i)+','+py(x)).join(' ')}"/></svg><span>${esc(fm(W.m))}</span></div>`:'';
   el.style.display='';el.innerHTML=`<div class="t"><span>Visibilità adesso · misurata</span></div><div class="n"><span class="lv l${l}">${t}</span><span class="mt">${esc(fm(W.m))}</span></div>${l>0&&/BCFG/.test(W.wx||'')?'<div class="r">a banchi: a tratti si vede, a tratti no</div>':''}
   ${T?`<div class="r">${esc(T.testo)}</div>`:''}${gr}<div class="r" style="margin-top:6px">Venezia Tessera (aeroporto), ${esc(W.ora||'')}${z.tessera?' · '+esc(z.tessera):''}</div>`});
- document.querySelectorAll('[data-adz]').forEach(el=>{const a=AD&&AD.zone&&AD.zone[el.dataset.adz];if(!a){el.style.display='none';return}el.style.display='';
-  if(!a.disponibile){el.innerHTML=`<div class="t"><span>Vento adesso · misurato</span></div><div class="r" style="margin-top:6px">${esc(a.stazione)}: ${esc(a.motivo||'misura non disponibile')}</div>`;return}
-  const S=(a.serie||[]),V=S.filter(x=>x!=null),mn=Math.min(...V),mx=Math.max(...V),T=a.trend;
-  const pts=S.map((x,i)=>x==null?null:`${(i*300/Math.max(S.length-1,1)).toFixed(1)},${(30-(mx>mn?(x-mn)/(mx-mn):.5)*26).toFixed(1)}`).filter(Boolean).join(' ');
-  el.innerHTML=`<div class="t"><span>Vento adesso · misurato</span></div><div class="n"><span style="color:${col(a.sem)}">${a.kn}</span><small>kn</small>${a.dir_g!=null?`<span class="d"><span class="arr" style="display:inline-block;transform:rotate(${a.dir_g+180}deg)">↑</span> ${esc(a.dir)}</span>`:''}</div>
-  <div class="r">${a.raffica_kn!=null?'raffica '+a.raffica_kn+' kn · ':''}${esc(a.stazione)}, ${esc(a.ora)}</div>${T?`<div class="r">${esc(T.testo)}</div>`:''}
-  ${V.length>1&&T?`<div class="ln"><span>${T.da_kn}</span><svg viewBox="0 0 300 34" preserveAspectRatio="none"><polyline fill="none" stroke="#5fd3c6" stroke-width="2.5" vector-effect="non-scaling-stroke" points="${pts}"/></svg><span>${a.kn} kn</span></div>`:''}`})}
+ disegnaVento()}
 async function controlla(){caricaAdesso();try{
  const V=await (await fetch('versione.json',{cache:'no-store'})).json();
  if(V.codice&&V.codice!==CODICE&&!CODICE.startsWith('__')){autoAggiorna(V);return}
