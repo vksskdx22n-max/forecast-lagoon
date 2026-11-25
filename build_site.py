@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.63"   # v3.63: nel mini-grafico marea il numero dei cm resta sempre centrato sopra il colmo anche quando la linea "adesso" e' vicina (prima, v3.54, si scostava di lato: col numero centrato della v3.62 il Sud finiva a destra mentre Nord/Centro centrati); v3.62: nel mini-grafico marea i cm sono centrati SOPRA il puntino del colmo (prima ancorati a lato: vicino al bordo uscivano a sinistra del colmo, confondendo); didascalia solo "alta HH:MM"; v3.61: nel mini-grafico marea, se la finestra contiene sia un'alta sia una bassa si segna l'alta (prima il primo estremo in ordine di tempo: il Nord, per il ritardo di Saline, segnava la bassa mentre Centro/Sud l'alta); stessa scelta in "Prossimi giorni"; istruzioni con la nota sul ritardo per zona;v3.60: mini-grafico marea, il pallino alta/bassa sul colmo/cavo reale della curva (prima all'ora del bollettino, finiva sulla salita); v3.59: scritte dei nodi del vento sulla cartina piu' grandi (47, prima 37); protezione all'avvio (ritentativo + tasto Ricarica invece di restare su "Caricamento…"); v3.58: banner ADESSO e PREVISIONE più grandi/evidenti, linea di stacco teal marcata; cartina ridotta per non far scrollare fino a Laguna Sud; v3.57: home divisa in due blocchi dichiarati (cartina = ADESSO/misurato; sotto = PREVISIONE, con stacco e pillola); "Previsione" davanti ad "aggiornata alle"; fonti spostate nelle istruzioni, in fondo solo il rimando; v3.56: sulla cartina il vento misurato vale fino a 45 min (prima 20), con l'ora mostrata se vecchio; allerte invariate a 20 min; v3.55: "Prossimi giorni" su riga propria piu' in basso; zona aperta da Prossimi giorni torna a Prossimi giorni (tasto "‹ Prossimi giorni", stessa fascia); v3.54: numero dei cm della marea con contorno scuro e spostato dalla linea "adesso"; "8 kn" invece di "8-8 kn"; Prossimi giorni con domani in cima (previsione vera, cliccabile); v3.53: fascia proposta = quella in corso (se finisce tra piu' di un'ora, altrimenti la prossima); scelta azzerata tornando all'app dopo 2 minuti; v3.52: la cartina della pagina della zona ha il colore del giorno e della fascia scelti; v3.51: allerte vento fino alle 24; v3.50: tre fasce anche nei Prossimi giorni; v3.49: tre fasce della giornata (05-12, 13-18, 19-24) con i bottoni; PDF sintetico
+VERSIONE = "3.64"   # v3.64: fasce 05-12, 12-18, 18-24; orari separati di vento e marea; marea sulle 24 ore (pagina zona); nuova prima pagina; v3.63: nel mini-grafico marea il numero dei cm resta sempre centrato sopra il colmo anche quando la linea "adesso" e' vicina (prima, v3.54, si scostava di lato: col numero centrato della v3.62 il Sud finiva a destra mentre Nord/Centro centrati); v3.62: nel mini-grafico marea i cm sono centrati SOPRA il puntino del colmo (prima ancorati a lato: vicino al bordo uscivano a sinistra del colmo, confondendo); didascalia solo "alta HH:MM"; v3.61: nel mini-grafico marea, se la finestra contiene sia un'alta sia una bassa si segna l'alta (prima il primo estremo in ordine di tempo: il Nord, per il ritardo di Saline, segnava la bassa mentre Centro/Sud l'alta); stessa scelta in "Prossimi giorni"; istruzioni con la nota sul ritardo per zona;v3.60: mini-grafico marea, il pallino alta/bassa sul colmo/cavo reale della curva (prima all'ora del bollettino, finiva sulla salita); v3.59: scritte dei nodi del vento sulla cartina piu' grandi (47, prima 37); protezione all'avvio (ritentativo + tasto Ricarica invece di restare su "Caricamento…"); v3.58: banner ADESSO e PREVISIONE più grandi/evidenti, linea di stacco teal marcata; cartina ridotta per non far scrollare fino a Laguna Sud; v3.57: home divisa in due blocchi dichiarati (cartina = ADESSO/misurato; sotto = PREVISIONE, con stacco e pillola); "Previsione" davanti ad "aggiornata alle"; fonti spostate nelle istruzioni, in fondo solo il rimando; v3.56: sulla cartina il vento misurato vale fino a 45 min (prima 20), con l'ora mostrata se vecchio; allerte invariate a 20 min; v3.55: "Prossimi giorni" su riga propria piu' in basso; zona aperta da Prossimi giorni torna a Prossimi giorni (tasto "‹ Prossimi giorni", stessa fascia); v3.54: numero dei cm della marea con contorno scuro e spostato dalla linea "adesso"; "8 kn" invece di "8-8 kn"; Prossimi giorni con domani in cima (previsione vera, cliccabile); v3.53: fascia proposta = quella in corso (se finisce tra piu' di un'ora, altrimenti la prossima); scelta azzerata tornando all'app dopo 2 minuti; v3.52: la cartina della pagina della zona ha il colore del giorno e della fascia scelti; v3.51: allerte vento fino alle 24; v3.50: tre fasce anche nei Prossimi giorni; v3.49: tre fasce della giornata (05-12, 13-18, 19-24) con i bottoni; PDF sintetico
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"
@@ -42,6 +42,7 @@ VISIBILITA = {"mostra_fino_a_m": 1000, "fitta_fino_a_m": 200, "nebbia_fino_a_m":
 ORA_MATTINO = "08:30"        # v3.3: ora indicativa della previsione provvisoria (giro Cloudflare delle 08:25), per le istruzioni
 ORA_AGGIORNAMENTO = "16:30"  # v3.2: ora indicativa della previsione definitiva (giro Cloudflare delle 16:25), mostrata accanto alla provvisoria
 ORA_ATTESA = "17:30"        # v3.0: ora (italiana) entro cui ci si aspetta la previsione di domani; dopo, il sito avvisa del ritardo
+ORE_GIRI = ["05:30", "08:30", "11:15", "16:30", "18:30"]   # v3.64: ore indicative degli aggiornamenti del vento (per le istruzioni)
 CARD = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"]     # minuti di curva di marea mostrati prima e dopo la finestra
 
 
@@ -79,6 +80,18 @@ def provvisoria(P, giorno=None):
     except ValueError:
         return False
     return g.hour < ORA_DEFINITIVA and (giorno is None or g.date() < giorno)
+
+
+def quando(p):
+    """v3.64: ordine tra le previsioni della stessa fascia: ultimo aggiornamento (vento o marea), versione, aggiornamento in corso."""
+    P = leggi(p) or {}
+    t = [dt.datetime.min]
+    for x in (P.get("generato"), (P.get("marea") or {}).get("aggiornata")):
+        try:
+            t.append(dt.datetime.strptime(x, "%d/%m/%Y %H:%M"))
+        except (TypeError, ValueError):
+            pass
+    return (max(t), P.get("versione") or "", p.endswith("_agg.json"), p)
 
 
 def sintesi_pdf(giorno, zona):
@@ -255,6 +268,36 @@ def regole():
         return {}
 
 
+SOGLIE_MAREA = [110, 140]      # v3.64: cm sullo zero di Punta Salute, linee del grafico (come nei grafici del Centro Maree)
+VECCHIA_DOPO_ORE = {"vento": 9, "marea": 14}   # v3.64: oltre queste ore la pagina segnala che il dato e' vecchio
+GIORNI_24 = 3
+
+
+def marea_24ore(date, cfg):
+    """v3.64: per gli ultimi giorni previsti e per zona, marea 00-24 dall'ultimo bollettino (storico marea_cpsm.json) e
+    marea astronomica; se lo storico non copre la giornata resta la sola astronomica. -> ({data: {zona: {...}}}, ora del bollettino)."""
+    out, emessa = {}, None
+    try:
+        import fd_previsione as F
+        S = F.storico_cpsm_leggi(".")
+        emessa = S.get("emessa")
+        for d in date[-GIORNI_24:]:
+            G = F.marea_giorno24(d, S, ".")
+            if not G:
+                continue
+            for z in ZONE:
+                a = MP.marea_zona(G["astro"], z["id"], d, cfg)
+                c = MP.marea_zona(G["cpsm"], z["id"], d, cfg) if G["cpsm"] else None
+                if not a:
+                    continue
+                m = c or a
+                out.setdefault(d.isoformat(), {})[z["id"]] = {"stazione": m["stazione"], "curva": m["curva"], "estremi": m["estremi"],
+                                                            "astro": a["curva"] if c else None, "emessa": emessa if c else None}
+    except Exception as e:          # il sito si costruisce lo stesso, senza il grafico delle 24 ore
+        print(f"build_site: marea 24 ore non calcolata ({type(e).__name__}: {str(e)[:120]})")
+    return out, emessa
+
+
 def main():
     shutil.rmtree(SITO, ignore_errors=True)
     os.makedirs(os.path.join(SITO, "giorni"), exist_ok=True)
@@ -272,16 +315,21 @@ def main():
         V = leggi(p)
         if d and fin and V is not None:
             ver.setdefault((d, fin, zona_di(V)), []).append(p)
+    for d, fin, zona in list(gruppi):     # v3.64: passaggio alle nuove fasce, le vecchie dello stesso giorno non si mostrano
+        vecchia = {"1200-1800": "1300-1800", "1800-2400": "1900-2400"}.get(fin)
+        if vecchia:
+            gruppi.pop((d, vecchia, zona), None)
     voci = {z["id"]: [] for z in ZONE}
     MZ = MP.carica_config(".")   # v3.33
     for (d, fin, zona), file in sorted(gruppi.items(), key=lambda x: (x[0][0], -int(x[0][1][:4])), reverse=True):   # v3.49: giorno piu' recente prima, fasce in ordine
         if zona not in voci:
             continue
-        pj = scegli_ultimo(file)
+        pj = max(file, key=quando)
         P = leggi(pj)
         voce = {"data": d.isoformat(), "titolo": P.get("titolo"), "finestra": P.get("finestra"),
                 "colore": (P.get("verdetto") or {}).get("colore"), "generato": P.get("generato"), "provvisoria": provvisoria(P, d), "emessa": (P.get("generato") or "")[-5:],
-                "versione": P.get("versione"), "sintesi": sintesi(P, d)}
+                "versione": P.get("versione"), "sintesi": sintesi(P, d),
+                "marea_emessa": (P.get("marea") or {}).get("cpsm_emessa"), "marea_aggiornata": (P.get("marea") or {}).get("aggiornata") or P.get("generato")}
         voce["sintesi"]["marea_zona"] = ((P.get("marea") or {}).get("zona")                      # v3.35: dalla previsione (fd_previsione >= 1.43)
                                           or MP.marea_zona(P.get("marea") or {}, zona, d, MZ))           # previsioni vecchie: calcolata qui
         pdf = sintesi_pdf(d, zona) or pj[:-5] + ".pdf"           # v3.49: il PDF sintetico del giorno, se c'e'
@@ -307,11 +355,12 @@ def main():
             voce["verifica_provvisoria"] = bool(V.get("provvisoria"))
             voce["verifica_versione"] = V.get("versione")
         voci[zona].append(voce)
+    marea24, marea_emessa = marea_24ore(sorted({d for d, _, _ in gruppi}), MZ)       # v3.64
     zone = []
     for z in ZONE:
         zone.append(dict(z, attiva=bool(voci[z["id"]]), voci=voci[z["id"]]))
     ora = dt.datetime.now(dt.timezone.utc)
-    json.dump({"versione_sito": VERSIONE, "autore": AUTORE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ora_aggiornamento": ORA_AGGIORNAMENTO, "ora_mattino": ORA_MATTINO, "adesso_url": ADESSO_URL, "allerta": ALLERTA, "visibilita": VISIBILITA, "regole": regole(), "zone": zone, "tendenza": leggi("tendenza.json")},
+    json.dump({"versione_sito": VERSIONE, "autore": AUTORE, "aggiornato_utc": ora.isoformat(timespec="minutes"), "ora_attesa": ORA_ATTESA, "ore_giri": ORE_GIRI, "ora_aggiornamento": ORA_AGGIORNAMENTO, "ora_mattino": ORA_MATTINO, "adesso_url": ADESSO_URL, "allerta": ALLERTA, "visibilita": VISIBILITA, "regole": regole(), "zone": zone, "marea24": marea24, "marea_emessa": marea_emessa, "soglie_marea": SOGLIE_MAREA, "vecchia_dopo_ore": VECCHIA_DOPO_ORE, "tendenza": leggi("tendenza.json")},
               open(os.path.join(SITO, "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # v2.1: la pagina conosce la propria versione e l'impronta del suo codice; versione.json (letto senza cache)
     # dice alla pagina gia' aperta se esiste una versione nuova -> barra "Aggiorna"

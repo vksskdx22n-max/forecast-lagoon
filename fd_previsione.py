@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.51"   # v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
+VERSIONE = "1.52"   # v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
 # v1.50: fasce della giornata (scelta di Ennio 23/11/2026). La fascia della sera finisce a mezzanotte: "24:00" = 23:59 interno.
 FINE_GIORNO = dt.time(23, 59)
 PERIODI = [("mattino", 5, 12), ("pomeriggio", 13, 18), ("sera", 19, 23)]
@@ -62,8 +62,12 @@ def ora_da_txt(x):
     return FINE_GIORNO if x.strip() in ("24:00", "24") else dt.time.fromisoformat(x.strip())
 
 
+PERIODO_FASCIA = {5: "mattino", 12: "pomeriggio", 18: "sera"}      # v1.52: nome della fascia dall'ora di inizio
+
+
 def periodo_ora(h):
-    """v1.50: periodo del giorno di un'ora (mattino, pomeriggio, sera); le ore di notte valgono come sera."""
+    """v1.50: periodo del giorno di un'ora (mattino, pomeriggio, sera); le ore di notte valgono come sera.
+    v1.52: serve alle correzioni, che restano per ORA (05-12, 13-18, 19-23) anche con le fasce 05-12, 12-18, 18-24."""
     return next((n for n, a, b in PERIODI if a <= h <= b), "sera" if h > 12 else "mattino")
 CORR_D2 = 2.2
 CORR_SOGLIA = 4.0
@@ -140,11 +144,14 @@ ZONA_VERIFICA = {"nord": "Laguna Nord", "sud": "Laguna Sud"}   # v1.45: zona di 
 # niente correzione: in quelle ore FL sovrastimava e ICON-D2 grezzo sbagliava meno. La riga resta marcata "prudenza".
 SOGLIA_DISACCORDO = 3.0
 TESTO_PRUDENZA = "modelli in disaccordo (ICON-D2 molto sopra ECMWF corretto): stima = ICON-D2 senza correzione, per prudenza"
+CART_CORR = None      # v1.52: cartella delle correzioni congelate (solo ricalcolo della marea)
+
+
 def bias_ecmwf(periodo="mattino"):
     """Correzione media di ECMWF nella zona (tendenza_correzioni.json). v1.51: per fascia: mattino "kn", pomeriggio e sera
     "kn_periodo" (fd_tendenza >= 1.4); se manca la fascia, None (niente regola di prudenza in quella fascia)."""
     try:
-        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tendenza_correzioni.json"), encoding="utf-8") as f:
+        with open(os.path.join(CART_CORR or os.path.dirname(os.path.abspath(__file__)), "tendenza_correzioni.json"), encoding="utf-8") as f:
             C = json.load(f)
         K = C["kn"] if periodo == "mattino" else (C.get("kn_periodo") or {}).get(periodo) or {}
         v = (K.get("ecmwf_ifs025") or {}).get(AREA)
@@ -304,8 +311,12 @@ def curl_om(url, sec):
     import hashlib, types
     cart = os.environ.get("FL_CACHE")
     f = os.path.join(cart, hashlib.sha1(url.encode()).hexdigest() + ".json") if cart else None
-    if f and os.path.exists(f):
+    solo = bool(os.environ.get("FL_SOLO_CACHE"))     # v1.52: ricalcolo della marea, nessuna richiesta a Open-Meteo
+    fresco = f and os.path.exists(f) and (solo or os.path.getmtime(f) >= float(os.environ.get("FL_INIZIO") or 0))
+    if fresco:
         return types.SimpleNamespace(returncode=0, stdout=open(f, encoding="utf-8").read(), stderr="")
+    if solo:
+        return types.SimpleNamespace(returncode=1, stdout="", stderr="dati Open-Meteo non in memoria")
     r = subprocess.run(["curl", "-s", "-m", str(sec), url], capture_output=True, text=True)
     if f and r.returncode == 0:
         try:
@@ -326,6 +337,11 @@ def scarica(giorno, da, a):
            ",relative_humidity_2m,cloud_cover_low,weather_code"   # v1.38: nebbia
            f"&models={','.join(m for m, _ in MODELLI)}&wind_speed_unit=kn&timezone=Europe%2FRome"
            f"&daily=sunrise,sunset&start_date={g}&end_date={g}")        # v1.50: giornata intera, la stessa per le tre fasce
+    if os.environ.get("FL_SOLO_CACHE"):
+        r = curl_om(url, 45)
+        if r.returncode == 0 and r.stdout.strip().startswith("["):
+            return json.loads(r.stdout)
+        sys.exit(3)                                  # v1.52: niente dati in memoria, la previsione resta com'e'
     for tentativo in range(3):                      # v1.33: fino a 3 tentativi (Open-Meteo a volte non risponde)
         r = curl_om(url, 45)
         if r.returncode == 0 and r.stdout.strip().startswith("["):
@@ -462,6 +478,88 @@ def scarica_cpsm(path=None):
     return sorted(out, key=lambda e: e[1]), emessa
 
 
+# ------------------------------------------------------------------ v1.52: storico degli estremali CPSM e curva 00-24
+STORICO_CPSM = "marea_cpsm.json"
+STORICO_GIORNI = 8
+
+
+def storico_cpsm_leggi(cartella="."):
+    try:
+        return json.load(open(os.path.join(cartella, STORICO_CPSM), encoding="utf-8"))
+    except (OSError, ValueError):
+        return {"emessa": None, "estremali": []}
+
+
+def storico_cpsm_unisci(S, estremali, emessa):
+    """Il bollettino nuovo vale da 3 ore prima del suo primo estremale in poi; prima restano gli ultimi valori pubblicati."""
+    if not estremali:
+        return S
+    taglio = min(e[1] for e in estremali) - 3 * 3600000
+    tutti = [x for x in S.get("estremali") or [] if x[1] < taglio] + [[e[0], e[1], e[2]] for e in estremali]
+    limite = max(e[1] for e in tutti) - STORICO_GIORNI * 86400000
+    return {"emessa": emessa, "estremali": sorted((x for x in tutti if x[1] >= limite), key=lambda x: x[1])}
+
+
+def storico_cpsm_aggiorna(CP, cartella="."):
+    if not CP[0]:
+        return
+    S = storico_cpsm_leggi(cartella)
+    N = storico_cpsm_unisci(S, CP[0], CP[1])
+    if N != S:
+        json.dump(N, open(os.path.join(cartella, STORICO_CPSM), "w", encoding="utf-8"), indent=1)
+
+
+def cpsm_con_storico(CP, giorno, cartella="."):
+    """v1.52: bollettino piu' recente completato con gli estremali precedenti dello storico. Dopo un nuovo bollettino
+    gli estremali gia' passati (o tutto il resto di oggi) non ci sono piu': senza storico oggi si tornava all'astronomica."""
+    if not CP[0]:
+        return CP
+    g0 = dt.datetime(giorno.year, giorno.month, giorno.day, tzinfo=tz_italia(giorno)).timestamp() * 1000
+    out = [tuple(x) for x in storico_cpsm_leggi(cartella).get("estremali") or [] if g0 - 30 * 3600000 <= x[1] <= g0 + 54 * 3600000]
+    return (out, CP[1]) if out else CP
+
+
+def abbina_cpsm(est, cpsm):
+    """Coppie (ms CPSM, ms astronomico, scarto cm) per MareaCorretta: stesso tipo entro 3 h, senza ripetizioni."""
+    coppie, usati = [], set()
+    for tipo, ms, cm in cpsm:
+        cand = [e for e in est if e[0] == tipo and abs(e[1] - ms) <= 3 * 3600000]
+        if not cand:
+            continue
+        e = min(cand, key=lambda e: abs(e[1] - ms))
+        if e[1] in usati or (coppie and e[1] <= coppie[-1][1]):
+            continue
+        usati.add(e[1]); coppie.append((ms, e[1], round(cm) - e[2]))
+    return coppie
+
+
+def marea_giorno24(giorno, S, cartella="."):
+    """Punta Salute, giorno intero (con margine per i ritardi di zona): blocco corretto CPSM (se lo storico copre tutta la
+    giornata) e blocco astronomico, nel formato atteso da marea_propaga.marea_zona. None se manca l'astronomica."""
+    p = os.path.join(cartella, f"marea_astronomica_{giorno.year}.json")
+    if not os.path.exists(p):
+        return None
+    MA = Marea(p)
+    tz = tz_italia(giorno)
+    g0 = dt.datetime(giorno.year, giorno.month, giorno.day, tzinfo=tz).timestamp() * 1000
+    est = MA.estremali(g0 - 18 * 3600000, g0 + 42 * 3600000)
+    txt = lambda ms: dt.datetime.fromtimestamp(ms / 1000, tz).strftime("%d/%m %H:%M")
+    def curva(M):
+        return [[m, round(v, 1)] for m in range(-240, 1681, 10) if (v := M.cm_at(g0 + m * 60000)) is not None]
+    astro = {"fascia": [0, 1440], "curva": curva(MA),
+             "estremali": [{"tipo": e[0], "ora": txt(e[1]), "cm": e[2], "min_curva": round((e[1] - g0) / 60000)} for e in est]}
+    cp = [x for x in S.get("estremali") or [] if g0 - 18 * 3600000 <= x[1] <= g0 + 42 * 3600000]
+    coppie = abbina_cpsm(est, cp)
+    corretta = None
+    # copertura: curva corretta disponibile da -90 a +1530 min (ritardi di zona fino a circa un'ora e mezza)
+    if len(coppie) >= 2:
+        MC = MareaCorretta(MA, coppie)
+        if all(MC.cm_at(g0 + m * 60000) is not None for m in (-90, 0, 720, 1440, 1470)):
+            corretta = {"fascia": [0, 1440], "curva_cpsm": curva(MC),
+                        "cpsm": [{"tipo": t, "ora": txt(ms), "cm": round(cm), "min_curva": round((ms - g0) / 60000)} for t, ms, cm in cp]}
+    return {"cpsm": corretta, "astro": astro}
+
+
 # ------------------------------------------------------------------ marea astronomica
 class Marea:
     def __init__(self, path):
@@ -487,7 +585,8 @@ class Marea:
         return (c - a) / 100, (c2 - 2 * b + a2) / 100 / 60
 
     def estremali(self, ms0, ms1):
-        """Massimi e minimi tra ms0 e ms1 (primo istante del plateau)."""
+        """Massimi e minimi tra ms0 e ms1. v1.52: istante al CENTRO del tratto piatto (al cm); prima il primo istante,
+        che anticipava il colmo anche di mezz'ora e spostava in avanti la curva corretta sugli estremali CPSM."""
         i0 = max(1, int((ms0 - self.t0) // self.p)); i1 = min(len(self.cm) - 2, int((ms1 - self.t0) // self.p))
         out, i = [], i0
         while i <= i1:
@@ -497,9 +596,9 @@ class Marea:
             pre, post = self.cm[i - 1], self.cm[j + 1] if j + 1 < len(self.cm) else None
             if post is not None:
                 if self.cm[i] > pre and self.cm[i] > post:
-                    out.append(('max', self.t0 + i * self.p, self.cm[i]))
+                    out.append(('max', self.t0 + (i + j) / 2 * self.p, self.cm[i]))
                 elif self.cm[i] < pre and self.cm[i] < post:
-                    out.append(('min', self.t0 + i * self.p, self.cm[i]))
+                    out.append(('min', self.t0 + (i + j) / 2 * self.p, self.cm[i]))
             i = j + 1
         return out
 
@@ -694,6 +793,8 @@ def onde_misurate_archivia(path=None, archivio=ONDE_ARCHIVIO, cartella="."):
         ora = (t + dt.timedelta(minutes=30)).replace(minute=0)          # ora piu' vicina
         scelta = None
         for f in glob.glob(os.path.join(cartella, "Previsioni", f"previsione_{t.strftime('%d-%m-%Y')}_*.json")):
+            if f.endswith("_agg.json"):
+                continue
             try:
                 P = json.load(open(f, encoding="utf-8"))
                 gen = dt.datetime.strptime(P["generato"], "%d/%m/%Y %H:%M")
@@ -1370,7 +1471,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
              + (f"; previsione CPSM emessa {emessa}, {round(eta_cpsm)} h prima della fine della finestra: oltre {CPSM_ORE_MAX} h, tendenza meno affidabile (astronomica come riferimento)" if cpsm_vecchia else "")
              + ".)"] if fase_txt else []
     return {
-        "versione": VERSIONE, "titolo": titolo, "finestra": f"{ora_txt(da)}–{ora_txt(a)}", "periodo": periodo_ora(da.hour), "zone": ZONE_TITOLO,
+        "versione": VERSIONE, "titolo": titolo, "finestra": f"{ora_txt(da)}–{ora_txt(a)}", "periodo": PERIODO_FASCIA.get(da.hour, periodo_ora(da.hour)), "zone": ZONE_TITOLO,
         "verdetto": {"colore": verdetto, "testo": ((f"Andamento: {andamento_txt}. ") if andamento_txt else "") + " ".join(verd),
                      "andamento": andamento, "andamento_txt": andamento_txt,
                      "nota": f"Semaforo = media delle zone {', '.join(ZONE_VENTO)} (non la zona peggiore)."
@@ -1637,8 +1738,12 @@ def dati_sintesi(giorno, cartella="Previsioni"):
         if (P.get("area") or "centro") != AREA or not P.get("finestra"):
             continue
         k = P["finestra"]
-        if k not in scelte or (_gen(P), P.get("versione") or "") > (_gen(scelte[k]), scelte[k].get("versione") or ""):
-            scelte[k] = P
+        if k not in scelte or (_quando(P), P.get("versione") or "", f.endswith("_agg.json")) > scelte[k][0]:
+            scelte[k] = ((_quando(P), P.get("versione") or "", f.endswith("_agg.json")), P)
+    scelte = {k: v[1] for k, v in scelte.items()}
+    for vecchia, nuova in (("13:00–18:00", "12:00–18:00"), ("19:00–24:00", "18:00–24:00")):   # v1.52: passaggio alle nuove fasce
+        if nuova in scelte:
+            scelte.pop(vecchia, None)
     fasce = []
     for k in sorted(scelte, key=lambda x: ora_da_txt(x.replace("-", "–").split("–")[0])):
         P = scelte[k]
@@ -1773,6 +1878,51 @@ def pdf_png(pdf, png):
     return os.path.exists(png)
 
 
+def congela_correzioni(giorno, usa):
+    """v1.52: nel giro completo copia nella memoria del giro gli archivi delle correzioni; con --solo-marea li rilegge da li',
+    cosi' il vento non cambia se nel frattempo una verifica ha aggiornato le correzioni."""
+    global CART_CORR
+    cart = os.environ.get("FL_CACHE")
+    if not cart:
+        return
+    snap = os.path.join(cart, f"correzioni_{giorno.isoformat()}")
+    if not usa:
+        os.makedirs(snap, exist_ok=True)
+        for f in ("verifica_archivio.json", "tendenza_correzioni.json"):
+            if os.path.exists(f):
+                shutil.copy(f, os.path.join(snap, f))
+    elif os.path.isdir(snap):
+        CART_CORR = snap
+        if FV is not None:
+            originale = FV.carica_archivio
+            FV.carica_archivio = lambda cartella=".": originale(snap)
+
+
+def ultima_salvata(giorno, da, a):
+    """v1.52: l'ultima previsione salvata per giorno, fascia e area (orario piu' recente di meteo o marea; a parita' _agg)."""
+    nome = f"previsione_{giorno.strftime('%d-%m-%Y')}_{ora_txt(da).replace(':', '')}-{ora_txt(a).replace(':', '')}{'' if AREA == 'centro' else '_' + AREA}_v"
+    scelte = []
+    for f in glob.glob(os.path.join("Previsioni", nome + "*.json")):
+        try:
+            P = json.load(open(f, encoding="utf-8"))
+        except (ValueError, OSError):
+            continue
+        if (P.get("area") or "centro") == AREA:
+            scelte.append((_quando(P), f.endswith("_agg.json"), f, P))
+    return max(scelte, key=lambda x: x[:3])[3] if scelte else None
+
+
+def _quando(P):
+    """v1.52: momento dell'ultimo aggiornamento di una previsione (meteo o sola marea)."""
+    t = [dt.datetime.min]
+    for x in (P.get("generato"), (P.get("marea") or {}).get("aggiornata")):
+        try:
+            t.append(dt.datetime.strptime(x, "%d/%m/%Y %H:%M"))
+        except (TypeError, ValueError):
+            pass
+    return max(t)
+
+
 def archivi_taratura():
     """v1.42: archivi per la taratura della nebbia (Tessera, registro del Worker, ARPAV), eseguiti PRIMA delle richieste
     a Open-Meteo. Ogni archivio e' indipendente: un errore viene scritto nel log e non ferma la previsione."""
@@ -1804,17 +1954,29 @@ def main():
     if "--sintesi" in sys.argv:          # v1.50: solo il PDF sintetico del giorno dalle previsioni gia' salvate
         crea_sintesi(giorno)
         return
+    solo_marea = "--solo-marea" in sys.argv      # v1.52: stesso meteo gia' scaricato, bollettino marea nuovo
+    if solo_marea:
+        os.environ["FL_SOLO_CACHE"] = "1"
     for f in [f"marea_astronomica_{giorno.year}.json", "correnti_laguna.json"]:       # v1.31: il diario e' opzionale (versione pubblica su GitHub)
         if not os.path.exists(f):
             sys.exit(f"Manca {f} nella cartella {os.getcwd()}")
     print(f"fd_previsione v{VERSIONE} — {giorno.strftime('%d/%m/%Y')} {ora_txt(da)}–{ora_txt(a)}" + (f" · {AREA}" if AREA != "centro" else ""))
-    if FV is None:
+    vecchia = None
+    if solo_marea:
+        vecchia = ultima_salvata(giorno, da, a)
+        if vecchia is None:
+            print("Solo marea: nessuna previsione salvata per questa fascia, nulla da fare.")
+            return
+    if solo_marea:
+        pass
+    elif FV is None:
         print("fd_verifica.py non trovato: niente verifica automatica, correzione fissa +2,2 nodi.")
     elif "--no-verifica" not in sys.argv:
         for r in FV.verifica_pendenti("."):
             print(r)
-    if "--no-archivi" not in sys.argv:   # v1.50: nelle fasce successive dello stesso giro gli archivi sono gia' fatti
+    if "--no-archivi" not in sys.argv and not solo_marea:   # v1.50: nelle fasce successive dello stesso giro gli archivi sono gia' fatti
         archivi_taratura()   # v1.42: prima di Open-Meteo, cosi' i dati per la taratura si salvano anche se la previsione fallisce
+    congela_correzioni(giorno, solo_marea)       # v1.52: il ricalcolo della marea usa le stesse correzioni del vento
     OM = json.load(open(jpath, encoding="utf-8")) if jpath else scarica(giorno, da, a)
     mpath = sys.argv[sys.argv.index("--mare-json") + 1] if "--mare-json" in sys.argv else None
     MAR = scarica_mare(giorno, mpath)
@@ -1822,6 +1984,11 @@ def main():
     cpath = sys.argv[sys.argv.index("--cpsm-json") + 1] if "--cpsm-json" in sys.argv else None
     CP = scarica_cpsm(cpath)
     print(f"Previsione marea CPSM: {len(CP[0])} estremali (emessa {CP[1]})" if CP[0] else "Previsione marea CPSM non disponibile: uso la marea astronomica")
+    storico_cpsm_aggiorna(CP)            # v1.52
+    if solo_marea:
+        if not CP[0] or CP[1] == (vecchia.get("marea") or {}).get("cpsm_emessa"):
+            print("Solo marea: nessun bollettino nuovo per questa fascia.")
+            return
     ENS = scarica_ensemble(giorno, da, a, sys.argv[sys.argv.index("--ens-json") + 1] if "--ens-json" in sys.argv else None)   # v1.39
     print(f"Ensemble ICON-D2-EPS (nebbia): {len(ENS)} punti" if ENS else "Ensemble ICON-D2-EPS non disponibile: nebbia solo come livello")
     try:                                   # v1.44: AROME HD in parallelo (mai bloccante)
@@ -1831,7 +1998,7 @@ def main():
         print(f"AROME HD: errore {type(ex).__name__}: {str(ex)[:120]}")
     print(f"AROME HD (in parallelo, non usato nella stima): {len(AR)} punti" if AR else "AROME HD non disponibile (in parallelo, la previsione non cambia)")
     D = calcola(giorno, da, a, OM, carica_diario(),
-                Marea(f"marea_astronomica_{giorno.year}.json"), json.load(open("correnti_laguna.json", encoding="utf-8")), CP, MAR,
+                Marea(f"marea_astronomica_{giorno.year}.json"), json.load(open("correnti_laguna.json", encoding="utf-8")), cpsm_con_storico(CP, giorno), MAR,
                 misure_aria(sys.argv[sys.argv.index("--misure-dir") + 1] if "--misure-dir" in sys.argv else None),
                 ENS, AR)
     try:                                   # v1.43: marea della zona (ritardo e quota da Punta Salute, marea_zone.json)
@@ -1846,9 +2013,17 @@ def main():
     except Exception as ex:                # non deve mai fermare la previsione
         print(f"Marea della zona: errore {type(ex).__name__}: {str(ex)[:120]}")
     os.makedirs("Previsioni", exist_ok=True)
-    base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_{ora_txt(da).replace(':', '')}-{ora_txt(a).replace(':', '')}{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}")
-    print(onde_misurate_archivia(sys.argv[sys.argv.index("--onde-json") + 1] if "--onde-json" in sys.argv else None))   # v1.37: solo archivio
-    D["acqua_misurata"] = acqua_misurata(sys.argv[sys.argv.index("--acqua-json") + 1] if "--acqua-json" in sys.argv else None)   # v1.36
+    adesso = dt.datetime.now(tz_italia(giorno))
+    iniziata = adesso >= dt.datetime.combine(giorno, da, tz_italia(giorno))
+    # v1.52: a fascia iniziata si scrive un file a parte (_agg): la previsione fatta prima resta per la verifica
+    base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_{ora_txt(da).replace(':', '')}-{ora_txt(a).replace(':', '')}{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}{'_agg' if iniziata else ''}")
+    if solo_marea:
+        D["generato"] = vecchia.get("generato")               # il vento resta quello di quell'ora
+        D["marea"]["aggiornata"] = adesso.strftime("%d/%m/%Y %H:%M")
+        D["acqua_misurata"] = vecchia.get("acqua_misurata")
+    else:
+        print(onde_misurate_archivia(sys.argv[sys.argv.index("--onde-json") + 1] if "--onde-json" in sys.argv else None))   # v1.37: solo archivio
+        D["acqua_misurata"] = acqua_misurata(sys.argv[sys.argv.index("--acqua-json") + 1] if "--acqua-json" in sys.argv else None)   # v1.36
     print(f"Acqua: {num(D['acqua_misurata']['valore'])} °C a {D['acqua_misurata']['stazione']} ({D['acqua_misurata']['data']} {D['acqua_misurata']['ora']})"
           if D["acqua_misurata"] else "Acqua: misura CPSM non disponibile, riquadro omesso")
     json.dump(D, open(base + ".json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)

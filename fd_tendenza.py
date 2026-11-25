@@ -28,8 +28,8 @@ import sys, json, math, subprocess, statistics, datetime as dt
 import fd_previsione as FP
 import marea_propaga as MP
 
-VERSIONE = "1.4"
-FASCE_T = [("05:00–12:00", 5, 12, "mattino"), ("13:00–18:00", 13, 18, "pomeriggio"), ("19:00–24:00", 19, 23, "sera")]   # v1.4
+VERSIONE = "1.5"   # v1.5: fasce 05-12, 12-18, 18-24; la correzione resta quella dell'ora
+FASCE_T = [("05:00–12:00", 5, 12, "mattino"), ("12:00–18:00", 12, 18, "pomeriggio"), ("18:00–24:00", 18, 23, "sera")]   # v1.5
 # v1.4: correzioni iniziali di pomeriggio e sera (nodi da aggiungere), analisi del 23/11/2026 (Previous Runs, previsione emessa
 # 2 giorni prima, 23/08-22/11, misure CPSM orarie). ICON-2i: errore medio 0,2-0,6 nodi, la correzione non migliora -> 0.
 # ECMWF: Centro +3,4 / +4,3, Sud +4,1 / +4,5, Nord sera +1,9 (errore assoluto 4,5 -> 2,7-2,9 nodi); Nord pomeriggio 0
@@ -271,6 +271,7 @@ def main():
                 ore = list(range(h0, h1 + 1))
                 for h in ore:
                     t = f"{g.isoformat()}T{h:02d}:00"
+                    per_h = periodo_ora(h)                  # v1.5: la correzione e' quella dell'ora, non della fascia
                     for m in MODELLI:
                         xs = []
                         for z, _, _ in PA[area]:
@@ -292,13 +293,13 @@ def main():
                             if v is None or d is None:
                                 continue
                             if m == "icon_d2" and area == "centro" and not FP.riparata(z, d):
-                                c = FP.FV.correzione(v, d, ".", FP.zona_corr(z), per)[0] if FP.FV else 0.0
+                                c = FP.FV.correzione(v, d, ".", FP.zona_corr(z), per_h)[0] if FP.FV else 0.0
                                 v = v + c; corr[m] = corr.get(m) or c != 0
                             elif m == "icon_d2" and FP.FV and ZONA_MIS[area] in getattr(FP.FV, "CORR_ZONA", {}):   # v1.3: Nord e Sud
-                                c = FP.FV.correzione(v, d, ".", ZONA_MIS[area], per)[0]
+                                c = FP.FV.correzione(v, d, ".", ZONA_MIS[area], per_h)[0]
                                 v = v + c; corr[m] = corr.get(m) or c != 0
-                            elif m != "icon_d2" and corr_modello(CK, m, area, per):
-                                v = max(0.0, v + corr_modello(CK, m, area, per)); corr[m] = True
+                            elif m != "icon_d2" and corr_modello(CK, m, area, per_h):
+                                v = max(0.0, v + corr_modello(CK, m, area, per_h)); corr[m] = True
                             vals.append((v, d)); usati[m] = usati.get(m, 0) + 1
                             break
                         p = (H.get("precipitation_probability_icon_d2") or [None] * (i + 1))[i]
