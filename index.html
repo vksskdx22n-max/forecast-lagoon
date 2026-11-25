@@ -134,7 +134,7 @@ h1 span{color:var(--teal)}
 .row{display:flex;justify-content:space-between;align-items:center;padding:11px 2px;border-top:1px solid var(--line);font-size:14px}
 .row:first-of-type{border-top:0}
 .row .l{display:flex;gap:9px;align-items:center}.row .l i{width:9px;height:9px;border-radius:50%}
-.row .r a{color:var(--teal);font-size:13px;margin-left:12px}
+.row .r a{color:var(--teal);font-size:13px;margin-left:12px}.row .r em{color:var(--mut);font-size:12px;font-style:normal;margin-left:12px}.btn.off{opacity:.55;font-weight:500;font-size:13px;pointer-events:none}
 .empty{padding:26px 22px;color:var(--soft);line-height:1.5}
 .ttl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:0 2px 6px}
 .info{position:relative;flex:none;margin-top:2px;width:38px;height:38px;border-radius:50%;background:rgba(6,19,29,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.22);color:var(--txt);font:italic 700 19px Georgia,serif;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5}
@@ -201,6 +201,10 @@ function etichetta(iso){const d=dataDi(iso),r=relativo(iso);return (r?r+' · ':'
 // all'apertura e' scelta la prossima che deve ancora iniziare (scelta di Ennio 23/11/2026). FS = fascia scelta "data|finestra".
 let FS=null,TFS=null;   // TFS: fascia scelta nella pagina Prossimi giorni
 function finMin(f){const m=String(f||'').split(/[–-]/).map(x=>{const [h,mm]=x.trim().split(':').map(Number);return h*60+(mm||0)});return m.length===2?m:[0,1440]}
+function verNome(a){return 'Verifica'+(a.verifica_fascia?' '+a.verifica_fascia.replace(/:00/g,''):'')}   // v3.75
+function verStato(a){   // v3.75: fascia conclusa senza verifica: "in arrivo" o "non disponibile" (mai un pulsante che sparisce)
+ if(a.verifica)return '';const N=adessoIT(),g=s=>Date.parse(s+'T00:00:00Z')/60000,passati=g(N.d)+N.m-g(a.data)-finMin(a.finestra)[1];
+ if(!(passati>=0))return '';return a.verifica_no||passati>(D.verifica_ore_max||24)*60?'Verifica non disponibile':'Verifica in arrivo'}
 function slotTutti(){const M={};(D.zone||[]).forEach(z=>(z.voci||[]).forEach(v=>{const k=v.data+'|'+v.finestra;if(!M[k]){const [a,b]=finMin(v.finestra),d=dataDi(v.data);M[k]={k,data:v.data,fin:v.finestra,ini:new Date(d.getTime()+a*6e4),fine:new Date(d.getTime()+b*6e4)}}}));
  return Object.values(M).sort((x,y)=>x.ini-y.ini)}
 function slotVisibili(){const T=slotTutti(),n=new Date(),F=T.filter(s=>s.fine>n);return (F.length?F:T.slice(-1)).slice(0,3)}
@@ -472,8 +476,8 @@ function zona(id,dsel,fsel_,prov){
  h+=nebbia(s);h+=pioggia(s);h+=meteoOnda(s);
  if((s.corrente||[]).length)h+=`<div class="sec"><div class="card"><div class="ch">Corrente <span>${esc(s.canale||'')}</span></div><div style="margin-top:6px;font-size:14.5px;line-height:1.5">${s.corrente.map(t=>`${t.verso==='entra'?'Entrante':'Uscente'} ${t.da===t.a?'alle '+esc(t.da):'dalle '+esc(t.da)+' alle '+esc(t.a)}`).join(' · ')}</div></div></div>`;
  h+=dettagli(s);
- h+=`<div class="btns">${v.previsione?`<a class="btn p" href="${esc(fresco(v.previsione))}">Previsione</a>`:''}${v.verifica?`<a class="btn" href="${esc(fresco(v.verifica))}">Verifica${v.verifica_provvisoria?' *':''}</a>`:''}</div>`;
- if(z.voci.length>1)h+=`<div class="list"><div class="ttl">Archivio</div>${z.voci.map(a=>`<div class="row"><span class="l"><i style="background:${col(a.colore)}"></i>${esc(a.titolo||a.data)} · ${esc((a.finestra||'').replace(/:00/g,''))}</span><span class="r">${a.previsione?`<a href="${esc(fresco(a.previsione))}">previsione</a>`:''}${a.verifica?`<a href="${esc(fresco(a.verifica))}">verifica</a>`:''}</span></div>`).join('')}</div>`;
+ h+=`<div class="btns">${v.previsione?`<a class="btn p" href="${esc(fresco(v.previsione))}">Previsione</a>`:''}${v.verifica?`<a class="btn" href="${esc(fresco(v.verifica))}">${esc(verNome(v))}${v.verifica_provvisoria?' *':''}</a>`:verStato(v)?`<span class="btn off">${verStato(v)}</span>`:''}</div>`;
+ if(z.voci.length>1)h+=`<div class="list"><div class="ttl">Archivio</div>${z.voci.map(a=>`<div class="row"><span class="l"><i style="background:${col(a.colore)}"></i>${esc(a.titolo||a.data)} · ${esc((a.finestra||'').replace(/:00/g,''))}</span><span class="r">${a.previsione?`<a href="${esc(fresco(a.previsione))}">previsione</a>`:''}${a.verifica?`<a href="${esc(fresco(a.verifica))}">${esc(verNome(a).toLowerCase())}</a>`:verStato(a)?`<em>${verStato(a).toLowerCase()}</em>`:''}</span></div>`).join('')}</div>`;
  app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0);disegna24();disegnaVento()}
 let VG=null;   // v3.66: grafico del vento sotto la tabella: misurato (grigio chiaro) e stima (turchese)
 function disegnaVento(){const el=document.getElementById('vgraf');if(!el||!VG)return;

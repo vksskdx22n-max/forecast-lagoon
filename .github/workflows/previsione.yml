@@ -169,6 +169,10 @@ jobs:
           DATA="${DATA_IN:-$(date -d tomorrow +%F)}"
           python3 fd_tendenza.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}"
 
+      - name: Prova dei collegamenti delle verifiche
+        if: steps.guard.outputs.salta != 'true'
+        run: python3 strumenti/prova_verifiche.py      # se fallisce, il sito in linea resta quello di prima
+
       - name: Pagine per GitHub Pages
         if: steps.guard.outputs.salta != 'true'
         run: python3 build_site.py
@@ -209,3 +213,21 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  sentinella:                  # dopo la pubblicazione: se una verifica manca il giro risulta fallito, il sito resta aggiornato
+    needs: [build, deploy]
+    if: needs.build.outputs.salta != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verifiche calcolate e visibili
+        env:
+          GIRO: ${{ github.event.inputs.giro }}
+        run: |
+          python3 build_site.py > /dev/null
+          python3 controlla_verifiche.py
