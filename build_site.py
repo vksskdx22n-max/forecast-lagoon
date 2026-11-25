@@ -11,7 +11,7 @@ Zona di una previsione: campo "area" del JSON (nord / centro / sud); i JSON senz
 import os, re, json, glob, shutil, hashlib, math, datetime as dt
 from collections import Counter
 
-VERSIONE = "3.64"   # v3.64: fasce 05-12, 12-18, 18-24; orari separati di vento e marea; marea sulle 24 ore (pagina zona); nuova prima pagina; v3.63: nel mini-grafico marea il numero dei cm resta sempre centrato sopra il colmo anche quando la linea "adesso" e' vicina (prima, v3.54, si scostava di lato: col numero centrato della v3.62 il Sud finiva a destra mentre Nord/Centro centrati); v3.62: nel mini-grafico marea i cm sono centrati SOPRA il puntino del colmo (prima ancorati a lato: vicino al bordo uscivano a sinistra del colmo, confondendo); didascalia solo "alta HH:MM"; v3.61: nel mini-grafico marea, se la finestra contiene sia un'alta sia una bassa si segna l'alta (prima il primo estremo in ordine di tempo: il Nord, per il ritardo di Saline, segnava la bassa mentre Centro/Sud l'alta); stessa scelta in "Prossimi giorni"; istruzioni con la nota sul ritardo per zona;v3.60: mini-grafico marea, il pallino alta/bassa sul colmo/cavo reale della curva (prima all'ora del bollettino, finiva sulla salita); v3.59: scritte dei nodi del vento sulla cartina piu' grandi (47, prima 37); protezione all'avvio (ritentativo + tasto Ricarica invece di restare su "Caricamento…"); v3.58: banner ADESSO e PREVISIONE più grandi/evidenti, linea di stacco teal marcata; cartina ridotta per non far scrollare fino a Laguna Sud; v3.57: home divisa in due blocchi dichiarati (cartina = ADESSO/misurato; sotto = PREVISIONE, con stacco e pillola); "Previsione" davanti ad "aggiornata alle"; fonti spostate nelle istruzioni, in fondo solo il rimando; v3.56: sulla cartina il vento misurato vale fino a 45 min (prima 20), con l'ora mostrata se vecchio; allerte invariate a 20 min; v3.55: "Prossimi giorni" su riga propria piu' in basso; zona aperta da Prossimi giorni torna a Prossimi giorni (tasto "‹ Prossimi giorni", stessa fascia); v3.54: numero dei cm della marea con contorno scuro e spostato dalla linea "adesso"; "8 kn" invece di "8-8 kn"; Prossimi giorni con domani in cima (previsione vera, cliccabile); v3.53: fascia proposta = quella in corso (se finisce tra piu' di un'ora, altrimenti la prossima); scelta azzerata tornando all'app dopo 2 minuti; v3.52: la cartina della pagina della zona ha il colore del giorno e della fascia scelti; v3.51: allerte vento fino alle 24; v3.50: tre fasce anche nei Prossimi giorni; v3.49: tre fasce della giornata (05-12, 13-18, 19-24) con i bottoni; PDF sintetico
+VERSIONE = "3.65"   # v3.65: in prima pagina il vento incerto solo se la forbice cambia il colore; marea: passato in grigio, fascia sulle ore; v3.64: fasce 05-12, 12-18, 18-24; orari separati di vento e marea; marea sulle 24 ore (pagina zona); nuova prima pagina; v3.63: nel mini-grafico marea il numero dei cm resta sempre centrato sopra il colmo anche quando la linea "adesso" e' vicina (prima, v3.54, si scostava di lato: col numero centrato della v3.62 il Sud finiva a destra mentre Nord/Centro centrati); v3.62: nel mini-grafico marea i cm sono centrati SOPRA il puntino del colmo (prima ancorati a lato: vicino al bordo uscivano a sinistra del colmo, confondendo); didascalia solo "alta HH:MM"; v3.61: nel mini-grafico marea, se la finestra contiene sia un'alta sia una bassa si segna l'alta (prima il primo estremo in ordine di tempo: il Nord, per il ritardo di Saline, segnava la bassa mentre Centro/Sud l'alta); stessa scelta in "Prossimi giorni"; istruzioni con la nota sul ritardo per zona;v3.60: mini-grafico marea, il pallino alta/bassa sul colmo/cavo reale della curva (prima all'ora del bollettino, finiva sulla salita); v3.59: scritte dei nodi del vento sulla cartina piu' grandi (47, prima 37); protezione all'avvio (ritentativo + tasto Ricarica invece di restare su "Caricamento…"); v3.58: banner ADESSO e PREVISIONE più grandi/evidenti, linea di stacco teal marcata; cartina ridotta per non far scrollare fino a Laguna Sud; v3.57: home divisa in due blocchi dichiarati (cartina = ADESSO/misurato; sotto = PREVISIONE, con stacco e pillola); "Previsione" davanti ad "aggiornata alle"; fonti spostate nelle istruzioni, in fondo solo il rimando; v3.56: sulla cartina il vento misurato vale fino a 45 min (prima 20), con l'ora mostrata se vecchio; allerte invariate a 20 min; v3.55: "Prossimi giorni" su riga propria piu' in basso; zona aperta da Prossimi giorni torna a Prossimi giorni (tasto "‹ Prossimi giorni", stessa fascia); v3.54: numero dei cm della marea con contorno scuro e spostato dalla linea "adesso"; "8 kn" invece di "8-8 kn"; Prossimi giorni con domani in cima (previsione vera, cliccabile); v3.53: fascia proposta = quella in corso (se finisce tra piu' di un'ora, altrimenti la prossima); scelta azzerata tornando all'app dopo 2 minuti; v3.52: la cartina della pagina della zona ha il colore del giorno e della fascia scelti; v3.51: allerte vento fino alle 24; v3.50: tre fasce anche nei Prossimi giorni; v3.49: tre fasce della giornata (05-12, 13-18, 19-24) con i bottoni; PDF sintetico
 AUTORE = "Ennio Tezze"      # v3.10: mostrato in alto accanto alla versione e in fondo alla pagina
 CARTELLA = "Previsioni"
 SITO = "site"
@@ -111,6 +111,17 @@ def chiave_file(p):
 import marea_propaga as MP   # v3.35: marea della zona (modulo comune con fd_previsione e fd_verifica)
 
 
+def ore_cambio_colore(ore):
+    """v3.65: ore incerte in cui i due estremi della forbice dei modelli hanno colori diversi del semaforo."""
+    try:
+        import fd_previsione as F
+        return [o.get("ora") for o in ore if o.get("incerta") and o.get("forbice")
+                and F.semaforo(o["forbice"][0], None) != F.semaforo(o["forbice"][1], None)]
+    except Exception as e:
+        print(f"build_site: cambio di colore non calcolato ({e})")
+        return []
+
+
 def sintesi(P, giorno):
     """Valori per la pagina della zona, tutti presi dal JSON della previsione."""
     s = {}
@@ -121,6 +132,7 @@ def sintesi(P, giorno):
                  "incerta": bool(o.get("incerta")), "forbice": o.get("forbice")} for o in ore]
     # v3.48: ore con previsione incerta (fd_previsione >= 1.48: modelli in disaccordo)
     s["incerta"] = [o.get("ora") for o in ore if o.get("incerta")]
+    s["incerta_colore"] = ore_cambio_colore(ore)   # v3.65: in prima pagina solo se la forbice cambia il semaforo
     stime = [o["stima"] for o in ore if isinstance(o.get("stima"), (int, float))]
     raff = [o["raff"] for o in ore if isinstance(o.get("raff"), (int, float))]
     s["vento_min"] = min(stime) if stime else None
