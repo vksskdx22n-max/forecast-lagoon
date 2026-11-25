@@ -583,8 +583,8 @@ async function controlla(){caricaAdesso();try{
 let NASC=0;   // v3.53: tornando all'app dopo almeno 2 minuti la scelta di giorno e fascia riparte dalla fascia dell'orario
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){NASC=Date.now();return}
  if(document.visibilityState!=='visible')return;
- if(NASC&&Date.now()-NASC>=2*60*1000){FS=null;TFS=null;const p=location.hash.replace(/^#/,'').split('/');
-  if(p[0]==='zona'&&p.length>2)location.hash='zona/'+p[1];else vai()}
+ if(NASC){const vecchio=Date.now()-NASC>=2*60*1000;if(vecchio){FS=null;TFS=null}   // v3.68: rientrando nell'app si torna sempre alla prima pagina
+  if(location.hash.length>1){history.replaceState(null,'',location.pathname+location.search);vai();window.scrollTo(0,0)}else if(vecchio)vai()}
  NASC=0;controlla()});
 setInterval(controlla,15*60*1000);
 function vai(){if(!D||!G)return;const p=location.hash.replace(/^#/,'').split('/');if(p[0]==='zona')zona(p[1],p[2],p[3],p[4]);else if(p[0]==='giorni')giorni();else home();riempiAdesso()}   // v3.55: p[4]='g' = aperta da Prossimi giorni
