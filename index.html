@@ -244,7 +244,7 @@ function istruzioni(){
  <h4>Il semaforo</h4><ul><li><span class="sem" style="background:var(--verde)"></span><b>Verde</b>: vento medio fino a ${k(v)} nodi</li><li><span class="sem" style="background:var(--giallo)"></span><b>Giallo</b>: da ${k1(v)} a ${km(r)} nodi</li><li><span class="sem" style="background:var(--rosso)"></span><b>Rosso</b>: da ${k(r)} nodi in su</li></ul><p>Vento medio dell'ora; le raffiche sono indicate ma non cambiano il colore.</p>
  <h4>Aggiornamenti</h4><p><b>Vento, pioggia e nebbia</b> si aggiornano verso le ${esc((D.ore_giri||[]).join(', '))}: anche la fascia in corso. Verso le ${esc(D.ora_mattino||'')} esce la <b>provvisoria</b> per il giorno dopo, verso le ${esc(D.ora_aggiornamento||'')} la <b>definitiva</b>. La <b>marea</b> si aggiorna a ogni nuovo bollettino del Centro Maree, di norma entro pochi minuti. Sotto le fasce ci sono i due orari separati; con ⚠ in giallo il dato è più vecchio del previsto. La verifica confronta con le misure la previsione fatta prima dell'inizio della fascia.</p><h4>Le fasce</h4><p>I bottoni sotto la cartina mostrano la fascia in corso e le prossime; all'apertura è scelta la fascia in corso se finisce tra più di un'ora, altrimenti la prossima. Il vento è corretto con le misure in laguna al mattino e di sera; nel pomeriggio il modello sbaglia poco e non è corretto. Il PDF raccoglie le tre fasce del giorno in una pagina.</p>
  <h4>Pioggia</h4><p>In prima pagina, per ogni zona, la probabilità più alta di pioggia nella fascia: grigia sotto il 20%, azzurra dal 20%, in evidenza dal 50%. Le ore sono nella pagina della zona, ora per ora.</p>
- <h4>Marea</h4><p>Il grafico copre tutte le 24 ore alla stazione della zona (Laguna Nord Saline, Malamocco Porto, Chioggia Porto), con ora e centimetri sullo zero di Punta Salute di alte (▲, in bianco) e basse (▼, in verde lime); la barretta turchese sulle ore indica la fascia scelta, la linea gialla è adesso. Se la successiva alta cade dopo mezzanotte, entro le 03:00, è scritta al bordo destro con la freccia (e nei riquadri come «domani»). La curva è la previsione; il puntino giallo è l'acqua misurata: se sta sotto la curva l'acqua è più bassa del previsto, se sta sopra è più alta. Nella pagina della zona, in alto sulla linea gialla compaiono i centimetri misurati dalla stazione e, sopra il grafico, l'ora della misura; senza una misura degli ultimi 30 minuti il puntino non c'è. Il tratto già passato è in grigio: è l'ultima previsione, non una misura. È la previsione del Centro Maree per Punta Salute spostata con i ritardi e le differenze di quota misurati alle stazioni; il passaggio da Punta Salute alle zone non considera il vento. La Laguna Nord (Saline) arriva circa 70–90 minuti dopo Punta Salute, Malamocco e Chioggia quasi non ritardano. Nella pagina della zona si tocca il grafico per leggere ora e livello; la linea tratteggiata è la marea astronomica. Orario indicativo: con maree piccole il colmo è piatto e l'ora è meno precisa.</p>
+ <h4>Marea</h4><p>Il grafico di oggi copre 24 ore che scorrono con l’orologio: 8 ore già passate e 16 che arrivano; la riga verticale con scritto «domani» (o «oggi», nelle prime ore) segna la mezzanotte. Per gli altri giorni va dalle 00 alle 24. È riferito alla stazione della zona (Laguna Nord Saline, Malamocco Porto, Chioggia Porto), con ora e centimetri sullo zero di Punta Salute di alte (▲, in bianco) e basse (▼, in verde lime); la barretta turchese sulle ore indica la fascia scelta, la linea gialla è adesso. La curva è la previsione; il puntino giallo è l'acqua misurata: se sta sotto la curva l'acqua è più bassa del previsto, se sta sopra è più alta. Nella pagina della zona, in alto sulla linea gialla compaiono i centimetri misurati dalla stazione e, sopra il grafico, l'ora della misura; senza una misura degli ultimi 30 minuti il puntino non c'è. Il tratto già passato è in grigio: è l'ultima previsione, non una misura. È la previsione del Centro Maree per Punta Salute spostata con i ritardi e le differenze di quota misurati alle stazioni; il passaggio da Punta Salute alle zone non considera il vento. La Laguna Nord (Saline) arriva circa 70–90 minuti dopo Punta Salute, Malamocco e Chioggia quasi non ritardano. Nella pagina della zona si tocca il grafico per leggere ora e livello; la linea tratteggiata è la marea astronomica. Orario indicativo: con maree piccole il colmo è piatto e l'ora è meno precisa.</p>
   <h4>Nebbia</h4><p>Nella pagina della zona, ora per ora: probabile, poco probabile o non probabile. È un'indicazione dai modelli, non ancora verificata con le misure.</p><p>Quando c'è nebbia adesso compare anche la <b>visibilità misurata</b> all'aeroporto di Venezia Tessera, sul bordo nord della laguna (più lontano dalla zona, più è indicativa): nebbia fitta fino a 200 m, nebbia fino a 500 m, nebbia leggera fino a 1000 m; «banchi di nebbia» quando l'aeroporto li segnala anche con visibilità migliore.</p>
  <h4>Previsione incerta ⚠</h4><p>Compare quando i modelli non sono d’accordo: ICON-D2 prevede almeno 3 nodi più di ECMWF (già corretto). In quelle ore per prudenza la stima segue ICON-D2, il più alto dei due, e il vento reale può stare in tutta la forbice. In prima pagina il ⚠ compare accanto al vento solo se la forbice va da un colore del semaforo a un altro; il dettaglio ora per ora è nella pagina della zona. Succede in media circa un giorno su cinque al Centro, meno a Nord e Sud.</p>
  <h4>Vento adesso</h4><p>Nella pagina della zona, sotto la tabella ora per ora, il grafico di oggi unisce il vento <b>misurato</b> dalla stazione del Centro Maree della zona (in bianco, ultime 3 ore, con raffica, direzione, ora e andamento) e la <b>stima</b> delle prossime ore, fino a 8 (in turchese). La linea tratteggiata turchese è la stima sulle ore già passate, per vedere se il vento sta andando come previsto; i puntini sono le raffiche previste, la barretta verticale la forbice dei modelli, le fasce colorate il semaforo. Negli altri giorni il grafico mostra solo la previsione della fascia scelta.</p><p>In prima pagina il vento misurato adesso è scritto sulla cartina, sotto il nome di ogni zona (nodi, direzione con freccia, raffica); le tre fasce sotto il titolo sono solo la previsione.</p>
@@ -306,64 +306,82 @@ function orari(sel){   // orari del vento (previsione) e della marea (bollettino
  const E=D.zone.map(z=>{const x=m24(sel.data,z.id);return x&&x.emessa}).filter(Boolean),M=E.length?quandoTxt(E[0]):quandoTxt((V[0]||{}).marea_emessa);
  const att=giroAtteso(sel.data),ore=(D.vecchia_dopo_ore||{}).marea,aperta=sel.fine>new Date();
  return {vento:w&&w.txt,marea:M&&M.txt,ventoVecchio:!!(aperta&&w&&att&&w.t<att-15*6e4),mareaVecchia:!!(aperta&&M&&ore&&(new Date()-M.t)>ore*36e5)}}
-function scala24(zz,min,max){const v=zz.flatMap(z=>z.curva.concat(max&&z.astro?z.astro:[]).filter(p=>p[0]>=0&&p[0]<=1440).map(p=>p[1]));return [Math.min(...v,min??1e9),Math.max(...v,max??-1e9)]}
+function scala24(zz,min,max){const v=zz.flatMap(z=>z.curva.concat(max&&z.astro?z.astro:[]).filter(p=>p[0]>=z.a&&p[0]<=z.a+1440).map(p=>p[1]));return [Math.min(...v,min??1e9),Math.max(...v,max??-1e9)]}
 function mis24(zona,data){   // v3.74: livello misurato valido per "adesso" (oggi, non più vecchio di 30 minuti)
  const L=AD&&AD.zone&&AD.zone[zona]&&AD.zone[zona].livello,N=adessoIT();
  return L&&L.disponibile&&L.cm!=null&&data===N.d&&L.data===data&&N.m-L.min<=30?L:null}
-function dopoMezz(Z,data,zona){   // v3.76: primo colmo di alta dopo mezzanotte, entro le 03:00 (a destra del grafico non si vede)
- const dentro=e=>e.tipo==='alta'&&e.min>=1440&&e.min<=1620;let e=(Z.estremi||[]).find(dentro);if(e)return e;
- const g=new Date(Date.parse(data+'T00:00:00Z')+864e5).toISOString().slice(0,10),Y=((D.marea24||{})[g]||{})[zona];
- e=Y&&(Y.estremi||[]).find(x=>x.tipo==='alta'&&x.min>=0&&x.min<=180);return e?{...e,min:e.min+1440}:null}
+const PRIMA=480;   // v3.77: nel grafico di oggi, minuti di marea passata prima di "adesso" (il resto delle 24 ore e' futuro)
+const piuGiorni=(data,k)=>new Date(Date.parse(data+'T00:00:00Z')+k*864e5).toISOString().slice(0,10);
+const quale=m=>m<0?'ieri':m>=1440?'domani':'';
+function fin24(data,zona){   // v3.77: marea da disegnare, in minuti dalla mezzanotte di "data": oggi da adesso-8 ore a adesso+16, altri giorni 00-24
+ const Z=m24(data,zona);if(!Z)return null;const N=adessoIT(),mob=data===N.d,a=mob?N.m-PRIMA:0,b=a+1440;
+ const V=mob?[-1,0,1].map(k=>[k*1440,m24(piuGiorni(data,k),zona)]):[[0,Z]],ha=o=>V.some(v=>v[0]===o&&v[1]);
+ const suo=t=>{const o=Math.floor(t/1440)*1440;return ha(o)?o:0};   // ogni istante dal suo giorno; se manca, dal margine di quello scelto
+ const unisci=k=>{const P=new Map();V.forEach(([o,Y])=>((Y&&Y[k])||[]).forEach(p=>{const t=p[0]+o;if(suo(t)===o)P.set(t,p[1])}));
+  const c=[...P].sort((p,q)=>p[0]-q[0]),d=c.filter(p=>p[0]>=a&&p[0]<=b);
+  for(const t of [a,b]){const v=valC(c,t);if(v!=null&&!d.some(p=>p[0]===t))d.push([t,v])}
+  return d.sort((p,q)=>p[0]-q[0])};
+ const E=[];V.forEach(([o,Y])=>((Y&&Y.estremi)||[]).forEach(e=>{const m=e.min+o;if(suo(m)===o&&m>=a&&m<b&&!E.some(x=>x.tipo===e.tipo&&Math.abs(x.min-m)<120))E.push({...e,min:m})}));
+ E.sort((p,q)=>p.min-q.min);
+ return {...Z,a,mob,curva:unisci('curva'),astro:Z.astro?unisci('astro'):null,estremi:E}}
 function g24(Z,data,f,o){
  const W=o.W,H=o.H,L=o.L||2,R=o.R||2,T=o.T,B=o.B,big=o.big,fs=o.fs,N=adessoIT();
- const x=t=>L+t/1440*(W-L-R),y=v=>T+(o.sc[1]-v)/((o.sc[1]-o.sc[0])||1)*(H-T-B),pt=c=>c.map(p=>x(p[0]).toFixed(1)+','+y(p[1]).toFixed(1)).join(' ');
- const dentro=c=>(c||[]).filter(p=>p[0]>=0&&p[0]<=1440),C=dentro(Z.curva);
+ const a=Z.a,b=a+1440,x=t=>L+(t-a)/1440*(W-L-R),y=v=>T+(o.sc[1]-v)/((o.sc[1]-o.sc[0])||1)*(H-T-B),pt=c=>c.map(p=>x(p[0]).toFixed(1)+','+y(p[1]).toFixed(1)).join(' ');
+ const C=Z.curva;
  let s=`<svg class="g24" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
-  if(big)for(let v=Math.ceil(o.sc[0]/20)*20;v<=o.sc[1];v+=20)s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#fff" stroke-opacity="${v===0?.45:.08}" stroke-width="${v===0?1.2:1}"/><text x="${L-4}" y="${y(v)+3.5}" text-anchor="end" font-size="10" fill="#8aa6b6">${v}</text>`;
+  const soglie=(D.soglie_marea||[]).filter(v=>v>=o.sc[0]&&v<=o.sc[1]);
+  if(big)for(let v=Math.ceil(o.sc[0]/20)*20;v<=o.sc[1];v+=20)s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#fff" stroke-opacity="${v===0?.45:.08}" stroke-width="${v===0?1.2:1}"/>`+(soglie.some(g=>Math.abs(y(g)-y(v))<10)?'':`<text x="${L-4}" y="${y(v)+3.5}" text-anchor="end" font-size="10" fill="#8aa6b6">${v}</text>`);
  (D.soglie_marea||[]).forEach((v,i)=>{if(v>o.sc[1]||v<o.sc[0])return;const c=i?'#ef5b4c':'#f2a13c';
-  s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="${c}" stroke-width="1" stroke-opacity=".75" stroke-dasharray="${big?'':'3 3'}"/>`+(big?`<text x="${L+3}" y="${y(v)-3}" font-size="9.5" fill="${c}">${v} cm</text>`:'')});
- for(let t=0;t<=1440;t+=big?180:360)s+=`<line x1="${x(t)}" x2="${x(t)}" y1="${H-14}" y2="${H-11}" stroke="#8aa6b6" stroke-opacity=".6"/><text x="${x(t)}" y="${H-2}" font-size="${big?10:9}" fill="#8aa6b6" text-anchor="${t===0?'start':t===1440?'end':'middle'}">${String(t/60).padStart(2,'0')}</text>`;
- if(big&&Z.astro)s+=`<polyline points="${pt(dentro(Z.astro))}" fill="none" stroke="#8aa6b6" stroke-width="1.3" stroke-dasharray="4 4"/>`;
+  s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="${c}" stroke-width="1" stroke-opacity=".75" stroke-dasharray="${big?'':'3 3'}"/>`+(big?`<text x="${L-4}" y="${y(v)+3.5}" text-anchor="end" font-size="10" font-weight="700" fill="${c}">${v}</text>`:'')});
+ const passo=big?180:360,notte=Z.mob?[0,1440].filter(t=>t>=a&&t<=b).map(t=>Math.max(L+16,Math.min(W-R-16,x(t)))):[];
+ for(let t=Math.ceil(a/passo)*passo;t<=b;t+=passo){const mn=Z.mob&&t%1440===0,tx=mn?(t>0?'domani':'oggi'):String((t%1440+1440)%1440/60||(Z.mob?0:t/60)).padStart(2,'0'),m=mn?17:6,px=x(t),
+   an=px<L+m?'start':px>W-R-m?'end':'middle';
+  if(mn)s+=`<line class="mezzanotte" x1="${px}" x2="${px}" y1="${big?T-4:2}" y2="${H-11}" stroke="#8aa6b6" stroke-width="1" stroke-opacity=".75" stroke-dasharray="2 3"/>`;
+  s+=`<line x1="${px}" x2="${px}" y1="${H-14}" y2="${H-11}" stroke="#8aa6b6" stroke-opacity=".6"/><text x="${an==='start'?Math.max(L,px-3):an==='end'?Math.min(W-R,px+3):px}" y="${H-2}" font-size="${big?10:9}" fill="${mn?'#eaf3f7':'#8aa6b6'}" font-weight="${mn?700:400}" text-anchor="${an}">${!mn&&notte.some(c=>Math.abs(px-c)<34)?'':tx}</text>`}
+ if(big&&Z.astro)s+=`<polyline points="${pt(Z.astro)}" fill="none" stroke="#8aa6b6" stroke-width="1.3" stroke-dasharray="4 4"/>`;
  // v3.65: tratto gia' passato in grigio e piu' sottile: e' l'ultimo bollettino, non una misura
- const ora=data<N.d?1440:data===N.d?N.m:0,vo=valC(C,ora),lin=(c,pass)=>c.length>1?`<polyline class="${pass?'pas':'fut'}" points="${pt(c)}" fill="none" stroke="${pass?'#aebfc9':'#5fd4d0'}" stroke-opacity="${pass?.8:1}" stroke-width="${pass?(big?1.8:1.5):(big?2.8:2.2)}" stroke-linejoin="round" stroke-linecap="round"/>`:'';
- const q0=vo!=null&&ora>0&&ora<1440?[[ora,vo]]:[];
- s+=lin(C.filter(p=>p[0]<=ora&&ora>0).concat(q0),true)+lin(q0.concat(C.filter(p=>p[0]>=ora&&ora<1440)),false);
- if(f)s+=`<rect class="fascia" x="${x(f[0])+1}" y="${H-15}" width="${Math.max(0,x(Math.min(1440,f[1]))-x(f[0])-2)}" height="3.5" rx="1.7" fill="#5fd4d0"/>`;   // v3.65: fascia scelta sull'asse delle ore
+ const ora=data<N.d?b:data===N.d?N.m:a,vo=valC(C,ora),lin=(c,pass)=>c.length>1?`<polyline class="${pass?'pas':'fut'}" points="${pt(c)}" fill="none" stroke="${pass?'#aebfc9':'#5fd4d0'}" stroke-opacity="${pass?.8:1}" stroke-width="${pass?(big?1.8:1.5):(big?2.8:2.2)}" stroke-linejoin="round" stroke-linecap="round"/>`:'';
+ const q0=vo!=null&&ora>a&&ora<b?[[ora,vo]]:[];
+ s+=lin(C.filter(p=>p[0]<=ora&&ora>a).concat(q0),true)+lin(q0.concat(C.filter(p=>p[0]>=ora&&ora<b)),false);
+ const fa=f&&[Math.max(a,f[0]),Math.min(b,f[1])];
+ if(fa&&fa[1]>fa[0])s+=`<rect class="fascia" x="${x(fa[0])+1}" y="${H-15}" width="${Math.max(0,x(fa[1])-x(fa[0])-2)}" height="3.5" rx="1.7" fill="#5fd4d0"/>`;   // v3.65: fascia scelta sull'asse delle ore
  const M=mis24(o.zona,data);let giallo='';   // v3.74: giallo = acqua misurata, curva = previsione
  if(data===N.d){s+=`<line x1="${x(N.m)}" x2="${x(N.m)}" y1="${big?T-12:2}" y2="${H-13}" stroke="#f2c14e" stroke-width="1.3" stroke-dasharray="3 3"/>`+(big?`<text class="ora" x="${Math.max(L+(M?48:20),Math.min(W-R-(M?48:20),x(N.m)))}" y="${T-16}" text-anchor="middle" font-size="${M?12:10}" font-weight="${M?750:400}" fill="#f2c14e">adesso${M?' '+M.cm+' cm':''}</text>`:'');
   if(M)giallo=`<circle class="mis" cx="${x(N.m)}" cy="${y(M.cm)}" r="${big?5:3.2}" fill="#f2c14e" stroke="#0f2638" stroke-width="${big?1.5:1}"/>`}
- for(const e of Z.estremi.filter(e=>e.min>=0&&e.min<1440)){const c=C.filter(p=>Math.abs(p[0]-e.min)<=45),q=c.length?c.reduce((a,p)=>(e.tipo==='alta'?p[1]>a[1]:p[1]<a[1])?p:a,c[0]):[e.min,e.cm];
+ for(const e of Z.estremi){const c=C.filter(p=>Math.abs(p[0]-e.min)<=45),q=c.length?c.reduce((a,p)=>(e.tipo==='alta'?p[1]>a[1]:p[1]<a[1])?p:a,c[0]):[e.min,e.cm];
   const px=x(q[0]),py=y(q[1]),hi=e.tipo==='alta',ce=hi?'#eaf3f7':'#ccff33',fr=hi?'▲':'▼',half=o.two?29:45,tx=Math.max(L+half,Math.min(W-R-half,px)),st=`paint-order="stroke" stroke="#0f2638" stroke-width="3" stroke-linejoin="round" text-anchor="middle"`;
   s+=`<circle cx="${px}" cy="${py}" r="${big?3.4:2.6}" fill="${ce}"/>`;   // v3.69: alta in bianco ▲, bassa in lime ▼
   if(o.two){const y1=hi?py-fs-8:py+fs+3;s+=`<text x="${tx}" y="${y1}" font-size="${fs+1}" font-weight="750" fill="${ce}" ${st}>${fr} ${e.cm} cm</text><text x="${tx}" y="${y1+fs}" font-size="${fs-.5}" fill="#b8cdd8" ${st}>${esc(e.ora)}</text>`}
-  else s+=`<text x="${tx}" y="${hi?Math.max(fs,py-5):py+fs+4}" font-size="${fs}" fill="#b8cdd8" ${st}>${esc(e.ora)} <tspan font-weight="750" fill="${ce}">${fr} ${e.cm} cm</tspan></text>`}
- const S=dopoMezz(Z,data,o.zona),ve=S&&valC(Z.curva,1440);
- if(ve!=null){const px=W-R,py=y(ve),st=`paint-order="stroke" stroke="#0f2638" stroke-width="3" stroke-linejoin="round" text-anchor="end" class="dopo"`;
-  s+=o.two?`<text x="${px}" y="${py-fs-8}" font-size="${fs+1}" font-weight="750" fill="#eaf3f7" ${st}>▲ ${S.cm} cm →</text><text x="${px}" y="${py-8}" font-size="${fs-.5}" fill="#b8cdd8" ${st}>${esc(S.ora)} domani</text>`
-   :`<text x="${px}" y="${Math.max(fs,py-5)}" font-size="${fs}" fill="#b8cdd8" ${st}>${esc(S.ora)} → <tspan font-weight="750" fill="#eaf3f7">▲ ${S.cm} cm</tspan></text>`}
+  else s+=`<text class="est1" x="${tx}" y="${hi?Math.max(fs,py-5):py+fs+4}" font-size="${fs}" fill="#b8cdd8" ${st}>${esc(e.ora)} <tspan font-weight="750" fill="${ce}">${fr} ${e.cm} cm</tspan></text>`}
  return s+giallo+(big?'<g class="cur"></g>':'')+'</svg>'}
 function disegna24(){   // disegna i grafici alla larghezza disponibile; richiamata a ogni minuto, al ridimensionamento e dopo la misura
- document.querySelectorAll('[data-g24]').forEach(el=>{const [data,zona,fin]=el.dataset.g24.split('|'),Z=m24(data,zona),W=Math.floor(el.clientWidth);if(!Z||W<100)return;
+ document.querySelectorAll('[data-g24]').forEach(el=>{const [data,zona,fin]=el.dataset.g24.split('|'),Z=fin24(data,zona),W=Math.floor(el.clientWidth);if(!Z||W<100)return;
   const f=fin?finMin(fin):null;
   if(el.dataset.big){const M=mis24(zona,data);let sc=scala24([Z],Math.min(-10,M?M.cm:-10),Math.max((D.soglie_marea||[110])[0]+5,M?M.cm:-1e9));sc=[Math.floor((sc[0]-14)/10)*10,Math.ceil((sc[1]+14)/10)*10];
-   el.innerHTML=g24(Z,data,f,{W,H:290,L:26,R:4,T:30,B:24,fs:11,two:true,big:true,sc,zona});misurato24(el,Z,data,zona)}
+   el.dataset.a=Z.a;el.innerHTML=g24(Z,data,f,{W,H:290,L:26,R:4,T:30,B:24,fs:11,two:true,big:true,sc,zona});misurato24(el,Z,data,zona);
+   const q=el.closest('.card').querySelector('.est');if(q){q.style.gridTemplateColumns=`repeat(${Math.max(Z.estremi.length,1)},1fr)`;q.innerHTML=riquadri(Z)}}
   else{const zz=(D.marea24||{})[data],m=Object.keys(zz).map(k=>mis24(k,data)).filter(Boolean).map(l=>l.cm);
-   el.innerHTML=g24(Z,data,f,{W,H:70,T:13,B:34,fs:10.5,sc:scala24(Object.values(zz),m.length?Math.min(...m):null,m.length?Math.max(...m):null),zona})}})}
+   el.innerHTML=g24(Z,data,f,{W,H:70,T:13,B:34,fs:10.5,sc:scala24(Object.keys(zz).map(k=>fin24(data,k)),m.length?Math.min(...m):null,m.length?Math.max(...m):null),zona});scosta(el,W)}})}
+function scosta(el,W){   // v3.77: sui grafici piccoli, su schermi stretti, due scritte sulla stessa riga non si toccano
+ const T=[...el.querySelectorAll('text.est1')].map(t=>({t,x:+t.getAttribute('x'),y:+t.getAttribute('y'),h:t.getComputedTextLength()/2}));
+ for(let i=0;i<T.length;i++)for(let j=i+1;j<T.length;j++){const a=T[i],b=T[j],ov=a.h+b.h+4-(b.x-a.x);if(Math.abs(a.y-b.y)<10&&ov>0){
+  a.x=Math.max(a.h+2,a.x-ov/2);b.x=Math.min(W-b.h-2,Math.max(b.x,a.x+a.h+b.h+4));a.x=Math.min(a.x,b.x-a.h-b.h-4);a.t.setAttribute('x',a.x);b.t.setAttribute('x',b.x)}}}
 function misurato24(el,Z,data,zona){   // v3.74: sopra il grafico dice cos'è il puntino giallo
  const r=el.closest('.card').querySelector('.misl'),L=mis24(zona,data);if(!r)return;
  r.innerHTML=L?`<b style="color:#f2c14e">●</b> Puntino giallo: acqua misurata alle ${esc(L.ora)}`:''}
 function leggi24(box,ev){   // tocco sul grafico grande: ora e livello
- const [data,zona]=box.dataset.g24.split('|'),Z=m24(data,zona),svg=box.querySelector('svg');if(!Z||!svg)return;const r=svg.getBoundingClientRect(),W=r.width;
- const m=Math.max(0,Math.min(1440,Math.round((ev.clientX-r.left-26)/(W-30)*1440/10)*10)),a=valC(Z.curva,m),b=valC(Z.astro,m);if(a==null)return;const X=26+m/1440*(W-30);
+ const [data,zona]=box.dataset.g24.split('|'),Z=fin24(data,zona),svg=box.querySelector('svg');if(!Z||!svg)return;const r=svg.getBoundingClientRect(),W=r.width;
+ const z=Z.a,m=Math.max(z,Math.min(z+1440,Math.round((z+(ev.clientX-r.left-26)/(W-30)*1440)/10)*10)),a=valC(Z.curva,m),b=valC(Z.astro,m);if(a==null)return;const X=Math.max(26,Math.min(W-4,26+(m-z)/1440*(W-30)));
  svg.querySelector('.cur').innerHTML=`<line x1="${X}" x2="${X}" y1="20" y2="277" stroke="#fff" stroke-width="1"/>`;
- box.closest('.card').querySelector('.lett').innerHTML=`${hm(m)} · <span style="color:var(--teal)">${Math.round(a)} cm</span>${b!=null?` <span style="color:var(--mut);font-weight:500">astronomica ${Math.round(b)} cm</span>`:''}`}
+ box.closest('.card').querySelector('.lett').innerHTML=`${hm((m%1440+1440)%1440)}${Z.mob&&quale(m)?' '+quale(m):''} · <span style="color:var(--teal)">${Math.round(a)} cm</span>${b!=null?` <span style="color:var(--mut);font-weight:500">astronomica ${Math.round(b)} cm</span>`:''}`}
 function scheda24(id,v){   // pagina della zona: scheda della marea sulle 24 ore, dopo il vento (v3.67)
- const Z=m24(v.data,id);if(!Z)return '';const S=dopoMezz(Z,v.data,id),E=Z.estremi.filter(e=>e.min>=0&&e.min<1440).concat(S?[S]:[]),B=Z.emessa&&quandoTxt(Z.emessa),N=adessoIT();
+ const Z=fin24(v.data,id);if(!Z)return '';const E=Z.estremi,B=Z.emessa&&quandoTxt(Z.emessa),N=adessoIT();
  return `<div class="sec mcol"><div class="card"><div class="ch">Marea 24 ore <span>${esc(Z.stazione)} · cm su ZMPS</span></div><div class="lett">Tocca il grafico per leggere ora e livello</div><div class="misl"></div>
  <div style="margin-top:4px;touch-action:pan-y" data-g24="${v.data}|${id}|${esc(v.finestra)}" data-big="1" class="g24h" onpointerdown="leggi24(this,event)" onpointermove="leggi24(this,event)"></div>
  <div class="leg"><span><i style="border-color:#5fd4d0"></i>${Z.emessa?'prevista (CPSM, per zona)':'astronomica (senza vento)'}</span>${Z.astro?'<span><i style="border-color:#8aa6b6;border-top-style:dashed"></i>astronomica</span>':''}<span><i style="border-color:#f2a13c"></i>${esc((D.soglie_marea||[])[0])} cm</span></div>
  <div class="note">${B?'Bollettino CPSM delle '+esc(B.txt)+'. ':'Bollettino CPSM non disponibile per questo giorno. '}${v.data<=N.d?'In grigio il tratto già passato: è l’ultima previsione, non una misura.':''}</div>
- <div class="est" style="grid-template-columns:repeat(${Math.max(E.length,1)},1fr)">${E.map(e=>`<div class="e${e.tipo}">${e.tipo==='alta'?'▲ alta':'▼ bassa'}<b>${e.cm} cm</b>${esc(e.ora)}${e.min>=1440?'<br>domani':''}</div>`).join('')}</div></div></div>`}
+ <div class="est" style="grid-template-columns:repeat(${Math.max(Z.estremi.length,1)},1fr)">${riquadri(Z)}</div></div></div>`}
+function riquadri(Z){return Z.estremi.map(e=>`<div class="e${e.tipo}">${e.tipo==='alta'?'▲ alta':'▼ bassa'}<b>${e.cm} cm</b>${esc(e.ora)}${Z.mob&&quale(e.min)?'<br>'+quale(e.min):''}</div>`).join('')}
 setInterval(disegna24,60*1000);
 window.addEventListener('resize',disegna24);
 function tendGiorni(ult){const T=D&&D.tendenza;return T&&T.giorni?T.giorni.filter(g=>!ult||g.data>ult):[]}   // v3.39
