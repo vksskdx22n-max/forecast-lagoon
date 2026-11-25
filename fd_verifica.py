@@ -65,7 +65,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.32"   # v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+VERSIONE = "1.33"   # v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
 # v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
 # Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
 # 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
@@ -1184,7 +1184,10 @@ function grafico(Z){const se=Z.serie;if(!se.length)return null;const W=520,H=210
  s+=`<polyline fill="none" stroke="#94a3b8" stroke-width="1" points="${se.map(p=>X(p[0])+','+Y(p[2])).join(' ')}"/>`;
  s+=`<polyline fill="none" stroke="#1e3a6b" stroke-width="2" points="${se.map(p=>X(p[0])+','+Y(p[1])).join(' ')}"/>`;
  const pt=(k,c,r)=>Z.ore.forEach(o=>{if(o[k]==null)return;const m=+o.ora.slice(0,2)*60;s+=`<circle cx="${X(m)}" cy="${Y(o[k])}" r="${r}" fill="${c}"/>`;});
- pt('stima','#dc2626',4);pt('d2','#f59e0b',3.5);pt('ec','#7c3aed',3.5);return h('div',{html:s+'</svg>'});}
+ const U=Z.ore.filter(o=>o.stima!=null&&o.d2!=null&&Math.abs(o.stima-o.d2)<0.05);
+ pt('d2','#f59e0b',3.5);pt('ec','#7c3aed',3.5);pt('stima','#dc2626',4);
+ U.forEach(o=>{const m=+o.ora.slice(0,2)*60;s+=`<circle class="uguali" cx="${X(m)}" cy="${Y(o.stima)}" r="6.5" fill="none" stroke="#f59e0b" stroke-width="2.5"/>`;});
+ return h('div',{},h('div',{html:s+'</svg>'}),U.length?h('div',{cls:'nota',html:'<b style="color:#dc2626">●</b> con anello <b style="color:#f59e0b">arancione</b>: stima uguale a ICON-D2 (nessuna correzione '+(U.length===Z.ore.length?'in questa fascia':'in quelle ore')+').'}):null);}
 D.zone.forEach(Z=>{const S=Z.sintesi,c=h('div',{cls:'card'},h('h2',{},'💨 '+Z.zona),h('div',{cls:'nota',style:'margin:-8px 0 10px'},'Misura: '+Z.stazione));
  if(S.sem_mis)c.append(h('div',{cls:'verd'},h('div',{cls:'dot '+S.sem_mis,html:'misurato<br>'+S.sem_mis}),h('div',{},
    `${Z.zona}: previsto ${S.sem_prev_zona||'–'}, misurato ${S.sem_mis} (colore più frequente nelle ore, stessa regola). Colore azzeccato in ${S.n?S.ok+' ore su '+S.n:'–'}. `
@@ -1253,7 +1256,7 @@ const LEGA='<span><i style="background:#dc2626;height:4px"></i><b>stima</b> (pre
 if(AN&&AN.giorni&&AN.giorni.length){
  app.append(h('div',{cls:'card'},h('h2',{},'📈 Andamento giorno per giorno · '+AN.zona),
   h('h3',{},'Errore assoluto medio (nodi): più basso = previsione migliore'),graf(AN.giorni,[['ass_stima','#dc2626',2.6],['ass_d2','#f59e0b',1.8]],'ass'),h('div',{cls:'leg',html:LEGA}),
-  h('h3',{},'Errore medio con segno (nodi): sopra zero previsione troppo alta, sotto troppo bassa'),graf(AN.giorni,[['stima','#dc2626',2.6],['d2','#f59e0b',1.8]],'segno'),h('div',{cls:'leg',html:LEGA}),
+  h('h3',{},'Errore medio con segno (nodi): sopra zero previsione troppo alta, sotto troppo bassa'),graf(AN.giorni,[['d2','#f59e0b',3.6],['stima','#dc2626',1.8]],'segno'),h('div',{cls:'leg',html:LEGA}),
   tabAn(AN.giorni,'Giorno'),
   AN.tot?h('div',{cls:'nota'},`Tutte le ${AN.tot.n} ore: errore assoluto medio stima ${n(AN.tot.ass_stima)} nodi, ICON-D2 ${n(AN.tot.ass_d2)} nodi. Misura: ${AN.stazione}.`):null));
  app.append(h('div',{cls:'card'},h('h2',{},'🕐 Errore per ora del mattino'),

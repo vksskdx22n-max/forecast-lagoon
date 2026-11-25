@@ -43,7 +43,10 @@ function grafico(Z){const se=Z.serie;if(!se.length)return null;const W=520,H=210
  s+=`<polyline fill="none" stroke="#94a3b8" stroke-width="1" points="${se.map(p=>X(p[0])+','+Y(p[2])).join(' ')}"/>`;
  s+=`<polyline fill="none" stroke="#1e3a6b" stroke-width="2" points="${se.map(p=>X(p[0])+','+Y(p[1])).join(' ')}"/>`;
  const pt=(k,c,r)=>Z.ore.forEach(o=>{if(o[k]==null)return;const m=+o.ora.slice(0,2)*60;s+=`<circle cx="${X(m)}" cy="${Y(o[k])}" r="${r}" fill="${c}"/>`;});
- pt('stima','#dc2626',4);pt('d2','#f59e0b',3.5);pt('ec','#7c3aed',3.5);return h('div',{html:s+'</svg>'});}
+  const U=Z.ore.filter(o=>o.stima!=null&&o.d2!=null&&Math.abs(o.stima-o.d2)<0.05);
+ pt('d2','#f59e0b',3.5);pt('ec','#7c3aed',3.5);pt('stima','#dc2626',4);
+ U.forEach(o=>{const m=+o.ora.slice(0,2)*60;s+=`<circle class="uguali" cx="${X(m)}" cy="${Y(o.stima)}" r="6.5" fill="none" stroke="#f59e0b" stroke-width="2.5"/>`;});
+ return h('div',{},h('div',{html:s+'</svg>'}),U.length?h('div',{cls:'nota',html:'<b style="color:#dc2626">●</b> con anello <b style="color:#f59e0b">arancione</b>: stima uguale a ICON-D2 (nessuna correzione '+(U.length===Z.ore.length?'in questa fascia':'in quelle ore')+').'}):null);}
 D.zone.forEach(Z=>{const S=Z.sintesi,c=h('div',{cls:'card'},h('h2',{},'💨 '+Z.zona),h('div',{cls:'nota',style:'margin:-8px 0 10px'},'Misura: '+Z.stazione));
  if(S.sem_mis)c.append(h('div',{cls:'verd'},h('div',{cls:'dot '+S.sem_mis,html:'misurato<br>'+S.sem_mis}),h('div',{},
    `${Z.zona}: previsto ${S.sem_prev_zona||'–'}, misurato ${S.sem_mis} (colore più frequente nelle ore, stessa regola). Colore azzeccato in ${S.n?S.ok+' ore su '+S.n:'–'}. `
