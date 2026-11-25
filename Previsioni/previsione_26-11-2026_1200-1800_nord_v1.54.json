@@ -766,10 +766,10 @@
    {
     "tipo": "max",
     "ora": "26/11 00:40",
-    "cm": 105,
+    "cm": 95,
     "astro_ora": "00:00",
     "astro_cm": 60,
-    "diff_cm": 45,
+    "diff_cm": 35,
     "diff_min": 40,
     "min_curva": 40
    },
@@ -824,10 +824,10 @@
     "min_curva": 1785
    }
   ],
-  "cpsm_emessa": "25/11 21:30",
+  "cpsm_emessa": "25/11 23:30",
   "fonte_fase": "previsione CPSM",
   "cpsm_vecchia": false,
-  "cpsm_eta_h": 20,
+  "cpsm_eta_h": 18,
   "ferma": false,
   "vel_max": 25.1,
   "sequenza": [
@@ -1384,15 +1384,15 @@
    "curva": [
     [
      680,
-     115.3
+     115.1
     ],
     [
      690,
-     116.2
+     116.1
     ],
     [
      700,
-     117.0
+     116.9
     ],
     [
      710,
@@ -1400,7 +1400,7 @@
     ],
     [
      720,
-     117.8
+     117.7
     ],
     [
      730,
@@ -1587,7 +1587,7 @@
    "fonte": "previsione CPSM Punta Salute",
    "config": "1.1"
   },
-  "aggiornata": "25/11/2026 21:55"
+  "aggiornata": "25/11/2026 23:30"
  },
  "correnti": {
   "ore": [
@@ -1981,13 +1981,13 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "25/11 21:50",
-    "valore": "10,7"
+    "ora": "25/11 23:25",
+    "valore": "10,6"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "25/11 21:50",
-    "valore": "9,6"
+    "ora": "25/11 23:25",
+    "valore": "9,9"
    }
   ],
   "aria_acqua": [
