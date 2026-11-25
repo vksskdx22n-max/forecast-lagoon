@@ -6,7 +6,7 @@
  "zone": "Malamocco · Valgrande · San Leonardo · Fisolo · Alberoni",
  "verdetto": {
   "colore": "rosso",
-  "testo": "Andamento: giallo 18 → rosso dalle 19. Vento da 39° NE · Bora. Media delle 4 zone di pesca: 12,4–20,2 nodi, raffiche medie fino a 25,7. Per zona: Malamocco · Valgrande 12,4–19,9 nodi, raffiche fino a 25,3; San Leonardo · Melison 12,3–20,2 nodi, raffiche fino a 24,7; Fisolo 12,7–21,4 nodi, raffiche fino a 25,9; Bocca · Alberoni 12,4–19,2 nodi, raffiche fino a 26,8. Attenzione: raffiche fino a 26,8 nodi (Bocca · Alberoni, 23:00); non cambiano il colore, che segue il vento medio. Marea crescente dalle 17:20 alla massima delle 00:00. (Orari marea: previsione CPSM.)",
+  "testo": "Andamento: giallo 18 → rosso dalle 19. Vento da 39° NE · Bora. Media delle 4 zone di pesca: 12,4–20,2 nodi, raffiche medie fino a 25,7. Per zona: Malamocco · Valgrande 12,4–19,9 nodi, raffiche fino a 25,3; San Leonardo · Melison 12,3–20,2 nodi, raffiche fino a 24,7; Fisolo 12,7–21,4 nodi, raffiche fino a 25,9; Bocca · Alberoni 12,4–19,2 nodi, raffiche fino a 26,8. Attenzione: raffiche fino a 26,8 nodi (Bocca · Alberoni, 23:00); non cambiano il colore, che segue il vento medio. Marea crescente dalle 17:20 alla massima delle 00:40. (Orari marea: previsione CPSM.)",
   "andamento": [
    {
     "colore": "giallo",
@@ -36,8 +36,8 @@
     "stima": 12.4,
     "raff": 18.7,
     "marea": "↑",
-    "cm_h": 9.2,
-    "corr": 0.3,
+    "cm_h": 7.1,
+    "corr": 0.23,
     "verso": "entra",
     "incerta": false,
     "forbice": null
@@ -48,8 +48,8 @@
     "stima": 15.3,
     "raff": 18.9,
     "marea": "↑",
-    "cm_h": 17.2,
-    "corr": 0.82,
+    "cm_h": 13.9,
+    "corr": 0.66,
     "verso": "entra",
     "incerta": false,
     "forbice": null
@@ -60,8 +60,8 @@
     "stima": 16.9,
     "raff": 21.1,
     "marea": "↑",
-    "cm_h": 21.2,
-    "corr": 1.19,
+    "cm_h": 18.2,
+    "corr": 0.96,
     "verso": "entra",
     "incerta": false,
     "forbice": null
@@ -72,8 +72,8 @@
     "stima": 17.6,
     "raff": 21.8,
     "marea": "↑",
-    "cm_h": 22.2,
-    "corr": 1.36,
+    "cm_h": 20.2,
+    "corr": 1.24,
     "verso": "entra",
     "incerta": false,
     "forbice": null
@@ -84,8 +84,8 @@
     "stima": 19.6,
     "raff": 24.8,
     "marea": "↑",
-    "cm_h": 17.2,
-    "corr": 1.18,
+    "cm_h": 16.8,
+    "corr": 1.07,
     "verso": "entra",
     "incerta": true,
     "forbice": [
@@ -99,8 +99,8 @@
     "stima": 20.2,
     "raff": 25.7,
     "marea": "↑",
-    "cm_h": 10.2,
-    "corr": 0.82,
+    "cm_h": 12.3,
+    "corr": 0.88,
     "verso": "entra",
     "incerta": true,
     "forbice": [
@@ -701,13 +701,13 @@
    },
    {
     "tipo": "max",
-    "ora": "26/11 00:00",
-    "cm": 110,
+    "ora": "26/11 00:40",
+    "cm": 105,
     "astro_ora": "00:00",
     "astro_cm": 60,
-    "diff_cm": 50,
-    "diff_min": 0,
-    "min_curva": 1440
+    "diff_cm": 45,
+    "diff_min": 40,
+    "min_curva": 1480
    },
    {
     "tipo": "min",
@@ -720,12 +720,12 @@
     "min_curva": 1740
    }
   ],
-  "cpsm_emessa": "25/11 17:00",
+  "cpsm_emessa": "25/11 21:30",
   "fonte_fase": "previsione CPSM",
   "cpsm_vecchia": false,
-  "cpsm_eta_h": 7,
+  "cpsm_eta_h": 2,
   "ferma": false,
-  "vel_max": 22.2,
+  "vel_max": 20.2,
   "sequenza": [
    {
     "da": "24/11 23:15",
@@ -985,163 +985,163 @@
    ],
    [
     1050,
-    10.4
+    10.2
    ],
    [
     1060,
-    10.8
+    10.5
    ],
    [
     1070,
-    12.1
+    11.7
    ],
    [
     1080,
-    13.5
+    12.9
    ],
    [
     1090,
-    14.9
+    14.1
    ],
    [
     1100,
-    17.2
+    15.3
    ],
    [
     1110,
-    19.6
+    17.3
    ],
    [
     1120,
-    22.0
+    19.4
    ],
    [
     1130,
-    24.4
+    21.4
    ],
    [
     1140,
-    26.8
+    23.5
    ],
    [
     1150,
-    30.1
+    25.5
    ],
    [
     1160,
-    33.5
+    28.5
    ],
    [
     1170,
-    36.9
+    31.2
    ],
    [
     1180,
-    40.2
+    34.1
    ],
    [
     1190,
-    43.6
+    37.0
    ],
    [
     1200,
-    47.0
+    39.8
    ],
    [
     1210,
-    50.4
+    43.7
    ],
    [
     1220,
-    54.8
+    46.5
    ],
    [
     1230,
-    58.1
+    49.4
    ],
    [
     1240,
-    62.5
+    53.3
    ],
    [
     1250,
-    65.9
+    56.1
    ],
    [
     1260,
-    69.2
+    60.0
    ],
    [
     1270,
-    73.6
+    62.9
    ],
    [
     1280,
-    77.0
+    66.1
    ],
    [
     1290,
-    80.4
+    69.6
    ],
    [
     1300,
-    83.8
+    72.5
    ],
    [
     1310,
-    87.1
+    75.3
    ],
    [
     1320,
-    89.5
+    78.3
    ],
    [
     1330,
-    92.9
+    81.3
    ],
    [
     1340,
-    95.2
+    84.4
    ],
    [
     1350,
-    97.6
+    86.4
    ],
    [
     1360,
-    100.0
+    89.5
    ],
    [
     1370,
-    102.4
+    91.5
    ],
    [
     1380,
-    103.8
+    93.5
    ],
    [
     1390,
-    105.1
+    95.6
    ],
    [
     1400,
-    106.5
+    97.6
    ],
    [
     1410,
-    107.9
+    98.7
    ],
    [
     1420,
-    109.2
+    100.6
    ],
    [
     1430,
-    109.6
+    101.8
    ],
    [
     1440,
-    110.0
+    102.8
    ]
   ],
   "fonte_livello": "previsione CPSM",
@@ -1152,27 +1152,27 @@
   "velocita": [
    {
     "ora": "18:00",
-    "cm_h": 9.2
+    "cm_h": 7.1
    },
    {
     "ora": "19:00",
-    "cm_h": 17.2
+    "cm_h": 13.9
    },
    {
     "ora": "20:00",
-    "cm_h": 21.2
+    "cm_h": 18.2
    },
    {
     "ora": "21:00",
-    "cm_h": 22.2
+    "cm_h": 20.2
    },
    {
     "ora": "22:00",
-    "cm_h": 17.2
+    "cm_h": 16.8
    },
    {
     "ora": "23:00",
-    "cm_h": 10.2
+    "cm_h": 12.3
    }
   ],
   "zona": {
@@ -1188,163 +1188,163 @@
     ],
     [
      1040,
-     10.6
+     10.4
     ],
     [
      1050,
-     11.1
+     10.8
     ],
     [
      1060,
-     12.3
+     11.9
     ],
     [
      1070,
-     13.7
+     13.1
     ],
     [
      1080,
-     15.0
+     14.2
     ],
     [
      1090,
-     17.2
+     15.4
     ],
     [
      1100,
-     19.5
+     17.3
     ],
     [
      1110,
-     21.8
+     19.3
     ],
     [
      1120,
-     24.1
+     21.2
     ],
     [
      1130,
-     26.4
+     23.2
     ],
     [
      1140,
-     29.5
+     25.1
     ],
     [
      1150,
-     32.8
+     27.9
     ],
     [
      1160,
-     36.0
+     30.5
     ],
     [
      1170,
-     39.1
+     33.3
     ],
     [
      1180,
-     42.4
+     36.1
     ],
     [
      1190,
-     45.6
+     38.7
     ],
     [
      1200,
-     48.9
+     42.3
     ],
     [
      1210,
-     52.9
+     45.1
     ],
     [
      1220,
-     56.2
+     47.9
     ],
     [
      1230,
-     60.2
+     51.5
     ],
     [
      1240,
-     63.7
+     54.3
     ],
     [
      1250,
-     66.8
+     57.8
     ],
     [
      1260,
-     70.8
+     60.8
     ],
     [
      1270,
-     74.3
+     63.8
     ],
     [
      1280,
-     77.5
+     67.0
     ],
     [
      1290,
-     80.8
+     70.0
     ],
     [
      1300,
-     83.9
+     72.7
     ],
     [
      1310,
-     86.5
+     75.5
     ],
     [
      1320,
-     89.4
+     78.3
     ],
     [
      1330,
-     92.0
+     81.2
     ],
     [
      1340,
-     94.2
+     83.5
     ],
     [
      1350,
-     96.5
+     86.1
     ],
     [
      1360,
-     98.8
+     88.4
     ],
     [
      1370,
-     100.6
+     90.3
     ],
     [
      1380,
-     101.9
+     92.3
     ],
     [
      1390,
-     103.2
+     94.2
     ],
     [
      1400,
-     104.5
+     95.6
     ],
     [
      1410,
-     105.8
+     97.1
     ],
     [
      1420,
-     106.6
+     98.5
     ],
     [
      1430,
-     107.0
+     99.6
     ]
    ],
    "estremi": [
@@ -1357,9 +1357,9 @@
     },
     {
      "tipo": "alta",
-     "min": 1436,
-     "ora": "23:56",
-     "cm": 107,
+     "min": 1476,
+     "ora": "00:36",
+     "cm": 102,
      "incertezza_min": 13
     }
    ],
@@ -1369,7 +1369,8 @@
    ],
    "fonte": "previsione CPSM Punta Salute",
    "config": "1.1"
-  }
+  },
+  "aggiornata": "25/11/2026 21:55"
  },
  "correnti": {
   "ore": [
@@ -1385,27 +1386,27 @@
     "canale": "Bocca di Malamocco",
     "valori": [
      {
-      "ms": 0.3,
+      "ms": 0.23,
       "verso": "entra"
      },
      {
-      "ms": 0.82,
+      "ms": 0.66,
       "verso": "entra"
      },
      {
-      "ms": 1.19,
+      "ms": 0.96,
       "verso": "entra"
      },
      {
-      "ms": 1.36,
+      "ms": 1.24,
       "verso": "entra"
      },
      {
-      "ms": 1.18,
+      "ms": 1.07,
       "verso": "entra"
      },
      {
-      "ms": 0.82,
+      "ms": 0.88,
       "verso": "entra"
      }
     ]
@@ -1414,27 +1415,27 @@
     "canale": "C. Malamocco Marghera",
     "valori": [
      {
-      "ms": 0.21,
+      "ms": 0.16,
       "verso": "entra"
      },
      {
-      "ms": 0.59,
+      "ms": 0.47,
       "verso": "entra"
      },
      {
-      "ms": 0.87,
+      "ms": 0.7,
       "verso": "entra"
      },
      {
-      "ms": 1.01,
+      "ms": 0.92,
       "verso": "entra"
      },
      {
-      "ms": 0.88,
+      "ms": 0.8,
       "verso": "entra"
      },
      {
-      "ms": 0.63,
+      "ms": 0.67,
       "verso": "entra"
      }
     ]
@@ -1443,27 +1444,27 @@
     "canale": "C. Rocchetta",
     "valori": [
      {
-      "ms": 0.19,
+      "ms": 0.15,
       "verso": "entra"
      },
      {
-      "ms": 0.52,
+      "ms": 0.42,
       "verso": "entra"
      },
      {
-      "ms": 0.76,
+      "ms": 0.61,
       "verso": "entra"
      },
      {
-      "ms": 0.86,
+      "ms": 0.79,
       "verso": "entra"
      },
      {
-      "ms": 0.75,
+      "ms": 0.68,
       "verso": "entra"
      },
      {
-      "ms": 0.52,
+      "ms": 0.56,
       "verso": "entra"
      }
     ]
@@ -1472,27 +1473,27 @@
     "canale": "C. Fisolo",
     "valori": [
      {
-      "ms": 0.15,
+      "ms": 0.12,
       "verso": "entra"
      },
      {
-      "ms": 0.39,
+      "ms": 0.31,
       "verso": "entra"
      },
      {
-      "ms": 0.56,
+      "ms": 0.45,
       "verso": "entra"
      },
      {
-      "ms": 0.63,
+      "ms": 0.57,
       "verso": "entra"
      },
      {
-      "ms": 0.54,
+      "ms": 0.49,
       "verso": "entra"
      },
      {
-      "ms": 0.37,
+      "ms": 0.4,
       "verso": "entra"
      }
     ]
@@ -1501,19 +1502,15 @@
     "canale": "C. Darsena San Leonardo",
     "valori": [
      {
-      "ms": 0.07,
+      "ms": 0.06,
       "verso": "entra"
      },
      {
-      "ms": 0.28,
+      "ms": 0.22,
       "verso": "entra"
      },
      {
-      "ms": 0.44,
-      "verso": "entra"
-     },
-     {
-      "ms": 0.52,
+      "ms": 0.34,
       "verso": "entra"
      },
      {
@@ -1521,7 +1518,11 @@
       "verso": "entra"
      },
      {
-      "ms": 0.34,
+      "ms": 0.41,
+      "verso": "entra"
+     },
+     {
+      "ms": 0.36,
       "verso": "entra"
      }
     ]
@@ -1717,13 +1718,13 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "25/11 18:25",
-    "valore": "11,5"
+    "ora": "25/11 21:50",
+    "valore": "10,7"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "25/11 18:25",
-    "valore": "9,3"
+    "ora": "25/11 21:50",
+    "valore": "9,6"
    }
   ],
   "aria_acqua": [
@@ -1927,7 +1928,7 @@
      ],
      "Fisolo": [
       0.28,
-      0.51
+      0.5
      ],
      "C. Petroli · Fusina": [
       0.31,
@@ -1940,19 +1941,19 @@
     "v": {
      "Malamocco · Valgrande": [
       0.33,
-      0.6
+      0.59
      ],
      "San Leonardo · Melison": [
       0.34,
-      0.62
+      0.61
      ],
      "Fisolo": [
-      0.31,
+      0.3,
       0.55
      ],
      "C. Petroli · Fusina": [
-      0.33,
-      0.59
+      0.32,
+      0.58
      ]
     }
    },
@@ -1961,18 +1962,18 @@
     "v": {
      "Malamocco · Valgrande": [
       0.35,
-      0.63
+      0.62
      ],
      "San Leonardo · Melison": [
       0.43,
-      0.78
+      0.77
      ],
      "Fisolo": [
-      0.34,
-      0.61
+      0.33,
+      0.6
      ],
      "C. Petroli · Fusina": [
-      0.35,
+      0.34,
       0.62
      ]
     }
@@ -1986,11 +1987,11 @@
      ],
      "San Leonardo · Melison": [
       0.43,
-      0.78
+      0.77
      ],
      "Fisolo": [
-      0.37,
-      0.66
+      0.36,
+      0.65
      ],
      "C. Petroli · Fusina": [
       0.36,
