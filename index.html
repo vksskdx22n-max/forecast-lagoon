@@ -271,7 +271,7 @@ function segnaOra(){   // v3.37: linea "adesso" sul mini-grafico della marea, so
   const W=74,T=11,B=30,X=t=>(t-z.f[0])/(z.f[1]-z.f[0])*W,Y=v=>B-1-(v-z.sc[0])/(z.sc[1]-z.sc[0]||1)*(B-T-2);
   let h=null;for(let i=1;i<z.C.length;i++){const a=z.C[i-1],b=z.C[i];if(a[0]<=m&&m<=b[0]){h=a[1]+(b[1]-a[1])*((m-a[0])/((b[0]-a[0])||1));break}}
   const x=X(m).toFixed(1);let s=`<line x1="${x}" y1="${T-2}" x2="${x}" y2="${B}" stroke="#f2c14e" stroke-width="1.2" stroke-dasharray="2 2"/>`+(h!=null?`<circle cx="${x}" cy="${Y(h).toFixed(1)}" r="2.4" fill="#f2c14e"/>`:'');
-  if(ct){const bx=+ct.dataset.bx,nx=+x;if(Math.abs(bx-nx)<13){const left=bx<=nx;ct.setAttribute('text-anchor',left?'end':'start');ct.setAttribute('x',(left?bx-3:bx+3).toFixed(1))}else base()}   // v3.54: scosta il numero dei cm dalla linea "adesso"
+  base();   // v3.63: il numero dei cm resta sempre centrato sopra il colmo (prima, v3.54, si scostava di lato quando "adesso" era vicino: col numero centrato della v3.62 creava incoerenza — Sud a destra, Nord/Centro centrati)
   const L=AD&&AD.zone&&AD.zone[g.dataset.mnow]&&AD.zone[g.dataset.mnow].livello;   // v3.42: livello misurato adesso alla stazione (Worker >= 2.10)
   if(L&&L.disponibile&&L.data===oggi&&L.min>=z.f[0]&&L.min<=z.f[1]&&L.cm!=null){const yl=Math.max(T+2,Math.min(B,Y(L.cm)));s+=`<circle cx="${X(L.min).toFixed(1)}" cy="${yl.toFixed(1)}" r="2.7" fill="none" stroke="#ffffff" stroke-width="1.4"/>`}
   g.innerHTML=s})}
