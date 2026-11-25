@@ -169,6 +169,7 @@ details.card p{font-size:13.5px;line-height:1.5;color:var(--soft);margin-top:8px
  .zhero svg{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%)}
  .corpo{column-count:2;column-gap:4px;padding:0 12px}
  .corpo .sec{break-inside:avoid}
+ .corpo .sec.mcol{-webkit-column-break-before:always;break-before:column}   /* v3.67: vento a sinistra, marea e resto a destra */
  .corpo .days,.corpo .btns,.corpo .list{column-span:all}
  .zwrap{max-width:1200px;margin:0 auto}
 }
@@ -335,9 +336,9 @@ function leggi24(box,ev){   // tocco sul grafico grande: ora e livello
  const m=Math.max(0,Math.min(1440,Math.round((ev.clientX-r.left-26)/(W-30)*1440/10)*10)),a=valC(Z.curva,m),b=valC(Z.astro,m);if(a==null)return;const X=26+m/1440*(W-30);
  svg.querySelector('.cur').innerHTML=`<line x1="${X}" x2="${X}" y1="20" y2="277" stroke="#fff" stroke-width="1"/>`;
  box.closest('.card').querySelector('.lett').innerHTML=`${hm(m)} · <span style="color:var(--teal)">${Math.round(a)} cm</span>${b!=null?` <span style="color:var(--mut);font-weight:500">astronomica ${Math.round(b)} cm</span>`:''}`}
-function scheda24(id,v){   // pagina della zona: scheda della marea sulle 24 ore, subito sotto il semaforo
+function scheda24(id,v){   // pagina della zona: scheda della marea sulle 24 ore, dopo il vento (v3.67)
  const Z=m24(v.data,id);if(!Z)return '';const E=Z.estremi.filter(e=>e.min>=0&&e.min<1440),B=Z.emessa&&quandoTxt(Z.emessa),N=adessoIT();
- return `<div class="sec"><div class="card"><div class="ch">Marea 24 ore <span>${esc(Z.stazione)} · cm su ZMPS</span></div><div class="lett">Tocca il grafico per leggere ora e livello</div>
+ return `<div class="sec mcol"><div class="card"><div class="ch">Marea 24 ore <span>${esc(Z.stazione)} · cm su ZMPS</span></div><div class="lett">Tocca il grafico per leggere ora e livello</div>
  <div style="margin-top:4px;touch-action:pan-y" data-g24="${v.data}|${id}|${esc(v.finestra)}" data-big="1" class="g24h" onpointerdown="leggi24(this,event)" onpointermove="leggi24(this,event)"></div>
  <div class="leg"><span><i style="border-color:#5fd4d0"></i>${Z.emessa?'prevista (CPSM, per zona)':'astronomica (senza vento)'}</span>${Z.astro?'<span><i style="border-color:#8aa6b6;border-top-style:dashed"></i>astronomica</span>':''}<span><i style="border-color:#f2a13c"></i>${esc((D.soglie_marea||[])[0])} cm</span></div>
  <div class="note">${B?'Bollettino CPSM delle '+esc(B.txt)+'. ':'Bollettino CPSM non disponibile per questo giorno. '}${v.data<=N.d?'In grigio il tratto già passato: è l’ultima previsione, non una misura.':''}</div>
@@ -450,14 +451,14 @@ function zona(id,dsel,fsel_,prov){
  h+=`<div class="sec"><div class="verdict" style="background:${col(c)};color:${oncol(c)}"><div class="k">${esc(etichetta(v.data))} · ${esc(v.finestra||'')}</div>
  <div class="v">${TXT[c]||'n.d.'}</div>${v.emessa?`<div class="prov">${relativo(v.data)==='Oggi'?`Previsione aggiornata alle ${esc(v.emessa)}`:v.provvisoria?`Previsione provvisoria delle ${esc(v.emessa)} · la definitiva esce verso le ${esc(D.ora_aggiornamento||'')}`:`Previsione definitiva delle ${esc(v.emessa)}`}</div>`:''}<p>${esc(s.andamento||'')}</p>
  <div class="hours" style="grid-template-columns:repeat(${Math.max(ore.length,1)},1fr)">${ore.map(o=>`<div style="${TXT[o.sem]?`--cs:var(--${o.sem}-s);--cn:var(--on-${o.sem}-s)`:''}">${esc(o.ora)}<b>${nf(o.stima,0)}</b><u>kn</u></div>`).join('')}</div></div></div>`;
- h+=scheda24(id,v);   // v3.64
- if(relativo(v.data)==='Oggi'||v===z0)h+=`<div class="sec"><div class="card vad vis" data-vis="${z.id}" style="display:none"></div></div>`;   // v3.26: visibilita' adesso (Tessera)   // v3.13: vento adesso, solo sul giorno piu' recente
+ if(relativo(v.data)==='Oggi'||v===z0)h+=`<div class="sec"><div class="card vad vis" data-vis="${z.id}" style="display:none"></div></div>`;   // v3.26: visibilita' a Tessera; v3.67: subito sotto il semaforo
  h+=incBox(s);h+=oraPerOra(s);
  const oggi=adessoIT().d,live=v.data===oggi||(v===z0&&!z.voci.some(a=>a.data===oggi));VG={z,v,live};   // v3.66
  if(live||(s.ore_dettaglio||[]).length>1)h+=`<div class="sec"><div class="card vgr" id="vgraf"></div></div>`;
  h+=`<div class="sec grid2"><div class="card"><div class="ch">Vento medio</div><div class="big">${rng(s.vento_min,s.vento_max)}<small>kn</small></div><div class="note">${s.direzione?'da '+esc(s.direzione)+(s.direzione_nome?' · '+esc(s.direzione_nome):''):''}</div></div>
  <div class="card"><div class="ch">Raffiche</div><div class="big">${nf(s.raff_max,0)}<small>kn</small></div><div class="note">massimo nella finestra; non cambiano il colore</div></div></div>`;
- if(!m24(v.data,id)&&(s.marea_curva||[]).length>1)h+=`<div class="sec"><div class="card"><div class="ch">Marea <span>${esc(s.marea_fonte||'')}${s.marea_eta_h!=null?' · emesso '+s.marea_eta_h+' h prima':''}${s.marea_vecchia?' · tendenza meno affidabile':''}</span></div>${curva(s)}
+ h+=scheda24(id,v);   // v3.67: prima tutto il vento, poi la marea
+ if(!m24(v.data,id)&&(s.marea_curva||[]).length>1)h+=`<div class="sec mcol"><div class="card"><div class="ch">Marea <span>${esc(s.marea_fonte||'')}${s.marea_eta_h!=null?' · emesso '+s.marea_eta_h+' h prima':''}${s.marea_vecchia?' · tendenza meno affidabile':''}</span></div>${curva(s)}
  <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--soft)">${(s.marea_estremali||[]).map(e=>`<span>${e.tipo==='max'?'▲':'▼'} ${e.cm>0?'+':''}${e.cm} cm · ${esc(e.ora)}</span>`).join('')}</div></div></div>`;
  h+=nebbia(s);h+=pioggia(s);h+=meteoOnda(s);
  if((s.corrente||[]).length)h+=`<div class="sec"><div class="card"><div class="ch">Corrente <span>${esc(s.canale||'')}</span></div><div style="margin-top:6px;font-size:14.5px;line-height:1.5">${s.corrente.map(t=>`${t.verso==='entra'?'Entrante':'Uscente'} ${t.da===t.a?'alle '+esc(t.da):'dalle '+esc(t.da)+' alle '+esc(t.a)}`).join(' · ')}</div></div></div>`;
