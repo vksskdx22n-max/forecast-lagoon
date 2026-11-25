@@ -35,6 +35,29 @@ h1 span{color:var(--teal)}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(95,212,208,.18)}
 .credit{position:absolute;right:12px;bottom:8px;font-size:9px;color:rgba(255,255,255,.5)}
 .zones{padding:6px 16px 0}
+.zc{display:grid;grid-template-columns:5px minmax(0,1fr);background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:15px;overflow:hidden;margin-bottom:6px;cursor:pointer}.zc.off{opacity:.6;cursor:default}   /* v3.64: scheda della zona con la marea delle 24 ore */
+.zc .bar{border-radius:0 5px 5px 0;margin:6px 0}.zc .in{padding:5px 8px 3px;min-width:0}
+.zc .r1{display:flex;align-items:center;gap:7px;white-space:nowrap;height:21px}.zc .zname{font-size:17px}.zc .r1 .sp{flex:1}.zc .chip{font-size:11px;padding:2px 9px}.zc .wind{font-size:12.5px;font-weight:650}
+.zc .r2{display:flex;gap:6px;height:18px;align-items:center;margin-top:1px;overflow:hidden}.zc .r2 .piog,.zc .r2 .inc{margin:0;font-size:11px}.zc .r2 .zmeta{font-size:11px;overflow:hidden;text-overflow:ellipsis}
+.g24h{display:block}svg.g24{display:block}.g24 text{font-family:-apple-system,Inter,sans-serif}
+.leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--soft);margin-top:6px}.leg i{display:inline-block;width:16px;border-top:2.5px solid;vertical-align:middle;margin-right:5px}
+.lett{font-size:15px;font-weight:650;margin-top:8px;color:var(--txt)}
+.est{display:grid;gap:6px;margin-top:10px}.est div{border:1px solid var(--line);border-radius:10px;text-align:center;padding:5px 2px;font-size:11px;color:var(--mut)}.est b{display:block;font-size:16px;color:var(--txt)}
+.vecchio{color:var(--giallo)}
+@media (max-width:899px){   /* v3.64: prima pagina senza scorrimento, la cartina prende lo spazio che resta */
+ .home.h24{height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+ .h24 .testa{padding:calc(env(safe-area-inset-top) + 8px) 16px 6px;align-items:center;flex:none}.h24 .testa h1{font-size:25px;margin:0}.h24 .testa .sub{font-size:11px;margin-top:1px;color:var(--mut)}
+ .h24 .testa .info{width:34px;height:34px;font-size:18px;margin:0}
+ .h24 .hero{flex:1 1 0;height:auto;min-height:110px}.h24 .adMap{font-size:11px;padding:4px 10px;top:6px;left:10px}.h24 .adMap small{font-size:11px}
+ .h24 .giorno,.h24 .ritardo,.h24 .zones,.h24 .foot{flex:none}
+ .h24 .giorno{padding:0 14px 5px}.h24 .prevband{margin:0 0 5px;padding:6px 0 0}.h24 .ppill2{font-size:12px;padding:2px 12px}
+ .h24 .fsr{margin:0 0 4px}.h24 .fsb{font-size:12.5px;padding:3px 2px}
+ .h24 .giorno .gd{display:none}.h24 .giorno .gs{margin:0;gap:6px;font-size:11.5px;align-items:center;white-space:nowrap}.h24 .giorno .gs span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis}
+ .h24 .ritardo{margin:0 14px 5px;padding:5px 10px;font-size:11.5px;line-height:1.3}
+ .h24 .zones{padding:0 12px}
+ .h24 .foot{padding:1px 12px calc(env(safe-area-inset-bottom) + 4px);font-size:10px;line-height:14px;text-align:center;white-space:nowrap}
+}
+@media (max-width:410px){.h24 .giorno .gs{font-size:10.5px!important}.h24 .gbtn{font-size:11px;padding:0 8px}}
 .fsr{display:flex;gap:6px;margin:0 0 6px}.fsb{flex:1;text-align:center;font-size:13px;font-weight:650;padding:4px 2px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--mut);cursor:pointer;white-space:nowrap}.fsb.on{background:var(--teal);color:var(--ink);border-color:var(--teal)}.fsb.off{opacity:.4;cursor:default}   /* v3.49: bottoni delle fasce */
 .corpo .fsr{padding:8px 16px 0;margin:0;column-span:all}
 .giorno{padding:2px 20px 8px}.giorno .gt{font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1.1}.giorno .gt span{color:var(--teal)}   /* v3.25: titolo del giorno sotto la cartina */
@@ -137,7 +160,7 @@ details.card p{font-size:13.5px;line-height:1.5;color:var(--soft);margin-top:8px
  .home .giorno{grid-area:giorno;padding:0 28px 10px}.home .ritardo{grid-area:ritardo}   /* v3.47: titolo del giorno e "Prossimi giorni" anche su schermo largo (prima finivano fuori griglia) */
  .home .hero{grid-area:hero;position:sticky;top:0;height:100vh}
  .home .testa{grid-area:testa;padding:40px 28px 18px}.home .testa h1{font-size:46px}
- .home .zones{grid-area:zones;padding:6px 24px 0}.home .foot{grid-area:foot}
+ .home .zones{grid-area:zones;padding:6px 24px 0}.home .foot{grid-area:foot}.h24 .giorno .gd{display:flex}
  .zone{padding:18px 18px 18px 0}
  .zhero{height:380px}
  .zhero svg{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%)}
@@ -180,7 +203,7 @@ function slotDefault(){const S=slotVisibili(),n=new Date(),c=S.find(s=>s.ini<=n&
 function fsel(){const S=slotVisibili();if(!FS||!S.some(s=>s.k===FS))FS=slotDefault();return FS}
 function scegliFascia(k){FS=k;home();riempiAdesso()}   // v3.50: rimette il vento misurato sulla cartina (gia' caricato)
 function etFascia(s){const r=relativo(s.data),[a,b]=finMin(s.fin),hh=m=>String(Math.floor(m/60)).padStart(2,'0'),d=dataDi(s.data);
- return (r==='Oggi'&&a>=19*60?'Stasera':r||GG[d.getDay()]+' '+d.getDate())+' '+hh(a)+'–'+hh(b)}
+ return (r==='Oggi'&&a>=18*60?'Stasera':r||GG[d.getDay()]+' '+d.getDate())+' '+hh(a)+'–'+hh(b)}
 function ultima(z){const k=fsel();return (z.voci||[]).find(v=>v.data+'|'+v.finestra===k)||null}
 function mappa(vb,o){
  let s=`<svg viewBox="${vb}" preserveAspectRatio="${o.meet?'xMidYMid meet':'xMidYMid slice'}" xmlns="http://www.w3.org/2000/svg"><defs>
@@ -202,16 +225,16 @@ function mappa(vb,o){
   <circle ${o.adesso?`data-azona="${z.id}" `:''}cx="${x+34}" cy="${y-5}" r="13" fill="${hex}"/><text x="${x+60}" y="${y+10}" fill="#fff" font-size="43" font-weight="750" letter-spacing="-.5">${t}</text></g>${o.adesso?`<g data-adm="${z.id}" data-x="${x}" data-y="${y-126}" style="pointer-events:none"></g>`:''}`});   // v3.59: targhetta nodi piu' in alto (pillola piu' grande)
  return s+'</svg>'}
 function piede(){return `<div class="foot">Previsione indicativa: non sostituisce i bollettini ufficiali. <b>Fonti e licenze</b> → <span class="flink" role="button" onclick="istruzioni()">istruzioni (i)</span><br>Sito v${esc(D.versione_sito)}${D.autore?' · a cura di '+esc(D.autore):''} · aggiornato ${new Date(D.aggiornato_utc).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div>`}   // v3.57: fonti spostate nelle istruzioni, qui solo il rimando
-function finestra(){return null}   // v3.49: tre fasce (05–12, 13–18, 19–24)
+function finestra(){return null}   // v3.49: tre fasce (v3.64: 05–12, 12–18, 18–24)
 function istruzioni(){
  const R=D.regole||{},v=R.verde_fino_a,r=R.rosso_da,k=x=>x==null?'…':nf(x,0),k1=x=>x==null?'…':nf(x+1,0),km=x=>x==null?'…':nf(x-1,0);
  const el=document.createElement('div');el.className='velo';el.onclick=e=>{if(e.target===el)el.remove()};
  el.innerHTML=`<div class="sheet"><h3>Come si legge<span class="x" onclick="this.closest('.velo').remove()">Chiudi</span></h3>
- <h4>Cos'è</h4><p>Previsione di vento e mare per uscire in barca in laguna (Nord, Centro, Sud), in tre fasce della giornata: 05–12, 13–18 e 19–24, da scegliere con i bottoni sotto la cartina. Una previsione che impara: ogni giorno viene confrontata con le misure e corretta di conseguenza.</p>
+ <h4>Cos'è</h4><p>Previsione di vento e mare per uscire in barca in laguna (Nord, Centro, Sud), in tre fasce della giornata: 05–12, 12–18 e 18–24, da scegliere con i bottoni sotto la cartina. Una previsione che impara: ogni giorno viene confrontata con le misure e corretta di conseguenza.</p>
  <h4>Il semaforo</h4><ul><li><span class="sem" style="background:var(--verde)"></span><b>Verde</b>: vento medio fino a ${k(v)} nodi</li><li><span class="sem" style="background:var(--giallo)"></span><b>Giallo</b>: da ${k1(v)} a ${km(r)} nodi</li><li><span class="sem" style="background:var(--rosso)"></span><b>Rosso</b>: da ${k(r)} nodi in su</li></ul><p>Vento medio dell'ora; le raffiche sono indicate ma non cambiano il colore.</p>
- <h4>Due previsioni al giorno</h4><p>Verso le ${esc(D.ora_mattino||'')} la <b>provvisoria</b> per il giorno dopo, verso le ${esc(D.ora_aggiornamento||'')} la <b>definitiva</b>. Le fasce di oggi ancora da venire si aggiornano negli stessi giri (al mattino il pomeriggio e la sera, al pomeriggio la sera).</p><h4>Le fasce</h4><p>I bottoni sotto la cartina mostrano la fascia in corso e le prossime; all'apertura è scelta la prossima che deve ancora iniziare. Nel pomeriggio il modello sbaglia poco e non è corretto; di sera e al mattino è corretto con le misure in laguna. Il PDF raccoglie le tre fasce del giorno in una pagina.</p>
- <h4>Pioggia</h4><p>Sotto ogni zona la probabilità più alta di pioggia nella finestra e le ore in cui arriva almeno al 20%: grigia sotto il 20%, azzurra dal 20%, in evidenza dal 50%. Ora per ora nella pagina della zona.</p>
- <h4>Marea</h4><p>In ogni fascia la marea prevista nella finestra alla stazione della zona (Laguna Nord Saline, Malamocco Porto, Chioggia Porto), con l'ora dell'alta o della bassa. È la previsione del Centro Maree per Punta Salute spostata con i ritardi e le differenze di quota misurati alle stazioni, che dipendono dall'ampiezza della marea; il vento non è ancora considerato. I ritardi sono diversi per zona: la Laguna Nord (Saline), nell'interno, arriva circa 70–90 minuti dopo Punta Salute, mentre Malamocco e Chioggia, vicine alle bocche di porto, quasi non ritardano — perciò nella stessa giornata l'alta del Nord cade più tardi che al Centro e al Sud. Se nella finestra ci sono sia un'alta sia una bassa si mostra l'alta. Orario indicativo: con maree piccole il colmo è piatto e l'ora è meno precisa.</p>
+ <h4>Aggiornamenti</h4><p><b>Vento, pioggia e nebbia</b> si aggiornano verso le ${esc((D.ore_giri||[]).join(', '))}: anche la fascia in corso. Verso le ${esc(D.ora_mattino||'')} esce la <b>provvisoria</b> per il giorno dopo, verso le ${esc(D.ora_aggiornamento||'')} la <b>definitiva</b>. La <b>marea</b> si aggiorna a ogni nuovo bollettino del Centro Maree, di norma entro pochi minuti. Sotto le fasce ci sono i due orari separati; con ⚠ in giallo il dato è più vecchio del previsto. La verifica confronta con le misure la previsione fatta prima dell'inizio della fascia.</p><h4>Le fasce</h4><p>I bottoni sotto la cartina mostrano la fascia in corso e le prossime; all'apertura è scelta la fascia in corso se finisce tra più di un'ora, altrimenti la prossima. Il vento è corretto con le misure in laguna al mattino e di sera; nel pomeriggio il modello sbaglia poco e non è corretto. Il PDF raccoglie le tre fasce del giorno in una pagina.</p>
+ <h4>Pioggia</h4><p>In prima pagina, per ogni zona, la probabilità più alta di pioggia nella fascia: grigia sotto il 20%, azzurra dal 20%, in evidenza dal 50%. Le ore sono nella pagina della zona, ora per ora.</p>
+ <h4>Marea</h4><p>Il grafico copre tutte le 24 ore alla stazione della zona (Laguna Nord Saline, Malamocco Porto, Chioggia Porto), con ora e centimetri sullo zero di Punta Salute di alte e basse; la banda chiara è la fascia scelta, la linea gialla è adesso, il cerchietto bianco il livello misurato. Il tratto già passato è attenuato: è l'ultima previsione, non una misura. È la previsione del Centro Maree per Punta Salute spostata con i ritardi e le differenze di quota misurati alle stazioni; il passaggio da Punta Salute alle zone non considera il vento. La Laguna Nord (Saline) arriva circa 70–90 minuti dopo Punta Salute, Malamocco e Chioggia quasi non ritardano. Nella pagina della zona si tocca il grafico per leggere ora e livello; la linea tratteggiata è la marea astronomica. Orario indicativo: con maree piccole il colmo è piatto e l'ora è meno precisa.</p>
   <h4>Nebbia</h4><p>Nella pagina della zona, ora per ora: probabile, poco probabile o non probabile. È un'indicazione dai modelli, non ancora verificata con le misure.</p><p>Quando c'è nebbia adesso compare anche la <b>visibilità misurata</b> all'aeroporto di Venezia Tessera, sul bordo nord della laguna (più lontano dalla zona, più è indicativa): nebbia fitta fino a 200 m, nebbia fino a 500 m, nebbia leggera fino a 1000 m; «banchi di nebbia» quando l'aeroporto li segnala anche con visibilità migliore.</p>
  <h4>Previsione incerta ⚠</h4><p>Compare quando i modelli non sono d’accordo: ICON-D2 prevede almeno 3 nodi più di ECMWF (già corretto). In quelle ore la stima usa ICON-D2 senza correzione e il vento reale può stare in tutta la forbice. Succede in media circa un giorno su cinque al Centro, meno a Nord e Sud.</p>
  <h4>Vento adesso</h4><p>Vento <b>misurato</b> in questo momento dalla stazione del Centro Maree della zona, con raffica, direzione, ora e andamento delle ultime 3 ore. È una misura, non la previsione.</p><p>In prima pagina il vento misurato adesso è scritto sulla cartina, sotto il nome di ogni zona (nodi, direzione con freccia, raffica); le tre fasce sotto il titolo sono solo la previsione.</p>
@@ -238,44 +261,86 @@ function incBox(s){const O=((s&&s.ore)||[]).filter(o=>o.incerta&&o.forbice);if(!
  return `<div class="sec"><div class="card incb">⚠ <b>Previsione incerta, ore ${esc(oreTxt(O.map(o=>o.ora)))}.</b> I modelli non sono d’accordo: tra ${nf(lo,0)} e ${nf(hi,0)} nodi. In queste ore la stima è ICON-D2 senza correzione; il vento reale può stare in tutta la forbice.</div></div>`}
 function piogZona(s){   // v3.25: probabilita' massima di pioggia nella finestra (stesso valore della tabella Ora per ora) e ore dal 20%
  const O=((s&&s.ore_dettaglio)||[]).filter(o=>o.pioggia_prob!=null);if(!O.length)return '';
- const mx=Math.max(...O.map(o=>o.pioggia_prob)),hh=O.filter(o=>o.pioggia_prob>=20).map(o=>o.ora),k=mx>=50?2:mx>=20?1:0;
- const ore=k&&hh.length?' · '+(hh.length>1?hh[0]+'–'+hh[hh.length-1]:'ore '+hh[0]):'';
- return `<div class="piog p${k}"><svg viewBox="0 0 12 16" aria-hidden="true"><path d="M6 0C6 0 0 7.2 0 10.5a6 6 0 0 0 12 0C12 7.2 6 0 6 0Z" fill="currentColor"/></svg>Pioggia ${mx}%${ore}</div>`}
+ const mx=Math.max(...O.map(o=>o.pioggia_prob)),k=mx>=50?2:mx>=20?1:0;   // v3.64: senza ore (sono nella pagina della zona)
+  return `<div class="piog p${k}"><svg viewBox="0 0 12 16" aria-hidden="true"><path d="M6 0C6 0 0 7.2 0 10.5a6 6 0 0 0 12 0C12 7.2 6 0 6 0Z" fill="currentColor"/></svg>Pioggia ${mx}%</div>`}
 function titoloGiorno(){   // v3.49: bottoni delle fasce al posto del titolo grande, poi data e provvisoria/definitiva/aggiornata
  const S=slotVisibili(),k=fsel(),sel=S.find(s=>s.k===k);if(!sel)return {h:'',rif:null,data:null};
  const ult=sel.data,d=dataDi(ult),oggi=relativo(ult)==='Oggi';
  const V=D.zone.map(ultima).filter(Boolean),np=V.filter(v=>v.provvisoria).length,prov=np*2>V.length;
  const rif=V.filter(v=>v.provvisoria===prov),em=rif.map(v=>v.emessa).filter(Boolean).sort().pop();
  const s0=(V[0]&&V[0].sintesi)||{},[a]=finMin(sel.fin),sole=a<12*60?(s0.alba?' · alba '+esc(s0.alba):''):(s0.tramonto?' · tramonto '+esc(s0.tramonto):'');
- const st=(oggi?`Previsione aggiornata${em?' alle '+esc(em):''}`:prov?`Previsione provvisoria${em?' delle '+esc(em):''} · la definitiva esce verso le ${esc(D.ora_aggiornamento||'')}`:`Previsione definitiva${em?' delle '+esc(em):''}`)+sole;   // v3.57: soggetto "Previsione" davanti
+ const O=orari(sel),sp=(t,x)=>x?`<span class="vecchio">⚠ ${t}</span>`:t;
+ const st=(oggi?'':prov?'Provvisoria · ':'Definitiva · ')+[O.vento?sp('vento '+esc(O.vento),O.ventoVecchio):null,O.marea?sp('marea '+esc(O.marea),O.mareaVecchia):null].filter(Boolean).join(' · ')+sole;   // v3.64: orari separati
  const bt=S.map(s=>`<span class="fsb ${s.k===k?'on':''}" role="button" onclick="scegliFascia('${esc(s.k)}')">${esc(etFascia(s))}</span>`).join('');
  const haiProssimi=tendGiorni(slotTutti().map(s=>s.data).sort().pop()).length||D.zone.some(z=>z.attiva);   // v3.55: c'e' sempre almeno domani
  return {rif:prov,data:ult,h:`<div class="giorno"><div class="prevband"><span class="ppill2">Previsione</span></div><div class="fsr">${bt}</div><div class="gd"><span>${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</span></div><div class="gs"><span>${st}</span>${haiProssimi?'<span class="gbtn" role="button" onclick="location.hash=\'giorni\'">Prossimi giorni ›</span>':''}</div></div>`}}
-const MZN={};   // v3.37: curve dei mini-grafici per il segno "adesso" (zona -> {C,f,sc,data})
-function mareaMini(mz,sc,zid,data){   // v3.33-3.37: marea della zona nella finestra (curva da Punta Salute con ritardo e quota della stazione)
- if(!mz||!mz.curva||mz.curva.length<2||!sc)return '';const f=mz.fascia||[300,720],C=mz.curva.filter(p=>p[0]>=f[0]&&p[0]<=f[1]);if(C.length<2)return '';
- const W=74,H=40,T=11,B=30,X=t=>(t-f[0])/(f[1]-f[0])*W,Y=v=>B-1-(v-sc[0])/(sc[1]-sc[0]||1)*(B-T-2);if(zid)MZN[zid]={C,f,sc,data};
- const hh=m=>String(Math.floor(m/60)%24).padStart(2,'0');
- const pl=C.map(p=>X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ');
- const inW=(mz.estremi||[]).filter(x=>x.min>=f[0]&&x.min<=f[1]);const e=inW.find(x=>x.tipo==='alta')||inW[0];   // v3.61: se nella finestra c'e' un'alta, segna quella (anche se arriva piu' tardi per il ritardo di stazione, es. Saline a fine mattina); prima prendeva il primo estremo e il Nord segnava la bassa mentre Centro/Sud l'alta
- let dot='',lab='';if(e){const c=e.tipo==='alta'?C.reduce((a,p)=>p[1]>=a[1]?p:a,C[0]):C.reduce((a,p)=>p[1]<=a[1]?p:a,C[0]),x=X(c[0]),y=Y(c[1]),an=x<16?'start':(x>W-16?'end':'middle'),ty=e.tipo==='alta'?y-4:Math.min(B-2,y+11);   // v3.60: pallino sul colmo/cavo reale della curva (etichetta: ora e cm del bollettino)
-  dot=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.6" fill="#eaf3f7"/><text data-cm="1" data-bx="${x.toFixed(1)}" data-an="middle" x="${x.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" font-size="9.5" font-weight="650" fill="#eaf3f7" paint-order="stroke" stroke="#06131d" stroke-width="2.6" stroke-linejoin="round" stroke-opacity=".92">${esc(String(e.cm))} cm</text>`;lab=`${e.tipo==='alta'?'alta':'bassa'} <b>${esc(e.ora)}</b>`}   // v3.62: cm centrati SOPRA il puntino del colmo (prima ancorati a lato: vicino al bordo il numero usciva a sinistra del colmo e sembrava riferito a un altro punto); v3.54: contorno scuro e, se vicino alla linea "adesso", il numero si sposta di lato (in segnaOra)
- else{const d=C[C.length-1][1]-C[0][1];lab=Math.abs(d)<3?'marea ferma':(d>0?'marea sale':'marea cala')}
- return `<div class="mmar" aria-label="Marea ${esc(mz.stazione||'')}"><svg viewBox="0 0 ${W} ${H}"><line x1="0" y1="${B}" x2="${W}" y2="${B}" stroke="rgba(255,255,255,.12)"/><polyline points="${pl}" fill="none" stroke="#5fd4d0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><g data-mnow="${esc(zid||'')}"></g>${dot}<text x="0" y="${H-1}" font-size="9" fill="#8aa6b6">${hh(f[0])}</text><text x="${W}" y="${H-1}" text-anchor="end" font-size="9" fill="#8aa6b6">${hh(f[1])}</text></svg><div class="ml">${lab}</div></div>`}
-function segnaOra(){   // v3.37: linea "adesso" sul mini-grafico della marea, solo se la previsione e' di oggi e dentro la finestra
- const P=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));
- const oggi=`${P.year}-${P.month}-${P.day}`,m=(+P.hour)*60+(+P.minute);
- document.querySelectorAll('[data-mnow]').forEach(g=>{const z=MZN[g.dataset.mnow];g.innerHTML='';
-  const ct=g.parentNode&&g.parentNode.querySelector('[data-cm]'),base=()=>{if(ct){ct.setAttribute('text-anchor',ct.dataset.an);ct.setAttribute('x',(+ct.dataset.bx).toFixed(1))}};   // v3.54
-  if(!z||z.data!==oggi||m<z.f[0]||m>z.f[1]){base();return}
-  const W=74,T=11,B=30,X=t=>(t-z.f[0])/(z.f[1]-z.f[0])*W,Y=v=>B-1-(v-z.sc[0])/(z.sc[1]-z.sc[0]||1)*(B-T-2);
-  let h=null;for(let i=1;i<z.C.length;i++){const a=z.C[i-1],b=z.C[i];if(a[0]<=m&&m<=b[0]){h=a[1]+(b[1]-a[1])*((m-a[0])/((b[0]-a[0])||1));break}}
-  const x=X(m).toFixed(1);let s=`<line x1="${x}" y1="${T-2}" x2="${x}" y2="${B}" stroke="#f2c14e" stroke-width="1.2" stroke-dasharray="2 2"/>`+(h!=null?`<circle cx="${x}" cy="${Y(h).toFixed(1)}" r="2.4" fill="#f2c14e"/>`:'');
-  base();   // v3.63: il numero dei cm resta sempre centrato sopra il colmo (prima, v3.54, si scostava di lato quando "adesso" era vicino: col numero centrato della v3.62 creava incoerenza — Sud a destra, Nord/Centro centrati)
-  const L=AD&&AD.zone&&AD.zone[g.dataset.mnow]&&AD.zone[g.dataset.mnow].livello;   // v3.42: livello misurato adesso alla stazione (Worker >= 2.10)
-  if(L&&L.disponibile&&L.data===oggi&&L.min>=z.f[0]&&L.min<=z.f[1]&&L.cm!=null){const yl=Math.max(T+2,Math.min(B,Y(L.cm)));s+=`<circle cx="${X(L.min).toFixed(1)}" cy="${yl.toFixed(1)}" r="2.7" fill="none" stroke="#ffffff" stroke-width="1.4"/>`}
-  g.innerHTML=s})}
-setInterval(segnaOra,60*1000);
+// ------------------------------------------------------------------ v3.64: marea sulle 24 ore (D.marea24, build_site >= 3.64)
+function adessoIT(){const P=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));
+ return {d:`${P.year}-${P.month}-${P.day}`,m:(+P.hour)*60+(+P.minute)}}
+const hm=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(Math.round(m%60)).padStart(2,'0');
+const valC=(C,m)=>{for(let i=1;i<(C||[]).length;i++){const a=C[i-1],b=C[i];if(a[0]<=m&&m<=b[0])return a[1]+(b[1]-a[1])*(m-a[0])/((b[0]-a[0])||1)}return null};
+const m24=(data,zona)=>(((D.marea24||{})[data])||{})[zona]||null;
+function quandoTxt(s){   // "gg/mm/aaaa hh:mm" o "gg/mm hh:mm" -> {t: Date, txt: "hh:mm" oggi, "ieri hh:mm", "gg/mm hh:mm"}
+ const m=/^(\d\d)\/(\d\d)(?:\/(\d{4}))? (\d\d):(\d\d)/.exec(s||'');if(!m)return null;const n=new Date();let y=m[3]?+m[3]:n.getFullYear();
+ let t=new Date(y,m[2]-1,+m[1],+m[4],+m[5]);if(!m[3]&&t-n>200*864e5)t.setFullYear(y-1);
+ const g=new Date(n);g.setHours(0,0,0,0);const q=new Date(t);q.setHours(0,0,0,0);const k=Math.round((q-g)/864e5);
+ return {t,txt:(k===0?'':k===-1?'ieri ':m[1]+'/'+m[2]+' ')+m[4]+':'+m[5]}}
+function giroAtteso(data){   // ultimo aggiornamento del vento che a quest'ora dovrebbe esserci per quel giorno (con un'ora di tolleranza)
+ const n=new Date(),lim=new Date(n.getTime()-60*6e4),G=D.ore_giri||[];let best=null;
+ for(const dg of [0,-1])for(const o of G){const [h,m]=o.split(':').map(Number),t=new Date(n);t.setDate(t.getDate()+dg);t.setHours(h,m,0,0);
+  const gg=new Date(t);gg.setHours(0,0,0,0);if(h<8&&dataDi(data)>gg)continue;   // il giro delle 05:30 aggiorna solo il giorno stesso
+  if(t<=lim&&(!best||t>best))best=t}
+ return best}
+function orari(sel){   // orari del vento (previsione) e della marea (bollettino CPSM usato nel grafico) per la fascia scelta
+ const V=D.zone.map(ultima).filter(Boolean),W=V.map(v=>quandoTxt(v.generato)).filter(Boolean).sort((a,b)=>a.t-b.t),w=W[0]||null;   // la piu' vecchia fra le zone
+ const E=D.zone.map(z=>{const x=m24(sel.data,z.id);return x&&x.emessa}).filter(Boolean),M=E.length?quandoTxt(E[0]):quandoTxt((V[0]||{}).marea_emessa);
+ const att=giroAtteso(sel.data),ore=(D.vecchia_dopo_ore||{}).marea,aperta=sel.fine>new Date();
+ return {vento:w&&w.txt,marea:M&&M.txt,ventoVecchio:!!(aperta&&w&&att&&w.t<att-15*6e4),mareaVecchia:!!(aperta&&M&&ore&&(new Date()-M.t)>ore*36e5)}}
+function scala24(zz,min,max){const v=zz.flatMap(z=>z.curva.concat(max&&z.astro?z.astro:[]).filter(p=>p[0]>=0&&p[0]<=1440).map(p=>p[1]));return [Math.min(...v,min??1e9),Math.max(...v,max??-1e9)]}
+function g24(Z,data,f,o){
+ const W=o.W,H=o.H,L=o.L||2,R=o.R||2,T=o.T,B=o.B,big=o.big,fs=o.fs,N=adessoIT();
+ const x=t=>L+t/1440*(W-L-R),y=v=>T+(o.sc[1]-v)/((o.sc[1]-o.sc[0])||1)*(H-T-B),pt=c=>c.map(p=>x(p[0]).toFixed(1)+','+y(p[1]).toFixed(1)).join(' ');
+ const dentro=c=>(c||[]).filter(p=>p[0]>=0&&p[0]<=1440),C=dentro(Z.curva);
+ let s=`<svg class="g24" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
+ if(f)s+=`<rect x="${x(f[0])}" y="1" width="${x(Math.min(1440,f[1]))-x(f[0])}" height="${H-13}" rx="4" fill="#5fd4d0" fill-opacity=".11"/>`;
+ if(big)for(let v=Math.ceil(o.sc[0]/20)*20;v<=o.sc[1];v+=20)s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#fff" stroke-opacity="${v===0?.45:.08}" stroke-width="${v===0?1.2:1}"/><text x="${L-4}" y="${y(v)+3.5}" text-anchor="end" font-size="10" fill="#8aa6b6">${v}</text>`;
+ (D.soglie_marea||[]).forEach((v,i)=>{if(v>o.sc[1]||v<o.sc[0])return;const c=i?'#ef5b4c':'#f2a13c';
+  s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="${c}" stroke-width="1" stroke-opacity=".75" stroke-dasharray="${big?'':'3 3'}"/>`+(big?`<text x="${L+3}" y="${y(v)-3}" font-size="9.5" fill="${c}">${v} cm</text>`:'')});
+ for(let t=0;t<=1440;t+=big?180:360)s+=`<line x1="${x(t)}" x2="${x(t)}" y1="${H-14}" y2="${H-11}" stroke="#8aa6b6" stroke-opacity=".6"/><text x="${x(t)}" y="${H-2}" font-size="${big?10:9}" fill="#8aa6b6" text-anchor="${t===0?'start':t===1440?'end':'middle'}">${String(t/60).padStart(2,'0')}</text>`;
+ if(big&&Z.astro)s+=`<polyline points="${pt(dentro(Z.astro))}" fill="none" stroke="#8aa6b6" stroke-width="1.3" stroke-dasharray="4 4"/>`;
+ // tratto gia' passato attenuato: e' l'ultimo bollettino, non una misura
+ const ora=data<N.d?1440:data===N.d?N.m:0,vo=valC(C,ora),lin=(c,op)=>c.length>1?`<polyline points="${pt(c)}" fill="none" stroke="#5fd4d0" stroke-opacity="${op}" stroke-width="${big?2.6:2}" stroke-linejoin="round" stroke-linecap="round"/>`:'';
+ const q0=vo!=null&&ora>0&&ora<1440?[[ora,vo]]:[];
+ s+=lin(C.filter(p=>p[0]<=ora&&ora>0).concat(q0),.42)+lin(q0.concat(C.filter(p=>p[0]>=ora&&ora<1440)),1);
+ if(data===N.d){s+=`<line x1="${x(N.m)}" x2="${x(N.m)}" y1="${big?T-12:2}" y2="${H-13}" stroke="#f2c14e" stroke-width="1.3" stroke-dasharray="3 3"/>`+(vo!=null?`<circle cx="${x(N.m)}" cy="${y(vo)}" r="${big?4:2.8}" fill="#f2c14e"/>`:'')+(big?`<text x="${Math.max(L+20,Math.min(W-R-20,x(N.m)))}" y="${T-16}" text-anchor="middle" font-size="10" fill="#f2c14e">adesso</text>`:'')}
+ const Lv=AD&&AD.zone&&o.zona&&AD.zone[o.zona]&&AD.zone[o.zona].livello;   // v3.42: livello misurato adesso alla stazione (Worker >= 2.10)
+ if(Lv&&Lv.disponibile&&Lv.data===data&&Lv.cm!=null)s+=`<circle cx="${x(Lv.min)}" cy="${Math.max(T,Math.min(H-B,y(Lv.cm)))}" r="${big?4.5:3}" fill="none" stroke="#fff" stroke-width="1.5"/>`;
+ for(const e of Z.estremi.filter(e=>e.min>=0&&e.min<1440)){const c=C.filter(p=>Math.abs(p[0]-e.min)<=45),q=c.length?c.reduce((a,p)=>(e.tipo==='alta'?p[1]>a[1]:p[1]<a[1])?p:a,c[0]):[e.min,e.cm];
+  const px=x(q[0]),py=y(q[1]),hi=e.tipo==='alta',half=o.two?24:39,tx=Math.max(L+half,Math.min(W-R-half,px)),st=`paint-order="stroke" stroke="#0f2638" stroke-width="3" stroke-linejoin="round" text-anchor="middle"`;
+  s+=`<circle cx="${px}" cy="${py}" r="${big?3.4:2.6}" fill="#eaf3f7"/>`;
+  if(o.two){const y1=hi?py-fs-8:py+fs+3;s+=`<text x="${tx}" y="${y1}" font-size="${fs+1}" font-weight="750" fill="#eaf3f7" ${st}>${e.cm} cm</text><text x="${tx}" y="${y1+fs}" font-size="${fs-.5}" fill="#b8cdd8" ${st}>${esc(e.ora)}</text>`}
+  else s+=`<text x="${tx}" y="${hi?Math.max(fs,py-5):py+fs+4}" font-size="${fs}" fill="#b8cdd8" ${st}>${esc(e.ora)} <tspan font-weight="750" fill="#eaf3f7">${e.cm} cm</tspan></text>`}
+ return s+(big?'<g class="cur"></g>':'')+'</svg>'}
+function disegna24(){   // disegna i grafici alla larghezza disponibile; richiamata a ogni minuto, al ridimensionamento e dopo la misura
+ document.querySelectorAll('[data-g24]').forEach(el=>{const [data,zona,fin]=el.dataset.g24.split('|'),Z=m24(data,zona),W=Math.floor(el.clientWidth);if(!Z||W<100)return;
+  const f=fin?finMin(fin):null;
+  if(el.dataset.big){let sc=scala24([Z],-10,(D.soglie_marea||[110])[0]+5);sc=[Math.floor((sc[0]-14)/10)*10,Math.ceil((sc[1]+14)/10)*10];
+   el.innerHTML=g24(Z,data,f,{W,H:290,L:26,R:4,T:30,B:24,fs:11,two:true,big:true,sc,zona})}
+  else el.innerHTML=g24(Z,data,f,{W,H:64,T:13,B:28,fs:10.5,sc:scala24(Object.values((D.marea24||{})[data])),zona})})}
+function leggi24(box,ev){   // tocco sul grafico grande: ora e livello
+ const [data,zona]=box.dataset.g24.split('|'),Z=m24(data,zona),svg=box.querySelector('svg');if(!Z||!svg)return;const r=svg.getBoundingClientRect(),W=r.width;
+ const m=Math.max(0,Math.min(1440,Math.round((ev.clientX-r.left-26)/(W-30)*1440/10)*10)),a=valC(Z.curva,m),b=valC(Z.astro,m);if(a==null)return;const X=26+m/1440*(W-30);
+ svg.querySelector('.cur').innerHTML=`<line x1="${X}" x2="${X}" y1="20" y2="277" stroke="#fff" stroke-width="1"/>`;
+ box.closest('.card').querySelector('.lett').innerHTML=`${hm(m)} · <span style="color:var(--teal)">${Math.round(a)} cm</span>${b!=null?` <span style="color:var(--mut);font-weight:500">astronomica ${Math.round(b)} cm</span>`:''}`}
+function scheda24(id,v){   // pagina della zona: scheda della marea sulle 24 ore, subito sotto il semaforo
+ const Z=m24(v.data,id);if(!Z)return '';const E=Z.estremi.filter(e=>e.min>=0&&e.min<1440),B=Z.emessa&&quandoTxt(Z.emessa),N=adessoIT();
+ return `<div class="sec"><div class="card"><div class="ch">Marea 24 ore <span>${esc(Z.stazione)} · cm su ZMPS</span></div><div class="lett">Tocca il grafico per leggere ora e livello</div>
+ <div style="margin-top:4px;touch-action:pan-y" data-g24="${v.data}|${id}|${esc(v.finestra)}" data-big="1" class="g24h" onpointerdown="leggi24(this,event)" onpointermove="leggi24(this,event)"></div>
+ <div class="leg"><span><i style="border-color:#5fd4d0"></i>${Z.emessa?'prevista (CPSM, per zona)':'astronomica (senza vento)'}</span>${Z.astro?'<span><i style="border-color:#8aa6b6;border-top-style:dashed"></i>astronomica</span>':''}<span><i style="border-color:#f2a13c"></i>${esc((D.soglie_marea||[])[0])} cm</span></div>
+ <div class="note">${B?'Bollettino CPSM delle '+esc(B.txt)+'. ':'Bollettino CPSM non disponibile per questo giorno. '}${v.data<=N.d?'Il tratto attenuato è già passato: è l’ultima previsione, non una misura.':''}</div>
+ <div class="est" style="grid-template-columns:repeat(${Math.max(E.length,1)},1fr)">${E.map(e=>`<div>${e.tipo==='alta'?'▲ alta':'▼ bassa'}<b>${e.cm} cm</b>${esc(e.ora)}</div>`).join('')}</div></div></div>`}
+setInterval(disegna24,60*1000);
+window.addEventListener('resize',disegna24);
 function tendGiorni(ult){const T=D&&D.tendenza;return T&&T.giorni?T.giorni.filter(g=>!ult||g.data>ult):[]}   // v3.39
 function giorni(){   // v3.39: pagina "Prossimi giorni" (tendenza, colori tenui)
  const ult=slotTutti().map(s=>s.data).sort().pop(),GG2=tendGiorni(ult),T=D.tendenza||{};
@@ -307,16 +372,16 @@ function giorni(){   // v3.39: pagina "Prossimi giorni" (tendenza, colori tenui)
  app.innerHTML=h+piede()+'</div>';window.scrollTo(0,0)}
 function home(){
  const TG=titoloGiorno(),ult=TG.data;
- const MC=D.zone.map(ultima).filter(v=>v&&v.sintesi&&v.sintesi.marea_zona).flatMap(v=>{const z=v.sintesi.marea_zona,f=z.fascia||[300,720];return (z.curva||[]).filter(p=>p[0]>=f[0]&&p[0]<=f[1]).map(p=>p[1])}),MSC=MC.length?[Math.min(...MC),Math.max(...MC)]:null;   // v3.33
- let h=`<div class="home"><header class="testa"><div><div class="eyebrow"><span class="ver" style="margin-left:0">v${esc(VERSIONE)}${D.autore?' · a cura di '+esc(D.autore):''}</span></div><h1>Forecast <span>Lagoon</span></h1>
- <div class="sub">Previsioni meteo-marine · Laguna di Venezia</div></div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></header>
+ let h=`<div class="home h24"><header class="testa"><div><h1>Forecast <span>Lagoon</span></h1><div class="sub">Laguna di Venezia · v${esc(VERSIONE)}${D.autore?' · a cura di '+esc(D.autore):''}</div></div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></header>
  <div class="hero">${mappa('40 -60 1000 1360',{meet:true,labels:true,click:true,k:'h',fo:.24,sw:2.5,adesso:true})}<div class="shade" style="background:linear-gradient(180deg,rgba(6,19,29,.55) 0%,rgba(6,19,29,0) 18%,rgba(6,19,29,0) 72%,rgba(6,19,29,.95) 100%)"></div>
  <div class="adMap" data-admap></div><div class="credit">© ESA · Copernicus Sentinel-2</div></div>${TG.h}${ritardo()}<div class="zones">`;
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
-  h+=`<div class="zone ${z.attiva?'':'off'}" ${z.attiva?`onclick="location.hash='zona/${z.id}${v?'/'+v.data+'/'+v.finestra.slice(0,2):''}'"`:''}><div class="bar" style="background:${col(v&&v.colore)}"></div>
-  <div><div class="zname">${esc(z.nome)}</div>${z.attiva&&v&&(v.data!==ult||(v.provvisoria!==TG.rif&&relativo(v.data)!=='Oggi'))?`<div class="zmeta">${v.data!==ult?esc(etichetta(v.data))+' · ':''}${v.provvisoria?'Provvisoria':'Definitiva'}${v.emessa?' '+esc(v.emessa):''}${v.data===ult&&v.provvisoria?' · non ancora aggiornata':''}</div>`:''}${z.attiva&&v?piogZona(s)+incZona(s):''}</div>   <!-- v3.25: bocca tolta (e' sulla cartina), previsione nel titolo del giorno; qui solo eccezioni e pioggia -->   <!-- v3.8 -->
-  ${z.attiva&&v?mareaMini(v.sintesi&&v.sintesi.marea_zona,MSC,z.id,v.data):'<div></div>'}<div class="badge">${v?`<span class="chip" style="background:${col(v.colore)};color:${oncol(v.colore)}">${TXT[v.colore]||'n.d.'}</span><span class="wind">${rng(s.vento_min,s.vento_max)} kn${s.direzione?' · '+esc(s.direzione):''}</span>`:`<span class="chip" style="background:#22394B;color:var(--mut)">In arrivo</span>`}</div></div>`});
- app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0);segnaOra()}
+  if(!z.attiva||!v){h+=`<div class="zc off" ${z.attiva?`onclick="location.hash='zona/${z.id}'"`:''}><div class="bar" style="background:var(--nd)"></div><div class="in"><div class="r1"><span class="zname">${esc(z.nome)}</span><span class="sp"></span><span class="chip" style="background:#22394B;color:var(--mut)">In arrivo</span></div></div></div>`;return}
+  const nota=v.data!==ult||(v.provvisoria!==TG.rif&&relativo(v.data)!=='Oggi')?`<span class="zmeta">${v.data!==ult?esc(etichetta(v.data))+' · ':''}${v.provvisoria?'Provvisoria':'Definitiva'}${v.emessa?' '+esc(v.emessa):''}</span>`:'';
+  h+=`<div class="zc" onclick="location.hash='zona/${z.id}/${v.data}/${v.finestra.slice(0,2)}'"><div class="bar" style="background:${col(v.colore)}"></div><div class="in">
+  <div class="r1"><span class="zname">${esc(z.nome)}</span><span class="sp"></span><span class="wind">${rng(s.vento_min,s.vento_max)} kn${s.direzione?' · '+esc(s.direzione):''}</span><span class="chip" style="background:${col(v.colore)};color:${oncol(v.colore)}">${TXT[v.colore]||'n.d.'}</span></div>
+  <div class="r2">${piogZona(s)}${incZona(s)}${nota}</div>${m24(v.data,z.id)?`<div class="g24h" data-g24="${v.data}|${z.id}|${esc(v.finestra)}"></div>`:''}</div></div>`});
+ app.innerHTML=h+'</div><div class="foot">Indicativa: non sostituisce i bollettini ufficiali · <span class="flink" role="button" onclick="istruzioni()">Fonti e licenze → (i)</span></div></div>';window.scrollTo(0,0);disegna24()}
 function curva(s){
  const C=s.marea_curva||[],A=s.marea_astro||[];if(C.length<2)return '';
  const all=C.concat(A).map(p=>p[1]),mn=Math.min(...all)-5,mx=Math.max(...all)+5,x0=C[0][0],x1=C[C.length-1][0],W=330,H=110;
@@ -382,18 +447,19 @@ function zona(id,dsel,fsel_,prov){
  h+=`<div class="sec"><div class="verdict" style="background:${col(c)};color:${oncol(c)}"><div class="k">${esc(etichetta(v.data))} · ${esc(v.finestra||'')}</div>
  <div class="v">${TXT[c]||'n.d.'}</div>${v.emessa?`<div class="prov">${relativo(v.data)==='Oggi'?`Previsione aggiornata alle ${esc(v.emessa)}`:v.provvisoria?`Previsione provvisoria delle ${esc(v.emessa)} · la definitiva esce verso le ${esc(D.ora_aggiornamento||'')}`:`Previsione definitiva delle ${esc(v.emessa)}`}</div>`:''}<p>${esc(s.andamento||'')}</p>
  <div class="hours" style="grid-template-columns:repeat(${Math.max(ore.length,1)},1fr)">${ore.map(o=>`<div style="${TXT[o.sem]?`--cs:var(--${o.sem}-s);--cn:var(--on-${o.sem}-s)`:''}">${esc(o.ora)}<b>${nf(o.stima,0)}</b><u>kn</u></div>`).join('')}</div></div></div>`;
+ h+=scheda24(id,v);   // v3.64
  if(relativo(v.data)==='Oggi'||v===z0)h+=`<div class="sec"><div class="card vad" data-adz="${z.id}" style="display:none"></div></div><div class="sec"><div class="card vad vis" data-vis="${z.id}" style="display:none"></div></div>`;   // v3.26: visibilita' adesso (Tessera)   // v3.13: vento adesso, solo sul giorno piu' recente
  h+=incBox(s);h+=oraPerOra(s);
  h+=`<div class="sec grid2"><div class="card"><div class="ch">Vento medio</div><div class="big">${rng(s.vento_min,s.vento_max)}<small>kn</small></div><div class="note">${s.direzione?'da '+esc(s.direzione)+(s.direzione_nome?' · '+esc(s.direzione_nome):''):''}</div></div>
  <div class="card"><div class="ch">Raffiche</div><div class="big">${nf(s.raff_max,0)}<small>kn</small></div><div class="note">massimo nella finestra; non cambiano il colore</div></div></div>`;
- if((s.marea_curva||[]).length>1)h+=`<div class="sec"><div class="card"><div class="ch">Marea <span>${esc(s.marea_fonte||'')}${s.marea_eta_h!=null?' · emesso '+s.marea_eta_h+' h prima':''}${s.marea_vecchia?' · tendenza meno affidabile':''}</span></div>${curva(s)}
+ if(!m24(v.data,id)&&(s.marea_curva||[]).length>1)h+=`<div class="sec"><div class="card"><div class="ch">Marea <span>${esc(s.marea_fonte||'')}${s.marea_eta_h!=null?' · emesso '+s.marea_eta_h+' h prima':''}${s.marea_vecchia?' · tendenza meno affidabile':''}</span></div>${curva(s)}
  <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--soft)">${(s.marea_estremali||[]).map(e=>`<span>${e.tipo==='max'?'▲':'▼'} ${e.cm>0?'+':''}${e.cm} cm · ${esc(e.ora)}</span>`).join('')}</div></div></div>`;
  h+=nebbia(s);h+=pioggia(s);h+=meteoOnda(s);
  if((s.corrente||[]).length)h+=`<div class="sec"><div class="card"><div class="ch">Corrente <span>${esc(s.canale||'')}</span></div><div style="margin-top:6px;font-size:14.5px;line-height:1.5">${s.corrente.map(t=>`${t.verso==='entra'?'Entrante':'Uscente'} ${t.da===t.a?'alle '+esc(t.da):'dalle '+esc(t.da)+' alle '+esc(t.a)}`).join(' · ')}</div></div></div>`;
  h+=dettagli(s);
  h+=`<div class="btns">${v.previsione?`<a class="btn p" href="${esc(fresco(v.previsione))}">Previsione</a>`:''}${v.verifica?`<a class="btn" href="${esc(fresco(v.verifica))}">Verifica${v.verifica_provvisoria?' *':''}</a>`:''}</div>`;
  if(z.voci.length>1)h+=`<div class="list"><div class="ttl">Archivio</div>${z.voci.map(a=>`<div class="row"><span class="l"><i style="background:${col(a.colore)}"></i>${esc(a.titolo||a.data)} · ${esc((a.finestra||'').replace(/:00/g,''))}</span><span class="r">${a.previsione?`<a href="${esc(fresco(a.previsione))}">previsione</a>`:''}${a.verifica?`<a href="${esc(fresco(a.verifica))}">verifica</a>`:''}</span></div>`).join('')}</div>`;
- app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0)}
+ app.innerHTML=h+'</div>'+piede()+'</div>';window.scrollTo(0,0);disegna24()}
 function autoAggiorna(V){   // v3.19: nuova versione -> ricarica subito dalla prima pagina (al massimo una volta per versione)
  const k='fl_agg_'+V.codice;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1')}catch(e){}
  location.replace(location.pathname+'?v='+encodeURIComponent(V.codice))}
@@ -426,7 +492,7 @@ async function allerteUI(msg){
 }
 async function caricaAdesso(){if(!D||!D.adesso_url)return;try{const c=new AbortController(),t=setTimeout(()=>c.abort(),8000);
  AD=await (await fetch(D.adesso_url,{cache:'no-store',signal:c.signal})).json();clearTimeout(t)}catch(e){AD=null}riempiAdesso()}
-function riempiAdesso(){try{segnaOra()}catch(e){}   // v3.42: cerchietto del livello misurato
+function riempiAdesso(){try{disegna24()}catch(e){console.error(e)}   // v3.42: cerchietto del livello misurato
  const usa=a=>a&&a.kn!=null&&(a.disponibile||(a.eta_min!=null&&a.eta_min<=45));   // v3.56: sulla cartina vale anche una misura fino a 45 min (l'ora viene mostrata); le allerte restano a 20 min
  document.querySelectorAll('[data-azona]').forEach(el=>{   // v3.44: colore della zona = semaforo del vento misurato adesso; grigio se manca
   const a=AD&&AD.zone&&AD.zone[el.dataset.azona],c=usa(a)&&TXT[a.sem]?a.sem:'nd',hex=getComputedStyle(document.documentElement).getPropertyValue('--'+c).trim();
@@ -479,7 +545,7 @@ setInterval(controlla,15*60*1000);
 function vai(){if(!D||!G)return;const p=location.hash.replace(/^#/,'').split('/');if(p[0]==='zona')zona(p[1],p[2],p[3],p[4]);else if(p[0]==='giorni')giorni();else home();riempiAdesso()}   // v3.55: p[4]='g' = aperta da Prossimi giorni
 window.addEventListener('hashchange',vai);
 let T0=Date.now();   // v3.9: tocchi su fasce e mappa ignorati per 600 ms dopo il caricamento (tocco "rimbalzato" dal ricaricamento)
-document.addEventListener('click',e=>{if(Date.now()-T0<600&&e.target.closest&&e.target.closest('.zone,.hero')){e.preventDefault();e.stopPropagation()}},true);
+document.addEventListener('click',e=>{if(Date.now()-T0<600&&e.target.closest&&e.target.closest('.zc,.hero')){e.preventDefault();e.stopPropagation()}},true);
 if(/[?&]v=/.test(location.search))history.replaceState(null,'',location.pathname+location.hash);   // v3.9: tolto ?v= dall'indirizzo
 // v3.59: protezione all'avvio — se i dati tardano, un ritentativo automatico una volta, poi un tasto "Ricarica" invece di restare su "Caricamento…"
 let BOOT=false;

@@ -65,7 +65,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.31"   # v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+VERSIONE = "1.32"   # v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
 # v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
 # Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
 # 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
@@ -614,6 +614,8 @@ def righe_zona(P, zona):
 def leggi_previsioni(cartella):
     scelte = {}
     for f in glob.glob(os.path.join(cartella, CARTELLA, "previsione_*.json")):
+        if f.endswith("_agg.json"):          # v1.32: aggiornamento fatto a fascia iniziata, non e' la previsione da verificare
+            continue
         try:
             P = json.load(open(f, encoding="utf-8"))
             P["vento"] = {ALIAS.get(z, z): r for z, r in P["vento"].items()}
@@ -635,8 +637,16 @@ def leggi_previsioni(cartella):
         # Il centro resta senza suffisso, come le chiavi gia' in archivio.
         area = P["_area"]
         chiave = f"{g.isoformat()} {P['finestra']}" + ("" if area == "centro" else f" {area}")
-        if chiave not in scelte or gen > scelte[chiave]["gen"]:
-            scelte[chiave] = {"file": os.path.basename(f), "giorno": g, "da": da, "a": a, "gen": gen, "P": P, "area": area, "chiave": chiave}
+        agg_marea = (P.get("marea") or {}).get("aggiornata") or ""          # v1.32: a parita' di vento vale la marea piu' recente
+        agg_marea = agg_marea[6:10] + agg_marea[3:5] + agg_marea[:2] + agg_marea[10:]
+        if chiave not in scelte or (gen, agg_marea) > (scelte[chiave]["gen"], scelte[chiave]["agg_marea"]):
+            scelte[chiave] = {"file": os.path.basename(f), "giorno": g, "da": da, "a": a, "gen": gen, "P": P, "area": area, "chiave": chiave, "agg_marea": agg_marea}
+    for v in list(scelte.values()):      # v1.32: passaggio alle nuove fasce: dove c'e' la nuova non si verifica anche la vecchia
+        vecchia = {12: 13, 18: 19}.get(v["da"].hour)
+        if vecchia:
+            for k, w in list(scelte.items()):
+                if w["giorno"] == v["giorno"] and w["area"] == v["area"] and w["da"].hour == vecchia:
+                    del scelte[k]
     return scelte
 
 
@@ -840,6 +850,15 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
         if not provvisoria:
             # v1.23: le ore del vento si sostituiscono sempre (la chiave contiene la zona, le aree non si toccano tra loro);
             # onda, aria e pioggia sono le stesse misure per tutte le aree: le scrive il centro, le altre solo se mancano
+            # v1.32: l'ora di confine (12 e 18) e' gia' in archivio dalla fascia precedente: non la si sovrascrive
+            def doppia(o, presenti, chiave_o):
+                return int(o["ora"][:2]) == v["da"].hour and v["da"].hour in (12, 18) and chiave_o(o) in presenti
+            gia = {(x["data"], x["ora"], x["zona"]) for x in A["ore"]}
+            ore_tot = [o for o in ore_tot if not doppia(o, gia, lambda o: (o["data"], o["ora"], o["zona"]))]
+            gia2 = {n: {(x["data"], x["ora"]) for x in A[n]} for n in ("onda", "aria", "pioggia")}
+            onda_v = [o for o in onda_v if not doppia(o, gia2["onda"], lambda o: (o["data"], o["ora"]))]
+            aria_v = [o for o in aria_v if not doppia(o, gia2["aria"], lambda o: (o["data"], o["ora"]))]
+            pioggia_v = [o for o in pioggia_v if not doppia(o, gia2["pioggia"], lambda o: (o["data"], o["ora"]))]
             chiavi = {(o["data"], o["ora"], o["zona"]) for o in ore_tot}
             A["ore"] = [x for x in A["ore"] if (x["data"], x["ora"], x["zona"]) not in chiavi] + ore_tot
             if v["area"] == "centro":
