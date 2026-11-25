@@ -1,5 +1,5 @@
 {
- "versione": "1.31",
+ "versione": "1.32",
  "stazione": "Malamocco Porto",
  "zona": "Malamocco",
  "ore": [
@@ -9860,6 +9860,672 @@
    "settore_d2": "Bora",
    "sem_prev": "rosso",
    "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "13:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-25 09:39",
+   "anticipo_h": 3.4,
+   "prev": {
+    "stima": 14.2,
+    "d2": 14.2,
+    "i2": 13.6,
+    "ec": 8.7,
+    "raff": 17.9,
+    "dir_g": 33,
+    "ar": 15.8,
+    "raff_ar": 21.2,
+    "raff_d2": 17.9,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 17.0,
+    "raff": 21.2,
+    "dir_g": 39,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 17.0
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "14:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-25 09:39",
+   "anticipo_h": 4.3,
+   "prev": {
+    "stima": 14.9,
+    "d2": 14.9,
+    "i2": 14.2,
+    "ec": 8.8,
+    "raff": 18.9,
+    "dir_g": 33,
+    "ar": 16.8,
+    "raff_ar": 21.8,
+    "raff_d2": 18.9,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 17.6,
+    "raff": 21.4,
+    "dir_g": 40,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 17.6
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "15:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-25 09:39",
+   "anticipo_h": 5.3,
+   "prev": {
+    "stima": 15.4,
+    "d2": 15.4,
+    "i2": 13.2,
+    "ec": 9.0,
+    "raff": 20.0,
+    "dir_g": 43,
+    "ar": 13.9,
+    "raff_ar": 21.0,
+    "raff_d2": 20.0,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 15.2,
+    "raff": 19.6,
+    "dir_g": 44,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 15.2
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "16:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-25 09:39",
+   "anticipo_h": 6.3,
+   "prev": {
+    "stima": 13.2,
+    "d2": 13.2,
+    "i2": 13.4,
+    "ec": 9.2,
+    "raff": 20.0,
+    "dir_g": 49,
+    "ar": 16.1,
+    "raff_ar": 20.2,
+    "raff_d2": 20.0,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 13.1,
+    "raff": 17.9,
+    "dir_g": 45,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 13.1
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "17:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-25 09:39",
+   "anticipo_h": 7.3,
+   "prev": {
+    "stima": 12.9,
+    "d2": 12.9,
+    "i2": 13.0,
+    "ec": 9.1,
+    "raff": 17.3,
+    "dir_g": 43,
+    "ar": 15.7,
+    "raff_ar": 20.4,
+    "raff_d2": 17.3,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 14.3,
+    "raff": 18.9,
+    "dir_g": 36,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.3
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "18:00",
+   "zona": "Malamocco · Valgrande",
+   "stazione": "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)",
+   "generato": "2026-11-25 09:39",
+   "anticipo_h": 8.3,
+   "prev": {
+    "stima": 12.5,
+    "d2": 12.5,
+    "i2": 13.4,
+    "ec": 9.2,
+    "raff": 16.5,
+    "dir_g": 37,
+    "ar": 16.9,
+    "raff_ar": 22.0,
+    "raff_d2": 16.5,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 14.3,
+    "raff": 17.7,
+    "dir_g": 48,
+    "n": 12,
+    "stazioni": {
+     "Malamocco Porto": 14.3
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "13:00",
+   "zona": "Laguna Sud",
+   "stazione": "Chioggia Porto (interna, 45,2325 N 12,2806 E)",
+   "generato": "2026-11-25 09:40",
+   "anticipo_h": 3.3,
+   "prev": {
+    "stima": 13.4,
+    "d2": 13.4,
+    "i2": 14.2,
+    "ec": 8.8,
+    "raff": 19.7,
+    "dir_g": 32,
+    "punti": [
+     "Pellestrina interno",
+     "Chioggia · Canale Lombardo",
+     "Sud ovest · verso Fogolana",
+     "Millecampi"
+    ],
+    "ar": 16.3,
+    "raff_ar": 21.5,
+    "raff_d2": 19.7,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 16.7,
+    "raff": 21.6,
+    "dir_g": 51,
+    "n": 12,
+    "stazioni": {
+     "Chioggia Porto": 16.7
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "14:00",
+   "zona": "Laguna Sud",
+   "stazione": "Chioggia Porto (interna, 45,2325 N 12,2806 E)",
+   "generato": "2026-11-25 09:40",
+   "anticipo_h": 4.3,
+   "prev": {
+    "stima": 14.4,
+    "d2": 14.4,
+    "i2": 15.0,
+    "ec": 8.4,
+    "raff": 21.1,
+    "dir_g": 36,
+    "punti": [
+     "Pellestrina interno",
+     "Chioggia · Canale Lombardo",
+     "Sud ovest · verso Fogolana",
+     "Millecampi"
+    ],
+    "ar": 15.8,
+    "raff_ar": 20.8,
+    "raff_d2": 21.1,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 17.9,
+    "raff": 22.7,
+    "dir_g": 49,
+    "n": 12,
+    "stazioni": {
+     "Chioggia Porto": 17.9
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "15:00",
+   "zona": "Laguna Sud",
+   "stazione": "Chioggia Porto (interna, 45,2325 N 12,2806 E)",
+   "generato": "2026-11-25 09:40",
+   "anticipo_h": 5.3,
+   "prev": {
+    "stima": 14.6,
+    "d2": 14.6,
+    "i2": 13.2,
+    "ec": 7.8,
+    "raff": 21.9,
+    "dir_g": 43,
+    "punti": [
+     "Pellestrina interno",
+     "Chioggia · Canale Lombardo",
+     "Sud ovest · verso Fogolana",
+     "Millecampi"
+    ],
+    "ar": 15.2,
+    "raff_ar": 21.1,
+    "raff_d2": 21.9,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 15.3,
+    "raff": 20.6,
+    "dir_g": 53,
+    "n": 12,
+    "stazioni": {
+     "Chioggia Porto": 15.3
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "16:00",
+   "zona": "Laguna Sud",
+   "stazione": "Chioggia Porto (interna, 45,2325 N 12,2806 E)",
+   "generato": "2026-11-25 09:40",
+   "anticipo_h": 6.3,
+   "prev": {
+    "stima": 14.1,
+    "d2": 14.1,
+    "i2": 12.5,
+    "ec": 7.5,
+    "raff": 22.5,
+    "dir_g": 47,
+    "punti": [
+     "Pellestrina interno",
+     "Chioggia · Canale Lombardo",
+     "Sud ovest · verso Fogolana",
+     "Millecampi"
+    ],
+    "ar": 12.8,
+    "raff_ar": 20.6,
+    "raff_d2": 22.5,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 13.7,
+    "raff": 19.2,
+    "dir_g": 54,
+    "n": 12,
+    "stazioni": {
+     "Chioggia Porto": 13.7
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "17:00",
+   "zona": "Laguna Sud",
+   "stazione": "Chioggia Porto (interna, 45,2325 N 12,2806 E)",
+   "generato": "2026-11-25 09:40",
+   "anticipo_h": 7.3,
+   "prev": {
+    "stima": 13.7,
+    "d2": 13.7,
+    "i2": 8.2,
+    "ec": 7.6,
+    "raff": 20.6,
+    "dir_g": 47,
+    "punti": [
+     "Pellestrina interno",
+     "Chioggia · Canale Lombardo",
+     "Sud ovest · verso Fogolana",
+     "Millecampi"
+    ],
+    "ar": 10.1,
+    "raff_ar": 16.4,
+    "raff_d2": 20.6,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 15.1,
+    "raff": 18.9,
+    "dir_g": 50,
+    "n": 12,
+    "stazioni": {
+     "Chioggia Porto": 15.1
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "18:00",
+   "zona": "Laguna Sud",
+   "stazione": "Chioggia Porto (interna, 45,2325 N 12,2806 E)",
+   "generato": "2026-11-25 09:40",
+   "anticipo_h": 8.3,
+   "prev": {
+    "stima": 13.0,
+    "d2": 13.0,
+    "i2": 6.6,
+    "ec": 8.1,
+    "raff": 20.9,
+    "dir_g": 45,
+    "punti": [
+     "Pellestrina interno",
+     "Chioggia · Canale Lombardo",
+     "Sud ovest · verso Fogolana",
+     "Millecampi"
+    ],
+    "ar": 17.3,
+    "raff_ar": 21.6,
+    "raff_d2": 20.9,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 14.6,
+    "raff": 19.2,
+    "dir_g": 56,
+    "n": 12,
+    "stazioni": {
+     "Chioggia Porto": 14.6
+    }
+   },
+   "fascia_d2": "da 12",
+   "settore_d2": "Bora",
+   "sem_prev": "rosso",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "13:00",
+   "zona": "Laguna Nord",
+   "stazione": "Laguna Nord (Saline, interna, 45,4956 N 12,4720 E)",
+   "generato": "2026-11-25 09:40",
+   "anticipo_h": 3.3,
+   "prev": {
+    "stima": 10.5,
+    "d2": 10.5,
+    "i2": 10.4,
+    "ec": 8.7,
+    "raff": 17.0,
+    "dir_g": 31,
+    "punti": [
+     "Burano sud",
+     "Sant'Erasmo nord",
+     "Murano nord",
+     "Giudecca sud"
+    ],
+    "ar": 14.2,
+    "raff_ar": 21.2,
+    "raff_d2": 17.0,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 12.5,
+    "raff": 16.7,
+    "dir_g": 24,
+    "n": 12,
+    "stazioni": {
+     "Laguna Nord": 12.5
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Bora",
+   "sem_prev": "giallo",
+   "sem_mis": "rosso"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "14:00",
+   "zona": "Laguna Nord",
+   "stazione": "Laguna Nord (Saline, interna, 45,4956 N 12,4720 E)",
+   "generato": "2026-11-25 09:40",
+   "anticipo_h": 4.3,
+   "prev": {
+    "stima": 10.8,
+    "d2": 10.8,
+    "i2": 10.2,
+    "ec": 8.8,
+    "raff": 17.6,
+    "dir_g": 30,
+    "punti": [
+     "Burano sud",
+     "Sant'Erasmo nord",
+     "Murano nord",
+     "Giudecca sud"
+    ],
+    "ar": 14.0,
+    "raff_ar": 20.5,
+    "raff_d2": 17.6,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 11.2,
+    "raff": 14.6,
+    "dir_g": 24,
+    "n": 12,
+    "stazioni": {
+     "Laguna Nord": 11.2
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Bora",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "15:00",
+   "zona": "Laguna Nord",
+   "stazione": "Laguna Nord (Saline, interna, 45,4956 N 12,4720 E)",
+   "generato": "2026-11-25 09:40",
+   "anticipo_h": 5.3,
+   "prev": {
+    "stima": 11.2,
+    "d2": 11.2,
+    "i2": 8.8,
+    "ec": 9.0,
+    "raff": 18.8,
+    "dir_g": 42,
+    "punti": [
+     "Burano sud",
+     "Sant'Erasmo nord",
+     "Murano nord",
+     "Giudecca sud"
+    ],
+    "ar": 13.3,
+    "raff_ar": 19.5,
+    "raff_d2": 18.8,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 10.5,
+    "raff": 14.4,
+    "dir_g": 24,
+    "n": 12,
+    "stazioni": {
+     "Laguna Nord": 10.5
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Bora",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "16:00",
+   "zona": "Laguna Nord",
+   "stazione": "Laguna Nord (Saline, interna, 45,4956 N 12,4720 E)",
+   "generato": "2026-11-25 09:40",
+   "anticipo_h": 6.3,
+   "prev": {
+    "stima": 11.1,
+    "d2": 11.1,
+    "i2": 9.4,
+    "ec": 9.2,
+    "raff": 18.9,
+    "dir_g": 44,
+    "punti": [
+     "Burano sud",
+     "Sant'Erasmo nord",
+     "Murano nord",
+     "Giudecca sud"
+    ],
+    "ar": 14.5,
+    "raff_ar": 19.6,
+    "raff_d2": 18.9,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 9.1,
+    "raff": 13.2,
+    "dir_g": 26,
+    "n": 12,
+    "stazioni": {
+     "Laguna Nord": 9.1
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Bora",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "17:00",
+   "zona": "Laguna Nord",
+   "stazione": "Laguna Nord (Saline, interna, 45,4956 N 12,4720 E)",
+   "generato": "2026-11-25 09:40",
+   "anticipo_h": 7.3,
+   "prev": {
+    "stima": 9.8,
+    "d2": 9.8,
+    "i2": 9.4,
+    "ec": 9.1,
+    "raff": 17.5,
+    "dir_g": 42,
+    "punti": [
+     "Burano sud",
+     "Sant'Erasmo nord",
+     "Murano nord",
+     "Giudecca sud"
+    ],
+    "ar": 13.8,
+    "raff_ar": 20.3,
+    "raff_d2": 17.5,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 8.3,
+    "raff": 11.7,
+    "dir_g": 12,
+    "n": 12,
+    "stazioni": {
+     "Laguna Nord": 8.3
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Bora",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "18:00",
+   "zona": "Laguna Nord",
+   "stazione": "Laguna Nord (Saline, interna, 45,4956 N 12,4720 E)",
+   "generato": "2026-11-25 09:40",
+   "anticipo_h": 8.3,
+   "prev": {
+    "stima": 9.4,
+    "d2": 9.4,
+    "i2": 9.4,
+    "ec": 9.2,
+    "raff": 16.1,
+    "dir_g": 33,
+    "punti": [
+     "Burano sud",
+     "Sant'Erasmo nord",
+     "Murano nord",
+     "Giudecca sud"
+    ],
+    "ar": 14.2,
+    "raff_ar": 20.5,
+    "raff_d2": 16.1,
+    "corr": 0.0
+   },
+   "mis": {
+    "media": 8.9,
+    "raff": 12.4,
+    "dir_g": 19,
+    "n": 12,
+    "stazioni": {
+     "Laguna Nord": 8.9
+    }
+   },
+   "fascia_d2": "6–12",
+   "settore_d2": "Bora",
+   "sem_prev": "giallo",
+   "sem_mis": "giallo"
   }
  ],
  "previsioni": [
@@ -10138,6 +10804,24 @@
    "file": "previsione_25-11-2026_0500-1200_sud_v1.51.json",
    "esito": "verificata, 8 ore",
    "verificata": "2026-11-25 16:25"
+  },
+  {
+   "chiave": "2026-11-25 13:00–18:00",
+   "file": "previsione_25-11-2026_1300-1800_v1.51.json",
+   "esito": "verificata, 6 ore",
+   "verificata": "2026-11-25 18:30"
+  },
+  {
+   "chiave": "2026-11-25 13:00–18:00 sud",
+   "file": "previsione_25-11-2026_1300-1800_sud_v1.51.json",
+   "esito": "verificata, 6 ore",
+   "verificata": "2026-11-25 18:30"
+  },
+  {
+   "chiave": "2026-11-25 13:00–18:00 nord",
+   "file": "previsione_25-11-2026_1300-1800_nord_v1.51.json",
+   "esito": "verificata, 6 ore",
+   "verificata": "2026-11-25 18:30"
   }
  ],
  "onda": [
@@ -11910,6 +12594,78 @@
    "dir_mis_g": 37,
    "dir_mis_txt": "37° NE",
    "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "13:00",
+   "prev": 0.62,
+   "mis": 1.05,
+   "vento_prev": 15.7,
+   "vento_mis": 17.3,
+   "dir_mis": "NE",
+   "dir_mis_g": 39,
+   "dir_mis_txt": "39° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "14:00",
+   "prev": 0.6,
+   "mis": 1.17,
+   "vento_prev": 16.2,
+   "vento_mis": 18.9,
+   "dir_mis": "NE",
+   "dir_mis_g": 40,
+   "dir_mis_txt": "40° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "15:00",
+   "prev": 0.58,
+   "mis": 1.29,
+   "vento_prev": 19.1,
+   "vento_mis": 19.3,
+   "dir_mis": "NE",
+   "dir_mis_g": 44,
+   "dir_mis_txt": "44° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "16:00",
+   "prev": 0.56,
+   "mis": 1.21,
+   "vento_prev": 18.3,
+   "vento_mis": 18.9,
+   "dir_mis": "NE",
+   "dir_mis_g": 48,
+   "dir_mis_txt": "48° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "17:00",
+   "prev": 0.56,
+   "mis": 1.23,
+   "vento_prev": 17.3,
+   "vento_mis": 16.3,
+   "dir_mis": "NE",
+   "dir_mis_g": 41,
+   "dir_mis_txt": "41° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "18:00",
+   "prev": 0.58,
+   "mis": 1.23,
+   "vento_prev": 17.0,
+   "vento_mis": 15.3,
+   "dir_mis": "NE",
+   "dir_mis_g": 44,
+   "dir_mis_txt": "44° NE",
+   "nome_mis": "Bora"
   }
  ],
  "aria": [
@@ -13280,6 +14036,60 @@
    "acqua_prev": 9.3,
    "piatt_mis": 9.6,
    "cavalli_mis": 9.0
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "13:00",
+   "mare_prev": 10.6,
+   "mestre_prev": 9.0,
+   "acqua_prev": 9.6,
+   "piatt_mis": 10.3,
+   "cavalli_mis": 9.4
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "14:00",
+   "mare_prev": 10.8,
+   "mestre_prev": 9.1,
+   "acqua_prev": 10.0,
+   "piatt_mis": 10.6,
+   "cavalli_mis": 9.7
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "15:00",
+   "mare_prev": 11.5,
+   "mestre_prev": 9.2,
+   "acqua_prev": 10.2,
+   "piatt_mis": 11.3,
+   "cavalli_mis": 9.9
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "16:00",
+   "mare_prev": 12.0,
+   "mestre_prev": 9.2,
+   "acqua_prev": 10.5,
+   "piatt_mis": 11.8,
+   "cavalli_mis": 9.8
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "17:00",
+   "mare_prev": 12.4,
+   "mestre_prev": 9.3,
+   "acqua_prev": 10.7,
+   "piatt_mis": 11.3,
+   "cavalli_mis": 9.7
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "18:00",
+   "mare_prev": 12.8,
+   "mestre_prev": 9.3,
+   "acqua_prev": 10.7,
+   "piatt_mis": 11.2,
+   "cavalli_mis": 9.4
   }
  ],
  "pioggia": [
@@ -14566,6 +15376,78 @@
    "cavalli_mm": 0.0,
    "piatt_mm": 0.0,
    "oss": null
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "13:00",
+   "prob_D2": 70,
+   "prob_EC": 59,
+   "mm_D2": 0.1,
+   "mm_2i": 0.1,
+   "mm_EC": 0.1,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "14:00",
+   "prob_D2": 70,
+   "prob_EC": 57,
+   "mm_D2": 0.0,
+   "mm_2i": 0.1,
+   "mm_EC": 0.2,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "15:00",
+   "prob_D2": 85,
+   "prob_EC": 59,
+   "mm_D2": 0.5,
+   "mm_2i": 0.3,
+   "mm_EC": 0.2,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "16:00",
+   "prob_D2": 90,
+   "prob_EC": 63,
+   "mm_D2": 0.1,
+   "mm_2i": 2.5,
+   "mm_EC": 0.2,
+   "cavalli_mm": 3.2,
+   "piatt_mm": 1.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "17:00",
+   "prob_D2": 90,
+   "prob_EC": 73,
+   "mm_D2": 1.0,
+   "mm_2i": 4.0,
+   "mm_EC": 0.1,
+   "cavalli_mm": 1.4,
+   "piatt_mm": 1.4,
+   "oss": null
+  },
+  {
+   "data": "2026-11-25",
+   "ora": "18:00",
+   "prob_D2": 95,
+   "prob_EC": 85,
+   "mm_D2": 0.5,
+   "mm_2i": 1.1,
+   "mm_EC": 0.1,
+   "cavalli_mm": 0.6,
+   "piatt_mm": 1.4,
+   "oss": null
   }
  ],
  "livello": [
@@ -15066,75 +15948,57 @@
   },
   {
    "data": "2026-11-25",
-   "ora": "05:00",
-   "mis": 38,
-   "astro": 23,
-   "prev": 32,
+   "ora": "13:00",
+   "mis": 82,
+   "astro": 49,
+   "prev": 83,
    "fonte": "previsione CPSM",
-   "eta_h": 14
+   "eta_h": 9
   },
   {
    "data": "2026-11-25",
-   "ora": "06:00",
-   "mis": 47,
-   "astro": 32,
-   "prev": 41,
+   "ora": "14:00",
+   "mis": 63,
+   "astro": 25,
+   "prev": 62,
    "fonte": "previsione CPSM",
-   "eta_h": 14
+   "eta_h": 9
   },
   {
    "data": "2026-11-25",
-   "ora": "07:00",
-   "mis": 59,
-   "astro": 46,
-   "prev": 56,
+   "ora": "15:00",
+   "mis": 41,
+   "astro": 2,
+   "prev": 40,
    "fonte": "previsione CPSM",
-   "eta_h": 14
+   "eta_h": 9
   },
   {
    "data": "2026-11-25",
-   "ora": "08:00",
-   "mis": 75,
-   "astro": 62,
-   "prev": 76,
+   "ora": "16:00",
+   "mis": 21,
+   "astro": -16,
+   "prev": 22,
    "fonte": "previsione CPSM",
-   "eta_h": 14
+   "eta_h": 9
   },
   {
    "data": "2026-11-25",
-   "ora": "09:00",
-   "mis": 89,
-   "astro": 76,
-   "prev": 95,
+   "ora": "17:00",
+   "mis": 8,
+   "astro": -25,
+   "prev": 11,
    "fonte": "previsione CPSM",
-   "eta_h": 14
+   "eta_h": 9
   },
   {
    "data": "2026-11-25",
-   "ora": "10:00",
-   "mis": 88,
-   "astro": 83,
-   "prev": 108,
+   "ora": "18:00",
+   "mis": 4,
+   "astro": -23,
+   "prev": 12,
    "fonte": "previsione CPSM",
-   "eta_h": 14
-  },
-  {
-   "data": "2026-11-25",
-   "ora": "11:00",
-   "mis": 88,
-   "astro": 81,
-   "prev": 111,
-   "fonte": "previsione CPSM",
-   "eta_h": 14
-  },
-  {
-   "data": "2026-11-25",
-   "ora": "12:00",
-   "mis": 89,
-   "astro": 69,
-   "prev": 103,
-   "fonte": "previsione CPSM",
-   "eta_h": 14
+   "eta_h": 9
   }
  ],
  "marea": [
@@ -15371,72 +16235,46 @@
    "data": "2026-11-25",
    "area": "centro",
    "stazione": "Malamocco Porto",
-   "generato": "2026-11-24 22:34",
+   "generato": "2026-11-25 09:39",
    "config": "1.1",
    "fonte": "previsione CPSM Punta Salute",
-   "n": 85,
-   "liv_err_medio": 5.5,
-   "liv_err_ass": 8.6,
-   "liv_err_medio_ps": 6.4,
-   "liv_err_ass_ps": 10.1,
-   "mis_medio": 72.6,
+   "n": 61,
+   "liv_err_medio": -1.5,
+   "liv_err_ass": 4.3,
+   "liv_err_medio_ps": 1.1,
+   "liv_err_ass_ps": 1.9,
+   "mis_medio": 35.2,
+   "estremo": null
+  },
+  {
+   "data": "2026-11-25",
+   "area": "sud",
+   "stazione": "Chioggia Porto",
+   "generato": "2026-11-25 09:40",
+   "config": "1.1",
+   "fonte": "previsione CPSM Punta Salute",
+   "n": 61,
+   "liv_err_medio": -4.2,
+   "liv_err_ass": 7.2,
+   "liv_err_medio_ps": -0.1,
+   "liv_err_ass_ps": 1.6,
+   "mis_medio": 36.3,
    "estremo": null
   },
   {
    "data": "2026-11-25",
    "area": "nord",
    "stazione": "Laguna Nord",
-   "generato": "2026-11-24 22:35",
+   "generato": "2026-11-25 09:40",
    "config": "1.1",
    "fonte": "previsione CPSM Punta Salute",
-   "n": 85,
-   "liv_err_medio": 0.5,
-   "liv_err_ass": 7.2,
-   "liv_err_medio_ps": 16.3,
-   "liv_err_ass_ps": 17.0,
-   "mis_medio": 62.8,
-   "estremo": {
-    "tipo": "bassa",
-    "prev_min": 323,
-    "prev_ora": "05:23",
-    "prev_cm": 33,
-    "mis_min": 318,
-    "mis_ora": "05:18",
-    "mis_cm": 38,
-    "err_min": 5,
-    "err_cm": -5,
-    "ps_min": 260,
-    "ps_ora": "04:20",
-    "err_ps_min": -58
-   }
-  },
-  {
-   "data": "2026-11-25",
-   "area": "sud",
-   "stazione": "Chioggia Porto",
-   "generato": "2026-11-24 22:35",
-   "config": "1.1",
-   "fonte": "previsione CPSM Punta Salute",
-   "n": 85,
-   "liv_err_medio": 2.2,
-   "liv_err_ass": 6.1,
-   "liv_err_medio_ps": -1.9,
-   "liv_err_ass_ps": 9.6,
-   "mis_medio": 80.9,
-   "estremo": {
-    "tipo": "alta",
-    "prev_min": 595,
-    "prev_ora": "09:55",
-    "prev_cm": 110,
-    "mis_min": 660,
-    "mis_ora": "11:00",
-    "mis_cm": 99,
-    "err_min": -65,
-    "err_cm": 11,
-    "ps_min": 615,
-    "ps_ora": "10:15",
-    "err_ps_min": -45
-   }
+   "n": 61,
+   "liv_err_medio": 0.9,
+   "liv_err_ass": 1.6,
+   "liv_err_medio_ps": -18.7,
+   "liv_err_ass_ps": 18.7,
+   "mis_medio": 55.0,
+   "estremo": null
   }
  ]
 }

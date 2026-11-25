@@ -309,8 +309,13 @@
    "t": "2026-11-25 17:15",
    "valore": 11.0,
    "stazione": "Punta Salute Canal Grande"
+  },
+  {
+   "t": "2026-11-25 18:25",
+   "valore": 11.0,
+   "stazione": "Punta Salute Canal Grande"
   }
  ],
- "versione": "1.52",
+ "versione": "1.54",
  "nota": "Temperatura dell'acqua misurata dal CPSM (tempacqua.json), una riga per giro di fd_previsione"
 }

@@ -1667,9 +1667,27 @@
    "visib": "6+",
    "wx": "-RA",
    "raw": "METAR LIPZ 251550Z 02007KT 9999 -RA FEW020 BKN060 09/09 Q1013 NOSIG"
+  },
+  {
+   "t": "2026-11-25 16:20",
+   "visib": "6+",
+   "wx": "-RA",
+   "raw": "METAR LIPZ 251620Z 03008KT 9999 -RA SCT030 BKN060 09/08 Q1013 NOSIG"
+  },
+  {
+   "t": "2026-11-25 16:50",
+   "visib": "6+",
+   "wx": "-RA",
+   "raw": "METAR LIPZ 251650Z 03009KT 9999 -RA SCT030 09/08 Q1012 NOSIG"
+  },
+  {
+   "t": "2026-11-25 17:20",
+   "visib": "6+",
+   "wx": "-RA",
+   "raw": "METAR LIPZ 251720Z 04009KT 9999 -RA FEW008 SCT025 09/08 Q1012 NOSIG"
   }
  ],
- "versione": "1.52",
+ "versione": "1.54",
  "nota": "METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib in miglia terrestri come restituito dall'API ('6+' = oltre 6 miglia, circa 10 km; 1 miglio = 1609 m), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato.",
  "locale": [
   {
@@ -7524,6 +7542,147 @@
     "ora": "16:50",
     "eta_min": 10
    }
+  },
+  {
+   "t": "2026-11-25T16:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 92,
+     "ora": "2026-11-25 17:20:00",
+     "t": 9.5,
+     "ora_t": "2026-11-25 17:20:00",
+     "td": 8.3,
+     "spread": 1.2
+    },
+    "Piattaforma": {
+     "rh": 95,
+     "ora": "2026-11-25 17:20:00",
+     "t": 11,
+     "ora_t": "2026-11-25 17:20:00",
+     "td": 10.2,
+     "spread": 0.8
+    },
+    "S_Giorgio": {
+     "rh": 85,
+     "ora": "2026-11-25 17:20:00"
+    }
+   },
+   "vento": {
+    "nord": 8.9,
+    "sud": 14.2,
+    "centro": 16.7
+   },
+   "vento_dati_aperti": {
+    "nord": "17:20",
+    "sud": "17:20",
+    "centro": "17:20"
+   },
+   "vento_motivo": {
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": "-RA",
+    "ora": "17:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-25T17:00",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 93,
+     "ora": "2026-11-25 17:50:00",
+     "t": 9.4,
+     "ora_t": "2026-11-25 17:50:00",
+     "td": 8.3,
+     "spread": 1.1
+    },
+    "Piattaforma": {
+     "rh": 96,
+     "ora": "2026-11-25 17:50:00",
+     "t": 11,
+     "ora_t": "2026-11-25 17:50:00",
+     "td": 10.4,
+     "spread": 0.6
+    },
+    "S_Giorgio": {
+     "rh": 86,
+     "ora": "2026-11-25 17:50:00"
+    }
+   },
+   "vento": {
+    "centro": 13.8,
+    "nord": 9.3,
+    "sud": 15.2
+   },
+   "vento_dati_aperti": {
+    "centro": "17:50",
+    "nord": "17:50",
+    "sud": "17:50"
+   },
+   "vento_motivo": {
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": "-RA",
+    "ora": "17:50",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-25T17:30",
+   "aria": {
+    "P_Cavalli": {
+     "rh": 92,
+     "ora": "2026-11-25 18:20:00",
+     "t": 9.2,
+     "ora_t": "2026-11-25 18:20:00",
+     "td": 8,
+     "spread": 1.2
+    },
+    "Piattaforma": {
+     "rh": 97,
+     "ora": "2026-11-25 18:20:00",
+     "t": 11.6,
+     "ora_t": "2026-11-25 18:20:00",
+     "td": 11.1,
+     "spread": 0.5
+    },
+    "S_Giorgio": {
+     "rh": 86,
+     "ora": "2026-11-25 18:20:00"
+    }
+   },
+   "vento": {
+    "sud": 14.4,
+    "nord": 7.6,
+    "centro": 14.4
+   },
+   "vento_dati_aperti": {
+    "sud": "18:20",
+    "nord": "18:20",
+    "centro": "18:20"
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": "-RA",
+    "ora": "18:20",
+    "eta_min": 10
+   }
   }
  ],
  "nota_locale": "Registro del Worker (v2.9) ogni 30 minuti, t in UTC: aria = umidita' (rh, %), temperatura (t, °C), punto di rugiada (td) e distanza dal punto di rugiada (spread) delle stazioni CPSM; vento = vento medio misurato (kn) di Saline, Malamocco Porto, Chioggia Porto; vis = visibilita' di Tessera (m). Per lo studio dell'indicatore locale di nebbia.",
@@ -9919,6 +10078,29 @@
     "252": {
      "rh": 100.0,
      "t": 9.4
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-25T18:00",
+   "t": "2026-11-25T17:00",
+   "staz": {
+    "160": {
+     "vis_km": 12.79,
+     "rh": 100.0,
+     "t": 8.8
+    },
+    "230": {
+     "rh": 98.0,
+     "t": 9.1
+    },
+    "168": {
+     "rh": 100.0,
+     "t": 11.5
+    },
+    "252": {
+     "rh": 100.0,
+     "t": 9.1
     }
    }
   }
