@@ -1784,6 +1784,462 @@
      "ecmwf_ifs025": 6.8
     }
    }
+  },
+  {
+   "data": "2026-11-28",
+   "area": "nord",
+   "emessa": "2026-11-26",
+   "anticipo_g": 2,
+   "ore": {
+    "05": {
+     "icon_d2": 9.0,
+     "italia_meteo_arpae_icon_2i": 8.3,
+     "ecmwf_ifs025": 7.0
+    },
+    "06": {
+     "icon_d2": 7.2,
+     "italia_meteo_arpae_icon_2i": 7.4,
+     "ecmwf_ifs025": 7.1
+    },
+    "07": {
+     "icon_d2": 6.4,
+     "italia_meteo_arpae_icon_2i": 6.9,
+     "ecmwf_ifs025": 7.3
+    },
+    "08": {
+     "italia_meteo_arpae_icon_2i": 7.2,
+     "ecmwf_ifs025": 7.1
+    },
+    "09": {
+     "italia_meteo_arpae_icon_2i": 7.4,
+     "ecmwf_ifs025": 6.8
+    },
+    "10": {
+     "italia_meteo_arpae_icon_2i": 7.2,
+     "ecmwf_ifs025": 6.5
+    },
+    "11": {
+     "italia_meteo_arpae_icon_2i": 6.4,
+     "ecmwf_ifs025": 6.0
+    },
+    "12": {
+     "italia_meteo_arpae_icon_2i": 5.7,
+     "ecmwf_ifs025": 5.5
+    },
+    "13": {
+     "italia_meteo_arpae_icon_2i": 5.4,
+     "ecmwf_ifs025": 4.8
+    },
+    "14": {
+     "italia_meteo_arpae_icon_2i": 6.0,
+     "ecmwf_ifs025": 3.9
+    },
+    "15": {
+     "italia_meteo_arpae_icon_2i": 7.2,
+     "ecmwf_ifs025": 3.0
+    },
+    "16": {
+     "italia_meteo_arpae_icon_2i": 6.0,
+     "ecmwf_ifs025": 2.7
+    },
+    "17": {
+     "italia_meteo_arpae_icon_2i": 5.7,
+     "ecmwf_ifs025": 3.5
+    },
+    "18": {
+     "italia_meteo_arpae_icon_2i": 5.4,
+     "ecmwf_ifs025": 4.5
+    },
+    "19": {
+     "italia_meteo_arpae_icon_2i": 5.5,
+     "ecmwf_ifs025": 5.4
+    },
+    "20": {
+     "italia_meteo_arpae_icon_2i": 6.0,
+     "ecmwf_ifs025": 5.8
+    },
+    "21": {
+     "italia_meteo_arpae_icon_2i": 7.1,
+     "ecmwf_ifs025": 5.9
+    },
+    "22": {
+     "italia_meteo_arpae_icon_2i": 7.2,
+     "ecmwf_ifs025": 5.9
+    },
+    "23": {
+     "italia_meteo_arpae_icon_2i": 5.8,
+     "ecmwf_ifs025": 5.4
+    }
+   }
+  },
+  {
+   "data": "2026-11-28",
+   "area": "centro",
+   "emessa": "2026-11-26",
+   "anticipo_g": 2,
+   "ore": {
+    "05": {
+     "icon_d2": 16.0,
+     "italia_meteo_arpae_icon_2i": 13.4,
+     "ecmwf_ifs025": 7.0
+    },
+    "06": {
+     "icon_d2": 15.2,
+     "italia_meteo_arpae_icon_2i": 12.5,
+     "ecmwf_ifs025": 7.1
+    },
+    "07": {
+     "icon_d2": 11.8,
+     "italia_meteo_arpae_icon_2i": 12.2,
+     "ecmwf_ifs025": 7.3
+    },
+    "08": {
+     "italia_meteo_arpae_icon_2i": 12.2,
+     "ecmwf_ifs025": 7.1
+    },
+    "09": {
+     "italia_meteo_arpae_icon_2i": 12.4,
+     "ecmwf_ifs025": 6.8
+    },
+    "10": {
+     "italia_meteo_arpae_icon_2i": 11.4,
+     "ecmwf_ifs025": 6.5
+    },
+    "11": {
+     "italia_meteo_arpae_icon_2i": 11.2,
+     "ecmwf_ifs025": 6.0
+    },
+    "12": {
+     "italia_meteo_arpae_icon_2i": 9.1,
+     "ecmwf_ifs025": 5.5
+    },
+    "13": {
+     "italia_meteo_arpae_icon_2i": 8.5,
+     "ecmwf_ifs025": 4.8
+    },
+    "14": {
+     "italia_meteo_arpae_icon_2i": 8.3,
+     "ecmwf_ifs025": 3.9
+    },
+    "15": {
+     "italia_meteo_arpae_icon_2i": 9.8,
+     "ecmwf_ifs025": 3.0
+    },
+    "16": {
+     "italia_meteo_arpae_icon_2i": 9.5,
+     "ecmwf_ifs025": 2.7
+    },
+    "17": {
+     "italia_meteo_arpae_icon_2i": 9.9,
+     "ecmwf_ifs025": 3.5
+    },
+    "18": {
+     "italia_meteo_arpae_icon_2i": 10.2,
+     "ecmwf_ifs025": 4.5
+    },
+    "19": {
+     "italia_meteo_arpae_icon_2i": 11.3,
+     "ecmwf_ifs025": 5.4
+    },
+    "20": {
+     "italia_meteo_arpae_icon_2i": 11.8,
+     "ecmwf_ifs025": 5.8
+    },
+    "21": {
+     "italia_meteo_arpae_icon_2i": 12.4,
+     "ecmwf_ifs025": 5.9
+    },
+    "22": {
+     "italia_meteo_arpae_icon_2i": 13.8,
+     "ecmwf_ifs025": 5.9
+    },
+    "23": {
+     "italia_meteo_arpae_icon_2i": 12.8,
+     "ecmwf_ifs025": 5.4
+    }
+   }
+  },
+  {
+   "data": "2026-11-28",
+   "area": "sud",
+   "emessa": "2026-11-26",
+   "anticipo_g": 2,
+   "ore": {
+    "05": {
+     "icon_d2": 16.9,
+     "italia_meteo_arpae_icon_2i": 15.6,
+     "ecmwf_ifs025": 7.6
+    },
+    "06": {
+     "icon_d2": 15.8,
+     "italia_meteo_arpae_icon_2i": 12.9,
+     "ecmwf_ifs025": 8.0
+    },
+    "07": {
+     "icon_d2": 15.1,
+     "italia_meteo_arpae_icon_2i": 12.9,
+     "ecmwf_ifs025": 8.3
+    },
+    "08": {
+     "italia_meteo_arpae_icon_2i": 12.8,
+     "ecmwf_ifs025": 8.2
+    },
+    "09": {
+     "italia_meteo_arpae_icon_2i": 12.9,
+     "ecmwf_ifs025": 8.0
+    },
+    "10": {
+     "italia_meteo_arpae_icon_2i": 13.1,
+     "ecmwf_ifs025": 7.8
+    },
+    "11": {
+     "italia_meteo_arpae_icon_2i": 12.9,
+     "ecmwf_ifs025": 7.4
+    },
+    "12": {
+     "italia_meteo_arpae_icon_2i": 11.5,
+     "ecmwf_ifs025": 7.1
+    },
+    "13": {
+     "italia_meteo_arpae_icon_2i": 10.8,
+     "ecmwf_ifs025": 6.6
+    },
+    "14": {
+     "italia_meteo_arpae_icon_2i": 10.3,
+     "ecmwf_ifs025": 5.6
+    },
+    "15": {
+     "italia_meteo_arpae_icon_2i": 10.4,
+     "ecmwf_ifs025": 4.6
+    },
+    "16": {
+     "italia_meteo_arpae_icon_2i": 10.6,
+     "ecmwf_ifs025": 4.2
+    },
+    "17": {
+     "italia_meteo_arpae_icon_2i": 10.9,
+     "ecmwf_ifs025": 4.9
+    },
+    "18": {
+     "italia_meteo_arpae_icon_2i": 11.9,
+     "ecmwf_ifs025": 5.8
+    },
+    "19": {
+     "italia_meteo_arpae_icon_2i": 14.3,
+     "ecmwf_ifs025": 6.6
+    },
+    "20": {
+     "italia_meteo_arpae_icon_2i": 16.2,
+     "ecmwf_ifs025": 6.9
+    },
+    "21": {
+     "italia_meteo_arpae_icon_2i": 15.7,
+     "ecmwf_ifs025": 6.9
+    },
+    "22": {
+     "italia_meteo_arpae_icon_2i": 16.1,
+     "ecmwf_ifs025": 6.7
+    },
+    "23": {
+     "italia_meteo_arpae_icon_2i": 15.8,
+     "ecmwf_ifs025": 6.0
+    }
+   }
+  },
+  {
+   "data": "2026-11-29",
+   "area": "nord",
+   "emessa": "2026-11-26",
+   "anticipo_g": 3,
+   "ore": {
+    "05": {
+     "ecmwf_ifs025": 6.4
+    },
+    "06": {
+     "ecmwf_ifs025": 6.2
+    },
+    "07": {
+     "ecmwf_ifs025": 6.0
+    },
+    "08": {
+     "ecmwf_ifs025": 6.0
+    },
+    "09": {
+     "ecmwf_ifs025": 6.2
+    },
+    "10": {
+     "ecmwf_ifs025": 6.2
+    },
+    "11": {
+     "ecmwf_ifs025": 6.1
+    },
+    "12": {
+     "ecmwf_ifs025": 5.8
+    },
+    "13": {
+     "ecmwf_ifs025": 5.7
+    },
+    "14": {
+     "ecmwf_ifs025": 5.2
+    },
+    "15": {
+     "ecmwf_ifs025": 4.6
+    },
+    "16": {
+     "ecmwf_ifs025": 4.7
+    },
+    "17": {
+     "ecmwf_ifs025": 5.9
+    },
+    "18": {
+     "ecmwf_ifs025": 7.8
+    },
+    "19": {
+     "ecmwf_ifs025": 8.9
+    },
+    "20": {
+     "ecmwf_ifs025": 8.3
+    },
+    "21": {
+     "ecmwf_ifs025": 6.8
+    },
+    "22": {
+     "ecmwf_ifs025": 6.1
+    },
+    "23": {
+     "ecmwf_ifs025": 6.4
+    }
+   }
+  },
+  {
+   "data": "2026-11-29",
+   "area": "centro",
+   "emessa": "2026-11-26",
+   "anticipo_g": 3,
+   "ore": {
+    "05": {
+     "ecmwf_ifs025": 6.4
+    },
+    "06": {
+     "ecmwf_ifs025": 6.2
+    },
+    "07": {
+     "ecmwf_ifs025": 6.0
+    },
+    "08": {
+     "ecmwf_ifs025": 6.0
+    },
+    "09": {
+     "ecmwf_ifs025": 6.2
+    },
+    "10": {
+     "ecmwf_ifs025": 6.2
+    },
+    "11": {
+     "ecmwf_ifs025": 6.1
+    },
+    "12": {
+     "ecmwf_ifs025": 5.8
+    },
+    "13": {
+     "ecmwf_ifs025": 5.7
+    },
+    "14": {
+     "ecmwf_ifs025": 5.2
+    },
+    "15": {
+     "ecmwf_ifs025": 4.6
+    },
+    "16": {
+     "ecmwf_ifs025": 4.7
+    },
+    "17": {
+     "ecmwf_ifs025": 5.9
+    },
+    "18": {
+     "ecmwf_ifs025": 7.8
+    },
+    "19": {
+     "ecmwf_ifs025": 8.9
+    },
+    "20": {
+     "ecmwf_ifs025": 8.3
+    },
+    "21": {
+     "ecmwf_ifs025": 6.8
+    },
+    "22": {
+     "ecmwf_ifs025": 6.1
+    },
+    "23": {
+     "ecmwf_ifs025": 6.4
+    }
+   }
+  },
+  {
+   "data": "2026-11-29",
+   "area": "sud",
+   "emessa": "2026-11-26",
+   "anticipo_g": 3,
+   "ore": {
+    "05": {
+     "ecmwf_ifs025": 5.9
+    },
+    "06": {
+     "ecmwf_ifs025": 6.0
+    },
+    "07": {
+     "ecmwf_ifs025": 6.2
+    },
+    "08": {
+     "ecmwf_ifs025": 6.3
+    },
+    "09": {
+     "ecmwf_ifs025": 6.5
+    },
+    "10": {
+     "ecmwf_ifs025": 6.6
+    },
+    "11": {
+     "ecmwf_ifs025": 6.6
+    },
+    "12": {
+     "ecmwf_ifs025": 6.8
+    },
+    "13": {
+     "ecmwf_ifs025": 6.9
+    },
+    "14": {
+     "ecmwf_ifs025": 6.4
+    },
+    "15": {
+     "ecmwf_ifs025": 5.6
+    },
+    "16": {
+     "ecmwf_ifs025": 5.4
+    },
+    "17": {
+     "ecmwf_ifs025": 6.0
+    },
+    "18": {
+     "ecmwf_ifs025": 7.0
+    },
+    "19": {
+     "ecmwf_ifs025": 7.7
+    },
+    "20": {
+     "ecmwf_ifs025": 7.4
+    },
+    "21": {
+     "ecmwf_ifs025": 6.7
+    },
+    "22": {
+     "ecmwf_ifs025": 6.4
+    },
+    "23": {
+     "ecmwf_ifs025": 6.7
+    }
+   }
   }
  ],
  "verificate": [
@@ -2479,6 +2935,345 @@
       "icon_d2": 14.9,
       "italia_meteo_arpae_icon_2i": 17.0,
       "ecmwf_ifs025": 8.2
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-11-25",
+   "area": "nord",
+   "emessa": "2026-11-23",
+   "anticipo_g": 2,
+   "periodo": "pomeriggio",
+   "ore": [
+    {
+     "ora": "13",
+     "mis": 12.5,
+     "prev": {
+      "icon_d2": 13.3,
+      "italia_meteo_arpae_icon_2i": 12.4,
+      "ecmwf_ifs025": 8.6
+     }
+    },
+    {
+     "ora": "14",
+     "mis": 11.2,
+     "prev": {
+      "icon_d2": 14.0,
+      "italia_meteo_arpae_icon_2i": 13.3,
+      "ecmwf_ifs025": 8.6
+     }
+    },
+    {
+     "ora": "15",
+     "mis": 10.5,
+     "prev": {
+      "icon_d2": 12.2,
+      "italia_meteo_arpae_icon_2i": 14.9,
+      "ecmwf_ifs025": 9.0
+     }
+    },
+    {
+     "ora": "16",
+     "mis": 9.1,
+     "prev": {
+      "icon_d2": 11.3,
+      "italia_meteo_arpae_icon_2i": 9.3,
+      "ecmwf_ifs025": 9.1
+     }
+    },
+    {
+     "ora": "17",
+     "mis": 8.3,
+     "prev": {
+      "icon_d2": 10.4,
+      "italia_meteo_arpae_icon_2i": 7.8,
+      "ecmwf_ifs025": 9.2
+     }
+    },
+    {
+     "ora": "18",
+     "mis": 8.9,
+     "prev": {
+      "icon_d2": 10.4,
+      "italia_meteo_arpae_icon_2i": 11.9,
+      "ecmwf_ifs025": 9.1
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-11-25",
+   "area": "nord",
+   "emessa": "2026-11-23",
+   "anticipo_g": 2,
+   "periodo": "sera",
+   "ore": [
+    {
+     "ora": "19",
+     "mis": 8.7,
+     "prev": {
+      "icon_d2": 12.4,
+      "italia_meteo_arpae_icon_2i": 12.6,
+      "ecmwf_ifs025": 9.5
+     }
+    },
+    {
+     "ora": "20",
+     "mis": 10.2,
+     "prev": {
+      "italia_meteo_arpae_icon_2i": 13.8,
+      "ecmwf_ifs025": 10.3
+     }
+    },
+    {
+     "ora": "21",
+     "mis": 11.5,
+     "prev": {
+      "italia_meteo_arpae_icon_2i": 14.8,
+      "ecmwf_ifs025": 11.5
+     }
+    },
+    {
+     "ora": "22",
+     "mis": 11.9,
+     "prev": {
+      "italia_meteo_arpae_icon_2i": 14.6,
+      "ecmwf_ifs025": 12.7
+     }
+    },
+    {
+     "ora": "23",
+     "mis": 13.8,
+     "prev": {
+      "italia_meteo_arpae_icon_2i": 14.1,
+      "ecmwf_ifs025": 14.2
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-11-25",
+   "area": "centro",
+   "emessa": "2026-11-23",
+   "anticipo_g": 2,
+   "periodo": "pomeriggio",
+   "ore": [
+    {
+     "ora": "13",
+     "mis": 17.0,
+     "prev": {
+      "icon_d2": 17.6,
+      "italia_meteo_arpae_icon_2i": 17.8,
+      "ecmwf_ifs025": 8.6
+     }
+    },
+    {
+     "ora": "14",
+     "mis": 17.6,
+     "prev": {
+      "icon_d2": 17.0,
+      "italia_meteo_arpae_icon_2i": 17.1,
+      "ecmwf_ifs025": 8.6
+     }
+    },
+    {
+     "ora": "15",
+     "mis": 15.2,
+     "prev": {
+      "icon_d2": 15.4,
+      "italia_meteo_arpae_icon_2i": 16.5,
+      "ecmwf_ifs025": 9.0
+     }
+    },
+    {
+     "ora": "16",
+     "mis": 13.1,
+     "prev": {
+      "icon_d2": 14.0,
+      "italia_meteo_arpae_icon_2i": 15.8,
+      "ecmwf_ifs025": 9.1
+     }
+    },
+    {
+     "ora": "17",
+     "mis": 14.3,
+     "prev": {
+      "icon_d2": 14.2,
+      "italia_meteo_arpae_icon_2i": 6.7,
+      "ecmwf_ifs025": 9.2
+     }
+    },
+    {
+     "ora": "18",
+     "mis": 14.3,
+     "prev": {
+      "icon_d2": 14.2,
+      "italia_meteo_arpae_icon_2i": 8.5,
+      "ecmwf_ifs025": 9.1
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-11-25",
+   "area": "centro",
+   "emessa": "2026-11-23",
+   "anticipo_g": 2,
+   "periodo": "sera",
+   "ore": [
+    {
+     "ora": "19",
+     "mis": 15.1,
+     "prev": {
+      "icon_d2": 16.5,
+      "italia_meteo_arpae_icon_2i": 16.6,
+      "ecmwf_ifs025": 9.5
+     }
+    },
+    {
+     "ora": "20",
+     "mis": 15.9,
+     "prev": {
+      "italia_meteo_arpae_icon_2i": 18.1,
+      "ecmwf_ifs025": 10.3
+     }
+    },
+    {
+     "ora": "21",
+     "mis": 18.3,
+     "prev": {
+      "italia_meteo_arpae_icon_2i": 19.1,
+      "ecmwf_ifs025": 11.5
+     }
+    },
+    {
+     "ora": "22",
+     "mis": 16.0,
+     "prev": {
+      "italia_meteo_arpae_icon_2i": 20.1,
+      "ecmwf_ifs025": 12.7
+     }
+    },
+    {
+     "ora": "23",
+     "mis": 17.6,
+     "prev": {
+      "italia_meteo_arpae_icon_2i": 20.7,
+      "ecmwf_ifs025": 14.2
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-11-25",
+   "area": "sud",
+   "emessa": "2026-11-23",
+   "anticipo_g": 2,
+   "periodo": "pomeriggio",
+   "ore": [
+    {
+     "ora": "13",
+     "mis": 16.7,
+     "prev": {
+      "icon_d2": 16.7,
+      "italia_meteo_arpae_icon_2i": 17.4,
+      "ecmwf_ifs025": 7.9
+     }
+    },
+    {
+     "ora": "14",
+     "mis": 17.9,
+     "prev": {
+      "icon_d2": 16.6,
+      "italia_meteo_arpae_icon_2i": 18.3,
+      "ecmwf_ifs025": 7.5
+     }
+    },
+    {
+     "ora": "15",
+     "mis": 15.3,
+     "prev": {
+      "icon_d2": 14.7,
+      "italia_meteo_arpae_icon_2i": 16.2,
+      "ecmwf_ifs025": 7.0
+     }
+    },
+    {
+     "ora": "16",
+     "mis": 13.7,
+     "prev": {
+      "icon_d2": 15.2,
+      "italia_meteo_arpae_icon_2i": 9.1,
+      "ecmwf_ifs025": 6.8
+     }
+    },
+    {
+     "ora": "17",
+     "mis": 15.1,
+     "prev": {
+      "icon_d2": 13.9,
+      "italia_meteo_arpae_icon_2i": 5.8,
+      "ecmwf_ifs025": 7.1
+     }
+    },
+    {
+     "ora": "18",
+     "mis": 14.6,
+     "prev": {
+      "icon_d2": 15.8,
+      "italia_meteo_arpae_icon_2i": 9.2,
+      "ecmwf_ifs025": 7.7
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-11-25",
+   "area": "sud",
+   "emessa": "2026-11-23",
+   "anticipo_g": 2,
+   "periodo": "sera",
+   "ore": [
+    {
+     "ora": "19",
+     "mis": 15.0,
+     "prev": {
+      "icon_d2": 16.9,
+      "italia_meteo_arpae_icon_2i": 10.4,
+      "ecmwf_ifs025": 8.4
+     }
+    },
+    {
+     "ora": "20",
+     "mis": 15.6,
+     "prev": {
+      "italia_meteo_arpae_icon_2i": 17.4,
+      "ecmwf_ifs025": 9.2
+     }
+    },
+    {
+     "ora": "21",
+     "mis": 16.6,
+     "prev": {
+      "italia_meteo_arpae_icon_2i": 17.8,
+      "ecmwf_ifs025": 10.2
+     }
+    },
+    {
+     "ora": "22",
+     "mis": 15.7,
+     "prev": {
+      "italia_meteo_arpae_icon_2i": 20.0,
+      "ecmwf_ifs025": 10.8
+     }
+    },
+    {
+     "ora": "23",
+     "mis": 16.2,
+     "prev": {
+      "italia_meteo_arpae_icon_2i": 21.2,
+      "ecmwf_ifs025": 11.0
      }
     }
    ]
