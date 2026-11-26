@@ -38,7 +38,7 @@ h1 span{color:var(--teal)}
 .zc{display:grid;grid-template-columns:5px minmax(0,1fr);background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:15px;overflow:hidden;margin-bottom:6px;cursor:pointer}.zc.off{opacity:.6;cursor:default}   /* v3.64: scheda della zona con la marea delle 24 ore */
 .zc .bar{border-radius:0 5px 5px 0;margin:6px 0}.zc .in{padding:5px 8px 3px;min-width:0}
 .zc .r1{display:flex;align-items:center;gap:7px;white-space:nowrap;height:21px}.zc .zname{font-size:17px}.zc .r1 .sp{flex:1}.zc .chip{font-size:11px;padding:2px 9px}.zc .wind{font-size:12.5px;font-weight:650}
-.zc .r2{display:flex;gap:6px;height:18px;align-items:center;margin-top:1px;overflow:hidden}.zc .r2 .piog{margin:0;font-size:11px}.zc .r2 .zmeta{font-size:11px;overflow:hidden;text-overflow:ellipsis}
+.zc .r2{display:flex;gap:6px;height:18px;align-items:center;margin-top:1px;overflow:hidden}.zc .r1 .piog{margin:0;font-size:11px}.zc .r1 .piog.stretta{gap:4px}.zc .r1 .piog.stretta .pw{display:none}.zc .r2 .zmeta{font-size:11px;overflow:hidden;text-overflow:ellipsis}
 .g24h{display:block}svg.g24{display:block}.g24 text{font-family:-apple-system,Inter,sans-serif}
 .leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--soft);margin-top:6px}.leg i{display:inline-block;width:16px;border-top:2.5px solid;vertical-align:middle;margin-right:5px}
 .lett{font-size:15px;font-weight:650;margin-top:8px;color:var(--txt)}
@@ -70,7 +70,7 @@ h1 span{color:var(--teal)}
 .tz{display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:10px 14px;margin-bottom:8px}.tz .tn{font-size:16px;font-weight:650;display:flex;align-items:center;gap:8px}.tz .tp{width:11px;height:11px;border-radius:50%;flex:none}.tz .tv{font-size:12.5px;color:var(--soft);text-align:right;line-height:1.35}.tday{font-size:14px;color:var(--teal);margin:16px 4px 6px;font-weight:600}.giorno .gs{font-size:12.5px;color:var(--mut);margin-top:2px;display:flex;justify-content:space-between;align-items:center;gap:10px}   /* v3.55: "Prossimi giorni" sulla stessa riga dello stato */
 .piog{display:flex;width:fit-content;align-items:center;gap:5px;margin-top:1px;font-size:12px;line-height:14px;font-weight:600;white-space:nowrap;border-radius:999px}   /* v3.25: pioggia in prima pagina */
 .wi{color:var(--giallo);font-weight:750;margin-left:5px}   /* v3.65: forbice dei modelli a cavallo di due colori */
-@media (max-width:340px){.zc .zname{font-size:15px}.zc .r1{gap:5px}}
+@media (max-width:340px){.zc .zname{font-size:14px}.zc .r1{gap:4px}.zc .wind{font-size:11.5px}.zc .r1 .piog.p2{padding:0 5px}}
 .incb{border:1px solid var(--giallo);color:var(--soft);font-size:14px;line-height:1.5}.incb b{color:var(--giallo)}.tab .fb{display:block;font-size:10.5px;font-weight:500;color:var(--giallo)}.tab tr.ri td{background:rgba(242,182,60,.08)}
 .piog svg{width:9px;height:12px;flex:none}.piog.p0{color:var(--mut);font-weight:500}.piog.p1{color:#38b6ff}.piog.p2{background:#38b6ff;color:#06131d;padding:0 8px 0 7px;font-weight:700}
 .zone{display:grid;grid-template-columns:6px minmax(0,1fr) 74px 88px;gap:10px;align-items:center;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:20px;padding:12px 16px 12px 0;margin-bottom:10px;overflow:hidden;cursor:pointer;transition:transform .15s}
@@ -274,7 +274,7 @@ function incBox(s){const O=((s&&s.ore)||[]).filter(o=>o.incerta&&o.forbice);if(!
 function piogZona(s){   // v3.25: probabilita' massima di pioggia nella finestra (stesso valore della tabella Ora per ora) e ore dal 20%
  const O=((s&&s.ore_dettaglio)||[]).filter(o=>o.pioggia_prob!=null);if(!O.length)return '';
  const mx=Math.max(...O.map(o=>o.pioggia_prob)),k=mx>=50?2:mx>=20?1:0;   // v3.64: senza ore (sono nella pagina della zona)
-  return `<div class="piog p${k}"><svg viewBox="0 0 12 16" aria-hidden="true"><path d="M6 0C6 0 0 7.2 0 10.5a6 6 0 0 0 12 0C12 7.2 6 0 6 0Z" fill="currentColor"/></svg>Pioggia ${mx}%</div>`}
+  return `<div class="piog p${k}"><svg viewBox="0 0 12 16" aria-hidden="true"><path d="M6 0C6 0 0 7.2 0 10.5a6 6 0 0 0 12 0C12 7.2 6 0 6 0Z" fill="currentColor"/></svg><span><span class="pw">Pioggia </span>${mx}%</span></div>`}
 function titoloGiorno(){   // v3.49: bottoni delle fasce al posto del titolo grande, poi data e provvisoria/definitiva/aggiornata
  const S=slotVisibili(),k=fsel(),sel=S.find(s=>s.k===k);if(!sel)return {h:'',rif:null,data:null};
  const ult=sel.data,d=dataDi(ult),oggi=relativo(ult)==='Oggi';
@@ -369,7 +369,10 @@ function g24(Z,data,f,o){
   if(o.two){const y1=hi?py-fs-8:py+fs+3;s+=`<text x="${tx}" y="${y1}" font-size="${fs+1}" font-weight="${gia?600:750}" fill="${ce}" ${st}>${fr} ${e.cm} cm</text><text x="${tx}" y="${y1+fs}" font-size="${fs-.5}" fill="${gia?'#8aa6b6':'#b8cdd8'}" ${st}>${esc(e.ora)}</text>`}
   else s+=`<text class="est1" x="${tx}" y="${hi?Math.max(fs,py-5):py+fs+4}" font-size="${fs}" fill="${gia?'#8aa6b6':'#b8cdd8'}" ${st}>${esc(e.ora)} <tspan class="${gia?'gia':''}" font-weight="${gia?600:750}" fill="${ce}">${fr} ${e.cm} cm</tspan></text>`}
  return s+giallo+(big?'<g class="cur"></g>':'')+'</svg>'}
+function stringi(){   // v3.81: se la riga del nome non ci sta, della pioggia restano goccia e percentuale
+ document.querySelectorAll('.zc .r1').forEach(r=>{const p=r.querySelector('.piog');if(!p||!r.clientWidth)return;p.classList.remove('stretta');if(r.scrollWidth>r.clientWidth)p.classList.add('stretta')})}
 function disegna24(){   // disegna i grafici alla larghezza disponibile; richiamata a ogni minuto, al ridimensionamento e dopo la misura
+ stringi();
  document.querySelectorAll('[data-g24]').forEach(el=>{const [scelto,zona,fin]=el.dataset.g24.split('|'),oggi=adessoIT().d;
   const data=el.dataset.casa&&m24(oggi,zona)?oggi:scelto,Z=fin24(data,zona),W=Math.floor(el.clientWidth);if(!Z||W<100)return;   // v3.78: in prima pagina sempre da adesso
   const sposta=Math.round((Date.parse(scelto)-Date.parse(data))/60000),f=fin?finMin(fin).map(m=>m+sposta):null;   // la barretta resta sulle ore della fascia scelta
@@ -378,7 +381,7 @@ function disegna24(){   // disegna i grafici alla larghezza disponibile; richiam
    const ls=el.closest('.card').querySelector('.legsoglia');if(ls)ls.hidden=!soglieDa(Z,zona,data).length;
    const q=el.closest('.card').querySelector('.est');if(q){q.style.gridTemplateColumns=`repeat(${Math.max(Z.estremi.length,1)},1fr)`;q.innerHTML=riquadri(Z)}}
   else{const zz=(D.marea24||{})[data],m=Object.keys(zz).flatMap(k=>{const l=mis24(k,data);return misurata(k,data).map(p=>p[1]).concat(l?[l.cm]:[])});
-   el.innerHTML=g24(Z,data,f,{W,H:70,T:13,B:34,fs:10.5,sc:scala24(Object.keys(zz).map(k=>fin24(data,k)),m.length?Math.min(...m):null,m.length?Math.max(...m):null),zona});scosta(el,W)}})}
+   el.innerHTML=g24(Z,data,f,{W,H:+el.dataset.h||70,T:13,B:34,fs:10.5,sc:scala24(Object.keys(zz).map(k=>fin24(data,k)),m.length?Math.min(...m):null,m.length?Math.max(...m):null),zona});scosta(el,W)}})}
 function scosta(el,W){   // v3.77: sui grafici piccoli, su schermi stretti, due scritte sulla stessa riga non si toccano
  const T=[...el.querySelectorAll('text.est1')].map(t=>({t,x:+t.getAttribute('x'),y:+t.getAttribute('y'),h:t.getComputedTextLength()/2}));
  for(let i=0;i<T.length;i++)for(let j=i+1;j<T.length;j++){const a=T[i],b=T[j],ov=a.h+b.h+4-(b.x-a.x);if(Math.abs(a.y-b.y)<10&&ov>0){
@@ -440,8 +443,8 @@ function home(){
   if(!z.attiva||!v){h+=`<div class="zc off" ${z.attiva?`onclick="location.hash='zona/${z.id}'"`:''}><div class="bar" style="background:var(--nd)"></div><div class="in"><div class="r1"><span class="zname">${esc(z.nome)}</span><span class="sp"></span><span class="chip" style="background:#22394B;color:var(--mut)">In arrivo</span></div></div></div>`;return}
   const nota=v.data!==ult||(v.provvisoria!==TG.rif&&relativo(v.data)!=='Oggi')?`<span class="zmeta">${v.data!==ult?esc(etichetta(v.data))+' · ':''}${v.provvisoria?'Provvisoria':'Definitiva'}${v.emessa?' '+esc(v.emessa):''}</span>`:'';
   h+=`<div class="zc" onclick="location.hash='zona/${z.id}/${v.data}/${v.finestra.slice(0,2)}'"><div class="bar" style="background:${col(v.colore)}"></div><div class="in">
-  <div class="r1"><span class="zname">${esc(z.nome)}</span><span class="sp"></span><span class="wind">${rng(s.vento_min,s.vento_max)} kn${s.direzione?' · '+esc(s.direzione):''}${incSegno(s)}</span></div>
-  <div class="r2">${piogZona(s)}${nota}</div>${m24(adessoIT().d,z.id)||m24(v.data,z.id)?`<div class="g24h" data-g24="${v.data}|${z.id}|${esc(v.finestra)}" data-casa="1"></div>`:''}</div></div>`});
+  <div class="r1"><span class="zname">${esc(z.nome)}</span>${piogZona(s)}<span class="sp"></span><span class="wind">${rng(s.vento_min,s.vento_max)} kn${s.direzione?' · '+esc(s.direzione):''}${incSegno(s)}</span></div>
+  ${nota?`<div class="r2">${nota}</div>`:''}${m24(adessoIT().d,z.id)||m24(v.data,z.id)?`<div class="g24h" data-g24="${v.data}|${z.id}|${esc(v.finestra)}" data-casa="1" data-h="${nota?70:89}"></div>`:''}</div></div>`});
  app.innerHTML=h+'</div><div class="foot">Indicativa: non sostituisce i bollettini ufficiali · <span class="flink" role="button" onclick="istruzioni()">Fonti e licenze → (i)</span></div></div>';window.scrollTo(0,0);disegna24()}
 function curva(s){
  const C=s.marea_curva||[],A=s.marea_astro||[];if(C.length<2)return '';
