@@ -24,6 +24,10 @@ on:
         description: "mattino (08:25) e meteo (05:30, 11:15, 18:30) = aggiornamento del vento; marea = nuovo bollettino, solo marea e correnti; vuoto = giro principale. Li manda il Worker Cloudflare"
         required: false
         default: ""
+      riprova:
+        description: "si = rilancio automatico dopo un errore (lo mette il giro stesso: un solo tentativo)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -45,6 +49,8 @@ jobs:
       salta: ${{ steps.guard.outputs.salta }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main      # 26/11/2026: sempre gli ultimi dati, anche se il giro e' stato in coda dietro un altro
 
       - name: Controllo doppioni (previsione di domani gia' fatta oggi?)
         id: guard
@@ -213,6 +219,29 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  riprova:                     # 26/11/2026: se calcolo, salvataggio o pubblicazione falliscono, UN solo nuovo giro con le stesse scelte
+    needs: [build, deploy]
+    if: always() && (needs.build.result == 'failure' || needs.deploy.result == 'failure') && github.event.inputs.riprova != 'si'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Rilancio
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DATA_IN: ${{ github.event.inputs.data }}
+          DA_IN: ${{ github.event.inputs.da }}
+          A_IN: ${{ github.event.inputs.a }}
+          FORZA: ${{ github.event.inputs.forza }}
+          GIRO: ${{ github.event.inputs.giro }}
+        run: |
+          # un giro gia' in coda pubblichera' lui: rilanciare lo farebbe annullare
+          CODA=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow previsione.yml --limit 20 --json status --jq '[.[]|select(.status=="queued" or .status=="pending" or .status=="waiting")]|length')
+          if [ "$CODA" != "0" ]; then echo "::notice::C'e' gia' un giro in attesa: nessun rilancio."; exit 0; fi
+          gh workflow run previsione.yml --repo "$GITHUB_REPOSITORY" --ref main \
+            -f data="$DATA_IN" -f da="$DA_IN" -f a="$A_IN" -f forza="${FORZA:-no}" -f giro="$GIRO" -f riprova=si
+          echo "::notice::Giro rilanciato una volta."
 
   sentinella:                  # dopo la pubblicazione: se una verifica manca il giro risulta fallito, il sito resta aggiornato
     needs: [build, deploy]
