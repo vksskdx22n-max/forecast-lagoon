@@ -69,7 +69,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.35"   # v1.35: scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+VERSIONE = "1.35"   # v1.35: su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
 # v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
 # Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
 # 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
@@ -1192,6 +1192,8 @@ td.dir{font-size:12px;white-space:nowrap}.dnome{font-size:11px;color:var(--mu)}.
 .arch{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--tx);white-space:pre-wrap}
 .r{display:flex;gap:10px;margin:10px 0;align-items:flex-start}.tag{flex:0 0 auto;font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:6px;text-transform:uppercase}
 .tag.dato{background:#dbeafe;color:#1e40af}.tag.inferenza{background:#fef3c7;color:#a16207}.tag.opinione{background:#ede9fe;color:#6d28d9}
+.scorri{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media screen and (max-width:480px){.wrap{padding:8px}.card{padding:12px 8px}table{font-size:12px}th{font-size:10.5px;padding:5px 1px}td{padding:6px 1px}.pill{padding:1px 5px}td.dir{font-size:11px}.dnome{font-size:10px}}
 .fonti{color:var(--mu);font-size:12px;text-align:center;margin:18px 8px 8px}
 </style></head><body><div class="wrap" id="app"></div>
 <script id="dati" type="application/json">__DATI__</script>
@@ -1226,7 +1228,7 @@ D.zone.forEach(Z=>{const S=Z.sintesi,c=h('div',{cls:'card'},h('h2',{},'💨 '+Z.
  const t=h('table',{},h('tr',{},...['Ora','Misur.','Dir.','Stima','D2','2i','EC','AR','Raff. mis.','Raff. prev.'].map(x=>h('th',{},x))));
  Z.ore.forEach(o=>t.append(h('tr',{},h('td',{},o.ora),h('td',{},h('span',{cls:'pill '+sem(o.mis,o.raff_mis)},n(o.mis,0))),h('td',{cls:'dir'},o.dir_mis,h('div',{cls:'dnome'},o.nome_mis),h('div',{cls:'dprev'+(o.set_mis===o.set_prev?'':' fuori')},'prev. '+o.dir_prev,h('br'),o.nome_prev)),
   h('td',{},o.sem_prev?h('span',{cls:'pill '+o.sem_prev},n(o.stima,0)):n(o.stima,0)),h('td',{},n(o.d2)),h('td',{},n(o.i2)),h('td',{},n(o.ec)),h('td',{},n(o.ar)),h('td',{},n(o.raff_mis)),h('td',{},n(o.raff)))));
- c.append(h('h3',{},'Ora per ora (nodi)'),t,h('div',{cls:'nota'},'Colori: Misur. = semaforo misurato dell’ora (media oraria), Stima = semaforo previsto per la zona; stessa regola della previsione sul vento medio arrotondato all’intero: verde fino a '+D.verde_fino_a+' nodi, giallo da '+(D.verde_fino_a+1)+' a '+(D.rosso_da-1)+', rosso da '+D.rosso_da+'; le raffiche non cambiano il colore. Raff. prev. = raffica stimata (corretta). AR = AROME HD, in parallelo: non usato nella stima.'));
+ c.append(h('h3',{},'Ora per ora (nodi)'),h('div',{cls:'scorri'},t),h('div',{cls:'nota'},'Colori: Misur. = semaforo misurato dell’ora (media oraria), Stima = semaforo previsto per la zona; stessa regola della previsione sul vento medio arrotondato all’intero: verde fino a '+D.verde_fino_a+' nodi, giallo da '+(D.verde_fino_a+1)+' a '+(D.rosso_da-1)+', rosso da '+D.rosso_da+'; le raffiche non cambiano il colore. Raff. prev. = raffica stimata (corretta). AR = AROME HD, in parallelo: non usato nella stima.'));
  const te=h('table',{},h('tr',{},h('th',{},'Modello'),h('th',{},'Errore medio'),h('th',{},'Errore assoluto')));
  Z.errori.forEach(e=>te.append(h('tr',{},h('td',{},e.nome),h('td',{cls:e.medio>0?'pos':'neg'},sg(e.medio)),h('td',{},n(e.ass)))));
  c.append(h('h3',{},'Errore dei modelli (previsto − misurato, nodi)'),te);app.append(c);});
