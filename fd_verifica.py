@@ -56,6 +56,9 @@ Marea della zona (v1.25): curva della zona (marea_propaga, ritardo e quota da Pu
   con fd_previsione >= 1.43, altrimenti ricalcolata) confrontata con il livello misurato ogni 5 minuti nella finestra
   (Laguna Nord Saline, Malamocco Porto, Chioggia Porto): errore medio e medio assoluto del livello e errore sull'ora
   dell'alta/bassa (previsto - misurato), anche per la curva di Punta Salute non corretta. Archivio: campo "marea".
+  v1.34: la previsione CPSM e' confrontata anche con il livello misurato a Punta Salute, nella stessa finestra (campi
+  "cpsm_*"; solo se la curva e' la previsione CPSM): separa l'errore del CPSM da quello del trasporto nella zona.
+  Una riga per giorno, area e inizio della finestra ("da").
 
 AROME HD in parallelo (v1.26, previsioni da fd_previsione >= 1.44): vento ("ar") e raffica ("raff_ar") di AROME HD salvati
   nelle ore verificate; nel riepilogo errore di ICON-D2, AROME HD e della media AROME HD + ICON-D2 (grezzi, senza correzione),
@@ -65,7 +68,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.33"   # v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+VERSIONE = "1.34"   # v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
 # v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
 # Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
 # 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
@@ -97,7 +100,8 @@ URL_BASE = "https://www.comune.venezia.it/sites/default/files/publicCPSM2/stazio
 URL_PROXY = "https://fd-cpsm-proxy.ennioweb.workers.dev/misure/"      # v1.22: il Comune blocca i server di GitHub; il proxy Cloudflare no
 ORIGINE_PROXY = "https://vksskdx22n-max.github.io"
 PAGINE = {"Malamocco Porto": "Malamocco_Porto", "Palazzo Cavalli": "Palazzo_Cavalli",
-          "Piattaforma CNR": "Piattaforma", "Laguna Nord": "Laguna_Nord", "Chioggia Porto": "Chioggia_Porto"}   # v1.23: + Laguna Nord, Chioggia Porto
+          "Piattaforma CNR": "Piattaforma", "Laguna Nord": "Laguna_Nord", "Chioggia Porto": "Chioggia_Porto",   # v1.23: + Laguna Nord, Chioggia Porto
+          "Punta Salute": "Punta_Salute"}                                       # v1.34: solo livello (previsione CPSM)
 ZONE = {  # zona della previsione -> (stazioni mediate, descrizione)
     "Malamocco · Valgrande": (["Malamocco Porto"], "Malamocco Porto (interna, ~3 km dalla bocca, ~1 km dal Canale Valgrande)"),
     "Laguna Nord": (["Laguna Nord"], "Laguna Nord (Saline, interna, 45,4956 N 12,4720 E)"),          # v1.23
@@ -651,6 +655,7 @@ def leggi_previsioni(cartella):
 
 
 STAZ_MAREA = {"centro": "Malamocco Porto", "nord": "Laguna Nord", "sud": "Chioggia Porto"}   # v1.25: livello misurato per area
+STAZ_CPSM = "Punta Salute"     # v1.34: stazione a cui si riferisce la previsione di marea del CPSM
 MIN_LIVELLI = 60               # letture da 5 min nella finestra 05-12 (85 possibili)
 MIN_LIVELLI_QUOTA = 0.7        # v1.31: fasce piu' corte (13-18, 19-24): almeno il 70 % delle letture possibili
 
@@ -697,6 +702,25 @@ def _estremo_misurato(serie, t0, tipo, raggio=120):
             "durata_min": sm[b_][0] - sm[a_][0]}
 
 
+def _errore_cpsm(righe, g0, f, ps, fonte_ps, min_l, MP):
+    """v1.34: previsione CPSM contro il livello misurato a Punta Salute nella finestra f; {} se la curva e' solo
+    astronomica o le letture sono troppo poche."""
+    if "CPSM" not in (fonte_ps or ""):
+        return {}
+    e = []
+    for r in righe:
+        t = round((r["t"] - g0).total_seconds() / 60)
+        if r.get("liv") is None or not f[0] <= t <= f[1]:
+            continue
+        p = MP.interpola(ps, t)
+        if p is not None:
+            e.append(p - r["liv"] * 100)
+    if len(e) < min_l:
+        return {}
+    return {"cpsm_n": len(e), "cpsm_err_medio": round(statistics.mean(e), 1),
+            "cpsm_err_ass": round(statistics.mean(abs(x) for x in e), 1)}
+
+
 def verifica_marea(v, M, cfg):
     """v1.25: confronto marea della zona prevista / misurata nella finestra. Ritorna un dict o None."""
     import marea_propaga as MP
@@ -725,7 +749,8 @@ def verifica_marea(v, M, cfg):
            "config": mz.get("config"), "fonte": mz.get("fonte"), "n": len(ez),
            "liv_err_medio": round(statistics.mean(ez), 1), "liv_err_ass": round(statistics.mean(abs(x) for x in ez), 1),
            "liv_err_medio_ps": round(statistics.mean(ep), 1), "liv_err_ass_ps": round(statistics.mean(abs(x) for x in ep), 1),
-           "mis_medio": round(statistics.mean(h for _, h in win), 1), "estremo": None}
+           "mis_medio": round(statistics.mean(h for _, h in win), 1), "estremo": None, "da": f[0]}
+    out.update(_errore_cpsm(M.get(STAZ_CPSM, []), g0, f, ps, fonte_ps, min_l, MP))     # v1.34
     e = next((x for x in mz.get("estremi") or [] if f[0] <= x["min"] <= f[1]), None)
     if e:
         m = _estremo_misurato(mis, e["min"], e["tipo"])
@@ -875,9 +900,10 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
                 A["aria"] += [o for o in aria_v if (o["data"], o["ora"]) not in gia]
                 gia = {(x["data"], x["ora"]) for x in A["pioggia"]}
                 A["pioggia"] += [o for o in pioggia_v if (o["data"], o["ora"]) not in gia]
-            if v.get("marea_v"):                # v1.25: una riga per giorno e area
+            if v.get("marea_v"):                # v1.25: una riga per giorno e area; v1.34: e per finestra
                 mv = v["marea_v"]
-                A["marea"] = [x for x in A["marea"] if (x["data"], x["area"]) != (mv["data"], mv["area"])] + [mv]
+                k = (mv["data"], mv["area"], mv["da"])
+                A["marea"] = [x for x in A["marea"] if (x["data"], x["area"], x.get("da")) != k] + [mv]
             A["previsioni"].append({"chiave": chiave, "file": v["file"], "esito": f"verificata, {len(ore_tot)} ore",
                                     "verificata": dt.datetime.now().strftime("%Y-%m-%d %H:%M")})
         log.append(f"  {chiave}{' PROVVISORIA' if provvisoria else ''}:" + (f" {n_rip} ore di ripiego senza ICON-D2 escluse" if n_rip else ""))
@@ -895,6 +921,8 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
             log.append(f"    Marea {mv['stazione']}: livello errore medio {sg(mv['liv_err_medio'])} cm (Punta Salute non corretta {sg(mv['liv_err_medio_ps'])})"
                        + (f" · {e['tipo']} prevista {e['prev_ora']}, misurata {e['mis_ora']}, errore {e['err_min']:+d} min"
                           + (f" (Punta Salute {e['err_ps_min']:+d})" if e.get('err_ps_min') is not None else "") if e else ""))
+        if mv and "cpsm_err_ass" in mv:                  # v1.34
+            log.append(f"    Marea CPSM a Punta Salute: errore medio {sg(mv['cpsm_err_medio'])} cm, medio assoluto {num(mv['cpsm_err_ass'])} cm")
         for s, nz in zeri.items():
             if nz:
                 log.append(f"    {s}: {nz} letture da 5 min a zero scartate (sensore fermo)")
@@ -1239,7 +1267,8 @@ if(D.marea_zona){const Z=D.marea_zona,E=Z.estremo,sc=x=>(x>0?'+':'')+String(x).r
  if(E)tz.append(h('tr',{},h('td',{},'Ora '+(E.tipo==='alta'?"dell'alta":'della bassa')),h('td',{},E.prev_ora+' · misurata '+E.mis_ora+' · errore '+tm(E.err_min)),h('td',{},E.ps_ora?E.ps_ora+' · errore '+tm(E.err_ps_min):'–')));
  if(E)tz.append(h('tr',{},h('td',{},'Livello '+(E.tipo==='alta'?"dell'alta":'della bassa')),h('td',{},E.prev_cm+' cm · misurato '+E.mis_cm+' cm'),h('td',{},'')));
  tz.append(h('tr',{},h('td',{},'Livello nella finestra'),h('td',{},'errore medio '+sc(Z.liv_err_medio)+' cm · medio assoluto '+String(Z.liv_err_ass).replace('.',',')+' cm'),h('td',{},'errore medio '+sc(Z.liv_err_medio_ps)+' cm · medio assoluto '+String(Z.liv_err_ass_ps).replace('.',',')+' cm')));
- app.append(h('div',{cls:'card'},h('h2',{},'🌊 Marea della zona · '+Z.stazione),tz,h('div',{cls:'nota'},'Errore = previsto − misurato. Curva della zona: '+Z.fonte+' spostata con ritardo e quota della stazione (coefficienti v'+(Z.config||'–')+', archivio CPSM). Misurato: livello ogni 5 minuti, ora dell’estremo dalla media mobile di 35 minuti. Con maree piccole il colmo è piatto e l’ora è poco precisa.')));}
+ const cp=Z.cpsm_err_ass==null?null:h('div',{cls:'nota'},'Previsione CPSM controllata a Punta Salute, stessa finestra: errore medio '+sc(Z.cpsm_err_medio)+' cm · medio assoluto '+String(Z.cpsm_err_ass).replace('.',',')+' cm.');   // v1.34
+ app.append(h('div',{cls:'card'},h('h2',{},'🌊 Marea della zona · '+Z.stazione),tz,...(cp?[cp]:[]),h('div',{cls:'nota'},'Errore = previsto − misurato. Curva della zona: '+Z.fonte+' spostata con ritardo e quota della stazione (coefficienti v'+(Z.config||'–')+', archivio CPSM). Misurato: livello ogni 5 minuti, ora dell’estremo dalla media mobile di 35 minuti. Con maree piccole il colmo è piatto e l’ora è poco precisa.')));}
 const AN=D.andamento;
 function graf(righe,serie,tipo){const W=520,H=200,L=30,R=10,T=12,B=26,N=righe.length;if(!N)return null;
  const v=righe.flatMap(r=>serie.map(s=>r[s[0]]));const ym=Math.max(1,Math.ceil(Math.max(...v.map(Math.abs))));const y0=tipo==='ass'?0:-ym;
