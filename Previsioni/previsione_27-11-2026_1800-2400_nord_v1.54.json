@@ -6,16 +6,16 @@
  "zone": "Laguna Nord · bacino di Lido",
  "verdetto": {
   "colore": "giallo",
-  "testo": "Andamento: giallo 18–19 → rosso dalle 20 → giallo dalle 22. Vento da 52° NE · Bora. Media delle 4 zone di pesca: 9,7–13,1 nodi, raffiche medie fino a 21,9. Per zona: Burano sud 11,8–15,8 nodi, raffiche fino a 23,9; Sant'Erasmo nord 10,0–12,9 nodi, raffiche fino a 21,2; Murano nord 6,3–11,5 nodi, raffiche fino a 18,3; Giudecca sud 10,6–13,6 nodi, raffiche fino a 24,3. Attenzione: raffiche fino a 24,3 nodi (Giudecca sud, 21:00); non cambiano il colore, che segue il vento medio. Marea calante dalle 11:30 alla minima delle 18:40. Marea crescente dalle 18:40 alla massima delle 02:20. (Orari marea: previsione CPSM.)",
+  "testo": "Andamento: giallo 18–20 → rosso dalle 21 → giallo dalle 22. Vento da 61° ENE · Bora in rotazione a 38° NE · Bora. Media delle 4 zone di pesca: 9,7–14,6 nodi, raffiche medie fino a 23,6. Per zona: Burano sud 11,3–18,2 nodi, raffiche fino a 27,0; Sant'Erasmo nord 9,9–14,8 nodi, raffiche fino a 24,7; Murano nord 6,3–11,3 nodi, raffiche fino a 18,1; Giudecca sud 8,9–14,6 nodi, raffiche fino a 25,5. Attenzione: raffiche fino a 27,0 nodi (Burano sud, 21:00); non cambiano il colore, che segue il vento medio. Marea calante dalle 11:30 alla minima delle 18:40. Marea crescente dalle 18:40 alla massima delle 02:20. (Orari marea: previsione CPSM.)",
   "andamento": [
    {
     "colore": "giallo",
     "da": "18",
-    "a": "19"
+    "a": "20"
    },
    {
     "colore": "rosso",
-    "da": "20",
+    "da": "21",
     "a": "21"
    },
    {
@@ -24,8 +24,8 @@
     "a": "23"
    }
   ],
-  "andamento_txt": "giallo 18–19 → rosso dalle 20 → giallo dalle 22",
-  "nota": "Semaforo = media delle zone Burano sud, Sant'Erasmo nord, Murano nord, Giudecca sud (non la zona peggiore). Ore con semaforo peggiore: 20, 21."
+  "andamento_txt": "giallo 18–20 → rosso dalle 21 → giallo dalle 22",
+  "nota": "Semaforo = media delle zone Burano sud, Sant'Erasmo nord, Murano nord, Giudecca sud (non la zona peggiore). Ore con semaforo peggiore: 21."
  },
  "striscia": {
   "zone": [
@@ -39,7 +39,7 @@
     "ora": "18",
     "sem": "giallo",
     "stima": 9.7,
-    "raff": 15.3,
+    "raff": 15.2,
     "marea": "↓",
     "cm_h": -8.3,
     "corr": 1.17,
@@ -53,23 +53,20 @@
    {
     "ora": "19",
     "sem": "giallo",
-    "stima": 12.0,
-    "raff": 19.1,
+    "stima": 11.3,
+    "raff": 17.0,
     "marea": "↑",
     "cm_h": 3.7,
     "corr": 0.23,
     "verso": "esce",
-    "incerta": true,
-    "forbice": [
-     7.9,
-     12.0
-    ]
+    "incerta": false,
+    "forbice": null
    },
    {
     "ora": "20",
-    "sem": "rosso",
-    "stima": 13.1,
-    "raff": 20.7,
+    "sem": "giallo",
+    "stima": 12.4,
+    "raff": 18.7,
     "marea": "↑",
     "cm_h": 10.4,
     "corr": 0.49,
@@ -77,14 +74,14 @@
     "incerta": true,
     "forbice": [
      8.5,
-     13.1
+     12.4
     ]
    },
    {
     "ora": "21",
     "sem": "rosso",
-    "stima": 12.8,
-    "raff": 21.9,
+    "stima": 14.6,
+    "raff": 23.6,
     "marea": "↑",
     "cm_h": 15.3,
     "corr": 1.0,
@@ -92,14 +89,14 @@
     "incerta": true,
     "forbice": [
      8.9,
-     12.8
+     14.6
     ]
    },
    {
     "ora": "22",
     "sem": "giallo",
-    "stima": 11.0,
-    "raff": 19.9,
+    "stima": 10.4,
+    "raff": 22.7,
     "marea": "↑",
     "cm_h": 17.2,
     "corr": 1.29,
@@ -110,8 +107,8 @@
    {
     "ora": "23",
     "sem": "giallo",
-    "stima": 10.8,
-    "raff": 15.9,
+    "stima": 10.1,
+    "raff": 15.2,
     "marea": "↑",
     "cm_h": 17.3,
     "corr": 1.45,
@@ -130,363 +127,363 @@
   "Burano sud": [
    {
     "ora": "18:00",
-    "dir": "52° NE",
+    "dir": "61° ENE",
     "nome": "Bora",
-    "dir_g": 52,
-    "stima": 11.8,
+    "dir_g": 61,
+    "stima": 11.3,
     "corr": 0.0,
     "sem": "giallo",
-    "d2": 11.8,
+    "d2": 11.3,
     "i2": 9.5,
-    "raff": 16.5,
-    "raff_d2": 16.5,
+    "raff": 15.6,
+    "raff_d2": 15.6,
     "ec": 5.7,
     "riparo": false,
     "ripiego": null,
     "ec_c": 5.7,
     "prudenza": false,
-    "ar": 18.8,
-    "raff_ar": 24.7,
-    "dir_ar": 56
+    "ar": 17.7,
+    "raff_ar": 23.3,
+    "dir_ar": 61
    },
    {
     "ora": "19:00",
-    "dir": "51° NE",
+    "dir": "53° NE",
     "nome": "Bora",
-    "dir_g": 51,
-    "stima": 13.5,
+    "dir_g": 53,
+    "stima": 12.1,
     "corr": 0.0,
-    "sem": "rosso",
-    "d2": 13.5,
+    "sem": "giallo",
+    "d2": 12.1,
     "i2": 10.3,
-    "raff": 20.8,
-    "raff_d2": 20.8,
+    "raff": 16.9,
+    "raff_d2": 16.9,
     "ec": 6.0,
     "riparo": false,
     "ripiego": null,
     "ec_c": 7.9,
     "prudenza": true,
-    "ar": 18.9,
-    "raff_ar": 25.5,
-    "dir_ar": 58
+    "ar": 18.4,
+    "raff_ar": 24.5,
+    "dir_ar": 60
    },
    {
     "ora": "20:00",
-    "dir": "50° NE",
+    "dir": "54° NE",
     "nome": "Bora",
-    "dir_g": 50,
-    "stima": 15.0,
+    "dir_g": 54,
+    "stima": 13.4,
     "corr": 0.0,
     "sem": "rosso",
-    "d2": 15.0,
+    "d2": 13.4,
     "i2": 11.5,
-    "raff": 22.4,
-    "raff_d2": 22.4,
+    "raff": 18.7,
+    "raff_d2": 18.7,
     "ec": 6.6,
     "riparo": false,
     "ripiego": null,
     "ec_c": 8.5,
     "prudenza": true,
-    "ar": 19.2,
-    "raff_ar": 26.2,
-    "dir_ar": 54
+    "ar": 17.5,
+    "raff_ar": 24.7,
+    "dir_ar": 61
    },
    {
     "ora": "21:00",
-    "dir": "46° NE",
+    "dir": "47° NE",
     "nome": "Bora",
-    "dir_g": 46,
-    "stima": 15.8,
+    "dir_g": 47,
+    "stima": 18.2,
     "corr": 0.0,
     "sem": "rosso",
-    "d2": 15.8,
+    "d2": 18.2,
     "i2": 12.1,
-    "raff": 23.9,
-    "raff_d2": 23.9,
+    "raff": 27.0,
+    "raff_d2": 27.0,
     "ec": 7.0,
     "riparo": false,
     "ripiego": null,
     "ec_c": 8.9,
     "prudenza": true,
-    "ar": 16.6,
-    "raff_ar": 25.7,
-    "dir_ar": 46
+    "ar": 13.8,
+    "raff_ar": 22.7,
+    "dir_ar": 51
    },
    {
     "ora": "22:00",
-    "dir": "33° NNE",
+    "dir": "26° NNE",
     "nome": "Bora",
-    "dir_g": 33,
-    "stima": 12.7,
+    "dir_g": 26,
+    "stima": 12.2,
     "corr": 1.2,
-    "sem": "rosso",
-    "d2": 11.5,
+    "sem": "giallo",
+    "d2": 11.0,
     "i2": 11.9,
-    "raff": 23.3,
-    "raff_d2": 23.3,
+    "raff": 26.6,
+    "raff_d2": 26.6,
     "ec": 7.5,
     "riparo": false,
     "ripiego": null,
     "ec_c": 9.4,
-    "prudenza": false,
-    "ar": 17.5,
-    "raff_ar": 24.5,
-    "dir_ar": 49
-   },
-   {
-    "ora": "23:00",
-    "dir": "36° NE",
-    "nome": "Bora",
-    "dir_g": 36,
-    "stima": 12.9,
-    "corr": 1.2,
-    "sem": "rosso",
-    "d2": 11.7,
-    "i2": 11.9,
-    "raff": 17.3,
-    "raff_d2": 17.3,
-    "ec": 7.7,
-    "riparo": false,
-    "ripiego": null,
-    "ec_c": 9.6,
-    "prudenza": false,
-    "ar": 18.5,
-    "raff_ar": 25.1,
-    "dir_ar": 53
-   }
-  ],
-  "Sant'Erasmo nord": [
-   {
-    "ora": "18:00",
-    "dir": "46° NE",
-    "nome": "Bora",
-    "dir_g": 46,
-    "stima": 10.0,
-    "corr": 0.0,
-    "sem": "giallo",
-    "d2": 10.0,
-    "i2": 10.5,
-    "raff": 16.3,
-    "raff_d2": 16.3,
-    "ec": 5.7,
-    "riparo": false,
-    "ripiego": null,
-    "ec_c": 5.7,
     "prudenza": false,
     "ar": 16.5,
     "raff_ar": 22.2,
     "dir_ar": 51
    },
    {
-    "ora": "19:00",
-    "dir": "49° NE",
+    "ora": "23:00",
+    "dir": "38° NE",
     "nome": "Bora",
-    "dir_g": 49,
-    "stima": 12.0,
+    "dir_g": 38,
+    "stima": 12.6,
+    "corr": 1.2,
+    "sem": "rosso",
+    "d2": 11.4,
+    "i2": 11.9,
+    "raff": 16.9,
+    "raff_d2": 16.9,
+    "ec": 7.7,
+    "riparo": false,
+    "ripiego": null,
+    "ec_c": 9.6,
+    "prudenza": false,
+    "ar": 18.6,
+    "raff_ar": 25.3,
+    "dir_ar": 56
+   }
+  ],
+  "Sant'Erasmo nord": [
+   {
+    "ora": "18:00",
+    "dir": "54° NE",
+    "nome": "Bora",
+    "dir_g": 54,
+    "stima": 9.9,
+    "corr": 0.0,
+    "sem": "giallo",
+    "d2": 9.9,
+    "i2": 10.5,
+    "raff": 15.6,
+    "raff_d2": 15.6,
+    "ec": 5.7,
+    "riparo": false,
+    "ripiego": null,
+    "ec_c": 5.7,
+    "prudenza": false,
+    "ar": 14.8,
+    "raff_ar": 20.2,
+    "dir_ar": 56
+   },
+   {
+    "ora": "19:00",
+    "dir": "47° NE",
+    "nome": "Bora",
+    "dir_g": 47,
+    "stima": 11.2,
     "corr": 1.2,
     "sem": "giallo",
-    "d2": 10.8,
+    "d2": 10.0,
     "i2": 11.7,
-    "raff": 19.0,
-    "raff_d2": 19.0,
+    "raff": 16.1,
+    "raff_d2": 16.1,
     "ec": 6.0,
     "riparo": false,
     "ripiego": null,
     "ec_c": 7.9,
     "prudenza": false,
-    "ar": 17.8,
-    "raff_ar": 24.3,
-    "dir_ar": 53
+    "ar": 16.3,
+    "raff_ar": 22.4,
+    "dir_ar": 55
    },
    {
     "ora": "20:00",
-    "dir": "48° NE",
+    "dir": "49° NE",
     "nome": "Bora",
-    "dir_g": 48,
-    "stima": 12.3,
-    "corr": 0.0,
+    "dir_g": 49,
+    "stima": 12.4,
+    "corr": 1.2,
     "sem": "giallo",
-    "d2": 12.3,
+    "d2": 11.2,
     "i2": 12.6,
-    "raff": 19.8,
-    "raff_d2": 19.8,
+    "raff": 17.7,
+    "raff_d2": 17.7,
     "ec": 6.6,
     "riparo": false,
     "ripiego": null,
     "ec_c": 8.5,
-    "prudenza": true,
-    "ar": 18.1,
-    "raff_ar": 24.9,
-    "dir_ar": 51
+    "prudenza": false,
+    "ar": 16.2,
+    "raff_ar": 23.3,
+    "dir_ar": 58
    },
    {
     "ora": "21:00",
     "dir": "45° NE",
     "nome": "Bora",
     "dir_g": 45,
-    "stima": 12.9,
+    "stima": 14.8,
     "corr": 0.0,
     "sem": "rosso",
-    "d2": 12.9,
+    "d2": 14.8,
     "i2": 13.6,
-    "raff": 21.2,
-    "raff_d2": 21.2,
+    "raff": 24.1,
+    "raff_d2": 24.1,
     "ec": 7.0,
     "riparo": false,
     "ripiego": null,
     "ec_c": 8.9,
     "prudenza": true,
-    "ar": 17.2,
-    "raff_ar": 24.9,
-    "dir_ar": 46
+    "ar": 15.0,
+    "raff_ar": 22.4,
+    "dir_ar": 50
    },
    {
     "ora": "22:00",
-    "dir": "37° NE",
+    "dir": "36° NE",
     "nome": "Bora",
-    "dir_g": 37,
+    "dir_g": 36,
     "stima": 12.2,
     "corr": 1.2,
     "sem": "giallo",
     "d2": 11.0,
     "i2": 13.6,
-    "raff": 21.2,
-    "raff_d2": 21.2,
+    "raff": 24.7,
+    "raff_d2": 24.7,
     "ec": 7.5,
     "riparo": false,
     "ripiego": null,
     "ec_c": 9.4,
     "prudenza": false,
-    "ar": 17.5,
-    "raff_ar": 24.1,
-    "dir_ar": 50
+    "ar": 16.8,
+    "raff_ar": 23.3,
+    "dir_ar": 51
    },
    {
     "ora": "23:00",
-    "dir": "40° NE",
+    "dir": "43° NE",
     "nome": "Bora",
-    "dir_g": 40,
-    "stima": 11.8,
+    "dir_g": 43,
+    "stima": 12.1,
     "corr": 1.2,
     "sem": "giallo",
-    "d2": 10.6,
+    "d2": 10.9,
     "i2": 13.2,
-    "raff": 17.5,
-    "raff_d2": 17.5,
+    "raff": 18.1,
+    "raff_d2": 18.1,
     "ec": 7.7,
     "riparo": false,
     "ripiego": null,
     "ec_c": 9.6,
     "prudenza": false,
-    "ar": 16.9,
-    "raff_ar": 24.1,
-    "dir_ar": 52
+    "ar": 16.6,
+    "raff_ar": 23.7,
+    "dir_ar": 55
    }
   ],
   "Murano nord": [
    {
     "ora": "18:00",
-    "dir": "47° NE",
+    "dir": "57° ENE",
     "nome": "Bora",
-    "dir_g": 47,
-    "stima": 6.3,
+    "dir_g": 57,
+    "stima": 7.2,
     "corr": 0.0,
-    "sem": "verde",
-    "d2": 6.3,
+    "sem": "giallo",
+    "d2": 7.2,
     "i2": 8.0,
-    "raff": 11.1,
-    "raff_d2": 11.1,
+    "raff": 12.6,
+    "raff_d2": 12.6,
     "ec": 5.7,
     "riparo": false,
     "ripiego": null,
     "ec_c": 5.7,
     "prudenza": false,
-    "ar": 18.9,
-    "raff_ar": 23.9,
-    "dir_ar": 60
+    "ar": 17.7,
+    "raff_ar": 22.5,
+    "dir_ar": 62
    },
    {
     "ora": "19:00",
-    "dir": "54° NE",
+    "dir": "51° NE",
     "nome": "Bora",
-    "dir_g": 54,
-    "stima": 10.1,
+    "dir_g": 51,
+    "stima": 9.9,
     "corr": 1.2,
     "sem": "giallo",
-    "d2": 8.9,
+    "d2": 8.7,
     "i2": 9.9,
-    "raff": 15.7,
-    "raff_d2": 15.7,
+    "raff": 15.4,
+    "raff_d2": 15.4,
     "ec": 6.0,
     "riparo": false,
     "ripiego": null,
     "ec_c": 7.9,
     "prudenza": false,
-    "ar": 17.8,
-    "raff_ar": 24.1,
+    "ar": 17.6,
+    "raff_ar": 23.9,
     "dir_ar": 62
    },
    {
     "ora": "20:00",
-    "dir": "47° NE",
+    "dir": "49° NE",
     "nome": "Bora",
-    "dir_g": 47,
-    "stima": 11.5,
+    "dir_g": 49,
+    "stima": 11.3,
     "corr": 1.2,
     "sem": "giallo",
-    "d2": 10.3,
+    "d2": 10.1,
     "i2": 10.3,
-    "raff": 18.3,
-    "raff_d2": 18.3,
+    "raff": 18.1,
+    "raff_d2": 18.1,
     "ec": 6.6,
     "riparo": false,
     "ripiego": null,
     "ec_c": 8.5,
     "prudenza": false,
-    "ar": 17.8,
-    "raff_ar": 23.7,
-    "dir_ar": 57
+    "ar": 15.8,
+    "raff_ar": 22.5,
+    "dir_ar": 58
    },
    {
     "ora": "21:00",
-    "dir": "22° NNE",
-    "nome": "Tramontana",
-    "dir_g": 22,
-    "stima": 9.0,
+    "dir": "34° NE",
+    "nome": "Bora",
+    "dir_g": 34,
+    "stima": 10.9,
     "corr": 1.2,
     "sem": "giallo",
-    "d2": 7.8,
+    "d2": 9.7,
     "i2": 8.2,
-    "raff": 18.3,
-    "raff_d2": 18.3,
+    "raff": 17.9,
+    "raff_d2": 17.9,
     "ec": 7.0,
     "riparo": false,
     "ripiego": null,
     "ec_c": 8.9,
     "prudenza": false,
-    "ar": 10.8,
-    "raff_ar": 22.7,
-    "dir_ar": 30
+    "ar": 11.6,
+    "raff_ar": 20.0,
+    "dir_ar": 42
    },
    {
     "ora": "22:00",
-    "dir": "14° NNE",
+    "dir": "7° N",
     "nome": "Tramontana",
-    "dir_g": 14,
-    "stima": 7.0,
+    "dir_g": 7,
+    "stima": 6.3,
     "corr": 1.2,
-    "sem": "giallo",
-    "d2": 5.8,
+    "sem": "verde",
+    "d2": 5.1,
     "i2": 7.4,
-    "raff": 13.2,
-    "raff_d2": 13.2,
+    "raff": 16.5,
+    "raff_d2": 16.5,
     "ec": 7.5,
     "riparo": false,
     "ripiego": null,
     "ec_c": 9.4,
     "prudenza": false,
-    "ar": 12.4,
-    "raff_ar": 18.1,
+    "ar": 10.2,
+    "raff_ar": 14.8,
     "dir_ar": 35
    },
    {
@@ -494,149 +491,149 @@
     "dir": "12° NNE",
     "nome": "Tramontana",
     "dir_g": 12,
-    "stima": 7.6,
+    "stima": 6.8,
     "corr": 1.2,
     "sem": "giallo",
-    "d2": 6.4,
+    "d2": 5.6,
     "i2": 7.2,
-    "raff": 11.1,
-    "raff_d2": 11.1,
+    "raff": 10.3,
+    "raff_d2": 10.3,
     "ec": 7.7,
     "riparo": false,
     "ripiego": null,
     "ec_c": 9.6,
     "prudenza": false,
-    "ar": 14.8,
-    "raff_ar": 20.4,
-    "dir_ar": 45
+    "ar": 15.6,
+    "raff_ar": 21.2,
+    "dir_ar": 49
    }
   ],
   "Giudecca sud": [
    {
     "ora": "18:00",
-    "dir": "50° NE",
+    "dir": "56° NE",
     "nome": "Bora",
-    "dir_g": 50,
-    "stima": 10.6,
+    "dir_g": 56,
+    "stima": 10.5,
     "corr": 0.0,
     "sem": "giallo",
-    "d2": 10.6,
+    "d2": 10.5,
     "i2": 12.1,
-    "raff": 17.5,
-    "raff_d2": 17.5,
+    "raff": 17.1,
+    "raff_d2": 17.1,
     "ec": 5.7,
     "riparo": false,
     "ripiego": null,
     "ec_c": 5.7,
     "prudenza": false,
-    "ar": 14.7,
-    "raff_ar": 22.5,
+    "ar": 13.1,
+    "raff_ar": 20.0,
     "dir_ar": 49
    },
    {
     "ora": "19:00",
-    "dir": "48° NE",
+    "dir": "51° NE",
     "nome": "Bora",
-    "dir_g": 48,
-    "stima": 12.4,
+    "dir_g": 51,
+    "stima": 12.0,
     "corr": 0.0,
     "sem": "giallo",
-    "d2": 12.4,
+    "d2": 12.0,
     "i2": 13.8,
-    "raff": 20.8,
-    "raff_d2": 20.8,
+    "raff": 19.6,
+    "raff_d2": 19.6,
     "ec": 6.0,
     "riparo": false,
     "ripiego": null,
     "ec_c": 7.9,
     "prudenza": true,
-    "ar": 16.6,
-    "raff_ar": 25.3,
-    "dir_ar": 53
+    "ar": 15.7,
+    "raff_ar": 23.9,
+    "dir_ar": 56
    },
    {
     "ora": "20:00",
     "dir": "48° NE",
     "nome": "Bora",
     "dir_g": 48,
-    "stima": 13.4,
+    "stima": 12.5,
     "corr": 0.0,
     "sem": "rosso",
-    "d2": 13.4,
+    "d2": 12.5,
     "i2": 14.8,
-    "raff": 22.2,
-    "raff_d2": 22.2,
+    "raff": 20.4,
+    "raff_d2": 20.4,
     "ec": 6.6,
     "riparo": false,
     "ripiego": null,
     "ec_c": 8.5,
     "prudenza": true,
-    "ar": 16.3,
-    "raff_ar": 25.3,
-    "dir_ar": 49
+    "ar": 16.2,
+    "raff_ar": 24.7,
+    "dir_ar": 57
    },
    {
     "ora": "21:00",
-    "dir": "44° NE",
+    "dir": "47° NE",
     "nome": "Bora",
-    "dir_g": 44,
-    "stima": 13.6,
+    "dir_g": 47,
+    "stima": 14.6,
     "corr": 0.0,
     "sem": "rosso",
-    "d2": 13.6,
+    "d2": 14.6,
     "i2": 15.4,
-    "raff": 24.3,
-    "raff_d2": 24.3,
+    "raff": 25.5,
+    "raff_d2": 25.5,
     "ec": 7.0,
     "riparo": false,
     "ripiego": null,
     "ec_c": 8.9,
     "prudenza": true,
-    "ar": 15.1,
-    "raff_ar": 26.6,
-    "dir_ar": 44
+    "ar": 14.5,
+    "raff_ar": 24.3,
+    "dir_ar": 50
    },
    {
     "ora": "22:00",
-    "dir": "30° NNE",
-    "nome": "Bora",
-    "dir_g": 30,
-    "stima": 12.0,
+    "dir": "22° NNE",
+    "nome": "Tramontana",
+    "dir_g": 22,
+    "stima": 11.1,
     "corr": 1.2,
     "sem": "giallo",
-    "d2": 10.8,
+    "d2": 9.9,
     "i2": 14.4,
-    "raff": 22.0,
-    "raff_d2": 22.0,
+    "raff": 23.1,
+    "raff_d2": 23.1,
     "ec": 7.5,
     "riparo": false,
     "ripiego": null,
     "ec_c": 9.4,
     "prudenza": false,
-    "ar": 17.0,
-    "raff_ar": 26.4,
+    "ar": 15.9,
+    "raff_ar": 24.5,
     "dir_ar": 50
    },
    {
     "ora": "23:00",
-    "dir": "24° NNE",
+    "dir": "25° NNE",
     "nome": "Bora",
-    "dir_g": 24,
-    "stima": 10.8,
+    "dir_g": 25,
+    "stima": 8.9,
     "corr": 1.2,
     "sem": "giallo",
-    "d2": 9.6,
+    "d2": 7.7,
     "i2": 13.4,
-    "raff": 17.9,
-    "raff_d2": 17.9,
+    "raff": 15.7,
+    "raff_d2": 15.7,
     "ec": 7.7,
     "riparo": false,
     "ripiego": null,
     "ec_c": 9.6,
     "prudenza": false,
-    "ar": 16.7,
-    "raff_ar": 26.4,
-    "dir_ar": 51
+    "ar": 16.3,
+    "raff_ar": 25.3,
+    "dir_ar": 53
    }
   ]
  },
@@ -648,7 +645,7 @@
  ],
  "testo_riparo": "zona riparata dalla bora: stima = ICON-D2 senza correzione; vento reale probabilmente più basso (osservazione di Ennio, non misurata)",
  "ore_ripiego": [],
- "vento_nota": "Nodi. D2 = ICON-D2, 2i = ICON-2i, Raff. = raffiche ICON-D2 corrette (raffiche ICON-D2 senza correzione; raffiche ICON-D2 senza correzione (modelli in disaccordo)), EC = ECMWF. Stima = ICON-D2 + correzione — +0,0 nodi: Laguna Nord: fissa pomeriggio (analisi F0 23/11/2026: ICON-D2 del giorno prima nel pomeriggio quasi senza errore (+0,3 / +0,3 / +0,9 nodi), nessuna correzione); ICON-D2 6–12 nodi: 12 ore verificate su 40 richieste; +0,0 nodi: modelli in disaccordo (ICON-D2 molto sopra ECMWF corretto): stima = ICON-D2 senza correzione, per prudenza; +1,2 nodi: Laguna Nord: fissa sera (analisi F0 23/11/2026: ICON-D2 del giorno prima, ore 19–24, 23/08–22/11/2026, misure CPSM); ICON-D2 6–12 nodi: 7 ore verificate su 40 richieste; +1,2 nodi: Laguna Nord: fissa sera (analisi F0 23/11/2026: ICON-D2 del giorno prima, ore 19–24, 23/08–22/11/2026, misure CPSM); ICON-D2 sotto 6 nodi: 0 ore verificate su 40 richieste. Correzione misurata con Laguna Nord (Saline, interna, 45,4956 N 12,4720 E) (media dei punti di calcolo confrontata con la stazione; raffiche non corrette). Colori sul vento medio arrotondato all'intero: verde fino a 6 nodi, giallo da 7 a 12, rosso da 13 (le raffiche non cambiano il colore).",
+ "vento_nota": "Nodi. D2 = ICON-D2, 2i = ICON-2i, Raff. = raffiche ICON-D2 corrette (raffiche ICON-D2 senza correzione; raffiche ICON-D2 senza correzione (modelli in disaccordo)), EC = ECMWF. Stima = ICON-D2 + correzione — +0,0 nodi: Laguna Nord: fissa pomeriggio (analisi F0 23/11/2026: ICON-D2 del giorno prima nel pomeriggio quasi senza errore (+0,3 / +0,3 / +0,9 nodi), nessuna correzione); ICON-D2 6–12 nodi: 16 ore verificate su 40 richieste; +0,0 nodi: modelli in disaccordo (ICON-D2 molto sopra ECMWF corretto): stima = ICON-D2 senza correzione, per prudenza; +1,2 nodi: Laguna Nord: fissa sera (analisi F0 23/11/2026: ICON-D2 del giorno prima, ore 19–24, 23/08–22/11/2026, misure CPSM); ICON-D2 6–12 nodi: 7 ore verificate su 40 richieste; +1,2 nodi: Laguna Nord: fissa sera (analisi F0 23/11/2026: ICON-D2 del giorno prima, ore 19–24, 23/08–22/11/2026, misure CPSM); ICON-D2 sotto 6 nodi: 0 ore verificate su 40 richieste. Correzione misurata con Laguna Nord (Saline, interna, 45,4956 N 12,4720 E) (media dei punti di calcolo confrontata con la stazione; raffiche non corrette). Colori sul vento medio arrotondato all'intero: verde fino a 6 nodi, giallo da 7 a 12, rosso da 13 (le raffiche non cambiano il colore).",
  "marea": {
   "estremali": [
    {
@@ -1396,8 +1393,7 @@
    ],
    "fonte": "previsione CPSM Punta Salute",
    "config": "1.1"
-  },
-  "aggiornata": "26/11/2026 16:50"
+  }
  },
  "correnti": {
   "ore": [
@@ -1560,18 +1556,18 @@
  },
  "meteo": {
   "pressione": [
-   "1017,9",
-   "1020,8",
+   "1018,0",
+   "1020,5",
    "in salita"
   ],
-  "nuvolosita": 97,
+  "nuvolosita": 92,
   "pioggia": "0,0",
   "fonte_meteo": "ICON-D2",
-  "pioggia_prob": 25,
+  "pioggia_prob": 5,
   "pioggia_ore": [
    {
     "ora": "18:00",
-    "prob_D2": 5,
+    "prob_D2": 0,
     "prob_2i": null,
     "prob_EC": 0,
     "mm_D2": 0.0,
@@ -1580,7 +1576,7 @@
    },
    {
     "ora": "19:00",
-    "prob_D2": 10,
+    "prob_D2": 5,
     "prob_2i": null,
     "prob_EC": 0,
     "mm_D2": 0.0,
@@ -1589,36 +1585,36 @@
    },
    {
     "ora": "20:00",
-    "prob_D2": 10,
+    "prob_D2": 0,
     "prob_2i": null,
-    "prob_EC": 1,
+    "prob_EC": 0,
     "mm_D2": 0.0,
     "mm_2i": 0.0,
     "mm_EC": 0.0
    },
    {
     "ora": "21:00",
-    "prob_D2": 25,
+    "prob_D2": 0,
     "prob_2i": null,
-    "prob_EC": 2,
+    "prob_EC": 0,
     "mm_D2": 0.0,
     "mm_2i": 0.0,
     "mm_EC": 0.0
    },
    {
     "ora": "22:00",
-    "prob_D2": 25,
+    "prob_D2": 5,
     "prob_2i": null,
-    "prob_EC": 2,
+    "prob_EC": 0,
     "mm_D2": 0.0,
     "mm_2i": 0.0,
     "mm_EC": 0.0
    },
    {
     "ora": "23:00",
-    "prob_D2": 15,
+    "prob_D2": 5,
     "prob_2i": null,
-    "prob_EC": 2,
+    "prob_EC": 0,
     "mm_D2": 0.0,
     "mm_2i": 0.0,
     "mm_EC": 0.0
@@ -1641,9 +1637,9 @@
    {
     "ora": "18:00",
     "livello": 0,
-    "umidita": 69,
-    "nubi_basse": 59,
-    "vento": 11.8,
+    "umidita": 72,
+    "nubi_basse": 21,
+    "vento": 11.3,
     "codice_nebbia": [],
     "prob": 0,
     "scenari": 80
@@ -1651,9 +1647,9 @@
    {
     "ora": "19:00",
     "livello": 0,
-    "umidita": 70,
-    "nubi_basse": 77,
-    "vento": 13.5,
+    "umidita": 75,
+    "nubi_basse": 8,
+    "vento": 12.1,
     "codice_nebbia": [],
     "prob": 0,
     "scenari": 80
@@ -1661,9 +1657,9 @@
    {
     "ora": "20:00",
     "livello": 0,
-    "umidita": 71,
-    "nubi_basse": 53,
-    "vento": 15.0,
+    "umidita": 73,
+    "nubi_basse": 0,
+    "vento": 13.4,
     "codice_nebbia": [],
     "prob": 0,
     "scenari": 80
@@ -1671,9 +1667,9 @@
    {
     "ora": "21:00",
     "livello": 0,
-    "umidita": 70,
-    "nubi_basse": 46,
-    "vento": 15.8,
+    "umidita": 67,
+    "nubi_basse": 0,
+    "vento": 18.2,
     "codice_nebbia": [],
     "prob": 0,
     "scenari": 80
@@ -1681,9 +1677,9 @@
    {
     "ora": "22:00",
     "livello": 0,
-    "umidita": 76,
+    "umidita": 78,
     "nubi_basse": 0,
-    "vento": 11.5,
+    "vento": 11.0,
     "codice_nebbia": [],
     "prob": 0,
     "scenari": 80
@@ -1691,72 +1687,72 @@
    {
     "ora": "23:00",
     "livello": 0,
-    "umidita": 75,
+    "umidita": 72,
     "nubi_basse": 0,
-    "vento": 11.7,
+    "vento": 11.4,
     "codice_nebbia": [],
     "prob": 0,
     "scenari": 80
    }
   ],
   "aria": [
-   "4,3",
-   "7,9"
+   "4,5",
+   "7,5"
   ],
   "aria_punto": "Mestre",
   "aria_ore": [
    {
     "ora": "18:00",
-    "mestre": 7.9,
-    "acqua": 8.6,
-    "mare": 11.0
+    "mestre": 7.5,
+    "acqua": 8.4,
+    "mare": 10.8
    },
    {
     "ora": "19:00",
-    "mestre": 7.1,
-    "acqua": 8.0,
-    "mare": 10.5
+    "mestre": 6.6,
+    "acqua": 8.1,
+    "mare": 10.7
    },
    {
     "ora": "20:00",
-    "mestre": 6.8,
+    "mestre": 6.5,
     "acqua": 7.8,
-    "mare": 10.4
+    "mare": 10.6
    },
    {
     "ora": "21:00",
-    "mestre": 5.6,
-    "acqua": 7.5,
+    "mestre": 5.9,
+    "acqua": 7.7,
     "mare": 10.2
    },
    {
     "ora": "22:00",
-    "mestre": 4.9,
-    "acqua": 7.1,
+    "mestre": 5.0,
+    "acqua": 7.2,
     "mare": 10.1
    },
    {
     "ora": "23:00",
-    "mestre": 4.3,
-    "acqua": 6.9,
-    "mare": 10.1
+    "mestre": 4.5,
+    "acqua": 7.2,
+    "mare": 10.0
    }
   ],
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "26/11 16:45",
-    "valore": "10,9"
+    "ora": "26/11 18:25",
+    "valore": "9,7"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "26/11 16:45",
-    "valore": "8,9"
+    "ora": "26/11 18:25",
+    "valore": "8,1"
    }
   ],
   "aria_acqua": [
-   "6,9",
-   "8,6"
+   "7,2",
+   "8,4"
   ],
   "acqua": null,
   "acqua_tendenza": null,
@@ -1767,13 +1763,13 @@
    "calante"
   ],
   "note": [
-   "Nuvolosità: ECMWF 49% contro 97% di ICON-D2."
+   "Nuvolosità: ECMWF 49% contro 92% di ICON-D2."
   ]
  },
  "riflessioni": [
   {
    "tipo": "inferenza",
-   "testo": "Con ICON-D2 da 12 nodi in su la correzione non è ancora misurata: nelle 65 ore verificate ICON-D2 ha sbagliato di -1,5 nodi e la stima di +0,0, quindi il vento reale potrebbe stare tra ICON-D2 e la stima."
+   "testo": "Con ICON-D2 da 12 nodi in su la correzione non è ancora misurata: nelle 69 ore verificate ICON-D2 ha sbagliato di -1,3 nodi e la stima di +0,2, quindi il vento reale potrebbe stare tra ICON-D2 e la stima."
   },
   {
    "tipo": "inferenza",
@@ -1781,15 +1777,15 @@
   },
   {
    "tipo": "inferenza",
-   "testo": "Previsione incerta alle 18:00, 19:00, 20:00, 21:00: ICON-D2 è molto sopra ECMWF corretto (forbice tra 5,7 e 9,7; 7,9 e 12,0; 8,5 e 13,1; 8,9 e 12,8 nodi). Per prudenza la stima segue ICON-D2, il più alto dei due; il vento reale può stare in tutta la forbice. Su 3 mesi, in questi casi l'errore è stato circa il 55% più alto del normale."
+   "testo": "Previsione incerta alle 18:00, 20:00, 21:00: ICON-D2 è molto sopra ECMWF corretto (forbice tra 5,7 e 9,7; 8,5 e 12,4; 8,9 e 14,6 nodi). Per prudenza la stima segue ICON-D2, il più alto dei due; il vento reale può stare in tutta la forbice. Su 3 mesi, in questi casi l'errore è stato circa il 55% più alto del normale."
   },
   {
    "tipo": "inferenza",
-   "testo": "ICON-D2 e ICON-2i non concordano (oltre 3 nodi o colore diverso) in: Burano sud 19:00, Burano sud 20:00, Burano sud 21:00, Sant'Erasmo nord 19:00, Sant'Erasmo nord 20:00, Sant'Erasmo nord 22:00, Sant'Erasmo nord 23:00, Murano nord 18:00, Giudecca sud 19:00, Giudecca sud 22:00, Giudecca sud 23:00."
+   "testo": "ICON-D2 e ICON-2i non concordano (oltre 3 nodi o colore diverso) in: Burano sud 21:00, Burano sud 22:00, Sant'Erasmo nord 19:00, Sant'Erasmo nord 20:00, Sant'Erasmo nord 22:00, Sant'Erasmo nord 23:00, Murano nord 22:00, Giudecca sud 19:00, Giudecca sud 22:00, Giudecca sud 23:00."
   },
   {
    "tipo": "opinione",
-   "testo": "Ore migliori per vento: 18:00–19:00 e 22:00–23:00 (semaforo giallo). Corrente più forte verso le 23:00. Zona meno ventosa: Murano nord."
+   "testo": "Ore migliori per vento: 18:00–20:00 e 22:00–23:00 (semaforo giallo). Corrente più forte verso le 23:00. Zona meno ventosa: Murano nord."
   }
  ],
  "mare": {
@@ -1800,9 +1796,9 @@
     "dir": "64° ENE",
     "dir_g": 64,
     "per": 3.85,
-    "vento": 21.2,
+    "vento": 21.0,
     "raff_v": 25.3,
-    "dir_v": "60° ENE",
+    "dir_v": "56° NE",
     "mod_v": "ICON-D2",
     "nome_v": "Bora",
     "h_corr": 1.56,
@@ -1816,8 +1812,8 @@
     "dir": "64° ENE",
     "dir_g": 64,
     "per": 3.9,
-    "vento": 20.9,
-    "raff_v": 25.5,
+    "vento": 22.1,
+    "raff_v": 27.0,
     "dir_v": "59° ENE",
     "mod_v": "ICON-D2",
     "nome_v": "Bora",
@@ -1832,8 +1828,8 @@
     "dir": "64° ENE",
     "dir_g": 64,
     "per": 3.95,
-    "vento": 22.7,
-    "raff_v": 27.6,
+    "vento": 23.5,
+    "raff_v": 29.4,
     "dir_v": "60° ENE",
     "mod_v": "ICON-D2",
     "nome_v": "Bora",
@@ -1848,9 +1844,9 @@
     "dir": "63° ENE",
     "dir_g": 63,
     "per": 4.05,
-    "vento": 24.9,
-    "raff_v": 30.9,
-    "dir_v": "57° ENE",
+    "vento": 24.4,
+    "raff_v": 30.7,
+    "dir_v": "58° ENE",
     "mod_v": "ICON-D2",
     "nome_v": "Bora",
     "h_corr": 1.81,
@@ -1864,9 +1860,9 @@
     "dir": "63° ENE",
     "dir_g": 63,
     "per": 4.15,
-    "vento": 23.1,
-    "raff_v": 31.1,
-    "dir_v": "56° NE",
+    "vento": 23.5,
+    "raff_v": 30.5,
+    "dir_v": "59° ENE",
     "mod_v": "ICON-D2",
     "nome_v": "Bora",
     "h_corr": 1.88,
@@ -1880,9 +1876,9 @@
     "dir": "63° ENE",
     "dir_g": 63,
     "per": 4.2,
-    "vento": 23.5,
-    "raff_v": 29.2,
-    "dir_v": "57° ENE",
+    "vento": 23.3,
+    "raff_v": 29.4,
+    "dir_v": "59° ENE",
     "mod_v": "ICON-D2",
     "nome_v": "Bora",
     "h_corr": 1.88,
@@ -1907,19 +1903,19 @@
     "v": {
      "Giudecca sud": [
       0.08,
-      0.14
+      0.15
      ],
      "Burano sud": [
       0.1,
-      0.17
+      0.18
      ],
      "Sant'Erasmo nord": [
-      0.11,
-      0.19
+      0.1,
+      0.17
      ],
      "Murano nord": [
-      0.08,
-      0.14
+      0.09,
+      0.16
      ]
     }
    },
@@ -1927,16 +1923,16 @@
     "ora": "19:00",
     "v": {
      "Giudecca sud": [
-      0.08,
-      0.15
+      0.09,
+      0.16
      ],
      "Burano sud": [
-      0.11,
-      0.19
+      0.1,
+      0.18
      ],
      "Sant'Erasmo nord": [
-      0.12,
-      0.21
+      0.11,
+      0.2
      ],
      "Murano nord": [
       0.12,
@@ -1948,12 +1944,12 @@
     "ora": "20:00",
     "v": {
      "Giudecca sud": [
-      0.1,
-      0.18
+      0.09,
+      0.17
      ],
      "Burano sud": [
       0.12,
-      0.22
+      0.21
      ],
      "Sant'Erasmo nord": [
       0.14,
@@ -1969,20 +1965,20 @@
     "ora": "21:00",
     "v": {
      "Giudecca sud": [
-      0.1,
-      0.18
-     ],
-     "Burano sud": [
-      0.13,
-      0.23
-     ],
-     "Sant'Erasmo nord": [
-      0.16,
-      0.28
-     ],
-     "Murano nord": [
       0.11,
       0.2
+     ],
+     "Burano sud": [
+      0.15,
+      0.27
+     ],
+     "Sant'Erasmo nord": [
+      0.18,
+      0.32
+     ],
+     "Murano nord": [
+      0.14,
+      0.25
      ]
     }
    },
@@ -1991,19 +1987,19 @@
     "v": {
      "Giudecca sud": [
       0.08,
-      0.15
+      0.14
      ],
      "Burano sud": [
-      0.1,
-      0.17
+      0.08,
+      0.15
      ],
      "Sant'Erasmo nord": [
       0.12,
       0.22
      ],
      "Murano nord": [
-      0.09,
-      0.16
+      0.08,
+      0.14
      ]
     }
    },
@@ -2011,8 +2007,8 @@
     "ora": "23:00",
     "v": {
      "Giudecca sud": [
-      0.07,
-      0.13
+      0.06,
+      0.11
      ],
      "Burano sud": [
       0.1,
@@ -2023,8 +2019,8 @@
       0.27
      ],
      "Murano nord": [
-      0.1,
-      0.18
+      0.09,
+      0.16
      ]
     }
    }
@@ -2032,17 +2028,17 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: dati meteo e mare aperto Open-Meteo.com, CC BY 4.0 (ICON-D2 e ensemble ICON-D2-EPS DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS, AROME HD Météo-France in prova, Open-Meteo Marine) · marea astronomica, previsione di marea e misure: CPSM, Comune di Venezia (dati.venezia.it, CC BY) · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.54",
- "generato": "26/11/2026 16:26",
+ "generato": "26/11/2026 18:31",
  "area": "nord",
  "acqua_misurata": {
-  "valore": 11.0,
+  "valore": 10.7,
   "data": "26/11",
-  "ora": "16:15",
+  "ora": "18:25",
   "stazione": "Punta Salute Canal Grande",
   "fonte": "misura CPSM (Comune di Venezia)",
   "tendenza": {
    "giorni": 5,
-   "diff": -1.1,
+   "diff": -1.5,
    "verso": "in calo"
   }
  }
