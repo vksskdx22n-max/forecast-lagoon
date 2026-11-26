@@ -59,6 +59,7 @@ Marea della zona (v1.25): curva della zona (marea_propaga, ritardo e quota da Pu
   v1.34: la previsione CPSM e' confrontata anche con il livello misurato a Punta Salute, nella stessa finestra (campi
   "cpsm_*"; solo se la curva e' la previsione CPSM): separa l'errore del CPSM da quello del trasporto nella zona.
   Una riga per giorno, area e inizio della finestra ("da").
+  v1.35: tabella oraria del livello (campo "liv", archivio "livello" con "staz") misurata a Punta Salute.
   v1.35: nella pagina solo due righe (errore medio assoluto e verso); gli altri valori restano nel JSON e in archivio.
 
 AROME HD in parallelo (v1.26, previsioni da fd_previsione >= 1.44): vento ("ar") e raffica ("raff_ar") di AROME HD salvati
@@ -69,7 +70,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.35"   # v1.35: su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+VERSIONE = "1.35"   # v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
 # v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
 # Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
 # 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
@@ -117,7 +118,7 @@ CORR_DA = {"San Leonardo · Melison": "Malamocco · Valgrande", "Fisolo": "Malam
 # nomi delle zone nelle previsioni e nell'archivio fino a fd_previsione 1.11 / fd_verifica 1.5
 ALIAS = {"Malamocco": "Malamocco · Valgrande", "Bocca Malamocco": "Bocca · Alberoni"}
 STAZ_ONDA = "Piattaforma CNR"
-STAZ_LIVELLO = "Malamocco Porto"
+STAZ_LIVELLO = "Punta Salute"      # v1.35: tabella oraria del livello nel punto della previsione CPSM (prima Malamocco Porto)
 ARCHIVIO = "verifica_archivio.json"
 CARTELLA = "Previsioni"
 KN = 1.94384
@@ -1113,7 +1114,7 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
                 liv.append({"ora": o["ora"], "mis": round(mis_cm), "astro": round(a_cm), "scarto": round(mis_cm - a_cm), **pv})
     if liv and not provvisoria and v.get("area", "centro") == "centro" and any("prev" in l for l in liv):    # v1.23: solo il centro    # v1.20: archivio livelli per valutare l'eta' del bollettino CPSM
         A["livello"] = [x for x in A.get("livello", []) if x["data"] != g.isoformat()] + [
-            {"data": g.isoformat(), "ora": l["ora"], "mis": l["mis"], "astro": l["astro"], "prev": l.get("prev"), "fonte": fonte_liv, "eta_h": eta_liv} for l in liv]
+            {"data": g.isoformat(), "staz": STAZ_LIVELLO, "ora": l["ora"], "mis": l["mis"], "astro": l["astro"], "prev": l.get("prev"), "fonte": fonte_liv, "eta_h": eta_liv} for l in liv]
     area = v.get("area", "centro")
     nota_misure = {"tipo": "dato", "testo": "Misure CPSM ogni 5 min in m/s, convertite in nodi; valore orario = media da −30 a +30 min, raffica = massimo nell'ora."}
     nota_settori = ("Settori del vento (Centro Maree, Comune di Venezia): Bora 23–67°, Tramontana–Maestrale 293–22°, Levante–Scirocco 68–202°, "
@@ -1154,7 +1155,7 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
          "zone": zone, "onda": onda_v, "liv": liv, "liv_fonte": fonte_liv, "liv_eta_h": eta_liv, "aria": v.get("aria_v") or [], "pioggia": v.get("pioggia_v") or [], "marea_zona": v.get("marea_v"),
          "andamento": andamento(A, risultati[0][0]), "archivio": riepilogo(A), "note": note,
          "nebbia": nebbia_verifica(cartella, P, g),   # v1.28
-         "fonti": f"Misure: CPSM Comune di Venezia, dati.venezia.it, CC BY ({', '.join(dict.fromkeys(staz_vento + ['Malamocco Porto', 'Piattaforma CNR', 'Palazzo Cavalli']))}) · "
+         "fonti": f"Misure: CPSM Comune di Venezia, dati.venezia.it, CC BY ({', '.join(dict.fromkeys(staz_vento + ['Malamocco Porto', STAZ_LIVELLO, 'Piattaforma CNR', 'Palazzo Cavalli']))}) · "
                   f"visibilità: METAR Venezia Tessera (AviationWeather.gov) · "
                   f"Previsione: fd_previsione (dati meteo Open-Meteo.com, CC BY 4.0) · fd_verifica v{VERSIONE}",
          "verde_fino_a": VERDE_FINO_A, "rosso_da": ROSSO_DA,
@@ -1261,10 +1262,10 @@ if((D.nebbia||[]).length){const TX=['non probabile','poco probabile','probabile'
  const tn=h('table',{},h('tr',{},h('th',{},'Ora'),h('th',{},'Nebbia prevista'),h('th',{},'Visibilità Tessera'),h('th',{},'Fenomeni')));
  D.nebbia.forEach(r=>tn.append(h('tr',{},h('td',{},r.ora),h('td',{},h('span',{style:'display:inline-block;padding:1px 8px;border-radius:9px;background:'+CO[r.cat]+';color:'+TC[r.cat]},TX[r.cat])),h('td',{style:vc(r.vis_m)},vis(r.vis_m)),h('td',{},r.wx||''))));
  app.append(h('div',{cls:'card'},h('h2',{},'🌫 Nebbia'),tn,h('div',{cls:'nota'},'Nebbia prevista: scenari dei modelli (a parole, come nel sito). Visibilità: minima dei bollettini METAR di Venezia Tessera tra mezz’ora prima e mezz’ora dopo (sotto 1000 m = nebbia). Tessera è sul bordo nord della laguna, a 15–35 km dalle zone: confronto indicativo, nessun punteggio. FG nebbia, BR foschia, BCFG banchi, RA pioggia.')));}
-if(D.liv.length){const hp=D.liv.some(l=>l.prev!=null),sg=v=>(v>0?'+':'')+v+' cm';
- const tl=h('table',{},h('tr',{},h('th',{},'Ora'),h('th',{},'Misurato'),h('th',{},'Astronomica'),h('th',{},'Scarto astr.'),...(hp?[h('th',{},'Previsto ('+D.liv_fonte+')'),h('th',{},'Scarto prev.')]:[])));
- D.liv.forEach(l=>tl.append(h('tr',{},h('td',{},l.ora),h('td',{},l.mis+' cm'),h('td',{},l.astro+' cm'),h('td',{},sg(l.scarto)),...(hp?[h('td',{},l.prev!=null?l.prev+' cm':'–'),h('td',{},l.scarto_prev!=null?sg(l.scarto_prev):'–')]:[]))));
- app.append(h('div',{cls:'card'},h('h2',{},'🌊 Livello · Malamocco Porto'),tl,h('div',{cls:'nota'},'Scarto astr. = misurato − astronomica; Scarto prev. = previsto − misurato. Astronomica CPSM di Punta Salute: lo scarto include la differenza tra le stazioni.'+(D.liv_eta_h!=null?' Bollettino CPSM di '+D.liv_eta_h+' h prima della fine della finestra.':''))));}
+if(D.liv.length){const cp=(D.liv_fonte||'').includes('CPSM')&&D.liv.some(l=>l.prev!=null),sg=v=>(v>0?'+':'')+v+' cm';   // v1.35: tutto a Punta Salute
+ const tl=h('table',{},h('tr',{},h('th',{},'Ora'),h('th',{},cp?'Previsto CPSM':'Astronomica'),h('th',{},'Misurato'),h('th',{},'Differenza')));
+ D.liv.forEach(l=>{const p=cp?l.prev:l.astro;tl.append(h('tr',{},h('td',{},l.ora),h('td',{},p!=null?p+' cm':'–'),h('td',{},l.mis+' cm'),h('td',{},p!=null?sg(p-l.mis):'–')));});
+ app.append(h('div',{cls:'card'},h('h2',{},'🌊 Livello · Punta Salute'),tl,h('div',{cls:'nota'},'Differenza = '+(cp?'previsto':'astronomica')+' − misurato.'+(cp&&D.liv_eta_h!=null?' Bollettino CPSM di '+D.liv_eta_h+' h prima della fine della finestra.':''))));}
 if(D.marea_zona){const Z=D.marea_zona,vg=x=>String(x).replace('.',','),zn='Laguna '+Z.area[0].toUpperCase()+Z.area.slice(1);   // v1.35: due righe
  const verso=(m,a)=>a<0.5?'in linea':Math.abs(m)<a/2?'a volte alta, a volte bassa':m<0?'più bassa del vero':'più alta del vero';
  const tz=h('table',{},h('tr',{},h('th',{},''),h('th',{},'Errore'),h('th',{},'Previsione')));
