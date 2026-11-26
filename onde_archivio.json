@@ -1883,6 +1883,30 @@
    "stazione": "PS_Giud",
    "hs": 0.29,
    "hmax": 0.51
+  },
+  {
+   "t": "2026-11-26 05:20",
+   "stazione": "PSalute",
+   "hs": 0.13,
+   "hmax": 0.19
+  },
+  {
+   "t": "2026-11-26 05:20",
+   "stazione": "P_Cavalli",
+   "hs": 0.03,
+   "hmax": 0.07
+  },
+  {
+   "t": "2026-11-26 05:20",
+   "stazione": "Misericordia",
+   "hs": 0.24,
+   "hmax": 0.37
+  },
+  {
+   "t": "2026-11-26 05:20",
+   "stazione": "PS_Giud",
+   "hs": 0.15,
+   "hmax": 0.27
   }
  ],
  "confronti": [
