@@ -831,10 +831,10 @@
     "min_curva": 1580
    }
   ],
-  "cpsm_emessa": "26/11 10:30",
+  "cpsm_emessa": "26/11 13:30",
   "fonte_fase": "previsione CPSM",
   "cpsm_vecchia": false,
-  "cpsm_eta_h": 32,
+  "cpsm_eta_h": 28,
   "ferma": false,
   "vel_max": 23.1,
   "sequenza": [
@@ -1608,7 +1608,8 @@
    ],
    "fonte": "previsione CPSM Punta Salute",
    "config": "1.1"
-  }
+  },
+  "aggiornata": "26/11/2026 13:35"
  },
  "correnti": {
   "ore": [
@@ -2002,13 +2003,13 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "26/11 11:10",
-    "valore": "11,0"
+    "ora": "26/11 13:30",
+    "valore": "11,6"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "26/11 11:10",
-    "valore": "10,3"
+    "ora": "26/11 13:30",
+    "valore": "10,4"
    }
   ],
   "aria_acqua": [
