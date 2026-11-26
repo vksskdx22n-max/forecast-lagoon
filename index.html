@@ -44,6 +44,7 @@ h1 span{color:var(--teal)}
 .lett{font-size:15px;font-weight:650;margin-top:8px;color:var(--txt)}
 .est .ebassa b{color:#ccff33}   /* v3.70 */
 .est>div.gia,.est>div.gia b{color:#8aa6b6!important}
+.leg span[hidden]{display:none}
 .misl{font-size:12.5px;color:var(--mut);margin-top:3px}.misl b{color:var(--txt);font-weight:700}.misl:empty{display:none}
 .est{display:grid;gap:6px;margin-top:10px}.est div{border:1px solid var(--line);border-radius:10px;text-align:center;padding:5px 2px;font-size:11px;color:var(--mut)}.est b{display:block;font-size:16px;color:var(--txt)}
 .vecchio{color:var(--giallo)}
@@ -317,6 +318,8 @@ function misurata(zona,data){   // v3.80: acqua misurata nel grafico di oggi, [m
  const base=L.min+Math.round((Date.parse(L.data)-Date.parse(data))/60000);
  return L.serie.map(p=>[base-p[0],p[1]]).filter(p=>p[0]>=N.m-PRIMA&&p[0]<=N.m)}
 const passato=(Z,e)=>Z.mob&&e.min<adessoIT().m;   // v3.80: nel grafico di oggi le alte e basse gia' passate sono in grigio
+const SOGLIA_PRIMA=10;   // v3.80: la linea dei 110 cm compare solo se la marea, prevista o misurata, arriva a 100 cm (scelta A del 26/11)
+function soglieDa(Z,zona,data){const m=Math.max(...Z.curva.map(p=>p[1]),...misurata(zona,data).map(p=>p[1]),((mis24(zona,data)||{}).cm)??-1e9),s=D.soglie_marea||[];return m>=(s[0]??110)-SOGLIA_PRIMA?s:[]}
 const PRIMA=480;   // v3.77: nel grafico di oggi, minuti di marea passata prima di "adesso" (il resto delle 24 ore e' futuro)
 const piuGiorni=(data,k)=>new Date(Date.parse(data+'T00:00:00Z')+k*864e5).toISOString().slice(0,10);
 const quale=m=>m<0?'ieri':m>=1440?'domani':'';
@@ -336,9 +339,9 @@ function g24(Z,data,f,o){
  const a=Z.a,b=a+1440,x=t=>L+(t-a)/1440*(W-L-R),y=v=>T+(o.sc[1]-v)/((o.sc[1]-o.sc[0])||1)*(H-T-B),pt=c=>c.map(p=>x(p[0]).toFixed(1)+','+y(p[1]).toFixed(1)).join(' ');
  const C=Z.curva;
  let s=`<svg class="g24" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
-  const soglie=(D.soglie_marea||[]).filter(v=>v>=o.sc[0]&&v<=o.sc[1]);
+  const SG=soglieDa(Z,o.zona,data),soglie=SG.filter(v=>v>=o.sc[0]&&v<=o.sc[1]);
   if(big)for(let v=Math.ceil(o.sc[0]/20)*20;v<=o.sc[1];v+=20)s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#fff" stroke-opacity="${v===0?.45:.08}" stroke-width="${v===0?1.2:1}"/>`+(soglie.some(g=>Math.abs(y(g)-y(v))<10)?'':`<text x="${L-4}" y="${y(v)+3.5}" text-anchor="end" font-size="10" fill="#8aa6b6">${v}</text>`);
- (D.soglie_marea||[]).forEach((v,i)=>{if(v>o.sc[1]||v<o.sc[0])return;const c=i?'#ef5b4c':'#f2a13c';
+ SG.forEach((v,i)=>{if(v>o.sc[1]||v<o.sc[0])return;const c=i?'#ef5b4c':'#f2a13c';
   s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="${c}" stroke-width="1" stroke-opacity=".75" stroke-dasharray="${big?'':'3 3'}"/>`+(big?`<text x="${L-4}" y="${y(v)+3.5}" text-anchor="end" font-size="10" font-weight="700" fill="${c}">${v}</text>`:'')});
  const passo=big?180:360,notte=Z.mob?[0,1440].filter(t=>t>=a&&t<=b).map(t=>Math.max(L+16,Math.min(W-R-16,x(t)))):[];
  for(let t=Math.ceil(a/passo)*passo;t<=b;t+=passo){const mn=Z.mob&&t%1440===0,tx=mn?(t>0?'domani':'oggi'):String((t%1440+1440)%1440/60||(Z.mob?0:t/60)).padStart(2,'0'),m=mn?17:6,px=x(t),
@@ -370,8 +373,9 @@ function disegna24(){   // disegna i grafici alla larghezza disponibile; richiam
  document.querySelectorAll('[data-g24]').forEach(el=>{const [scelto,zona,fin]=el.dataset.g24.split('|'),oggi=adessoIT().d;
   const data=el.dataset.casa&&m24(oggi,zona)?oggi:scelto,Z=fin24(data,zona),W=Math.floor(el.clientWidth);if(!Z||W<100)return;   // v3.78: in prima pagina sempre da adesso
   const sposta=Math.round((Date.parse(scelto)-Date.parse(data))/60000),f=fin?finMin(fin).map(m=>m+sposta):null;   // la barretta resta sulle ore della fascia scelta
-  if(el.dataset.big){const M=mis24(zona,data);const v=misurata(zona,data).map(p=>p[1]).concat(M?[M.cm]:[]);let sc=scala24([Z],Math.min(-10,...v),Math.max((D.soglie_marea||[110])[0]+5,...v));sc=[Math.floor((sc[0]-14)/10)*10,Math.ceil((sc[1]+14)/10)*10];
+  if(el.dataset.big){const M=mis24(zona,data);const v=misurata(zona,data).map(p=>p[1]).concat(M?[M.cm]:[]);let sc=scala24([Z],Math.min(-10,...v),Math.max(soglieDa(Z,zona,data).length?(D.soglie_marea||[110])[0]+5:-1e9,...Z.curva.map(p=>p[1]),...v));sc=[Math.floor((sc[0]-14)/10)*10,Math.ceil((sc[1]+14)/10)*10];
    el.dataset.a=Z.a;el.innerHTML=g24(Z,data,f,{W,H:290,L:26,R:4,T:30,B:24,fs:11,two:true,big:true,sc,zona});misurato24(el,Z,data,zona);
+   const ls=el.closest('.card').querySelector('.legsoglia');if(ls)ls.hidden=!soglieDa(Z,zona,data).length;
    const q=el.closest('.card').querySelector('.est');if(q){q.style.gridTemplateColumns=`repeat(${Math.max(Z.estremi.length,1)},1fr)`;q.innerHTML=riquadri(Z)}}
   else{const zz=(D.marea24||{})[data],m=Object.keys(zz).flatMap(k=>{const l=mis24(k,data);return misurata(k,data).map(p=>p[1]).concat(l?[l.cm]:[])});
    el.innerHTML=g24(Z,data,f,{W,H:70,T:13,B:34,fs:10.5,sc:scala24(Object.keys(zz).map(k=>fin24(data,k)),m.length?Math.min(...m):null,m.length?Math.max(...m):null),zona});scosta(el,W)}})}
@@ -392,7 +396,7 @@ function scheda24(id,v){   // pagina della zona: scheda della marea sulle 24 ore
  const Z=fin24(v.data,id);if(!Z)return '';const E=Z.estremi,B=Z.emessa&&quandoTxt(Z.emessa),N=adessoIT();
  return `<div class="sec mcol"><div class="card"><div class="ch">Marea 24 ore <span>${esc(Z.stazione)} · cm su ZMPS</span></div><div class="lett">Tocca il grafico per leggere ora e livello</div><div class="misl"></div>
  <div style="margin-top:4px;touch-action:pan-y" data-g24="${v.data}|${id}|${esc(v.finestra)}" data-big="1" class="g24h" onpointerdown="leggi24(this,event)" onpointermove="leggi24(this,event)"></div>
- <div class="leg"><span><i style="border-color:#5fd4d0"></i>${Z.emessa?'prevista (CPSM, per zona)':'astronomica (senza vento)'}</span>${Z.astro?'<span><i style="border-color:#8aa6b6;border-top-style:dashed"></i>astronomica</span>':''}<span><i style="border-color:#f2a13c"></i>${esc((D.soglie_marea||[])[0])} cm</span></div>
+ <div class="leg"><span><i style="border-color:#5fd4d0"></i>${Z.emessa?'prevista (CPSM, per zona)':'astronomica (senza vento)'}</span>${Z.astro?'<span><i style="border-color:#8aa6b6;border-top-style:dashed"></i>astronomica</span>':''}<span class="legsoglia"${soglieDa(Z,id,v.data).length?'':' hidden'}><i style="border-color:#f2a13c"></i>${esc((D.soglie_marea||[])[0])} cm</span></div>
  <div class="note">${B?'Bollettino CPSM delle '+esc(B.txt)+'. ':'Bollettino CPSM non disponibile per questo giorno. '}${v.data===N.d?'Nel tratto già passato la linea gialla è l’acqua misurata, quella grigia l’ultima previsione.':v.data<N.d?'In grigio il tratto già passato: è l’ultima previsione, non una misura.':''}</div>
  <div class="est" style="grid-template-columns:repeat(${Math.max(Z.estremi.length,1)},1fr)">${riquadri(Z)}</div></div></div>`}
 function riquadri(Z){return Z.estremi.map(e=>`<div class="e${e.tipo}${passato(Z,e)?' gia':''}">${e.tipo==='alta'?'▲ alta':'▼ bassa'}<b>${e.cm} cm</b>${esc(e.ora)}${Z.mob&&quale(e.min)?'<br>'+quale(e.min):''}</div>`).join('')}
