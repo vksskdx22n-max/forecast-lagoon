@@ -71,7 +71,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.41"   # v1.41: pressione a Palazzo Cavalli, grafico prevista / misurata ed errore medio; v1.40: nel grafico dell'onda indicata la piattaforma CNR-ISMAR; v1.39: onda con grafico prevista (come nell'app) / misurata ed errore medio; in archivio anche "prev_app"; v1.38: sul computer (da 1000 px) la pagina e' su due colonne; telefono e PDF invariati; v1.37: titolo "Errore per ora del giorno"; nei grafici dell'andamento le date e le ore non si sovrappongono; v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+VERSIONE = "1.42"   # v1.42: verifica lasciata aperta se manca una stazione, completata ai giri successivi; v1.41: pressione a Palazzo Cavalli, grafico prevista / misurata ed errore medio; v1.40: nel grafico dell'onda indicata la piattaforma CNR-ISMAR; v1.39: onda con grafico prevista (come nell'app) / misurata ed errore medio; in archivio anche "prev_app"; v1.38: sul computer (da 1000 px) la pagina e' su due colonne; telefono e PDF invariati; v1.37: titolo "Errore per ora del giorno"; nei grafici dell'andamento le date e le ore non si sovrappongono; v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
 # v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
 # Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
 # 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
@@ -125,6 +125,7 @@ CARTELLA = "Previsioni"
 KN = 1.94384
 CPSM_ORA_SOLARE = True
 MIN_LETTURE = 10
+ORE_ATTESA = 13        # v1.42: verifica con stazioni mancanti lasciata aperta fino a 13 ore dall'inizio finestra (le pagine ne tengono 24)
 MIN_ORE_CORR = 10
 RACCORDO = 2.0                 # nodi: ampiezza (per lato) del passaggio graduale tra le fasce di correzione
 FASCE = [(None, 6.0, "sotto 6"), (6.0, 12.0, "6–12"), (12.0, None, "da 12")]   # fascia del vento PREVISTO da ICON-D2
@@ -774,13 +775,46 @@ def verifica_marea(v, M, cfg):
     return out
 
 
+def stazioni_attese(v):
+    """v1.42: stazioni che servono alla verifica di questa previsione."""
+    P, s = v["P"], []
+    for zona in ZONE:
+        if righe_zona(P, zona):
+            s += ZONE[zona][0]
+    if (P.get("mare") or {}).get("righe"):
+        s.append(STAZ_ONDA)
+    m = P.get("meteo") or {}
+    if m.get("aria_ore") or m.get("pioggia_ore"):
+        s += [STAZ_ARIA_CITTA, STAZ_ONDA]
+    if m.get("pressione_ore"):
+        s.append(STAZ_ARIA_CITTA)
+    if P.get("marea") and STAZ_MAREA.get(v["area"]):
+        s += [STAZ_MAREA[v["area"]], STAZ_CPSM]
+    return list(dict.fromkeys(s))
+
+
+def stazioni_mancanti(v, M):
+    """v1.42: pagine assenti (blocco) o ferme prima della fine della finestra. Un sensore senza valori non conta."""
+    limite = v["a"] - dt.timedelta(minutes=30)
+    return sorted(s for s in stazioni_attese(v) if not M.get(s) or M[s][-1]["t"] < limite)
+
+
+def segnala(testo):
+    """v1.42: riga in FL_PROBLEMI: il giro pubblica, poi risulta fallito."""
+    f = os.environ.get("FL_PROBLEMI")
+    if f:
+        with open(f, "a", encoding="utf-8") as h:
+            h.write(testo + "\n")
+
+
 def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None, provvisoria=False):
     """Verifica le previsioni concluse non ancora in archivio. Ritorna righe di testo.
     provvisoria=True: finestre gia' iniziate, solo ore complete, archivio non modificato."""
     adesso = adesso or dt.datetime.now(dt.timezone.utc)
     A = carica_archivio(cartella)
     O = applica_osservazioni(A, cartella)
-    fatte = {p["chiave"] for p in A["previsioni"]}
+    aperte = {p["chiave"]: p for p in A["previsioni"] if str(p.get("esito", "")).startswith("aperta")}    # v1.42
+    fatte = {p["chiave"] for p in A["previsioni"] if provvisoria or p["chiave"] not in aperte}
     lim = (lambda v: v["da"] + dt.timedelta(minutes=30) <= adesso) if provvisoria else (lambda v: v["a"] + dt.timedelta(minutes=30) <= adesso)
     pend = [v for k, v in leggi_previsioni(cartella).items() if k not in fatte and lim(v)]
     if not pend:
@@ -876,6 +910,17 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
         except Exception as ex:
             v["marea_v"] = None
             log.append(f"  {chiave}: verifica marea non riuscita ({type(ex).__name__}: {str(ex)[:80]})")
+        manca = [] if provvisoria else stazioni_mancanti(v, M)               # v1.42
+        in_tempo = bool(manca) and adesso < v["da"] + dt.timedelta(hours=ORE_ATTESA)
+        prima = None if provvisoria else aperte.get(chiave)
+        if prima and (set(manca) - set(prima.get("mancanti") or []) or len(ore_tot) < prima.get("ore", 0)):    # peggio di prima: resta quella pagina
+            if in_tempo:
+                log.append(f"  {chiave}: resta aperta, questo giro ha meno dati del precedente")
+            else:
+                prima["esito"] = f"verificata, {prima.get('ore', 0)} ore, incompleta"
+                segnala(f"Verifica chiusa incompleta: {chiave}, mancava {', '.join(prima.get('mancanti') or [])}")
+                log.append(f"  {chiave}: chiusa incompleta con i dati del giro precedente")
+            continue
         if not ore_tot:
             if n_rip and not n_d2:              # v1.17: tutte le ore di ripiego, non si riprova
                 if not provvisoria:
@@ -928,8 +973,18 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
                 mv = v["marea_v"]
                 k = (mv["data"], mv["area"], mv["da"])
                 A["marea"] = [x for x in A["marea"] if (x["data"], x["area"], x.get("da")) != k] + [mv]
-            A["previsioni"].append({"chiave": chiave, "file": v["file"], "esito": f"verificata, {len(ore_tot)} ore",
+            if in_tempo:                                                    # v1.42
+                esito = f"aperta, {len(ore_tot)} ore, in attesa di: {', '.join(manca)}"
+            else:
+                esito = f"verificata, {len(ore_tot)} ore" + (", incompleta" if manca else "")
+                if manca:
+                    segnala(f"Verifica chiusa incompleta: {chiave}, mancava {', '.join(manca)}")
+            A["previsioni"] = [x for x in A["previsioni"] if x["chiave"] != chiave]
+            A["previsioni"].append({"chiave": chiave, "file": v["file"], "esito": esito, "ore": len(ore_tot),
+                                    **({"mancanti": manca} if manca else {}),
                                     "verificata": dt.datetime.now().strftime("%Y-%m-%d %H:%M")})
+            if manca:
+                log.append(f"  {chiave}: {esito}" + ("" if in_tempo else f" (mancava {', '.join(manca)})"))
         log.append(f"  {chiave}{' PROVVISORIA' if provvisoria else ''}:" + (f" {n_rip} ore di ripiego senza ICON-D2 escluse" if n_rip else ""))
         for zona, oz in risultati:
             oa = [o for o in oz if o["prev"].get("ar") is not None]          # v1.26

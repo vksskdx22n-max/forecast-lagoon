@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.57"   # v1.57: correnti nei canali come fasce colorate, dentro lo schermo del telefono; v1.56: salvata la pressione prevista ora per ora (per l'app e la verifica); v1.55: nella tabella dell'onda una sola altezza in cm (quella corretta), senza spiegazioni; v1.54: la forbice delle ore incerte comprende sempre la stima; v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
+VERSIONE = "1.58"   # v1.58: segnalate le fonti essenziali mancanti (onda al largo, bollettino marea); v1.57: correnti nei canali come fasce colorate, dentro lo schermo del telefono; v1.56: salvata la pressione prevista ora per ora (per l'app e la verifica); v1.55: nella tabella dell'onda una sola altezza in cm (quella corretta), senza spiegazioni; v1.54: la forbice delle ore incerte comprende sempre la stima; v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
 # v1.50: fasce della giornata (scelta di Ennio 23/11/2026). La fascia della sera finisce a mezzanotte: "24:00" = 23:59 interno.
 FINE_GIORNO = dt.time(23, 59)
 PERIODI = [("mattino", 5, 12), ("pomeriggio", 13, 18), ("sera", 19, 23)]
@@ -341,7 +341,7 @@ def scarica(giorno, da, a):
         r = curl_om(url, 45)
         if r.returncode == 0 and r.stdout.strip().startswith("["):
             return json.loads(r.stdout)
-        sys.exit(3)                                  # v1.52: niente dati in memoria, la previsione resta com'e'
+        sys.exit(4)                                  # v1.52: niente dati in memoria, la previsione resta com'e' (v1.58: codice 4)
     for tentativo in range(3):                      # v1.33: fino a 3 tentativi (Open-Meteo a volte non risponde)
         r = curl_om(url, 45)
         if r.returncode == 0 and r.stdout.strip().startswith("["):
@@ -349,6 +349,15 @@ def scarica(giorno, da, a):
         print(f"Open-Meteo non risponde (tentativo {tentativo + 1} di 3): {(r.stdout or r.stderr)[:200]}")
         time.sleep(20 * (tentativo + 1))
     sys.exit(f"Errore Open-Meteo dopo 3 tentativi: {r.stdout[:300] or r.stderr[:300]}")
+
+
+def segnala(testo):
+    """v1.58: fonte essenziale mancante: avviso nel registro e riga in FL_PROBLEMI (il giro pubblica, poi risulta fallito)."""
+    print("::warning::" + testo)
+    f = os.environ.get("FL_PROBLEMI")
+    if f:
+        with open(f, "a", encoding="utf-8") as h:
+            h.write(testo + "\n")
 
 
 AROME = "meteofrance_arome_france_hd"   # v1.44: Meteo-France AROME HD (1,5 km), solo in parallelo: salvato e verificato, non usato nella stima
@@ -441,9 +450,19 @@ def scarica_mare(giorno, path=None):
         g = giorno.isoformat()
         url = (f"https://marine-api.open-meteo.com/v1/marine?latitude={MARE_PUNTO[0]}&longitude={MARE_PUNTO[1]}"
                f"&hourly=wave_height,wave_direction,wave_period&timezone=Europe%2FRome&start_date={g}&end_date={g}")
-        r = curl_om(url, 20)
-        d = json.loads(r.stdout)
-        return d if "hourly" in d else None
+        for tentativo in range(3):                       # v1.58: fino a 3 tentativi prima di segnalare l'onda mancante
+            r = curl_om(url, 20)
+            try:
+                d = json.loads(r.stdout)
+                if "hourly" in d:
+                    return d
+            except ValueError:
+                pass
+            if os.environ.get("FL_SOLO_CACHE"):
+                break
+            if tentativo < 2:
+                time.sleep(10)
+        return None
     except (ValueError, OSError):
         return None
 
@@ -455,14 +474,19 @@ def scarica_cpsm(path=None):
     if path:
         dati = json.load(open(path, encoding="utf-8"))
     else:
-        for url, extra in (CPSM_PREV_PROXY, CPSM_PREV_OPENDATA):
-            r = subprocess.run(["curl", "-s", "-m", "20"] + extra + [url], capture_output=True, text=True)
-            try:
-                dati = json.loads(r.stdout)
-                if isinstance(dati, list) and dati:
-                    break
-            except ValueError:
-                dati = None
+        for tentativo in range(3):                       # v1.58: fino a 3 giri sulle due fonti
+            for url, extra in (CPSM_PREV_PROXY, CPSM_PREV_OPENDATA):
+                r = subprocess.run(["curl", "-s", "-m", "20"] + extra + [url], capture_output=True, text=True)
+                try:
+                    dati = json.loads(r.stdout)
+                    if isinstance(dati, list) and dati:
+                        break
+                except ValueError:
+                    dati = None
+            if isinstance(dati, list) and dati:
+                break
+            if tentativo < 2:
+                time.sleep(10)
     if not isinstance(dati, list):
         return [], None
     out, emessa = [], None
@@ -1995,9 +2019,13 @@ def main():
     mpath = sys.argv[sys.argv.index("--mare-json") + 1] if "--mare-json" in sys.argv else None
     MAR = scarica_mare(giorno, mpath)
     print("Onda in mare aperto: dati disponibili" if MAR else "Onda in mare aperto: API non disponibile, riquadro omesso")
+    if not MAR and not solo_marea:
+        segnala(f"Onda al largo non disponibile per il {giorno.strftime('%d/%m')}")
     cpath = sys.argv[sys.argv.index("--cpsm-json") + 1] if "--cpsm-json" in sys.argv else None
     CP = scarica_cpsm(cpath)
     print(f"Previsione marea CPSM: {len(CP[0])} estremali (emessa {CP[1]})" if CP[0] else "Previsione marea CPSM non disponibile: uso la marea astronomica")
+    if not CP[0]:
+        segnala("Bollettino di marea CPSM non disponibile: usati lo storico o la marea astronomica")
     storico_cpsm_aggiorna(CP)            # v1.52
     if solo_marea:
         if not CP[0] or CP[1] == (vecchia.get("marea") or {}).get("cpsm_emessa"):

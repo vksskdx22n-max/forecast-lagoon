@@ -28,7 +28,7 @@ import sys, json, math, subprocess, statistics, datetime as dt
 import fd_previsione as FP
 import marea_propaga as MP
 
-VERSIONE = "1.5"   # v1.5: fasce 05-12, 12-18, 18-24; la correzione resta quella dell'ora
+VERSIONE = "1.6"   # v1.5: fasce 05-12, 12-18, 18-24; la correzione resta quella dell'ora
 FASCE_T = [("05:00–12:00", 5, 12, "mattino"), ("12:00–18:00", 12, 18, "pomeriggio"), ("18:00–24:00", 18, 23, "sera")]   # v1.5
 # v1.4: correzioni iniziali di pomeriggio e sera (nodi da aggiungere), analisi del 23/11/2026 (Previous Runs, previsione emessa
 # 2 giorni prima, 23/08-22/11, misure CPSM orarie). ICON-2i: errore medio 0,2-0,6 nodi, la correzione non migliora -> 0.
@@ -255,6 +255,7 @@ def main():
     R = scarica(punti, giorni[0], giorni[-1])
     if not R:
         print("Tendenza: Open-Meteo non risponde, tendenza.json non aggiornato")
+        FP.segnala("Prossimi giorni non aggiornati: Open-Meteo non risponde")    # v1.6
         return
     idx = {p[0]: i for i, p in enumerate(punti)}
     cfg = MP.carica_config(".")
