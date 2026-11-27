@@ -51,7 +51,7 @@ def controlla(adesso=None, giro=""):
             ore = (adesso - v["a"]).total_seconds() / 3600
             if not MARGINE_ORE <= ore <= ORIZZONTE_ORE:
                 continue
-            if not esiti.get(k, "").startswith("verificata"):
+            if not esiti.get(k, "").startswith(("verificata", "aperta")):
                 errori.append(f"verifica non calcolata: {k} ({esiti.get(k) or 'non ancora in archivio'})")
             elif v["file"] not in file_di and not any(f.startswith(v["file"].rsplit("_v", 1)[0] + "_v") for f in file_di):
                 errori.append(f"verifica in archivio ma senza pagina: {k}")

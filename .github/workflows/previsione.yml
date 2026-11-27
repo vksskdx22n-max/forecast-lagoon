@@ -47,6 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       salta: ${{ steps.guard.outputs.salta }}
+      problemi: ${{ steps.problemi.outputs.elenco }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -117,6 +118,7 @@ jobs:
           restore-keys: om-
 
       - name: Previsione (con la verifica dei giorni conclusi)
+        id: prev
         if: steps.guard.outputs.salta != 'true'
         continue-on-error: true      # se un servizio esterno non risponde, il sito si pubblica lo stesso con i dati gia' presenti
         env:
@@ -130,13 +132,18 @@ jobs:
           export FL_CACHE="$RUNNER_TEMP/om_cache"      # v1.50: una sola richiesta a Open-Meteo per giorno e zona, per tutte le fasce
           mkdir -p "$FL_CACHE"; find "$FL_CACHE" -mindepth 1 -maxdepth 1 -mtime +3 -exec rm -rf {} +
           export FL_INIZIO=$(date +%s)                 # i dati in memoria di giri precedenti valgono solo per il ricalcolo della marea
+          export FL_PROBLEMI="$RUNNER_TEMP/problemi.txt"   # 27/11/2026: guasti da segnalare dopo la pubblicazione
           ERR=0; PRIMA=1
           prev() {   # giorno, da, a, area
             local opz="--non-aprire --no-pdf"
             if [ "$GIRO" = "marea" ]; then opz="$opz --solo-marea"
             elif [ $PRIMA -ne 1 ]; then opz="$opz --no-verifica --no-archivi"; fi   # verifica e archivi una volta sola, nel primo giro (centro)
             PRIMA=0
-            python3 fd_previsione.py "$1" "$2" "$3" $opz --area "$4" || { echo "::warning::Previsione $4 $1 $2-$3 non riuscita"; ERR=1; }
+            python3 fd_previsione.py "$1" "$2" "$3" $opz --area "$4" || {
+              C=$?
+              if [ "$GIRO" = "marea" ] && [ $C -eq 4 ]; then echo "::notice::Solo marea $4 $1 $2-$3: dati meteo non in memoria, la previsione resta."
+              else echo "::warning::Previsione $4 $1 $2-$3 non riuscita"; echo "Previsione non riuscita: $4 $1 $2-$3" >> "$FL_PROBLEMI"; ERR=1; fi
+            }
           }
           TUTTE="05:00-12:00 12:00-18:00 18:00-24:00"      # 25/11/2026: tre fasce senza ore scoperte tra le 05 e le 24
           if [ -n "$DA_IN" ] || [ -n "$A_IN" ]; then
@@ -161,10 +168,11 @@ jobs:
           fi
           for F in $OGG; do for Z in centro nord sud; do prev "$OGGI" "${F%-*}" "${F#*-}" "$Z"; done; done
           [ -n "$OGG" ] && GIORNI="$GIORNI $OGGI"
-          for G in $GIORNI; do for Z in centro nord sud; do python3 fd_previsione.py "$G" --sintesi --area "$Z" || ERR=1; done; done
+          for G in $GIORNI; do for Z in centro nord sud; do python3 fd_previsione.py "$G" --sintesi --area "$Z" || { echo "Sintesi non riuscita: $Z $G" >> "$FL_PROBLEMI"; ERR=1; }; done; done
           exit $ERR
 
       - name: Tendenza dei prossimi giorni
+        id: tend
         if: steps.guard.outputs.salta != 'true' && github.event.inputs.giro != 'marea' && github.event.inputs.giro != 'meteo'
         continue-on-error: true      # v1.0: se non riesce resta la tendenza precedente, il resto non cambia
         env:
@@ -173,7 +181,20 @@ jobs:
           A_IN: ${{ github.event.inputs.a }}
         run: |
           DATA="${DATA_IN:-$(date -d tomorrow +%F)}"
+          export FL_PROBLEMI="$RUNNER_TEMP/problemi.txt"
           python3 fd_tendenza.py "$DATA" "${DA_IN:-05:00}" "${A_IN:-12:00}"
+
+      - name: Guasti del giro
+        id: problemi
+        if: always() && steps.guard.outputs.salta != 'true'
+        env:
+          PREV: ${{ steps.prev.outcome }}
+          TEND: ${{ steps.tend.outcome }}
+        run: |
+          F="$RUNNER_TEMP/problemi.txt"; touch "$F"
+          if [ "$PREV" = "failure" ] && [ ! -s "$F" ]; then echo "Passo Previsione non riuscito" >> "$F"; fi
+          if [ "$TEND" = "failure" ]; then echo "Prossimi giorni: passo non riuscito" >> "$F"; fi
+          echo "elenco=$(sort -u "$F" | paste -sd '|' -)" >> "$GITHUB_OUTPUT"
 
       - name: Prova dei collegamenti delle verifiche
         if: steps.guard.outputs.salta != 'true'
@@ -260,3 +281,15 @@ jobs:
         run: |
           python3 build_site.py > /dev/null
           python3 controlla_verifiche.py
+
+      - name: Previsioni e fonti complete
+        if: always() && needs.build.outputs.problemi != ''
+        env:
+          ELENCO: ${{ needs.build.outputs.problemi }}
+        run: |
+          echo "$ELENCO" | tr '|' '\n' | sed 's/^/::error::/'
+          exit 1
+
+      - name: Dati in diretta e allerte
+        if: always()
+        run: python3 controlla_dirette.py
