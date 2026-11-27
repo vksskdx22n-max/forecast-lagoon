@@ -71,7 +71,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.37"   # v1.37: titolo "Errore per ora del giorno"; nei grafici dell'andamento le date e le ore non si sovrappongono; v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+VERSIONE = "1.38"   # v1.38: sul computer (da 1000 px) la pagina e' su due colonne; telefono e PDF invariati; v1.37: titolo "Errore per ora del giorno"; nei grafici dell'andamento le date e le ore non si sovrappongono; v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
 # v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
 # Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
 # 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
@@ -1175,7 +1175,8 @@ HTML = r"""<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name
 <style>
 :root{--bg:#f1f5f9;--card:#fff;--bd:#d8e0ea;--tx:#1e293b;--mu:#64748b;--ac:#3b82c4;--soft:#f1f5f9;--verde:#16a34a;--giallo:#ca8a04;--rosso:#dc2626;--vs:#dcfce7;--gs:#fef3c7;--rs:#fee2e2}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 -apple-system,"Inter","Segoe UI",Roboto,sans-serif}
-.wrap{max-width:560px;margin:0 auto;padding:16px}
+.wrap{max-width:560px;margin:0 auto;padding:16px}.wrap.larga{max-width:1180px;padding:24px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 20px;align-items:start}.wrap.larga .hero h1{font-size:34px}
 .hero{border-radius:14px;padding:22px;color:#fff;background:linear-gradient(135deg,#1e3a6b,#2c5aa0 60%,#4a8fd8)}
 .hero .k{font-size:12px;letter-spacing:.14em;opacity:.85;text-transform:uppercase}.hero h1{font:400 26px/1.15 Georgia,serif;margin:10px 0 8px}.hero .z{opacity:.9;font-size:14px}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-top:16px}
@@ -1301,7 +1302,16 @@ if(AN&&AN.giorni&&AN.giorni.length){
 app.append(h('div',{cls:'card'},h('h2',{},'📚 Archivio verifiche'),h('div',{cls:'arch'},D.archivio.join('\n')||'–')));
 const cr=h('div',{cls:'card'},h('h2',{},'🧭 Note'));D.note.forEach(r=>cr.append(h('div',{cls:'r'},h('span',{cls:'tag '+r.tipo},r.tipo),h('div',{},r.testo))));app.append(cr);
 app.append(h('div',{cls:'fonti'},D.fonti+' · generato '+D.generato));
-const st=document.createElement('style');st.textContent=`@page{size:560px ${document.documentElement.scrollHeight+4}px;margin:0}`;document.head.append(st);
+const K=[...app.children],HERO=K[0],FONTI=K[K.length-1],CARTE=K.slice(1,-1),tit=e=>e.querySelector('h2').textContent;
+function impagina(larga){app.classList.toggle('larga',larga);
+ if(!larga){app.replaceChildren(...K);return;}   /* v1.38: sul computer due colonne, come la previsione */
+ const sx=CARTE.filter(e=>/^(💨|📈|🕐)/u.test(tit(e))),prima=e=>/Marea ·/.test(tit(e))?0:/Livello ·/.test(tit(e))?1:2;
+ const dx=CARTE.filter(e=>!sx.includes(e)).sort((a,b)=>prima(a)-prima(b));
+ app.replaceChildren(HERO,h('div',{cls:'cols'},h('div',{},sx),h('div',{},dx)),FONTI);}
+const SCH=window.matchMedia('screen and (min-width:1000px)');
+if(SCH.matches)impagina(true);
+SCH.addEventListener('change',e=>impagina(e.matches));
+const st=document.createElement('style');st.textContent=`@page{size:560px ${document.documentElement.scrollHeight+4}px;margin:0}`;if(!SCH.matches)document.head.append(st);
 </script></body></html>"""
 
 
