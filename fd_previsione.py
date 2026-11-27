@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.56"   # v1.56: salvata la pressione prevista ora per ora (per l'app e la verifica); v1.55: nella tabella dell'onda una sola altezza in cm (quella corretta), senza spiegazioni; v1.54: la forbice delle ore incerte comprende sempre la stima; v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
+VERSIONE = "1.57"   # v1.57: correnti nei canali come fasce colorate, dentro lo schermo del telefono; v1.56: salvata la pressione prevista ora per ora (per l'app e la verifica); v1.55: nella tabella dell'onda una sola altezza in cm (quella corretta), senza spiegazioni; v1.54: la forbice delle ore incerte comprende sempre la stima; v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
 # v1.50: fasce della giornata (scelta di Ennio 23/11/2026). La fascia della sera finisce a mezzanotte: "24:00" = 23:59 interno.
 FINE_GIORNO = dt.time(23, 59)
 PERIODI = [("mattino", 5, 12), ("pomeriggio", 13, 18), ("sera", 19, 23)]
@@ -1545,6 +1545,12 @@ td{padding:8px 3px;border-top:1px solid #e5eaf0;text-align:right}
 td.dir{font-size:12px;white-space:nowrap}.dnome{font-size:10.5px;color:var(--mu)}
 .pill{display:inline-block;padding:2px 8px;border-radius:10px;font-weight:700}.pill.verde{background:var(--vs);color:var(--verde)}.pill.giallo{background:var(--gs);color:var(--giallo)}.pill.rosso{background:var(--rs);color:var(--rosso)}
 .zona-t{font-weight:600;margin:6px 0 2px;display:none}
+.corr{display:grid;gap:3px;-webkit-print-color-adjust:exact;print-color-adjust:exact}.corr>div{border-radius:6px;padding:5px 0 6px;text-align:center;font-size:12px;line-height:1.25;font-variant-numeric:tabular-nums}
+.corr i{display:block;font-style:normal;font-size:10px}.corr span,.corr b{display:block}.corr b{font-weight:800}.corr-ore span{text-align:center;color:var(--mu);font-size:12px}
+.corr-n{font-weight:600;font-size:14px;margin:11px 0 5px}
+.breve em{font-style:normal}
+@media screen and (max-width:460px){.breve em{display:none}.breve{column-gap:2px!important;}.breve .pill,.breve span{padding-left:3px!important;padding-right:3px!important;font-size:11.5px}.breve div{min-width:0;white-space:nowrap}}
+@media screen and (max-width:359px){.wrap{padding:8px}.card{padding:12px 8px}table{font-size:11.5px}th{font-size:10px;padding:5px 1px}td{padding:7px 1px}td.dir{font-size:10px}.dnome{font-size:9px}.corr{gap:2px}.corr>div{font-size:10.5px}.breve{font-size:11px!important}.breve .pill,.breve span{font-size:10px;padding-left:1px!important;padding-right:1px!important}}
 .chips{display:flex;flex-wrap:wrap;gap:6px}.chip{background:var(--soft);border:1px solid var(--bd);border-radius:8px;padding:4px 10px;font-size:14px}
 .seq{font-size:13px;color:var(--mu);margin:10px 0 0;padding-left:18px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:var(--soft);border-radius:10px;padding:12px}.tile b{font-size:21px;display:block}.tile span{color:var(--mu);font-size:13px}
@@ -1572,7 +1578,7 @@ add(h('div',{cls:'card parte1'},h('h2',{},'Verdetto'),h('div',{cls:'verd'},h('di
 const colP=v=>v==null?['#f1f5f9','#64748b']:v<20?['#e6f1fb','#0c447c']:v<40?['#b5d4f4','#0c447c']:v<60?['#85b7eb','#042c53']:v<80?['#378add','#fff']:['#185fa5','#fff'];
 (function(){const S=D.striscia;if(!S||!S.ore.length)return;
   const mx=Math.max(0.3,...S.ore.map(o=>o.corr||0));const cols=S.ore.length;
-  const g=h('div',{style:`display:grid;grid-template-columns:52px repeat(${cols},1fr);gap:6px 4px;align-items:center;font-size:13px`});
+  const g=h('div',{cls:'breve',style:`display:grid;grid-template-columns:52px repeat(${cols},minmax(0,1fr));gap:6px 4px;align-items:center;font-size:13px`});
   const lab=t=>h('div',{style:'color:var(--mu);font-size:11px'},t);
   g.append(lab(''),...S.ore.map(o=>h('div',{style:'text-align:center;font-weight:700'},o.ora)));
   g.append(lab('Vento'),...S.ore.map(o=>h('div',{style:'text-align:center'},h('span',{cls:'pill '+o.sem},n(o.stima,0)))));
@@ -1581,7 +1587,7 @@ const colP=v=>v==null?['#f1f5f9','#64748b']:v<20?['#e6f1fb','#0c447c']:v<40?['#b
     return h('div',{style:'text-align:center'},h('div',{style:`height:8px;border-radius:4px;background:${c};width:${w}%;margin:0 auto`}),h('div',{style:'font-size:10px;color:var(--mu);margin-top:2px'},n(o.corr,2)));}));
   const PO=(D.meteo&&D.meteo.pioggia_ore)||[];
   if(PO.length===S.ore.length&&PO.some(r=>r.prob_D2!=null))g.append(lab('Pioggia'),...PO.map(r=>{const c=colP(r.prob_D2);
-    return h('div',{style:'text-align:center;line-height:1.1'},h('span',{style:`display:inline-block;padding:2px 7px;border-radius:10px;font-weight:700;background:${c[0]};color:${c[1]}`},r.prob_D2==null?'–':r.prob_D2+'%'),h('div',{style:'font-size:10px;color:var(--mu);margin-top:2px'},r.mm_D2==null?'':n(r.mm_D2)+' mm'));}));
+    return h('div',{style:'text-align:center;line-height:1.1'},h('span',{style:`display:inline-block;padding:2px 7px;border-radius:10px;font-weight:700;background:${c[0]};color:${c[1]}`},r.prob_D2==null?'–':r.prob_D2+'%'),h('div',{style:'font-size:10px;color:var(--mu);margin-top:2px',html:r.mm_D2==null?'':n(r.mm_D2)+'<em> mm</em>'}));}));
   add(h('div',{cls:'card parte1'},h('h2',{},'🕐 '+D.finestra+' in breve · media delle zone'),g,
     h('div',{cls:'nota'},'Vento: MEDIA delle zone di pesca ('+S.zone.join(', ')+'), nodi; colore = semaforo sul vento medio (le raffiche non contano). '+(S.riparo.length?S.riparo.join(', ')+': '+D.testo_riparo+'. ':'')+'Marea: ↑ crescente, ↓ calante, ≈ quasi ferma; cm/h ('+S.fonte_marea+'). '+(((D.meteo||{}).pioggia_ore||[]).some(r=>r.prob_D2!=null)?'Pioggia: probabilità ICON-D2 e mm nell’ora precedente. ':'')
       +(S.canale?'Corrente: '+S.canale+', m/s, azzurro entra, viola esce (stima del modello). ':'')+(S.alba?'Alba '+S.alba:'')+(S.tramonto?' · tramonto '+S.tramonto:'')+'.')));})();
@@ -1640,9 +1646,14 @@ cm.append(h('div',{cls:'nota'},'Sequenza astronomica:'),h('ul',{cls:'seq',style:
 cm.append(h('div',{cls:'nota'},'Velocità del livello ('+(M.fonte_livello||'astronomica')+'): '+M.velocita.map(v=>v.ora+' '+(v.cm_h>0?'+':'')+n(v.cm_h)).join(' · ')+' cm/h'));
 add(cm);
 const Cr=D.correnti,cc=h('div',{cls:'card parte1'},h('h2',{},'🔄 Correnti nei canali (modello)'));
-const tc=h('table',{},h('tr',{},h('th',{},'Canale'),...Cr.ore.map(o=>h('th',{},o))));
-Cr.righe.forEach(r=>{const mx=Math.max(...r.valori.map(v=>v.ms));tc.append(h('tr',{},h('td',{},r.canale),...r.valori.map(v=>h('td',{html:(Cr.solo_verso?'':(v.verso==='entra'?'▲':'▼'))+(v.ms===mx?'<b>'+n(v.ms,2)+'</b>':n(v.ms,2))}))));});
-cc.append(tc,h('div',{cls:'nota'},Cr.nota));add(cc);
+// v1.57: una fascia per canale, tutta dentro lo schermo; colore piu' intenso = corrente piu' forte (stessa scala ogni giorno)
+const gc=cls=>h('div',{cls:cls,style:'grid-template-columns:repeat('+Cr.ore.length+',minmax(0,1fr))'});
+const co=gc('corr corr-ore');Cr.ore.forEach(o=>co.append(h('span',{},o.slice(0,2))));cc.append(co);
+Cr.righe.forEach(r=>{const mx=Math.max(...r.valori.map(v=>v.ms)),g=gc('corr');
+  r.valori.forEach(v=>{const a=Math.min(1,v.ms/0.8);g.append(h('div',{style:'background:rgba(30,90,160,'+(0.07+0.86*a).toFixed(2)+');color:'+(a>0.5?'#fff':'#0f172a'),
+    html:(Cr.solo_verso?'':'<i>'+(v.verso==='entra'?'▲':'▼')+'</i>')+(v.ms===mx?'<b>'+n(v.ms,2)+'</b>':'<span>'+n(v.ms,2)+'</span>')}));});
+  cc.append(h('div',{cls:'corr-n'},r.canale),g);});
+cc.append(h('div',{cls:'nota'},'Colore più intenso = corrente più forte.'),h('div',{cls:'nota'},Cr.nota));add(cc);
 const Me=D.meteo,cmt=h('div',{cls:'card parte2'},h('h2',{},'📈 Pressione, cielo, temperatura'));
 const tiles=[[`${Me.pressione[0]} → ${Me.pressione[1]}`,`hPa, ${Me.pressione[2]}`],[(Me.nuvolosita==null?'–':Me.nuvolosita)+'%','nuvolosità media '+(Me.fonte_meteo||'ICON-D2')],[Me.pioggia+' mm'+(Me.pioggia_prob!=null?' · '+Me.pioggia_prob+'%':''),'pioggia max oraria'+(Me.pioggia_prob!=null?' · probabilità max ICON-D2':'')],[`${Me.aria[0]}–${Me.aria[1]} °C`,Me.aria_punto?'aria, '+(Me.fonte_meteo||'ICON-D2')+' entroterra ('+Me.aria_punto+')'+(Me.aria_acqua?' · sull’acqua (modello): '+Me.aria_acqua[0]+'–'+Me.aria_acqua[1]+' °C':''):'aria (ICON-D2)'],
   ...((Me.aria_misure||[]).length?[[Me.aria_misure.map(x=>x.valore+' °C').join(' · '),'aria misurata CPSM: '+Me.aria_misure.map(x=>x.stazione+' '+x.ora).join(' · ')]]:[])];
