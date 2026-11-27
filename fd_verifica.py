@@ -71,7 +71,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.36"   # v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+VERSIONE = "1.37"   # v1.37: titolo "Errore per ora del giorno"; nei grafici dell'andamento le date e le ore non si sovrappongono; v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
 # v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
 # Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
 # 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
@@ -955,7 +955,7 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
 
 
 def andamento(A, zona="Malamocco · Valgrande"):
-    """Errori della stima (previsione corretta) e di ICON-D2 nel tempo e per ora del mattino (previsto − misurato, nodi)."""
+    """Errori della stima (previsione corretta) e di ICON-D2 nel tempo e per ora del giorno (previsto − misurato, nodi)."""
     oz = [o for o in A["ore"] if o["zona"] == zona and o["prev"].get("stima") is not None and o["prev"].get("d2") is not None]
     def blocco(chiave, gruppo):
         e_s = [o["prev"]["stima"] - o["mis"]["media"] for o in gruppo]; e_d = [o["prev"]["d2"] - o["mis"]["media"] for o in gruppo]
@@ -1281,7 +1281,8 @@ function graf(righe,serie,tipo){const W=520,H=200,L=30,R=10,T=12,B=26,N=righe.le
  const X=i=>L+28+(N>1?i/(N-1):.5)*(W-L-R-56),Y=x=>T+(ym-x)/(ym-y0)*(H-T-B);
  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="font:10px sans-serif;fill:#64748b">`;
  for(let y=y0;y<=ym;y+=Math.max(1,Math.round(ym/4)))s+=`<line x1="${L}" x2="${W-R}" y1="${Y(y)}" y2="${Y(y)}" stroke="${y===0?'#64748b':'#e2e8f0'}"/><text x="2" y="${Y(y)+3}">${y>0&&tipo!=='ass'?'+':''}${y}</text>`;
- righe.forEach((r,i)=>s+=`<text x="${X(i)-12}" y="${H-8}">${r.k}</text>`);
+ const passo=N>1?Math.ceil(30/((W-L-R-56)/(N-1))):1;   // v1.37: etichette diradate, l'ultima c'e' sempre
+ righe.forEach((r,i)=>{if((N-1-i)%passo===0)s+=`<text x="${X(i)-12}" y="${H-8}">${r.k}</text>`;});
  if(tipo==='barre'){const bw=Math.min(26,(W-L-R)/N/3);righe.forEach((r,i)=>serie.forEach(([k,c],j)=>{const x=X(i)-bw*1.05+j*bw*1.1,y=Y(Math.max(0,r[k])),hh=Math.abs(Y(r[k])-Y(0));s+=`<rect x="${x}" y="${y}" width="${bw}" height="${hh}" fill="${c}"/>`;}));}
  else serie.forEach(([k,c,w])=>{s+=`<polyline fill="none" stroke="${c}" stroke-width="${w}" points="${righe.map((r,i)=>X(i)+','+Y(r[k])).join(' ')}"/>`;righe.forEach((r,i)=>s+=`<circle cx="${X(i)}" cy="${Y(r[k])}" r="3.5" fill="${c}"/>`);});
  return h('div',{html:s+'</svg>'});}
@@ -1294,7 +1295,7 @@ if(AN&&AN.giorni&&AN.giorni.length){
   h('h3',{},'Errore medio con segno (nodi): sopra zero previsione troppo alta, sotto troppo bassa'),graf(AN.giorni,[['d2','#f59e0b',3.6],['stima','#dc2626',1.8]],'segno'),h('div',{cls:'leg',html:LEGA}),
   tabAn(AN.giorni,'Giorno'),
   AN.tot?h('div',{cls:'nota'},`Tutte le ${AN.tot.n} ore: errore assoluto medio stima ${n(AN.tot.ass_stima)} nodi, ICON-D2 ${n(AN.tot.ass_d2)} nodi. Misura: ${AN.stazione}.`):null));
- app.append(h('div',{cls:'card'},h('h2',{},'🕐 Errore per ora del mattino'),
+ app.append(h('div',{cls:'card'},h('h2',{},'🕐 Errore per ora del giorno'),
   h('h3',{},'Errore medio con segno (nodi), tutte le verifiche'),graf(AN.ore,[['stima','#dc2626'],['d2','#f59e0b']],'barre'),h('div',{cls:'leg',html:LEGA}),
   tabAn(AN.ore,'Ora'),h('div',{cls:'nota'},'Ogni ora = media da −30 a +30 minuti. Le ore con poche verifiche (colonna Ore) sono poco affidabili.')));}
 app.append(h('div',{cls:'card'},h('h2',{},'📚 Archivio verifiche'),h('div',{cls:'arch'},D.archivio.join('\n')||'–')));
