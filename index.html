@@ -478,17 +478,26 @@ function nebbia(s){
  const hh=O.filter(o=>cat(o)===cmax&&cmax>0).map(o=>o.ora.slice(0,2)),ore_t=hh.length?` · ore ${hh[0]}–${String(+hh[hh.length-1]+1).padStart(2,'0')}`:'';
  const ore=O.map(o=>`<div style="flex:1;text-align:center"><div style="height:8px;border-radius:4px;background:${NEB_COL[cat(o)]||NEB_COL[0]}"></div><div style="font-size:10.5px;color:#6f8a9a;margin-top:4px">${esc((o.ora||'').slice(0,2))}</div></div>`).join('');
  return `<div class="sec"><div class="card"><div class="ch">Nebbia <span>indicazione dai modelli</span></div><div class="mini">Nebbia ${NEB_TXT[cmax]||NEB_TXT[0]}${ore_t}</div><div style="display:flex;gap:3px;margin-top:8px">${ore}</div><div class="note"><b style="color:${NEB_COL[2]}">■</b> probabile · <b style="color:${NEB_COL[1]}">■</b> poco probabile · <b style="color:${NEB_COL[0]}">■</b> non probabile. Indicazione dagli scenari dei modelli, non ancora verificata con la visibilità misurata: è normale che sbagli, soprattutto sull'orario. Non cambia il semaforo.</div></div></div>`}
-function pioggia(s){
- const P=s.pioggia_ore||[];if(!P.length)return '';
- const T0=s.pioggia_tot||{},secco=Object.values(T0).every(v=>!v)&&!s.pioggia_prob_max;
- if(secco)return `<div class="sec"><div class="card"><div class="ch">Pioggia <span>ICON-D2 · ICON-2i · ECMWF</span></div><div class="mini">Nessuna pioggia prevista</div><div class="note">0 mm e probabilità 0% in tutte le ore della finestra</div></div></div>`;
- const mm=P.flatMap(r=>[r.mm_D2,r.mm_2i,r.mm_EC]).filter(x=>x!=null),mx=Math.max(1,...mm),W=330,H=90,n=P.length,bw=W/n;
- const M=[['mm_D2','#5fd4d0'],['mm_2i','#7fa8ff'],['mm_EC','#c9a7ff']];
- let g='';P.forEach((r,i)=>{M.forEach(([k,c],j)=>{const v=r[k];if(v==null)return;const hh=v/mx*H;g+=`<rect x="${(i*bw+bw*.14+j*bw*.24).toFixed(1)}" y="${(H-hh).toFixed(1)}" width="${(bw*.22).toFixed(1)}" height="${Math.max(hh,v>0?1.5:0).toFixed(1)}" rx="2" fill="${c}"/>`});
-  const p=r.prob_D2!=null?r.prob_D2:r.prob_EC;g+=`<text x="${(i*bw+bw/2).toFixed(1)}" y="${H+14}" text-anchor="middle" fill="#6f8a9a" font-size="10">${esc((r.ora||'').slice(0,2))}</text>`+(p!=null?`<text x="${(i*bw+bw/2).toFixed(1)}" y="${H+27}" text-anchor="middle" fill="${p>=50?'#cfe0e8':'#6f8a9a'}" font-size="10" font-weight="${p>=50?700:400}">${p}%</text>`:'')});
- const T=s.pioggia_tot||{},leg=M.map(([k,c])=>{const m=k.slice(3);return T[m]==null?'':`<span style="white-space:nowrap"><i style="display:inline-block;width:9px;height:9px;border-radius:2px;background:${c};margin-right:5px"></i>${m==='D2'?'ICON-D2':m==='2i'?'ICON-2i':'ECMWF'} ${nf(T[m],1)} mm</span>`}).join(' · ');
- return `<div class="sec"><div class="card"><div class="ch">Pioggia <span>${s.pioggia_prob_max!=null?'probabilità max '+s.pioggia_prob_max+'%':''}</span></div>
- <svg viewBox="0 -4 ${W} ${H+34}" width="100%" style="margin-top:8px">${g}</svg><div class="note">mm nell'ora per modello · % = probabilità (ICON-D2, se manca ECMWF)<br>Totale finestra: ${leg}</div></div></div>`}
+function pioggia(s){   // v3.94: probabilita' tratteggiata e mm in gradazioni di blu; una riga se non e' prevista
+ const G=s.pioggia_scheda;if(!G)return '';
+ const card=x=>`<div class="sec"><div class="card"><div class="ch">Pioggia</div>${x}</div></div>`;
+ if(G.asciutto)return card('<div class="mini" style="color:#8be0a4">✓ Nessuna pioggia prevista</div>');
+ const O=G.ore,N=O.length,W=340,B=168,T=24,X=i=>N>1?22+i*(W-44)/(N-1):W/2,Y=p=>B-p/100*(B-T),mx=Math.max(5,...O.map(o=>o.mm||0)),lp=Math.min(34,N>1?(W-44)/(N-1)-4:34);
+ const tx=(x,y,t,c,d,p,a)=>`<text x="${x}" y="${y}" text-anchor="${a||'middle'}" font-size="${d||12}" font-weight="${p||500}" fill="${c}">${t}</text>`;
+ const tratti=[[]];O.forEach((o,i)=>{if(o.p==null)tratti.push([]);else tratti[tratti.length-1].push([X(i),Y(o.p)])});
+ const curva=q=>{let d='M'+q[0];for(let i=1;i<q.length;i++){const m=(q[i-1][0]+q[i][0])/2;d+=`C${m},${q[i-1][1]} ${m},${q[i][1]} ${q[i]}`}return d};
+ let g='<defs><linearGradient id="gpz" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#5fd4d0" stop-opacity=".2"/><stop offset="1" stop-color="#5fd4d0" stop-opacity="0"/></linearGradient></defs>';
+ tratti.filter(q=>q.length>1).forEach(q=>g+=`<path d="${curva(q)}L${q[q.length-1][0]},${B}L${q[0][0]},${B}Z" fill="url(#gpz)"/>`);
+ g+=`<line x1="0" x2="${W}" y1="${B}" y2="${B}" stroke="#2c4c64"/>`;
+ O.forEach((o,i)=>{if(!o.col)return;const a=Math.max(14,o.mm/mx*96);g+=`<rect x="${X(i)-13}" y="${B-a}" width="26" height="${a}" rx="${Math.min(13,a/2)}" fill="${o.col}"/>`});
+ tratti.forEach(q=>g+=q.length>1?`<path d="${curva(q)}" fill="none" stroke="#5fd4d0" stroke-width="3" stroke-dasharray="7 5"/>`:q.length?`<circle cx="${q[0][0]}" cy="${q[0][1]}" r="3.5" fill="#5fd4d0"/>`:'');
+ const k=O.findIndex(o=>o.p!=null&&o.p===G.pmax);
+ if(k>=0){const x=X(k),y=Y(G.pmax),dx=x>W-62;g+=`<circle cx="${x}" cy="${y}" r="5" fill="#0f2436" stroke="#5fd4d0" stroke-width="3"/>`+tx(dx?x-10:x+10,y+4,G.pmax+'%','#8ee7e3',13,800,dx?'end':'start')}
+ O.forEach((o,i)=>{g+=tx(X(i),184,esc(o.ora),'#8aa6b6');
+  g+=o.col?`<rect x="${X(i)-lp/2}" y="192" width="${lp}" height="19" rx="9.5" fill="${o.col}"/>`+tx(X(i),205.5,nf(o.mm,1),o.chiaro?'#0c2d63':'#fff',11.5,800):tx(X(i),206,o.mm==null?'?':'–','#6f8a9a',13)});
+ const q=G.scala.map(c=>`<i style="display:inline-block;width:11px;height:11px;border-radius:3px;background:${c};margin-right:1px;vertical-align:-1px"></i>`).join('');
+ return card(`<div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;margin-top:6px"><div style="font-size:16px;color:#cfe0e8">${G.totale>0?`Prevista: <b style="font-size:28px;color:#60a5fa">${nf(G.totale,1)} mm</b>`:'<b style="font-size:22px;color:#60a5fa">Pioggia possibile</b>'}</div>${G.pmax!=null?`<span style="font-size:12px;font-weight:700;background:#16344c;border-radius:10px;padding:4px 9px;color:#bfe3ff">probabilità max ${G.pmax}%</span>`:''}</div>
+ <svg viewBox="0 0 ${W} 214" width="100%" style="display:block;margin-top:8px;font-family:inherit">${g}</svg><div class="note" style="display:flex;flex-wrap:wrap;gap:4px 14px"><span>${q} pioggia (mm)</span><span><i style="display:inline-block;width:18px;border-top:3px dashed #5fd4d0;vertical-align:3px;margin-right:4px"></i>probabilità</span></div>`)}
 function zona(id,dsel,fsel_,prov){
  const z=D.zone.find(a=>a.id===id);if(!z){location.hash='';return}
  const sfx=prov==='g'?'/g':'';   // v3.55: mantiene la provenienza da Prossimi giorni nei bottoni di giorno e fascia
