@@ -1,7 +1,7 @@
 {
  "versione": "1.5",
- "generato": "2026-11-26 16:27",
- "base": "2026-11-27",
+ "generato": "2026-11-27 08:31",
+ "base": "2026-11-28",
  "finestra": "05:00–12:00",
  "fasce": [
   "05:00–12:00",
@@ -9,208 +9,6 @@
   "18:00–24:00"
  ],
  "giorni": [
-  {
-   "data": "2026-11-28",
-   "zone": [
-    {
-     "id": "nord",
-     "nome": "Laguna Nord",
-     "fasce": [
-      {
-       "finestra": "05:00–12:00",
-       "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 7,
-       "vento_max": 9,
-       "dir": "NNE",
-       "pioggia": 0,
-       "marea": {
-        "tipo": "bassa",
-        "ora": "07:44",
-        "cm": 32
-       },
-       "modello": "ICON-D2",
-       "corretto": true
-      },
-      {
-       "finestra": "12:00–18:00",
-       "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 5,
-       "vento_max": 9,
-       "dir": "NE",
-       "pioggia": 0,
-       "marea": {
-        "tipo": "alta",
-        "ora": "13:17",
-        "cm": 63
-       },
-       "modello": "ICON-2i",
-       "corretto": false
-      },
-      {
-       "finestra": "18:00–24:00",
-       "disponibile": true,
-       "colore": "verde",
-       "vento_min": 5,
-       "vento_max": 6,
-       "dir": "NNE",
-       "pioggia": 0,
-       "marea": {
-        "tipo": "bassa",
-        "ora": "20:27",
-        "cm": -4
-       },
-       "modello": "ICON-2i",
-       "corretto": false
-      }
-     ],
-     "disponibile": true,
-     "colore": "giallo",
-     "vento_min": 7,
-     "vento_max": 9,
-     "dir": "NNE",
-     "pioggia": 0,
-     "marea": {
-      "tipo": "bassa",
-      "ora": "07:44",
-      "cm": 32
-     },
-     "modello": "ICON-D2",
-     "corretto": true
-    },
-    {
-     "id": "centro",
-     "nome": "Laguna Centro",
-     "fasce": [
-      {
-       "finestra": "05:00–12:00",
-       "disponibile": true,
-       "colore": "rosso",
-       "vento_min": 10,
-       "vento_max": 16,
-       "dir": "NNE",
-       "pioggia": 0,
-       "marea": {
-        "tipo": "bassa",
-        "ora": "06:36",
-        "cm": 33
-       },
-       "modello": "ICON-D2",
-       "corretto": true
-      },
-      {
-       "finestra": "12:00–18:00",
-       "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 8,
-       "vento_max": 10,
-       "dir": "NNE",
-       "pioggia": 0,
-       "marea": {
-        "tipo": "alta",
-        "ora": "12:04",
-        "cm": 63
-       },
-       "modello": "ICON-2i",
-       "corretto": false
-      },
-      {
-       "finestra": "18:00–24:00",
-       "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 8,
-       "vento_max": 10,
-       "dir": "NNE",
-       "pioggia": 0,
-       "marea": {
-        "tipo": "bassa",
-        "ora": "19:11",
-        "cm": -14
-       },
-       "modello": "ICON-2i",
-       "corretto": false
-      }
-     ],
-     "disponibile": true,
-     "colore": "rosso",
-     "vento_min": 10,
-     "vento_max": 16,
-     "dir": "NNE",
-     "pioggia": 0,
-     "marea": {
-      "tipo": "bassa",
-      "ora": "06:36",
-      "cm": 33
-     },
-     "modello": "ICON-D2",
-     "corretto": true
-    },
-    {
-     "id": "sud",
-     "nome": "Laguna Sud",
-     "fasce": [
-      {
-       "finestra": "05:00–12:00",
-       "disponibile": true,
-       "colore": "rosso",
-       "vento_min": 10,
-       "vento_max": 17,
-       "dir": "NNE",
-       "pioggia": 0,
-       "marea": {
-        "tipo": "bassa",
-        "ora": "06:24",
-        "cm": 36
-       },
-       "modello": "ICON-D2",
-       "corretto": true
-      },
-      {
-       "finestra": "12:00–18:00",
-       "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 7,
-       "vento_max": 10,
-       "dir": "NNE",
-       "pioggia": 0,
-       "marea": null,
-       "modello": "ICON-2i",
-       "corretto": false
-      },
-      {
-       "finestra": "18:00–24:00",
-       "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 10,
-       "vento_max": 11,
-       "dir": "NNE",
-       "pioggia": 0,
-       "marea": {
-        "tipo": "bassa",
-        "ora": "18:53",
-        "cm": -12
-       },
-       "modello": "ICON-2i",
-       "corretto": false
-      }
-     ],
-     "disponibile": true,
-     "colore": "rosso",
-     "vento_min": 10,
-     "vento_max": 17,
-     "dir": "NNE",
-     "pioggia": 0,
-     "marea": {
-      "tipo": "bassa",
-      "ora": "06:24",
-      "cm": 36
-     },
-     "modello": "ICON-D2",
-     "corretto": true
-    }
-   ]
-  },
   {
    "data": "2026-11-29",
    "zone": [
@@ -222,9 +20,9 @@
        "finestra": "05:00–12:00",
        "disponibile": true,
        "colore": "giallo",
-       "vento_min": 9,
+       "vento_min": 7,
        "vento_max": 11,
-       "dir": "NNE",
+       "dir": "N",
        "pioggia": 0,
        "marea": {
         "tipo": "bassa",
@@ -237,41 +35,41 @@
       {
        "finestra": "12:00–18:00",
        "disponibile": true,
-       "colore": "verde",
-       "vento_min": 4,
+       "colore": "giallo",
+       "vento_min": 6,
        "vento_max": 10,
-       "dir": "NNE",
+       "dir": "NE",
        "pioggia": 0,
        "marea": {
         "tipo": "alta",
         "ora": "13:58",
         "cm": 55
        },
-       "modello": "ECMWF",
-       "corretto": false
+       "modello": "ICON-2i",
+       "corretto": true
       },
       {
        "finestra": "18:00–24:00",
        "disponibile": true,
        "colore": "giallo",
-       "vento_min": 7,
-       "vento_max": 11,
+       "vento_min": 8,
+       "vento_max": 10,
        "dir": "NE",
-       "pioggia": 0,
+       "pioggia": 1,
        "marea": {
         "tipo": "bassa",
         "ora": "21:16",
         "cm": 0
        },
-       "modello": "ECMWF",
-       "corretto": true
+       "modello": "ICON-2i",
+       "corretto": false
       }
      ],
      "disponibile": true,
      "colore": "giallo",
-     "vento_min": 9,
+     "vento_min": 7,
      "vento_max": 11,
-     "dir": "NNE",
+     "dir": "N",
      "pioggia": 0,
      "marea": {
       "tipo": "bassa",
@@ -289,8 +87,8 @@
        "finestra": "05:00–12:00",
        "disponibile": true,
        "colore": "rosso",
-       "vento_min": 14,
-       "vento_max": 18,
+       "vento_min": 13,
+       "vento_max": 17,
        "dir": "NNE",
        "pioggia": 0,
        "marea": {
@@ -304,40 +102,40 @@
       {
        "finestra": "12:00–18:00",
        "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 8,
-       "vento_max": 16,
-       "dir": "NNE",
+       "colore": "rosso",
+       "vento_min": 11,
+       "vento_max": 17,
+       "dir": "NE",
        "pioggia": 0,
        "marea": {
         "tipo": "alta",
         "ora": "12:48",
         "cm": 54
        },
-       "modello": "ECMWF",
+       "modello": "ICON-2i",
        "corretto": true
       },
       {
        "finestra": "18:00–24:00",
        "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 11,
-       "vento_max": 13,
+       "colore": "rosso",
+       "vento_min": 13,
+       "vento_max": 17,
        "dir": "NE",
-       "pioggia": 0,
+       "pioggia": 1,
        "marea": {
         "tipo": "bassa",
         "ora": "20:03",
         "cm": -7
        },
-       "modello": "ECMWF",
-       "corretto": true
+       "modello": "ICON-2i",
+       "corretto": false
       }
      ],
      "disponibile": true,
      "colore": "rosso",
-     "vento_min": 14,
-     "vento_max": 18,
+     "vento_min": 13,
+     "vento_max": 17,
      "dir": "NNE",
      "pioggia": 0,
      "marea": {
@@ -356,8 +154,8 @@
        "finestra": "05:00–12:00",
        "disponibile": true,
        "colore": "rosso",
-       "vento_min": 15,
-       "vento_max": 18,
+       "vento_min": 14,
+       "vento_max": 17,
        "dir": "NNE",
        "pioggia": 0,
        "marea": {
@@ -371,40 +169,40 @@
       {
        "finestra": "12:00–18:00",
        "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 9,
+       "colore": "rosso",
+       "vento_min": 13,
        "vento_max": 16,
-       "dir": "NNE",
+       "dir": "NE",
        "pioggia": 0,
        "marea": {
         "tipo": "alta",
         "ora": "12:38",
         "cm": 56
        },
-       "modello": "ECMWF",
+       "modello": "ICON-2i",
        "corretto": true
       },
       {
        "finestra": "18:00–24:00",
        "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 11,
-       "vento_max": 13,
-       "dir": "NNE",
-       "pioggia": 0,
+       "colore": "rosso",
+       "vento_min": 14,
+       "vento_max": 19,
+       "dir": "NE",
+       "pioggia": 1,
        "marea": {
         "tipo": "bassa",
         "ora": "19:46",
         "cm": -5
        },
-       "modello": "ECMWF",
-       "corretto": true
+       "modello": "ICON-2i",
+       "corretto": false
       }
      ],
      "disponibile": true,
      "colore": "rosso",
-     "vento_min": 15,
-     "vento_max": 18,
+     "vento_min": 14,
+     "vento_max": 17,
      "dir": "NNE",
      "pioggia": 0,
      "marea": {
@@ -413,6 +211,212 @@
       "cm": 39
      },
      "modello": "ICON-2i",
+     "corretto": true
+    }
+   ]
+  },
+  {
+   "data": "2026-11-30",
+   "zone": [
+    {
+     "id": "nord",
+     "nome": "Laguna Nord",
+     "fasce": [
+      {
+       "finestra": "05:00–12:00",
+       "disponibile": true,
+       "colore": "giallo",
+       "vento_min": 11,
+       "vento_max": 13,
+       "dir": "NE",
+       "pioggia": 0,
+       "marea": {
+        "tipo": "alta",
+        "ora": "05:04",
+        "cm": 53
+       },
+       "modello": "ECMWF",
+       "corretto": true
+      },
+      {
+       "finestra": "12:00–18:00",
+       "disponibile": true,
+       "colore": "giallo",
+       "vento_min": 7,
+       "vento_max": 11,
+       "dir": "NNE",
+       "pioggia": 0,
+       "marea": {
+        "tipo": "alta",
+        "ora": "14:55",
+        "cm": 46
+       },
+       "modello": "ECMWF",
+       "corretto": true
+      },
+      {
+       "finestra": "18:00–24:00",
+       "disponibile": true,
+       "colore": "giallo",
+       "vento_min": 8,
+       "vento_max": 11,
+       "dir": "NE",
+       "pioggia": 0,
+       "marea": {
+        "tipo": "bassa",
+        "ora": "22:11",
+        "cm": 3
+       },
+       "modello": "ECMWF",
+       "corretto": true
+      }
+     ],
+     "disponibile": true,
+     "colore": "giallo",
+     "vento_min": 11,
+     "vento_max": 13,
+     "dir": "NE",
+     "pioggia": 0,
+     "marea": {
+      "tipo": "alta",
+      "ora": "05:04",
+      "cm": 53
+     },
+     "modello": "ECMWF",
+     "corretto": true
+    },
+    {
+     "id": "centro",
+     "nome": "Laguna Centro",
+     "fasce": [
+      {
+       "finestra": "05:00–12:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 13,
+       "vento_max": 15,
+       "dir": "NE",
+       "pioggia": 0,
+       "marea": {
+        "tipo": "bassa",
+        "ora": "09:24",
+        "cm": 36
+       },
+       "modello": "ECMWF",
+       "corretto": true
+      },
+      {
+       "finestra": "12:00–18:00",
+       "disponibile": true,
+       "colore": "giallo",
+       "vento_min": 10,
+       "vento_max": 13,
+       "dir": "NNE",
+       "pioggia": 0,
+       "marea": {
+        "tipo": "alta",
+        "ora": "13:48",
+        "cm": 44
+       },
+       "modello": "ECMWF",
+       "corretto": true
+      },
+      {
+       "finestra": "18:00–24:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 12,
+       "vento_max": 13,
+       "dir": "NE",
+       "pioggia": 0,
+       "marea": {
+        "tipo": "bassa",
+        "ora": "21:00",
+        "cm": 0
+       },
+       "modello": "ECMWF",
+       "corretto": true
+      }
+     ],
+     "disponibile": true,
+     "colore": "rosso",
+     "vento_min": 13,
+     "vento_max": 15,
+     "dir": "NE",
+     "pioggia": 0,
+     "marea": {
+      "tipo": "bassa",
+      "ora": "09:24",
+      "cm": 36
+     },
+     "modello": "ECMWF",
+     "corretto": true
+    },
+    {
+     "id": "sud",
+     "nome": "Laguna Sud",
+     "fasce": [
+      {
+       "finestra": "05:00–12:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 13,
+       "vento_max": 15,
+       "dir": "NNE",
+       "pioggia": 2,
+       "marea": {
+        "tipo": "bassa",
+        "ora": "09:12",
+        "cm": 39
+       },
+       "modello": "ECMWF",
+       "corretto": true
+      },
+      {
+       "finestra": "12:00–18:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 12,
+       "vento_max": 14,
+       "dir": "NNE",
+       "pioggia": 1,
+       "marea": {
+        "tipo": "alta",
+        "ora": "13:38",
+        "cm": 46
+       },
+       "modello": "ECMWF",
+       "corretto": true
+      },
+      {
+       "finestra": "18:00–24:00",
+       "disponibile": true,
+       "colore": "rosso",
+       "vento_min": 13,
+       "vento_max": 13,
+       "dir": "NNE",
+       "pioggia": 0,
+       "marea": {
+        "tipo": "bassa",
+        "ora": "20:46",
+        "cm": 3
+       },
+       "modello": "ECMWF",
+       "corretto": true
+      }
+     ],
+     "disponibile": true,
+     "colore": "rosso",
+     "vento_min": 13,
+     "vento_max": 15,
+     "dir": "NNE",
+     "pioggia": 2,
+     "marea": {
+      "tipo": "bassa",
+      "ora": "09:12",
+      "cm": 39
+     },
+     "modello": "ECMWF",
      "corretto": true
     }
    ]
