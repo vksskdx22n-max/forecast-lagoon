@@ -71,7 +71,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.40"   # v1.40: nel grafico dell'onda indicata la piattaforma CNR-ISMAR; v1.39: onda con grafico prevista (come nell'app) / misurata ed errore medio; in archivio anche "prev_app"; v1.38: sul computer (da 1000 px) la pagina e' su due colonne; telefono e PDF invariati; v1.37: titolo "Errore per ora del giorno"; nei grafici dell'andamento le date e le ore non si sovrappongono; v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+VERSIONE = "1.41"   # v1.41: pressione a Palazzo Cavalli, grafico prevista / misurata ed errore medio; v1.40: nel grafico dell'onda indicata la piattaforma CNR-ISMAR; v1.39: onda con grafico prevista (come nell'app) / misurata ed errore medio; in archivio anche "prev_app"; v1.38: sul computer (da 1000 px) la pagina e' su due colonne; telefono e PDF invariati; v1.37: titolo "Errore per ora del giorno"; nei grafici dell'andamento le date e le ore non si sovrappongono; v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
 # v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
 # Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
 # 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
@@ -144,7 +144,7 @@ MIN_ORE_CORR_ZONA = {"Laguna Nord": 40, "Laguna Sud": 40}
 CORR_DEFAULT_FONTE = "fd_vento_confronto v1.1, 83 misure CPSM Malamocco Porto (31/05–29/10/2026), vento reale 6–12 nodi"
 CROME_MAC = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 COLONNE = [("liv", "Liv.Idrom"), ("liv", "L.Idrometrico"), ("dir", "D.Vento"), ("vel", "V.Vento med"), ("max", "V.Vento max"),
-           ("onda", "Alt. sign"), ("onda_max", "Alt. max"), ("aria", "Temperatura"), ("pioggia", "Pioggia")]   # "Temp. Acqua" non coincide
+           ("onda", "Alt. sign"), ("onda_max", "Alt. max"), ("press", "Pressione"), ("aria", "Temperatura"), ("pioggia", "Pioggia")]   # "Temp. Acqua" non coincide
 STAZ_ARIA_CITTA = "Palazzo Cavalli"
 ERR_ARIA = [("mare aperto vs Piattaforma", "mare_prev", "piatt_mis"), ("Mestre vs Palazzo Cavalli", "mestre_prev", "cavalli_mis"),
             ("sull'acqua vs Palazzo Cavalli", "acqua_prev", "cavalli_mis")]
@@ -407,6 +407,7 @@ def carica_archivio(cartella="."):
     A.setdefault("onda", [])
     A.setdefault("aria", [])
     A.setdefault("pioggia", [])
+    A.setdefault("pressione", [])            # v1.41
     A.setdefault("marea", [])                  # v1.25
     for o in A["ore"]:                         # fino a fd_previsione 1.19 "raff" era la raffica di ICON-D2 senza correzione
         o["prev"].setdefault("raff_d2", o["prev"].get("raff"))
@@ -549,6 +550,9 @@ def riepilogo(A):
     e = [abs(x["prev_app"] - x["mis"]) for x in A["onda"] if x.get("prev_app") is not None]   # v1.39
     if e:
         righe.append(f"Onda in mare aperto: errore medio {round(statistics.mean(e) * 100)} cm ({len(e)} ore)")
+    if A.get("pressione"):                                                   # v1.41
+        e = [abs(x["prev"] - x["mis"]) for x in A["pressione"]]
+        righe.append(f"Pressione: errore medio {num(statistics.mean(e))} hPa ({len(e)} ore)")
     if A["aria"]:
         righe.append("Aria (previsto − misurato, °C): " + " · ".join(
             f"{nome} {sg(statistics.mean(x[p] - x[m] for x in s))} ({len(s)} ore)" for nome, p, m in ERR_ARIA
@@ -847,6 +851,15 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
                                "acqua_prev": r.get("acqua"), "piatt_mis": round(mp["media"], 1) if mp else None,
                                "cavalli_mis": round(mc["media"], 1) if mc else None})
         v["aria_v"] = aria_v
+        press_v = []
+        for r in ((P.get("meteo") or {}).get("pressione_ore") or []):    # v1.41 (previsioni da fd_previsione 1.56)
+            centro = dt.datetime.combine(v["giorno"], dt.time(int(r["ora"][:2]), 0), tz_italia(v["giorno"]))
+            if centro + dt.timedelta(minutes=30) > adesso:
+                continue
+            m = misura_ora(M.get(STAZ_ARIA_CITTA, []), centro, "press")
+            if m and 900 < m["media"] < 1100:
+                press_v.append({"data": v["giorno"].isoformat(), "ora": r["ora"], "prev": r["hpa"], "mis": round(m["media"], 1)})
+        v["press_v"] = press_v
         pioggia_v = []
         for r in ((P.get("meteo") or {}).get("pioggia_ore") or []):       # v1.15 (previsioni da fd_previsione 1.24)
             centro = dt.datetime.combine(v["giorno"], dt.time(int(r["ora"][:2]), 0), tz_italia(v["giorno"]))
@@ -884,10 +897,17 @@ def verifica_pendenti(cartella=".", html_dir=None, stampa_pdf=True, adesso=None,
                 return int(o["ora"][:2]) == v["da"].hour and v["da"].hour in (12, 18) and chiave_o(o) in presenti
             gia = {(x["data"], x["ora"], x["zona"]) for x in A["ore"]}
             ore_tot = [o for o in ore_tot if not doppia(o, gia, lambda o: (o["data"], o["ora"], o["zona"]))]
-            gia2 = {n: {(x["data"], x["ora"]) for x in A[n]} for n in ("onda", "aria", "pioggia")}
+            gia2 = {n: {(x["data"], x["ora"]) for x in A[n]} for n in ("onda", "aria", "pioggia", "pressione")}
             onda_v = [o for o in onda_v if not doppia(o, gia2["onda"], lambda o: (o["data"], o["ora"]))]
             aria_v = [o for o in aria_v if not doppia(o, gia2["aria"], lambda o: (o["data"], o["ora"]))]
             pioggia_v = [o for o in pioggia_v if not doppia(o, gia2["pioggia"], lambda o: (o["data"], o["ora"]))]
+            press_v = [o for o in v.get("press_v") or [] if not doppia(o, gia2["pressione"], lambda o: (o["data"], o["ora"]))]
+            ch_pr = {(o["data"], o["ora"]) for o in A["pressione"]}        # v1.41: stessa regola di onda e aria
+            if v["area"] == "centro":
+                nuove = {(o["data"], o["ora"]) for o in press_v}
+                A["pressione"] = [x for x in A["pressione"] if (x["data"], x["ora"]) not in nuove] + press_v
+            else:
+                A["pressione"] += [o for o in press_v if (o["data"], o["ora"]) not in ch_pr]
             chiavi = {(o["data"], o["ora"], o["zona"]) for o in ore_tot}
             A["ore"] = [x for x in A["ore"] if (x["data"], x["ora"], x["zona"]) not in chiavi] + ore_tot
             if v["area"] == "centro":
@@ -1155,6 +1175,8 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
          "titolo": f"{P['titolo']} · {P['finestra']}", "previsione": f"{v['file']} · generata {v['gen'].strftime('%d/%m %H:%M')}{avviso}",
          "sem_prev": P["verdetto"]["colore"], "fascia": [v["da"].hour * 60 + v["da"].minute, v["a"].hour * 60 + v["a"].minute],
          "zone": zone, "onda": onda_v, "liv": liv,
+         "press_g": v.get("press_v") or [],   # v1.41
+         "press_err": round(statistics.mean(abs(o["prev"] - o["mis"]) for o in v["press_v"]), 1) if v.get("press_v") else None,
          "onda_g": [{"ora": o["ora"], "prev": round(o["prev_app"] * 100), "mis": round(o["mis"] * 100)} for o in onda_v],   # v1.39
          "onda_err_cm": round(statistics.mean(abs(o["prev_app"] - o["mis"]) for o in onda_v) * 100) if onda_v else None, "liv_fonte": fonte_liv, "liv_eta_h": eta_liv, "aria": v.get("aria_v") or [], "pioggia": v.get("pioggia_v") or [], "marea_zona": v.get("marea_v"),
          "andamento": andamento(A, risultati[0][0]), "archivio": riepilogo(A), "note": note,
@@ -1238,16 +1260,21 @@ D.zone.forEach(Z=>{const S=Z.sintesi,c=h('div',{cls:'card'},h('h2',{},'💨 '+Z.
  const te=h('table',{},h('tr',{},h('th',{},'Modello'),h('th',{},'Errore medio'),h('th',{},'Errore assoluto')));
  Z.errori.forEach(e=>te.append(h('tr',{},h('td',{},e.nome),h('td',{cls:e.medio>0?'pos':'neg'},sg(e.medio)),h('td',{},n(e.ass)))));
  c.append(h('h3',{},'Errore dei modelli (previsto − misurato, nodi)'),te);app.append(c);});
-if((D.onda_g||[]).length){const O=D.onda_g,N=O.length,W=520,H=230,L=34,R=10,T=18,B=26;   // v1.39: grafico prevista / misurata e errore medio
- const ym=Math.max(100,Math.ceil((Math.max(...O.flatMap(o=>[o.prev,o.mis]))+15)/50)*50),py=ym>200?100:50,X=i=>L+22+(N>1?i/(N-1):.5)*(W-L-R-44),Y=c=>T+(ym-c)/ym*(H-T-B),pt=k=>O.map((o,i)=>X(i)+','+Y(o[k])).join(' ');
+function grafPM(O,passoY,minimo,daZero){const N=O.length,W=520,H=230,L=40,R=10,T=18,B=26,v=O.flatMap(o=>[o.prev,o.mis]);   // v1.41: prevista / misurata
+ let lo=daZero?0:Math.floor((Math.min(...v)-1)/passoY)*passoY,hi=Math.ceil((Math.max(...v)+(daZero?15:1))/passoY)*passoY;
+ while(hi-lo<minimo){hi+=passoY;if(!daZero&&hi-lo<minimo)lo-=passoY;}
+ const X=i=>L+22+(N>1?i/(N-1):.5)*(W-L-R-44),Y=c=>T+(hi-c)/(hi-lo)*(H-T-B),pt=k=>O.map((o,i)=>X(i)+','+Y(o[k])).join(' ');
  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="font:12px sans-serif;fill:#64748b">`;
- for(let c=0;c<=ym;c+=py)s+=`<line x1="${L}" x2="${W-R}" y1="${Y(c)}" y2="${Y(c)}" stroke="#e2e8f0"/><text x="${L-6}" y="${Y(c)+4}" text-anchor="end">${c}</text>`;
- if(N>1)s+=`<polygon points="${X(0)},${Y(0)} ${pt('mis')} ${X(N-1)},${Y(0)}" fill="#1e3a6b" opacity=".10"/><polyline fill="none" stroke="#1e3a6b" stroke-width="3" points="${pt('mis')}"/><polyline fill="none" stroke="#0d9488" stroke-width="2.6" stroke-dasharray="7 5" points="${pt('prev')}"/>`;
+ for(let c=lo;c<=hi;c+=passoY)s+=`<line x1="${L}" x2="${W-R}" y1="${Y(c)}" y2="${Y(c)}" stroke="#e2e8f0"/><text x="${L-6}" y="${Y(c)+4}" text-anchor="end">${c}</text>`;
+ if(N>1)s+=`<polygon points="${X(0)},${Y(lo)} ${pt('mis')} ${X(N-1)},${Y(lo)}" fill="#1e3a6b" opacity=".10"/><polyline fill="none" stroke="#1e3a6b" stroke-width="3" points="${pt('mis')}"/><polyline fill="none" stroke="#0d9488" stroke-width="2.6" stroke-dasharray="7 5" points="${pt('prev')}"/>`;
  const passo=N>1?Math.ceil(34/((W-L-R-44)/(N-1))):1;
  O.forEach((o,i)=>{s+=`<circle cx="${X(i)}" cy="${Y(o.prev)}" r="4" fill="#fff" stroke="#0d9488" stroke-width="2"/><circle cx="${X(i)}" cy="${Y(o.mis)}" r="4" fill="#1e3a6b"/>`;
   if((N-1-i)%passo===0)s+=`<text x="${X(i)}" y="${H-7}" text-anchor="middle">${o.ora.slice(0,2)}</text>`;});
- app.append(h('div',{cls:'card'},h('h2',{},'〰️ Onda in mare aperto'),h('div',{style:'font-size:17px;margin-bottom:8px'},'Errore medio: ',h('b',{style:'font-size:26px'},D.onda_err_cm+' cm')),h('div',{html:s+'</svg>'}),
-  h('div',{cls:'leg',html:'<span><i style="background:#1e3a6b;height:4px"></i>misurata (cm), piattaforma CNR-ISMAR</span><span><i style="background:#0d9488"></i>prevista (tratteggiata)</span>'})));}
+ return h('div',{html:s+'</svg>'});}
+function cardPM(titolo,errore,graf,unita){app.append(h('div',{cls:'card'},h('h2',{},titolo),h('div',{style:'font-size:17px;margin-bottom:8px'},'Errore medio: ',h('b',{style:'font-size:26px'},errore)),graf,
+  h('div',{cls:'leg',html:'<span><i style="background:#1e3a6b;height:4px"></i>misurata ('+unita+')</span><span><i style="background:#0d9488"></i>prevista (tratteggiata)</span>'})));}
+if((D.onda_g||[]).length)cardPM('〰️ Onda in mare aperto',D.onda_err_cm+' cm',grafPM(D.onda_g,50,100,true),'cm, piattaforma CNR-ISMAR');
+if((D.press_g||[]).length)cardPM('🧭 Pressione atmosferica',n(D.press_err)+' hPa',grafPM(D.press_g,2,8,false),'hPa, Palazzo Cavalli');
 if(D.aria.length){const ta=h('table',{},h('tr',{},...['Ora','Piattaf. mis.','Mare aperto prev.','P. Cavalli mis.','Mestre prev.','Sull’acqua prev.'].map(x=>h('th',{},x))));
  D.aria.forEach(o=>ta.append(h('tr',{},h('td',{},o.ora),h('td',{},n(o.piatt_mis)),h('td',{},n(o.mare_prev)),h('td',{},n(o.cavalli_mis)),h('td',{},n(o.mestre_prev)),h('td',{},n(o.acqua_prev)))));
  const em=(p,m)=>{const s=D.aria.filter(o=>o[p]!=null&&o[m]!=null);return s.length?sg(Math.round(s.reduce((a,o)=>a+o[p]-o[m],0)/s.length*10)/10)+' °C':'–';};
