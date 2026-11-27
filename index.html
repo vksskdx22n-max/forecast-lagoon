@@ -231,10 +231,8 @@ function mappa(vb,o){
    s+=`<path d="${d}" fill="none" stroke="#06131d" stroke-opacity=".8" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"/><path d="${d}" fill="none" stroke="#ffffff" stroke-opacity=".9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"/>`})}
  Object.values(G.bocche).forEach(([n,x,y])=>{s+=`<circle cx="${x}" cy="${y}" r="7" fill="none" stroke="#5fd4d0" stroke-width="2.5" class="pulse"/><circle cx="${x}" cy="${y}" r="6" fill="#eaf3f7" stroke="#06131d" stroke-width="2"/>
   <text x="${x+14}" y="${y+7}" fill="#fff" font-size="${o.fs||30}" font-weight="700" paint-order="stroke" stroke="#06131d" stroke-width="4" stroke-opacity=".6">${n}</text>`});
- if(o.labels)D.zone.forEach(z=>{const b=G.bbox[z.id],v=ultima(z),c=o.adesso?cAd(z):o.colori&&o.colori[z.id]!==undefined?o.colori[z.id]:(v?v.colore:null),hex=getComputedStyle(document.documentElement).getPropertyValue('--'+(TXT[c]?c:'nd')).trim();
-  const t=z.nome.replace('Laguna ',''),w=t.length*28+82,x=z.id==='nord'?b[0]+(b[2]-b[0])*.52:b[0]+(b[2]-b[0])*.18,y=z.id==='nord'?b[1]+(b[3]-b[1])*.55:(b[1]+b[3])/2;
-  s+=`<g style="pointer-events:none"><rect x="${x}" y="${y-38}" width="${w}" height="66" rx="33" fill="#06131d" fill-opacity=".85" stroke="#ffffff" stroke-opacity=".22"/>
-  <circle ${o.adesso?`data-azona="${z.id}" `:''}cx="${x+34}" cy="${y-5}" r="13" fill="${hex}"/><text x="${x+60}" y="${y+10}" fill="#fff" font-size="43" font-weight="750" letter-spacing="-.5">${t}</text></g>${o.adesso?`<g data-adm="${z.id}" data-x="${x}" data-y="${y-126}" style="pointer-events:none"></g>`:''}`});   // v3.59: targhetta nodi piu' in alto (pillola piu' grande)
+ if(o.labels&&o.adesso)D.zone.forEach(z=>{const b=G.bbox[z.id],x=z.id==='nord'?b[0]+(b[2]-b[0])*.52:b[0]+(b[2]-b[0])*.18,y=z.id==='nord'?b[1]+(b[3]-b[1])*.55:(b[1]+b[3])/2;
+  s+=`<g data-adm="${z.id}" data-x="${x}" data-y="${y-52}" style="pointer-events:none"></g>`});   // v3.91: tolte le targhette Nord/Centro/Sud (richiesta di Ennio): sulla cartina resta il vento misurato
  return s+'</svg>'}
 function piede(){return `<div class="foot">Previsione indicativa: non sostituisce i bollettini ufficiali. <b>Fonti e licenze</b> → <span class="flink" role="button" onclick="istruzioni()">istruzioni (i)</span><br>Sito v${esc(D.versione_sito)}${D.autore?' · a cura di '+esc(D.autore):''} · aggiornato ${new Date(D.aggiornato_utc).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div>`}   // v3.57: fonti spostate nelle istruzioni, qui solo il rimando
 function finestra(){return null}   // v3.49: tre fasce (v3.64: 05–12, 12–18, 18–24)
@@ -437,7 +435,7 @@ function giorni(){   // v3.39: pagina "Prossimi giorni" (tendenza, colori tenui)
 function home(){
  const TG=titoloGiorno(),ult=TG.data;
  let h=`<div class="home h24"><header class="testa"><div><h1>Forecast <span>Lagoon</span></h1><div class="sub">Laguna di Venezia · v${esc(VERSIONE)}${D.autore?' · a cura di '+esc(D.autore):''}</div></div><div class="info" role="button" aria-label="Istruzioni" onclick="istruzioni()">i</div></header>
- <div class="hero">${mappa('40 -60 1000 1360',{meet:true,labels:true,click:true,k:'h',fo:.24,sw:2.5,adesso:true})}<div class="shade" style="background:linear-gradient(180deg,rgba(6,19,29,.55) 0%,rgba(6,19,29,0) 18%,rgba(6,19,29,0) 72%,rgba(6,19,29,.95) 100%)"></div>
+ <div class="hero">${mappa('40 -60 1000 1360',{meet:true,labels:true,click:true,k:'h',fo:.4,sw:4.5,adesso:true})}<div class="shade" style="background:linear-gradient(180deg,rgba(6,19,29,.55) 0%,rgba(6,19,29,0) 18%,rgba(6,19,29,0) 84%,rgba(6,19,29,.95) 100%)"></div>
  <div class="adMap" data-admap></div><div class="credit">© ESA · Copernicus Sentinel-2</div></div>${TG.h}${ritardo()}<div class="zones">`;
  D.zone.forEach(z=>{const v=ultima(z),s=v&&v.sintesi;
   if(!z.attiva||!v){h+=`<div class="zc off" ${z.attiva?`onclick="location.hash='zona/${z.id}'"`:''}><div class="bar" style="background:var(--nd)"></div><div class="in"><div class="r1"><span class="zname">${esc(z.nome)}</span><span class="sp"></span><span class="chip" style="background:#22394B;color:var(--mut)">In arrivo</span></div></div></div>`;return}
@@ -497,7 +495,7 @@ function zona(id,dsel,fsel_,prov){
  if(larga){const hh=b[3]-b[1]+2*p,ww=hh*Math.min(1200,window.innerWidth)/380,cx=(b[0]+b[2])/2+60;vb=`${cx-ww/2} ${b[1]-p} ${ww} ${hh}`}
  let h=`<div class="zwrap"><div class="zhero">__ZMAPPA__<div class="shade"></div><div class="back" onclick="location.hash='${prov==='g'?'giorni':''}'">${prov==='g'?'‹ Prossimi giorni':'‹ Tutte le zone'}</div>
  <div class="ztitle"><div class="eyebrow">Bocca di ${esc(z.bocca)}<span class="ver">v${esc(VERSIONE)}</span></div><h2>${esc(z.nome)}</h2></div><div class="credit">© ESA · Copernicus Sentinel-2</div></div><div class="corpo">`;
- if(!z.attiva){app.innerHTML=h.replace('__ZMAPPA__',()=>mappa(vb,{only:id,fs:larga?16:24,fo:.28,sw:larga?2:3,k:'z'}))+`<div class="empty">La previsione per la ${esc(z.nome)} è in preparazione.</div></div>`+piede()+'</div>';window.scrollTo(0,0);return}
+ if(!z.attiva){app.innerHTML=h.replace('__ZMAPPA__',()=>mappa(vb,{only:id,fs:larga?16:24,fo:.4,sw:larga?3:4,k:'z'}))+`<div class="empty">La previsione per la ${esc(z.nome)} è in preparazione.</div></div>`+piede()+'</div>';window.scrollTo(0,0);return}
  // v3.49: giorni (ultimi 4) e, per il giorno scelto, le sue fasce
  const z0=ultima(z),gg=[...new Set(z.voci.map(a=>a.data))].sort().reverse().slice(0,4).reverse(),dd=dsel&&gg.includes(dsel)?dsel:(z0?z0.data:gg[gg.length-1]);
  const vf=z.voci.filter(a=>a.data===dd).sort((a,b)=>finMin(a.finestra)[0]-finMin(b.finestra)[0]);
@@ -505,7 +503,7 @@ function zona(id,dsel,fsel_,prov){
  const dot=x=>{const w=z.voci.filter(a=>a.data===x),q=w.find(a=>a.finestra===v.finestra)||w[0];return q?q.colore:null};
  h+=`<div class="days">${gg.map(x=>{const d=dataDi(x);return `<div class="day ${x===dd?'on':''}" onclick="location.hash='zona/${id}/${x}/${v.finestra.slice(0,2)}${sfx}'"><i style="background:${col(dot(x))}"></i>${GG[d.getDay()]}<b>${d.getDate()}/${d.getMonth()+1}</b></div>`}).join('')}</div>`;
  if(vf.length>1)h+=`<div class="fsr">${vf.map(a=>{const [p,q]=finMin(a.finestra),hh=m=>String(Math.floor(m/60)).padStart(2,'0');return `<span class="fsb ${a===v?'on':''}" role="button" onclick="location.hash='zona/${id}/${dd}/${a.finestra.slice(0,2)}${sfx}'">${hh(p)}–${hh(q)}</span>`}).join('')}</div>`;
- h=h.replace('__ZMAPPA__',()=>mappa(vb,{only:id,fs:larga?16:24,fo:.28,sw:larga?2:3,k:'z',colori:{[id]:c}}));   // v3.52: la cartina della zona ha il colore del giorno e della fascia mostrati sotto
+ h=h.replace('__ZMAPPA__',()=>mappa(vb,{only:id,fs:larga?16:24,fo:.4,sw:larga?3:4,k:'z',colori:{[id]:c}}));   // v3.52: la cartina della zona ha il colore del giorno e della fascia mostrati sotto
  const ore=s.ore||[];
  h+=`<div class="sec"><div class="verdict" style="background:${col(c)};color:${oncol(c)}"><div class="k">${esc(etichetta(v.data))} · ${esc(v.finestra||'')}</div>
  <div class="v">${TXT[c]||'n.d.'}</div>${v.emessa?`<div class="prov">${relativo(v.data)==='Oggi'?`Previsione aggiornata alle ${esc(v.emessa)}`:v.provvisoria?`Previsione provvisoria delle ${esc(v.emessa)} · la definitiva esce verso le ${esc(D.ora_aggiornamento||'')}`:`Previsione definitiva delle ${esc(v.emessa)}`}</div>`:''}<p>${esc(s.andamento||'')}</p>
