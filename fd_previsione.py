@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.55"   # v1.55: nella tabella dell'onda una sola altezza in cm (quella corretta), senza spiegazioni; v1.54: la forbice delle ore incerte comprende sempre la stima; v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
+VERSIONE = "1.56"   # v1.56: salvata la pressione prevista ora per ora (per l'app e la verifica); v1.55: nella tabella dell'onda una sola altezza in cm (quella corretta), senza spiegazioni; v1.54: la forbice delle ore incerte comprende sempre la stima; v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
 # v1.50: fasce della giornata (scelta di Ennio 23/11/2026). La fascia della sera finisce a mezzanotte: "24:00" = 23:59 interno.
 FINE_GIORNO = dt.time(23, 59)
 PERIODI = [("mattino", 5, 12), ("pomeriggio", 13, 18), ("sera", 19, 23)]
@@ -1499,7 +1499,9 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
                               + ("il verso è attendibile, le velocità indicative." if max(abs(v["cm_h"]) for v in vel) >= SOGLIA_QUADRATURA else
                                  f"il livello varia al massimo di {num(max(abs(v['cm_h']) for v in vel))} cm/h (marea di quadratura): correnti deboli, verso e velocità poco attendibili.")),
                      "solo_verso": (next(iter(versi)) if len(versi) == 1 else None)},
-        "meteo": {"pressione": [num(p0), num(p1), tend], "nuvolosita": None if nuv is None else round(nuv), "pioggia": num(max_ok(Rn.get(k(h)) for h in ore)), "fonte_meteo": fonte_meteo, "pioggia_prob": prob_max, "pioggia_ore": pioggia_ore, "nebbia": nebbia, "nebbia_ore": nebbia_ore,
+        "meteo": {"pressione": [num(p0), num(p1), tend],
+                  "pressione_ore": [{"ora": f"{h:02d}:00", "hpa": round(P[k(h)], 1)} for h in ore if P.get(k(h)) is not None],   # v1.56
+                  "nuvolosita": None if nuv is None else round(nuv), "pioggia": num(max_ok(Rn.get(k(h)) for h in ore)), "fonte_meteo": fonte_meteo, "pioggia_prob": prob_max, "pioggia_ore": pioggia_ore, "nebbia": nebbia, "nebbia_ore": nebbia_ore,
                   "aria": [num(min((x for x in t_ore if x is not None), default=None)), num(max_ok(t_ore))], "aria_punto": aria_punto,
                   "aria_ore": aria_ore, "aria_misure": ARIA or [],
                   "aria_acqua": ([num(min((x for x in t_acqua if x is not None), default=None)), num(max_ok(t_acqua))] if aria_punto else None),
