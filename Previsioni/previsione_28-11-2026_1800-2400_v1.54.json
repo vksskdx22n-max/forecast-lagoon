@@ -6,7 +6,7 @@
  "zone": "Malamocco · Valgrande · San Leonardo · Fisolo · Alberoni",
  "verdetto": {
   "colore": "giallo",
-  "testo": "Vento da 24° NNE · Bora in rotazione a 346° NNO · Tramontana. Media delle 4 zone di pesca: 8,4–12,3 nodi, raffiche medie fino a 16,0. Per zona: Malamocco · Valgrande 8,5–13,4 nodi, raffiche fino a 18,1; San Leonardo · Melison 9,0–10,8 nodi, raffiche fino a 13,3; Fisolo 7,8–11,9 nodi, raffiche fino a 14,4; Bocca · Alberoni 8,5–13,4 nodi, raffiche fino a 18,1. Marea calante dalle 12:10 alla minima delle 19:25. Marea crescente dalle 19:25 alla massima delle 02:40. (Orari marea: previsione CPSM.)",
+  "testo": "Vento da 24° NNE · Bora in rotazione a 346° NNO · Tramontana. Media delle 4 zone di pesca: 8,4–12,3 nodi, raffiche medie fino a 16,0. Per zona: Malamocco · Valgrande 8,5–13,4 nodi, raffiche fino a 18,1; San Leonardo · Melison 9,0–10,8 nodi, raffiche fino a 13,3; Fisolo 7,8–11,9 nodi, raffiche fino a 14,4; Bocca · Alberoni 8,5–13,4 nodi, raffiche fino a 18,1. Marea calante dalle 11:40 alla minima delle 19:25. Marea crescente dalle 19:25 alla massima delle 02:40. (Orari marea: previsione CPSM.)",
   "andamento": [
    {
     "colore": "giallo",
@@ -31,8 +31,8 @@
     "stima": 9.9,
     "raff": 13.0,
     "marea": "↓",
-    "cm_h": -12.6,
-    "corr": 0.9,
+    "cm_h": -11.2,
+    "corr": 0.82,
     "verso": "esce",
     "incerta": false,
     "forbice": null
@@ -43,8 +43,8 @@
     "stima": 11.9,
     "raff": 14.9,
     "marea": "↓",
-    "cm_h": -4.8,
-    "corr": 0.54,
+    "cm_h": -4.4,
+    "corr": 0.51,
     "verso": "esce",
     "incerta": false,
     "forbice": null
@@ -55,8 +55,8 @@
     "stima": 12.3,
     "raff": 15.8,
     "marea": "↑",
-    "cm_h": 6.1,
-    "corr": 0.12,
+    "cm_h": 6.8,
+    "corr": 0.17,
     "verso": "entra",
     "incerta": false,
     "forbice": null
@@ -67,8 +67,8 @@
     "stima": 10.2,
     "raff": 16.0,
     "marea": "↑",
-    "cm_h": 12.2,
-    "corr": 0.54,
+    "cm_h": 12.9,
+    "corr": 0.58,
     "verso": "entra",
     "incerta": false,
     "forbice": null
@@ -79,8 +79,8 @@
     "stima": 8.4,
     "raff": 12.2,
     "marea": "↑",
-    "cm_h": 16.7,
-    "corr": 0.92,
+    "cm_h": 17.3,
+    "corr": 0.96,
     "verso": "entra",
     "incerta": false,
     "forbice": null
@@ -91,8 +91,8 @@
     "stima": 9.2,
     "raff": 11.4,
     "marea": "↑",
-    "cm_h": 17.9,
-    "corr": 1.08,
+    "cm_h": 18.6,
+    "corr": 1.12,
     "verso": "entra",
     "incerta": false,
     "forbice": null
@@ -118,10 +118,10 @@
     "i2": 8.2,
     "raff": 14.3,
     "raff_d2": 13.4,
-    "ec": 4.5,
+    "ec": 4.3,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 7.9,
+    "ec_c": 7.7,
     "prudenza": false,
     "ar": 11.8,
     "raff_ar": 16.7,
@@ -139,10 +139,10 @@
     "i2": 9.5,
     "raff": 16.9,
     "raff_d2": 16.9,
-    "ec": 5.3,
+    "ec": 4.9,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.6,
+    "ec_c": 9.2,
     "prudenza": true,
     "ar": 11.1,
     "raff_ar": 15.2,
@@ -160,10 +160,10 @@
     "i2": 9.7,
     "raff": 17.9,
     "raff_d2": 17.9,
-    "ec": 5.4,
+    "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.7,
+    "ec_c": 9.4,
     "prudenza": true,
     "ar": 11.9,
     "raff_ar": 15.4,
@@ -181,10 +181,10 @@
     "i2": 9.3,
     "raff": 18.1,
     "raff_d2": 17.1,
-    "ec": 5.4,
+    "ec": 5.3,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.7,
+    "ec_c": 9.6,
     "prudenza": false,
     "ar": 10.0,
     "raff_ar": 15.4,
@@ -202,10 +202,10 @@
     "i2": 8.4,
     "raff": 13.3,
     "raff_d2": 12.1,
-    "ec": 5.3,
+    "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.6,
+    "ec_c": 9.4,
     "prudenza": false,
     "ar": 9.1,
     "raff_ar": 13.6,
@@ -223,10 +223,10 @@
     "i2": 10.3,
     "raff": 11.9,
     "raff_d2": 10.7,
-    "ec": 5.2,
+    "ec": 4.7,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.5,
+    "ec_c": 9.0,
     "prudenza": false,
     "ar": 10.9,
     "raff_ar": 14.0,
@@ -246,10 +246,10 @@
     "i2": 7.4,
     "raff": 11.3,
     "raff_d2": 11.3,
-    "ec": 4.5,
+    "ec": 4.3,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 7.9,
+    "ec_c": 7.7,
     "prudenza": false,
     "ar": 10.3,
     "raff_ar": 15.9,
@@ -267,10 +267,10 @@
     "i2": 9.3,
     "raff": 12.9,
     "raff_d2": 11.7,
-    "ec": 5.3,
+    "ec": 4.9,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.6,
+    "ec_c": 9.2,
     "prudenza": false,
     "ar": 9.3,
     "raff_ar": 13.6,
@@ -288,10 +288,10 @@
     "i2": 9.5,
     "raff": 13.1,
     "raff_d2": 11.9,
-    "ec": 5.4,
+    "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.7,
+    "ec_c": 9.4,
     "prudenza": false,
     "ar": 10.6,
     "raff_ar": 13.6,
@@ -309,10 +309,10 @@
     "i2": 9.5,
     "raff": 13.3,
     "raff_d2": 12.1,
-    "ec": 5.4,
+    "ec": 5.3,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.7,
+    "ec_c": 9.6,
     "prudenza": false,
     "ar": 10.5,
     "raff_ar": 13.6,
@@ -330,10 +330,10 @@
     "i2": 8.9,
     "raff": 11.3,
     "raff_d2": 10.1,
-    "ec": 5.3,
+    "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.6,
+    "ec_c": 9.4,
     "prudenza": false,
     "ar": 9.2,
     "raff_ar": 13.2,
@@ -351,10 +351,10 @@
     "i2": 8.7,
     "raff": 11.1,
     "raff_d2": 9.9,
-    "ec": 5.2,
+    "ec": 4.7,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.5,
+    "ec_c": 9.0,
     "prudenza": false,
     "ar": 9.5,
     "raff_ar": 12.2,
@@ -374,10 +374,10 @@
     "i2": 7.4,
     "raff": 11.9,
     "raff_d2": 11.9,
-    "ec": 4.5,
+    "ec": 4.3,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 7.9,
+    "ec_c": 7.7,
     "prudenza": false,
     "ar": 11.1,
     "raff_ar": 15.6,
@@ -395,10 +395,10 @@
     "i2": 9.3,
     "raff": 13.1,
     "raff_d2": 12.1,
-    "ec": 5.3,
+    "ec": 4.9,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.6,
+    "ec_c": 9.2,
     "prudenza": false,
     "ar": 10.4,
     "raff_ar": 14.4,
@@ -416,10 +416,10 @@
     "i2": 9.9,
     "raff": 14.2,
     "raff_d2": 13.2,
-    "ec": 5.4,
+    "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.7,
+    "ec_c": 9.4,
     "prudenza": false,
     "ar": 11.1,
     "raff_ar": 14.4,
@@ -437,10 +437,10 @@
     "i2": 9.3,
     "raff": 14.4,
     "raff_d2": 13.2,
-    "ec": 5.4,
+    "ec": 5.3,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.7,
+    "ec_c": 9.6,
     "prudenza": false,
     "ar": 9.6,
     "raff_ar": 14.4,
@@ -458,10 +458,10 @@
     "i2": 8.2,
     "raff": 10.7,
     "raff_d2": 9.5,
-    "ec": 5.3,
+    "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.6,
+    "ec_c": 9.4,
     "prudenza": false,
     "ar": 8.9,
     "raff_ar": 12.4,
@@ -479,10 +479,10 @@
     "i2": 9.7,
     "raff": 10.9,
     "raff_d2": 9.7,
-    "ec": 5.2,
+    "ec": 4.7,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.5,
+    "ec_c": 9.0,
     "prudenza": false,
     "ar": 10.7,
     "raff_ar": 13.4,
@@ -502,10 +502,10 @@
     "i2": 8.6,
     "raff": 14.3,
     "raff_d2": 13.4,
-    "ec": 4.5,
+    "ec": 4.3,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 7.9,
+    "ec_c": 7.7,
     "prudenza": false,
     "ar": 12.1,
     "raff_ar": 18.9,
@@ -523,10 +523,10 @@
     "i2": 9.3,
     "raff": 16.9,
     "raff_d2": 16.9,
-    "ec": 5.3,
+    "ec": 4.9,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.6,
+    "ec_c": 9.2,
     "prudenza": true,
     "ar": 11.3,
     "raff_ar": 16.1,
@@ -544,10 +544,10 @@
     "i2": 9.3,
     "raff": 17.9,
     "raff_d2": 17.9,
-    "ec": 5.4,
+    "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.7,
+    "ec_c": 9.4,
     "prudenza": true,
     "ar": 10.9,
     "raff_ar": 15.4,
@@ -565,10 +565,10 @@
     "i2": 8.7,
     "raff": 18.1,
     "raff_d2": 17.1,
-    "ec": 5.4,
+    "ec": 5.3,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.7,
+    "ec_c": 9.6,
     "prudenza": false,
     "ar": 9.6,
     "raff_ar": 14.6,
@@ -586,10 +586,10 @@
     "i2": 8.2,
     "raff": 13.3,
     "raff_d2": 12.1,
-    "ec": 5.3,
+    "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.6,
+    "ec_c": 9.4,
     "prudenza": false,
     "ar": 8.5,
     "raff_ar": 13.6,
@@ -607,10 +607,10 @@
     "i2": 10.7,
     "raff": 11.9,
     "raff_d2": 10.7,
-    "ec": 5.2,
+    "ec": 4.7,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.5,
+    "ec_c": 9.0,
     "prudenza": false,
     "ar": 9.2,
     "raff_ar": 12.6,
@@ -654,50 +654,50 @@
    {
     "tipo": "min",
     "ora": "27/11 18:40",
-    "cm": -10,
+    "cm": -15,
     "astro_ora": "18:40",
     "astro_cm": -20,
-    "diff_cm": 10,
+    "diff_cm": 5,
     "diff_min": 0,
     "min_curva": -320
    },
    {
     "tipo": "max",
-    "ora": "28/11 02:20",
+    "ora": "28/11 01:40",
     "cm": 80,
     "astro_ora": "01:40",
     "astro_cm": 60,
     "diff_cm": 20,
-    "diff_min": 40,
-    "min_curva": 140
+    "diff_min": 0,
+    "min_curva": 100
    },
    {
     "tipo": "min",
-    "ora": "28/11 07:10",
-    "cm": 50,
+    "ora": "28/11 06:40",
+    "cm": 45,
     "astro_ora": "06:42",
     "astro_cm": 33,
-    "diff_cm": 17,
-    "diff_min": 28,
-    "min_curva": 430
+    "diff_cm": 12,
+    "diff_min": -2,
+    "min_curva": 400
    },
    {
     "tipo": "max",
-    "ora": "28/11 12:10",
-    "cm": 80,
+    "ora": "28/11 11:40",
+    "cm": 75,
     "astro_ora": "12:07",
     "astro_cm": 66,
-    "diff_cm": 14,
-    "diff_min": 2,
-    "min_curva": 730
+    "diff_cm": 9,
+    "diff_min": -28,
+    "min_curva": 700
    },
    {
     "tipo": "min",
     "ora": "28/11 19:25",
-    "cm": -15,
+    "cm": -20,
     "astro_ora": "19:22",
     "astro_cm": -14,
-    "diff_cm": -1,
+    "diff_cm": -6,
     "diff_min": 2,
     "min_curva": 1165
    },
@@ -712,12 +712,12 @@
     "min_curva": 1600
    }
   ],
-  "cpsm_emessa": "27/11 08:00",
+  "cpsm_emessa": "27/11 10:30",
   "fonte_fase": "previsione CPSM",
   "cpsm_vecchia": false,
-  "cpsm_eta_h": 40,
+  "cpsm_eta_h": 37,
   "ferma": false,
-  "vel_max": 17.9,
+  "vel_max": 18.6,
   "sequenza": [
    {
     "da": "27/11 18:40",
@@ -946,199 +946,199 @@
   "curva_cpsm": [
    [
     960,
-    29.6
+    20.5
    ],
    [
     970,
-    26.2
+    17.3
    ],
    [
     980,
-    23.4
+    14.2
    ],
    [
     990,
-    20.0
+    11.9
    ],
    [
     1000,
-    17.2
+    8.7
    ],
    [
     1010,
-    13.8
+    5.5
    ],
    [
     1020,
-    10.5
+    3.3
    ],
    [
     1030,
-    8.2
-   ],
-   [
-    1040,
-    4.8
-   ],
-   [
-    1050,
-    2.5
-   ],
-   [
-    1060,
     0.1
    ],
    [
+    1040,
+    -2.1
+   ],
+   [
+    1050,
+    -4.3
+   ],
+   [
+    1060,
+    -6.5
+   ],
+   [
     1070,
-    -2.2
+    -8.7
    ],
    [
     1080,
-    -4.6
+    -10.9
    ],
    [
     1090,
-    -6.4
+    -12.0
    ],
    [
     1100,
-    -8.3
+    -14.2
    ],
    [
     1110,
-    -10.1
+    -15.4
    ],
    [
     1120,
-    -11.4
+    -16.6
    ],
    [
     1130,
-    -12.8
+    -17.9
    ],
    [
     1140,
-    -13.6
+    -19.0
    ],
    [
     1150,
-    -14.5
+    -19.5
    ],
    [
     1160,
-    -14.8
+    -19.8
    ],
    [
     1170,
-    -14.9
+    -19.8
    ],
    [
     1180,
-    -14.6
+    -19.4
    ],
    [
     1190,
-    -13.8
+    -18.6
    ],
    [
     1200,
-    -13.1
+    -17.7
    ],
    [
     1210,
-    -11.9
+    -16.3
    ],
    [
     1220,
-    -10.6
+    -15.0
    ],
    [
     1230,
-    -8.8
+    -13.0
    ],
    [
     1240,
-    -7.5
+    -11.7
    ],
    [
     1250,
-    -5.3
+    -9.3
    ],
    [
     1260,
-    -4.0
+    -7.9
    ],
    [
     1270,
-    -1.7
+    -5.5
    ],
    [
     1280,
-    0.5
+    -3.1
    ],
    [
     1290,
-    3.4
+    -0.1
    ],
    [
     1300,
-    6.1
+    2.6
    ],
    [
     1310,
-    8.3
+    5.0
    ],
    [
     1320,
-    11.6
+    8.4
    ],
    [
     1330,
-    13.9
+    10.8
    ],
    [
     1340,
-    17.1
+    14.1
    ],
    [
     1350,
-    20.1
+    17.2
    ],
    [
     1360,
-    22.7
+    19.9
    ],
    [
     1370,
-    25.9
+    23.3
    ],
    [
     1380,
-    29.2
+    26.7
    ],
    [
     1390,
-    32.2
+    29.8
    ],
    [
     1400,
-    34.7
+    32.4
    ],
    [
     1410,
-    38.0
+    35.8
    ],
    [
     1420,
-    40.2
+    38.2
    ],
    [
     1430,
-    43.5
+    41.6
    ],
    [
     1440,
-    45.8
+    43.9
    ]
   ],
   "fonte_livello": "previsione CPSM",
@@ -1149,27 +1149,27 @@
   "velocita": [
    {
     "ora": "18:00",
-    "cm_h": -12.6
+    "cm_h": -11.2
    },
    {
     "ora": "19:00",
-    "cm_h": -4.8
+    "cm_h": -4.4
    },
    {
     "ora": "20:00",
-    "cm_h": 6.1
+    "cm_h": 6.8
    },
    {
     "ora": "21:00",
-    "cm_h": 12.2
+    "cm_h": 12.9
    },
    {
     "ora": "22:00",
-    "cm_h": 16.7
+    "cm_h": 17.3
    },
    {
     "ora": "23:00",
-    "cm_h": 17.9
+    "cm_h": 18.6
    }
   ],
   "zona": {
@@ -1177,171 +1177,171 @@
    "curva": [
     [
      1020,
-     7.8
+     -0.3
     ],
     [
      1030,
-     4.4
-    ],
-    [
-     1040,
-     2.1
-    ],
-    [
-     1050,
-     -0.2
-    ],
-    [
-     1060,
      -2.5
     ],
     [
+     1040,
+     -4.6
+    ],
+    [
+     1050,
+     -6.8
+    ],
+    [
+     1060,
+     -9.0
+    ],
+    [
      1070,
-     -4.8
+     -11.0
     ],
     [
      1080,
-     -6.6
+     -12.2
     ],
     [
      1090,
-     -8.5
-    ],
-    [
-     1100,
-     -10.2
-    ],
-    [
-     1110,
-     -11.5
-    ],
-    [
-     1120,
-     -12.8
-    ],
-    [
-     1130,
-     -13.6
-    ],
-    [
-     1140,
      -14.3
     ],
     [
+     1100,
+     -15.5
+    ],
+    [
+     1110,
+     -16.7
+    ],
+    [
+     1120,
+     -17.9
+    ],
+    [
+     1130,
+     -18.9
+    ],
+    [
+     1140,
+     -19.3
+    ],
+    [
      1150,
-     -14.6
+     -19.6
     ],
     [
      1160,
-     -14.6
+     -19.5
     ],
     [
      1170,
-     -14.2
+     -19.0
     ],
     [
      1180,
-     -13.5
+     -18.2
     ],
     [
      1190,
-     -12.7
+     -17.3
     ],
     [
      1200,
-     -11.6
+     -16.0
     ],
     [
      1210,
-     -10.3
+     -14.6
     ],
     [
      1220,
-     -8.6
+     -12.8
     ],
     [
      1230,
-     -7.3
+     -11.5
     ],
     [
      1240,
-     -5.3
+     -9.3
     ],
     [
      1250,
-     -4.0
+     -7.9
     ],
     [
      1260,
-     -1.8
+     -5.6
     ],
     [
      1270,
-     0.3
+     -3.3
     ],
     [
      1280,
-     3.0
+     -0.5
     ],
     [
      1290,
-     5.6
+     2.1
     ],
     [
      1300,
-     7.7
+     4.3
     ],
     [
      1310,
-     10.8
+     7.6
     ],
     [
      1320,
-     13.0
+     9.9
     ],
     [
      1330,
-     16.0
+     12.9
     ],
     [
      1340,
-     18.8
+     15.9
     ],
     [
      1350,
-     21.3
+     18.5
     ],
     [
      1360,
-     24.3
+     21.6
     ],
     [
      1370,
-     27.4
+     24.9
     ],
     [
      1380,
-     30.3
+     27.9
     ],
     [
      1390,
-     32.7
+     30.4
     ],
     [
      1400,
-     35.7
+     33.5
     ],
     [
      1410,
-     38.0
+     36.0
     ],
     [
      1420,
-     40.9
+     39.0
     ],
     [
      1430,
-     43.3
+     41.4
     ]
    ],
    "estremi": [
@@ -1349,7 +1349,7 @@
      "tipo": "bassa",
      "min": 1152,
      "ora": "19:12",
-     "cm": -15,
+     "cm": -20,
      "incertezza_min": 10
     }
    ],
@@ -1375,27 +1375,27 @@
     "canale": "Bocca di Malamocco",
     "valori": [
      {
-      "ms": 0.9,
+      "ms": 0.82,
       "verso": "esce"
      },
      {
-      "ms": 0.54,
+      "ms": 0.51,
       "verso": "esce"
      },
      {
-      "ms": 0.12,
+      "ms": 0.17,
       "verso": "entra"
      },
      {
-      "ms": 0.54,
+      "ms": 0.58,
       "verso": "entra"
      },
      {
-      "ms": 0.92,
+      "ms": 0.96,
       "verso": "entra"
      },
      {
-      "ms": 1.08,
+      "ms": 1.12,
       "verso": "entra"
      }
     ]
@@ -1404,27 +1404,27 @@
     "canale": "C. Malamocco Marghera",
     "valori": [
      {
-      "ms": 0.68,
+      "ms": 0.62,
       "verso": "esce"
      },
      {
-      "ms": 0.43,
+      "ms": 0.41,
       "verso": "esce"
      },
      {
-      "ms": 0.09,
+      "ms": 0.12,
       "verso": "entra"
      },
      {
-      "ms": 0.38,
+      "ms": 0.41,
       "verso": "entra"
      },
      {
-      "ms": 0.67,
+      "ms": 0.7,
       "verso": "entra"
      },
      {
-      "ms": 0.8,
+      "ms": 0.82,
       "verso": "entra"
      }
     ]
@@ -1433,27 +1433,27 @@
     "canale": "C. Rocchetta",
     "valori": [
      {
-      "ms": 0.57,
+      "ms": 0.52,
       "verso": "esce"
      },
      {
-      "ms": 0.34,
+      "ms": 0.33,
       "verso": "esce"
      },
      {
-      "ms": 0.09,
+      "ms": 0.11,
       "verso": "entra"
      },
      {
-      "ms": 0.34,
+      "ms": 0.37,
       "verso": "entra"
      },
      {
-      "ms": 0.59,
+      "ms": 0.61,
       "verso": "entra"
      },
      {
-      "ms": 0.68,
+      "ms": 0.71,
       "verso": "entra"
      }
     ]
@@ -1462,27 +1462,27 @@
     "canale": "C. Fisolo",
     "valori": [
      {
-      "ms": 0.41,
+      "ms": 0.37,
       "verso": "esce"
      },
      {
-      "ms": 0.24,
+      "ms": 0.23,
       "verso": "esce"
      },
      {
-      "ms": 0.07,
+      "ms": 0.09,
       "verso": "entra"
      },
      {
-      "ms": 0.26,
+      "ms": 0.28,
       "verso": "entra"
      },
      {
-      "ms": 0.43,
+      "ms": 0.45,
       "verso": "entra"
      },
      {
-      "ms": 0.5,
+      "ms": 0.52,
       "verso": "entra"
      }
     ]
@@ -1491,27 +1491,27 @@
     "canale": "C. Darsena San Leonardo",
     "valori": [
      {
-      "ms": 0.37,
+      "ms": 0.33,
       "verso": "esce"
      },
      {
-      "ms": 0.25,
+      "ms": 0.24,
       "verso": "esce"
      },
      {
-      "ms": 0.02,
+      "ms": 0.03,
       "verso": "entra"
      },
      {
-      "ms": 0.17,
+      "ms": 0.19,
       "verso": "entra"
      },
      {
-      "ms": 0.34,
+      "ms": 0.35,
       "verso": "entra"
      },
      {
-      "ms": 0.41,
+      "ms": 0.42,
       "verso": "entra"
      }
     ]
@@ -1707,13 +1707,13 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "27/11 08:25",
-    "valore": "7,1"
+    "ora": "27/11 11:10",
+    "valore": "8,9"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "27/11 08:25",
-    "valore": "7,3"
+    "ora": "27/11 11:10",
+    "valore": "10,5"
    }
   ],
   "aria_acqua": [
@@ -1859,19 +1859,19 @@
     "v": {
      "Malamocco · Valgrande": [
       0.2,
-      0.37
+      0.36
      ],
      "San Leonardo · Melison": [
       0.11,
       0.2
      ],
      "Fisolo": [
-      0.15,
+      0.14,
       0.26
      ],
      "C. Petroli · Fusina": [
-      0.17,
-      0.3
+      0.16,
+      0.29
      ]
     }
    },
@@ -1887,12 +1887,12 @@
       0.21
      ],
      "Fisolo": [
-      0.16,
-      0.29
+      0.15,
+      0.28
      ],
      "C. Petroli · Fusina": [
-      0.23,
-      0.41
+      0.22,
+      0.4
      ]
     }
    },
@@ -1913,7 +1913,7 @@
      ],
      "C. Petroli · Fusina": [
       0.22,
-      0.4
+      0.39
      ]
     }
    },
@@ -1934,7 +1934,7 @@
      ],
      "C. Petroli · Fusina": [
       0.19,
-      0.35
+      0.34
      ]
     }
    },
@@ -1947,10 +1947,10 @@
      ],
      "San Leonardo · Melison": [
       0.11,
-      0.2
+      0.19
      ],
      "Fisolo": [
-      0.14,
+      0.13,
       0.24
      ],
      "C. Petroli · Fusina": [
@@ -1984,17 +1984,17 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: dati meteo e mare aperto Open-Meteo.com, CC BY 4.0 (ICON-D2 e ensemble ICON-D2-EPS DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS, AROME HD Météo-France in prova, Open-Meteo Marine) · marea astronomica, previsione di marea e misure: CPSM, Comune di Venezia (dati.venezia.it, CC BY) · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.54",
- "generato": "27/11/2026 08:30",
+ "generato": "27/11/2026 11:16",
  "area": "centro",
  "acqua_misurata": {
   "valore": 12.0,
   "data": "27/11",
-  "ora": "08:20",
+  "ora": "11:05",
   "stazione": "Punta Salute Canal Grande",
   "fonte": "misura CPSM (Comune di Venezia)",
   "tendenza": {
    "giorni": 5,
-   "diff": -0.3,
+   "diff": -0.4,
    "verso": "stabile"
   }
  }

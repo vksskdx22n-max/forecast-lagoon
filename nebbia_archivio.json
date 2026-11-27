@@ -2141,6 +2141,36 @@
    "visib": "6+",
    "wx": null,
    "raw": "METAR LIPZ 270720Z 03008KT CAVOK 05/02 Q1014 NOSIG"
+  },
+  {
+   "t": "2026-11-27 07:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 270750Z 04009KT CAVOK 06/02 Q1014 NOSIG"
+  },
+  {
+   "t": "2026-11-27 08:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 270820Z 05009KT CAVOK 07/02 Q1014 NOSIG"
+  },
+  {
+   "t": "2026-11-27 08:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 270850Z 05009KT CAVOK 08/02 Q1015 NOSIG"
+  },
+  {
+   "t": "2026-11-27 09:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 270920Z 03008KT CAVOK 08/02 Q1015 NOSIG"
+  },
+  {
+   "t": "2026-11-27 09:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 270950Z 03009KT CAVOK 09/02 Q1015 NOSIG"
   }
  ],
  "versione": "1.54",
@@ -10433,6 +10463,150 @@
     "ora": "07:50",
     "eta_min": 10
    }
+  },
+  {
+   "t": "2026-11-27T07:30",
+   "aria": {},
+   "vento": {
+    "centro": null,
+    "nord": null,
+    "sud": null
+   },
+   "vento_motivo": {
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "08:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-27T08:00",
+   "aria": {},
+   "vento": {
+    "nord": null,
+    "centro": null,
+    "sud": null
+   },
+   "vento_motivo": {
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "08:50",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-27T08:30",
+   "aria": {},
+   "vento": {
+    "nord": null,
+    "centro": null,
+    "sud": null
+   },
+   "vento_motivo": {
+    "nord_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "centro_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "sud_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "nord": "nessuna riga letta (846 caratteri): <html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "sud": "nessuna riga letta (846 caratteri): <html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "centro": "nessuna riga letta (840 caratteri): <html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "09:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-27T09:00",
+   "aria": {},
+   "vento": {
+    "centro": null,
+    "sud": null,
+    "nord": null
+   },
+   "vento_motivo": {
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "09:50",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-27T09:30",
+   "aria": {},
+   "vento": {
+    "sud": null,
+    "centro": null,
+    "nord": null
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud": "nessuna riga letta (840 caratteri): <html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "centro": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "10:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-27T10:00",
+   "aria": {},
+   "vento": {
+    "sud": null,
+    "centro": null,
+    "nord": null
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud": "nessuna riga letta (844 caratteri): <html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "centro": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "10:50",
+    "eta_min": 10
+   }
   }
  ],
  "nota_locale": "Registro del Worker (v2.9) ogni 30 minuti, t in UTC: aria = umidita' (rh, %), temperatura (t, °C), punto di rugiada (td) e distanza dal punto di rugiada (spread) delle stazioni CPSM; vento = vento medio misurato (kn) di Saline, Malamocco Porto, Chioggia Porto; vis = visibilita' di Tessera (m). Per lo studio dell'indicatore locale di nebbia.",
@@ -13720,6 +13894,29 @@
     "252": {
      "rh": 86.0,
      "t": 6.2
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-27T10:00",
+   "t": "2026-11-27T09:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 78.0,
+     "t": 7.7
+    },
+    "230": {
+     "rh": 73.0,
+     "t": 7.6
+    },
+    "168": {
+     "rh": 88.0,
+     "t": 8.9
+    },
+    "252": {
+     "rh": 73.0,
+     "t": 8.4
     }
    }
   }
