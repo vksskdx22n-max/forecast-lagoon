@@ -598,8 +598,8 @@ function disegnaOnda(){const el=document.getElementById('ograf');if(!el||!VG)ret
  for(let t=x0;t<=x1;t+=salto)g+=`<text x="${X(t)}" y="${Y(0)+16}" text-anchor="middle" fill="${ora==null||t>ora?'#cfe0e8':'#6f8a9a'}" font-size="10.5">${String(((t/60)%24+24)%24).padStart(2,'0')}</text>`;
  const lg=(c,d,txt)=>`<span><svg width="18" height="12"><line x1="1" x2="17" y1="6" y2="6" stroke="${c}" stroke-width="2.4" stroke-dasharray="${d}" stroke-linecap="round"/></svg>${txt}</span>`;
  let h=`<div class="ch">${ok?'Onda adesso':'Onda prevista'} <span>mare aperto</span></div>`;
- if(ok)h+=`<div class="n"><b>${a.cm}</b><small>cm</small></div><div class="r">misurata alle ${esc(a.ora)}, al largo</div>`;
- else{const q=ora==null?V:V.filter(p=>p[0]>ora-60),u=q.length?q:V,r=[...new Set([Math.min(...u.map(p=>p[1])),Math.max(...u.map(p=>p[1]))])];h+=`<div class="n"><b>${r.join('–')}</b><small>cm</small></div>${a?'<div class="r">misura non disponibile</div>':''}`}
+ if(ok)h+=`<div class="n"><b>${a.cm}</b><small>cm</small></div><div class="r">misurata alle ${esc(a.ora)} alla piattaforma CNR-ISMAR</div>`;
+ else{const q=ora==null?V:V.filter(p=>p[0]>ora-60),u=q.length?q:V,r=[...new Set([Math.min(...u.map(p=>p[1])),Math.max(...u.map(p=>p[1]))])];h+=`<div class="n"><b>${r.join('–')}</b><small>cm</small></div>${a?'<div class="r">misura alla piattaforma CNR-ISMAR non disponibile</div>':''}`}
  el.innerHTML=h+`<svg class="gv" viewBox="0 0 ${W} ${T+Hh+B}" width="100%">${g}</svg><div class="lg">${Mv.length>1?lg('#e6eef2','0','misurata'):''}${V.length>1?lg('#5fd4d0','5 4','prevista'):''}</div>`}
 function autoAggiorna(V){   // v3.19: nuova versione -> ricarica subito dalla prima pagina (al massimo una volta per versione)
  const k='fl_agg_'+V.codice;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1')}catch(e){}
