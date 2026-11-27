@@ -60,6 +60,7 @@ Marea della zona (v1.25): curva della zona (marea_propaga, ritardo e quota da Pu
   "cpsm_*"; solo se la curva e' la previsione CPSM): separa l'errore del CPSM da quello del trasporto nella zona.
   Una riga per giorno, area e inizio della finestra ("da").
   v1.35: tabella oraria del livello (campo "liv", archivio "livello" con "staz") misurata a Punta Salute.
+  v1.36: sotto le due righe, come si ottiene la previsione di zona.
   v1.35: nella pagina solo due righe (errore medio assoluto e verso); gli altri valori restano nel JSON e in archivio.
 
 AROME HD in parallelo (v1.26, previsioni da fd_previsione >= 1.44): vento ("ar") e raffica ("raff_ar") di AROME HD salvati
@@ -70,7 +71,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.35"   # v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+VERSIONE = "1.36"   # v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
 # v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
 # Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
 # 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
@@ -1272,7 +1273,8 @@ if(D.marea_zona){const Z=D.marea_zona,vg=x=>String(x).replace('.',','),zn='Lagun
  const riga=(chi,dove,m,a)=>tz.append(h('tr',{},h('td',{},h('b',{},chi),h('br'),dove),h('td',{style:'font-weight:700;font-size:17px;white-space:nowrap'},a==null?'–':vg(a)+' cm'),h('td',{},a==null?'non disponibile':verso(m,a))));
  riga('Forecast Lagoon',zn,Z.liv_err_medio,Z.liv_err_ass);
  riga('CPSM','Punta Salute',Z.cpsm_err_medio,Z.cpsm_err_ass);
- app.append(h('div',{cls:'card'},h('h2',{},'🌊 Marea · '+zn),h('div',{cls:'nota',style:'margin:0 0 6px'},'Di quanto ha sbagliato in media la previsione, '+Math.floor(D.fascia[0]/60)+'–'+Math.ceil(D.fascia[1]/60)),tz));}
+ app.append(h('div',{cls:'card'},h('h2',{},'🌊 Marea · '+zn),h('div',{cls:'nota',style:'margin:0 0 6px'},'Di quanto ha sbagliato in media la previsione, '+Math.floor(D.fascia[0]/60)+'–'+Math.ceil(D.fascia[1]/60)),tz,
+  h('div',{cls:'nota'},h('b',{},'Forecast Lagoon:'),' '+'da '+((Z.fonte||'').includes('CPSM')?'CPSM':'marea astronomica')+' Punta Salute a '+({nord:'Saline',centro:'Malamocco Porto',sud:'Chioggia Porto'}[Z.area]||Z.stazione)+', con calcolo statistico di orario e altezza su dati 2015–2024.')));}
 const AN=D.andamento;
 function graf(righe,serie,tipo){const W=520,H=200,L=30,R=10,T=12,B=26,N=righe.length;if(!N)return null;
  const v=righe.flatMap(r=>serie.map(s=>r[s[0]]));const ym=Math.max(1,Math.ceil(Math.max(...v.map(Math.abs))));const y0=tipo==='ass'?0:-ym;
