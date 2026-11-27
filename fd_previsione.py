@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.54"   # v1.54: la forbice delle ore incerte comprende sempre la stima; v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
+VERSIONE = "1.55"   # v1.55: nella tabella dell'onda una sola altezza in cm (quella corretta), senza spiegazioni; v1.54: la forbice delle ore incerte comprende sempre la stima; v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
 # v1.50: fasce della giornata (scelta di Ennio 23/11/2026). La fascia della sera finisce a mezzanotte: "24:00" = 23:59 interno.
 FINE_GIORNO = dt.time(23, 59)
 PERIODI = [("mattino", 5, 12), ("pomeriggio", 13, 18), ("sera", 19, 23)]
@@ -1671,11 +1671,11 @@ if(Me.nebbia&&(Me.nebbia_ore||[]).length){const N=Me.nebbia,O=Me.nebbia_ore,PR=N
 Me.note.forEach(t=>cmt.append(h('div',{cls:'nota'},t)));
 let MARE=null;
 if(D.mare){const cv=D.mare.righe.some(r=>r.vento!=null);
-  const oc=D.mare.righe.some(r=>r.h_corr!=null),ob=x=>x>=1?'<b>'+n(x,2)+' m</b>':n(x,2)+' m';
-  const tm=h('table',{},h('tr',{},...['Ora','Onda'].concat(oc?['Corretta']:[],['Dir.','Periodo'],cv?['Vento','Raff.','Dir.']:[]).map(x=>h('th',{},x))));
-  D.mare.righe.forEach(r=>tm.append(h('tr',{},h('td',{},r.ora),h('td',{html:ob(r.h)}),...(oc?[h('td',{html:r.h_corr_min!=null?n(r.h_corr_min,2)+'–'+n(r.h_corr_max,2)+' m':r.h_corr!=null?ob(r.h_corr):'–'})]:[]),h('td',{cls:'dir'},r.dir),h('td',{},n(r.per)+' s'),
+  const om=r=>Math.round((r.h_corr!=null?r.h_corr:r.h)*100),ob=x=>x>=100?'<b>'+x+' cm</b>':x+' cm';   // v1.55: una sola altezza, quella corretta
+  const tm=h('table',{},h('tr',{},...['Ora','Onda','Dir.','Periodo'].concat(cv?['Vento','Raff.','Dir.']:[]).map(x=>h('th',{},x))));
+  D.mare.righe.forEach(r=>tm.append(h('tr',{},h('td',{},r.ora),h('td',{html:ob(om(r))}),h('td',{cls:'dir'},r.dir),h('td',{},n(r.per)+' s'),
     ...(cv?[h('td',{},n(r.vento)),h('td',{},n(r.raff_v)),h('td',{cls:'dir'},r.dir_v||'–',h('div',{cls:'dnome'},r.nome_v||''))]:[]))));
-  MARE=h('div',{cls:'card parte2'},h('h2',{},'〰️ Onda in mare aperto'),tm,h('div',{cls:'nota'},'Onda: modello Open-Meteo Marine, cella a '+D.mare.cella+' (circa 5 km dal litorale). '+(cv?'Vento in nodi: '+(D.mare.righe.some(r=>r.mod_v==='ICON-2i')?'ICON-D2 (ICON-2i nelle ore non coperte)':'ICON-D2')+' senza correzione sul punto della Piattaforma CNR (8 miglia al largo). ':'')+(oc?'Corretta = modello × rapporto misurata/modello alla Piattaforma CNR ('+D.mare.fonte_corr+'); fascia tra il giorno con rapporto più piccolo e quello con rapporto più grande: l’errore cambia molto da un giorno all’altro. ':(D.mare.fonte_corr?'Correzione onda non ancora attiva ('+D.mare.fonte_corr+'). ':''))+'Vale fuori dalla bocca, non dentro la laguna.'));}
+  MARE=h('div',{cls:'card parte2'},h('h2',{},'〰️ Onda in mare aperto'),tm,h('div',{cls:'nota'},'Al largo, fuori dalla bocca.'+(cv?' Vento in nodi.':'')));}
 if(MARE)add(MARE);add(cmt);
 const cr=h('div',{cls:'card parte2'},h('h2',{},'🧭 Riflessioni'));
 D.riflessioni.forEach(r=>cr.append(h('div',{cls:'r'},h('span',{cls:'tag '+r.tipo},r.tipo),h('div',{},r.testo))));add(cr);
