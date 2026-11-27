@@ -71,7 +71,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.42"   # v1.42: verifica lasciata aperta se manca una stazione, completata ai giri successivi; v1.41: pressione a Palazzo Cavalli, grafico prevista / misurata ed errore medio; v1.40: nel grafico dell'onda indicata la piattaforma CNR-ISMAR; v1.39: onda con grafico prevista (come nell'app) / misurata ed errore medio; in archivio anche "prev_app"; v1.38: sul computer (da 1000 px) la pagina e' su due colonne; telefono e PDF invariati; v1.37: titolo "Errore per ora del giorno"; nei grafici dell'andamento le date e le ore non si sovrappongono; v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+VERSIONE = "1.43"   # v1.43: scheda Pioggia nuova (probabilita' tratteggiata, mm in gradazioni di blu; una riga se asciutto come previsto); v1.42: verifica lasciata aperta se manca una stazione, completata ai giri successivi; v1.41: pressione a Palazzo Cavalli, grafico prevista / misurata ed errore medio; v1.40: nel grafico dell'onda indicata la piattaforma CNR-ISMAR; v1.39: onda con grafico prevista (come nell'app) / misurata ed errore medio; in archivio anche "prev_app"; v1.38: sul computer (da 1000 px) la pagina e' su due colonne; telefono e PDF invariati; v1.37: titolo "Errore per ora del giorno"; nei grafici dell'andamento le date e le ore non si sovrappongono; v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
 # v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
 # Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
 # 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
@@ -1126,6 +1126,42 @@ def nebbia_verifica(cartella, P, giorno):
     return out if any(x["vis_m"] is not None for x in out) else []
 
 
+PIOGGIA_PROB = 50          # v1.43: ora "giusta" = piovuto con probabilita' almeno 50 %, o asciutto sotto
+PIOGGIA_MIN_MM = 0.2       # un solo scatto del pluviometro
+PIOGGIA_BLU = ((0.5, "#bae6fd"), (2, "#60a5fa"), (5, "#2f7ff0"), (None, "#1d4ed8"))     # mm nell'ora: piu' intenso, piove di piu'
+
+
+def pioggia_grafico(righe):
+    """v1.43: dati della scheda Pioggia: osservazione in barca se c'e', altrimenti Palazzo Cavalli. None se non ci sono righe."""
+    if not righe:
+        return None
+    ore = []
+    for r in righe:
+        p = r.get("prob_D2") if r.get("prob_D2") is not None else r.get("prob_EC")
+        barca, mm = r.get("oss"), r.get("cavalli_mm")
+        if barca is not None:
+            piove, mm = bool(barca), None
+        else:
+            piove = None if mm is None else mm >= PIOGGIA_MIN_MM
+        col = None
+        if piove:
+            col = PIOGGIA_BLU[2][1] if mm is None else next(c for lim, c in PIOGGIA_BLU if lim is None or mm < lim)
+        ore.append({"ora": r["ora"][:2], "p": p, "piove": piove, "mm": mm if piove else None, "col": col,
+                    "chiaro": col == PIOGGIA_BLU[0][1]})
+    note = [o for o in ore if o["piove"] is not None]
+    giudicate = [o for o in note if o["p"] is not None]
+    bagnate = [o for o in note if o["piove"]]
+    mm = [o["mm"] for o in bagnate if o["mm"] is not None]
+    barca = sum(r.get("oss") is not None for r in righe)
+    return {"ore": ore, "misurate": len(note), "bagnate": len(bagnate),
+            "totale": round(sum(mm), 1) if bagnate and len(mm) == len(bagnate) else None,
+            "giuste": sum((o["p"] >= PIOGGIA_PROB) == o["piove"] for o in giudicate), "giudicate": len(giudicate),
+            "asciutto_previsto": len(giudicate) == len(ore) and not bagnate and all(o["p"] < PIOGGIA_PROB for o in ore),
+            "scala": [c for _, c in PIOGGIA_BLU],
+            "fonte": "Misurata a Venezia, Palazzo Cavalli" if not barca else "Osservata in barca" if barca == len(righe)
+                     else "Osservata in barca; nelle altre ore Palazzo Cavalli"}
+
+
 def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=False):
     g, P = v["giorno"], v["P"]
     g0 = dt.datetime.combine(g, dt.time(0), tz_italia(g))
@@ -1233,7 +1269,7 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
          "press_g": v.get("press_v") or [],   # v1.41
          "press_err": round(statistics.mean(abs(o["prev"] - o["mis"]) for o in v["press_v"]), 1) if v.get("press_v") else None,
          "onda_g": [{"ora": o["ora"], "prev": round(o["prev_app"] * 100), "mis": round(o["mis"] * 100)} for o in onda_v],   # v1.39
-         "onda_err_cm": round(statistics.mean(abs(o["prev_app"] - o["mis"]) for o in onda_v) * 100) if onda_v else None, "liv_fonte": fonte_liv, "liv_eta_h": eta_liv, "aria": v.get("aria_v") or [], "pioggia": v.get("pioggia_v") or [], "marea_zona": v.get("marea_v"),
+         "onda_err_cm": round(statistics.mean(abs(o["prev_app"] - o["mis"]) for o in onda_v) * 100) if onda_v else None, "liv_fonte": fonte_liv, "liv_eta_h": eta_liv, "aria": v.get("aria_v") or [], "pioggia_g": pioggia_grafico(v.get("pioggia_v")), "pioggia": v.get("pioggia_v") or [], "marea_zona": v.get("marea_v"),
          "andamento": andamento(A, risultati[0][0]), "archivio": riepilogo(A), "note": note,
          "nebbia": nebbia_verifica(cartella, P, g),   # v1.28
          "fonti": f"Misure: CPSM Comune di Venezia, dati.venezia.it, CC BY ({', '.join(dict.fromkeys(staz_vento + ['Malamocco Porto', STAZ_LIVELLO, 'Piattaforma CNR', 'Palazzo Cavalli']))}) · "
@@ -1336,19 +1372,30 @@ if(D.aria.length){const ta=h('table',{},h('tr',{},...['Ora','Piattaf. mis.','Mar
  const te=h('table',{},h('tr',{},h('th',{},'Confronto (previsto − misurato)'),h('th',{},'Errore medio')),
   ...[['Mare aperto (ICON-D2) − Piattaforma','mare_prev','piatt_mis'],['Mestre (ICON-D2) − Palazzo Cavalli','mestre_prev','cavalli_mis'],['Sull’acqua Malamocco (ICON-D2) − Palazzo Cavalli','acqua_prev','cavalli_mis']].map(([t,p,m])=>h('tr',{},h('td',{},t),h('td',{},em(p,m)))));
  app.append(h('div',{cls:'card'},h('h2',{},'🌡️ Aria'),ta,te,h('div',{cls:'nota'},'°C. Misure CPSM: Piattaforma CNR (mare aperto, 8 miglia al largo) e Palazzo Cavalli (centro città, tetto a 15 m, ~12 km da Malamocco: probabilmente più caldo che in barca). Previsioni: ICON-D2 a 2 m. Nessuna misura dell’aria nelle zone di pesca: confronto indicativo.')));}
-if((D.pioggia||[]).length){const PO=D.pioggia,N=PO.length,W=380,H=270,L=58,R=6,T=26,B=92,ec=PO.some(r=>r.prob_EC!=null);
- const colP=v=>v==null?['#f1f5f9','#64748b']:v<20?['#e6f1fb','#0c447c']:v<40?['#b5d4f4','#0c447c']:v<60?['#85b7eb','#042c53']:v<80?['#378add','#fff']:['#185fa5','#fff'];
- const bw=Math.min(56,(W-L-R)/N*0.55),X=i=>L+(i+0.5)*(W-L-R)/N,Y=v=>T+(100-v)/100*(H-T-B),mm=x=>x==null?'–':n(x);
- let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="font:11px sans-serif;fill:#64748b">`;
- [0,50,100].forEach(v=>s+=`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="${v?'#e2e8f0':'#c3c2b7'}"${v===50?' stroke-dasharray="4 3"':''}/><text x="2" y="${Y(v)+4}">${v}%</text>`);
- const OS=PO.some(r=>r.oss!=null);PO.forEach((r,i)=>{const v=r.prob_D2,c=colP(v),x=X(i),pv=OS?!!r.oss:(r.cavalli_mm!=null&&r.cavalli_mm>=0.2);
-  if(v!=null)s+=`<rect x="${x-bw/2}" y="${Y(v)}" width="${bw}" height="${Math.max(1,Y(0)-Y(v))}" rx="4" fill="${c[0]}" stroke="#85b7eb" stroke-width=".5"/><text x="${x}" y="${Y(v)-6}" text-anchor="middle" style="font-weight:700;fill:#1e293b;font-size:12px">${v}%</text>`;
-  if(ec&&r.prob_EC!=null)s+=`<line x1="${x-bw/2-4}" x2="${x+bw/2+4}" y1="${Y(r.prob_EC)}" y2="${Y(r.prob_EC)}" stroke="#7c3aed" stroke-width="2"/>`;
-  s+=`<text x="${x}" y="${Y(0)+15}" text-anchor="middle" style="fill:#1e293b;font-weight:700">${r.ora}</text>`;
-  s+=`<rect x="${x-24}" y="${Y(0)+22}" width="48" height="17" rx="8" fill="${pv?'#dbeafe':'#f1f5f9'}"/><text x="${x}" y="${Y(0)+34}" text-anchor="middle" style="font-size:11px;font-weight:700;fill:${pv?'#1e40af':'#64748b'}">${pv?'pioggia':'asciutto'}</text>`;
-  [r.mm_D2,r.cavalli_mm,r.piatt_mm].forEach((val,j)=>s+=`<text x="${x}" y="${Y(0)+54+j*13}" text-anchor="middle" style="font-size:11px">${mm(val)}</text>`);});
- s+=`<text x="2" y="${Y(0)+34}" style="font-size:11px">${OS?'In barca':'Cavalli'}</text><text x="2" y="${Y(0)+54}" style="font-size:11px">mm prev.</text><text x="2" y="${Y(0)+67}" style="font-size:11px">Cavalli</text><text x="2" y="${Y(0)+80}" style="font-size:11px">Piattaf.</text></svg>`;
- app.append(h('div',{cls:'card'},h('h2',{},'🌧 Pioggia'),h('div',{html:s}),h('div',{cls:'nota'},'Barre: probabilità ICON-D2 di più di 0,1 mm'+(ec?'; linea viola: ECMWF':'')+'. Etichetta: '+(OS?'osservazione in barca (riga PIOGGIA nelle note dell’uscita): riferimento per le zone di pesca.':'misura a Palazzo Cavalli, "pioggia" da 0,2 mm (un solo scatto del pluviometro).')+' Sotto: mm previsti da ICON-D2 e misurati a Palazzo Cavalli e alla Piattaforma CNR. Ogni ora = ora precedente (08:00 = dalle 07 alle 08). Palazzo Cavalli è a ~12 km dalle zone di pesca: confronto indicativo; la pioviggine sotto 0,2 mm/h non viene registrata.')));}
+if(D.pioggia_g){const G=D.pioggia_g,O=G.ore,N=O.length,blu='#1d4ed8';   // v1.43: scheda essenziale, in linea con onda e pressione
+ const titolo=h('h2',{},'🌧 Pioggia');
+ if(G.asciutto_previsto)app.append(h('div',{cls:'card'},titolo,h('div',{style:'font-size:18px;font-weight:700;color:#166534'},'✓ Asciutto, come previsto')));
+ else if(!G.misurate)app.append(h('div',{cls:'card'},titolo,h('div',{},'Misura della pioggia non disponibile')));
+ else{const W=340,B=168,T=24,X=i=>N>1?22+i*(W-44)/(N-1):W/2,Y=p=>B-p/100*(B-T),mx=Math.max(5,...O.map(o=>o.mm||0)),lp=Math.min(34,N>1?(W-44)/(N-1)-4:34);
+  const tx=(x,y,t,c,d,p,a)=>`<text x="${x}" y="${y}" text-anchor="${a||'middle'}" style="font-size:${d||12}px;font-weight:${p||500};fill:${c}">${t}</text>`;
+  const tratti=[[]];O.forEach((o,i)=>{if(o.p==null)tratti.push([]);else tratti[tratti.length-1].push([X(i),Y(o.p)])});
+  const curva=q=>{let d='M'+q[0];for(let i=1;i<q.length;i++){const m=(q[i-1][0]+q[i][0])/2;d+=`C${m},${q[i-1][1]} ${m},${q[i][1]} ${q[i]}`}return d};
+  let s=`<svg viewBox="0 0 ${W} 214" width="100%" style="display:block;font-family:inherit"><defs><linearGradient id="gpg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0d9488" stop-opacity=".16"/><stop offset="1" stop-color="#0d9488" stop-opacity="0"/></linearGradient></defs>`;
+  tratti.filter(q=>q.length>1).forEach(q=>s+=`<path d="${curva(q)}L${q[q.length-1][0]},${B}L${q[0][0]},${B}Z" fill="url(#gpg)"/>`);
+  s+=`<line x1="0" x2="${W}" y1="${B}" y2="${B}" stroke="#cbd5e1"/>`;
+  O.forEach((o,i)=>{if(!o.piove)return;const a=o.mm==null?48:Math.max(14,o.mm/mx*96);s+=`<rect x="${X(i)-13}" y="${B-a}" width="26" height="${a}" rx="${Math.min(13,a/2)}" fill="${o.col}"/>`});
+  tratti.filter(q=>q.length>1).forEach(q=>s+=`<path d="${curva(q)}" fill="none" stroke="#0d9488" stroke-width="3" stroke-dasharray="7 5"/>`);
+  tratti.filter(q=>q.length===1).forEach(q=>s+=`<circle cx="${q[0][0]}" cy="${q[0][1]}" r="3.5" fill="#0d9488"/>`);
+  let k=-1;O.forEach((o,i)=>{if(o.p!=null&&(k<0||o.p>O[k].p))k=i});
+  if(k>=0){const x=X(k),y=Y(O[k].p),dx=x>W-62;s+=`<circle cx="${x}" cy="${y}" r="5" fill="#fff" stroke="#0d9488" stroke-width="3"/>`+tx(dx?x-10:x+10,y+4,O[k].p+'%','#0f766e',13,800,dx?'end':'start')}
+  O.forEach((o,i)=>{s+=tx(X(i),184,o.ora,'#64748b');
+   s+=o.piove?`<rect x="${X(i)-lp/2}" y="192" width="${lp}" height="19" rx="9.5" fill="${o.col}"/>`+tx(X(i),205.5,o.mm==null?'sì':n(o.mm),o.chiaro?'#1e40af':'#fff',11.5,800):tx(X(i),206,o.piove===false?'–':'?','#94a3b8',13)});
+  const testa=h('div',{style:'display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;margin-bottom:6px'},
+   h('div',{style:'font-size:17px',html:G.totale!=null?`Caduti: <b style="font-size:26px;color:${blu}">${n(G.totale)} mm</b>`:`<b style="font-size:22px;color:${blu}">${G.bagnate?'Ha piovuto':'Non ha piovuto'}</b>`}),
+   G.giudicate?h('span',{style:'font-size:12px;font-weight:700;background:#eff6ff;color:#1e40af;border-radius:10px;padding:4px 9px'},`giusta ${G.giuste} ${G.giudicate===1?'ora':'ore'} su ${G.giudicate}`):'');
+  const quadri=G.scala.map(c=>`<i style="width:11px;height:11px;border-radius:3px;background:${c};margin-right:1px;display:inline-block"></i>`).join('');
+  app.append(h('div',{cls:'card'},titolo,testa,h('div',{html:s+'</svg>'}),
+   h('div',{cls:'leg',html:`<span>${quadri} caduta (mm): più intenso, piove di più</span><span><i style="height:0;width:18px;border-top:3px dashed #0d9488"></i>probabilità prevista</span>`}),h('div',{cls:'nota'},G.fonte)));}}
 if((D.nebbia||[]).length){const TX=['non probabile','poco probabile','probabile'],CO=['#e2e8f0','#facc15','#475569'],TC=['#334155','#334155','#fff'];   // v1.28
  const vis=m=>m==null?'–':m>=10000?'oltre 10 km':m>=1000?n(m/1000,1)+' km':m+' m',vc=m=>m==null?'':m<=200?'font-weight:700;color:#7f1d1d':m<=1000?'font-weight:700':'';
  const tn=h('table',{},h('tr',{},h('th',{},'Ora'),h('th',{},'Nebbia prevista'),h('th',{},'Visibilità Tessera'),h('th',{},'Fenomeni')));

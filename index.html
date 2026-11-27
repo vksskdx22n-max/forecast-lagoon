@@ -233,6 +233,7 @@ function mappa(vb,o){
   <text x="${x+14}" y="${y+7}" fill="#fff" font-size="${o.fs||30}" font-weight="700" paint-order="stroke" stroke="#06131d" stroke-width="4" stroke-opacity=".6">${n}</text>`});
  if(o.labels&&o.adesso)D.zone.forEach(z=>{const b=G.bbox[z.id],x=z.id==='nord'?b[0]+(b[2]-b[0])*.52:b[0]+(b[2]-b[0])*.18,y=z.id==='nord'?b[1]+(b[3]-b[1])*.55:(b[1]+b[3])/2;
   s+=`<g data-adm="${z.id}" data-x="${x}" data-y="${y-52}" style="pointer-events:none"></g>`});   // v3.91: tolte le targhette Nord/Centro/Sud (richiesta di Ennio): sulla cartina resta il vento misurato
+ if(o.labels&&o.adesso)s+='<g data-admo style="pointer-events:none"></g>';   // v3.93: onda misurata in mare aperto
  return s+'</svg>'}
 function piede(){return `<div class="foot">Previsione indicativa: non sostituisce i bollettini ufficiali. <b>Fonti e licenze</b> → <span class="flink" role="button" onclick="istruzioni()">istruzioni (i)</span><br>Sito v${esc(D.versione_sito)}${D.autore?' · a cura di '+esc(D.autore):''} · aggiornato ${new Date(D.aggiornato_utc).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div>`}   // v3.57: fonti spostate nelle istruzioni, qui solo il rimando
 function finestra(){return null}   // v3.49: tre fasce (v3.64: 05–12, 12–18, 18–24)
@@ -667,6 +668,13 @@ function riempiAdesso(){try{disegna24()}catch(e){console.error(e)}   // v3.72: r
   const a=AD&&AD.zone&&AD.zone[el.dataset.azona],c=usa(a)&&TXT[a.sem]?a.sem:'nd',hex=getComputedStyle(document.documentElement).getPropertyValue('--'+c).trim();
   el.setAttribute('fill',hex);if(el.tagName.toLowerCase()==='path')el.setAttribute('stroke',hex)});
 
+ document.querySelectorAll('[data-admo]').forEach(g=>{const a=AD&&AD.onda;   // v3.93: onda in mare aperto sulla cartina; fino a 45 min come il vento, se manca non si mostra
+  if(!a||a.cm==null||!(a.disponibile||(a.eta_min!=null&&a.eta_min<=45))){g.innerHTML='';return}
+  const x=668,y=776,w=336,sotto='mare aperto'+(!a.disponibile&&a.ora?' · '+a.ora:'');
+  g.innerHTML=`<rect x="${x}" y="${y}" width="${w}" height="128" rx="36" fill="#06131d" fill-opacity=".82" stroke="#5fd4d0" stroke-opacity=".55"/>
+   <path d="M${x+26},${y+48} q12,-17 24,0 t24,0 t24,0" fill="none" stroke="#5fd4d0" stroke-width="7" stroke-linecap="round"/>
+   <text x="${x+116}" y="${y+66}" fill="${a.disponibile?'#eaf3f7':'#b9ccd8'}" font-size="54" font-weight="700">${esc(a.cm)} cm</text>
+   <text x="${x+w/2}" y="${y+106}" text-anchor="middle" fill="#b9ccd8" font-size="32" font-weight="600">${esc(sotto)}</text>`});
  document.querySelectorAll('[data-admap]').forEach(el=>{   // v3.31: vento misurato adesso sulle etichette della cartina (colore neutro)
   const Z=(D&&D.zone||[]).filter(z=>z.attiva),mi=o=>{const m=/^(\d{1,2}):(\d{2})/.exec(o||'');return m?(+m[1])*60+(+m[2]):null};
   if(!Z.length){el.innerHTML='';return}
