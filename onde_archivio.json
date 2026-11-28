@@ -2231,6 +2231,36 @@
    "stazione": "PS_Giud",
    "hs": 0.35,
    "hmax": 0.65
+  },
+  {
+   "t": "2026-11-28 05:20",
+   "stazione": "PSalute",
+   "hs": 0.13,
+   "hmax": 0.2
+  },
+  {
+   "t": "2026-11-28 05:20",
+   "stazione": "P_Cavalli",
+   "hs": 0.04,
+   "hmax": 0.08
+  },
+  {
+   "t": "2026-11-28 05:20",
+   "stazione": "Misericordia",
+   "hs": 0.16,
+   "hmax": 0.38
+  },
+  {
+   "t": "2026-11-28 05:20",
+   "stazione": "Fusina",
+   "hs": 0.06,
+   "hmax": 0.11
+  },
+  {
+   "t": "2026-11-28 05:20",
+   "stazione": "PS_Giud",
+   "hs": 0.18,
+   "hmax": 0.4
   }
  ],
  "confronti": [
@@ -2728,6 +2758,21 @@
     0.46
    ],
    "previsione": "previsione_27-11-2026_1800-2400_v1.54.json"
+  },
+  {
+   "t": "2026-11-28 05:20",
+   "stazione": "Fusina",
+   "punto": "C. Petroli · Fusina",
+   "ora_stima": "05:00",
+   "mis": [
+    0.06,
+    0.11
+   ],
+   "stima": [
+    0.3,
+    0.55
+   ],
+   "previsione": "previsione_28-11-2026_0500-1200_v1.58.json"
   }
  ],
  "versione": "1.58",
