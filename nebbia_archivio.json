@@ -2537,9 +2537,15 @@
    "visib": "6+",
    "wx": null,
    "raw": "METAR LIPZ 281620Z 09006KT CAVOK 07/02 Q1026 NOSIG"
+  },
+  {
+   "t": "2026-11-28 16:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 281650Z 07006KT CAVOK 07/03 Q1026 NOSIG"
   }
  ],
- "versione": "1.59",
+ "versione": "1.60",
  "nota": "METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib in miglia terrestri come restituito dall'API ('6+' = oltre 6 miglia, circa 10 km; 1 miglio = 1609 m), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato.",
  "locale": [
   {
@@ -12221,6 +12227,54 @@
     "ora": "16:50",
     "eta_min": 10
    }
+  },
+  {
+   "t": "2026-11-28T16:30",
+   "aria": {},
+   "vento": {
+    "nord": null,
+    "centro": null,
+    "sud": null
+   },
+   "vento_motivo": {
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "17:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-28T17:00",
+   "aria": {},
+   "vento": {
+    "centro": null,
+    "nord": null,
+    "sud": null
+   },
+   "vento_motivo": {
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "17:50",
+    "eta_min": 10
+   }
   }
  ],
  "nota_locale": "Registro del Worker (v2.9) ogni 30 minuti, t in UTC: aria = umidita' (rh, %), temperatura (t, °C), punto di rugiada (td) e distanza dal punto di rugiada (spread) delle stazioni CPSM; vento = vento medio misurato (kn) di Saline, Malamocco Porto, Chioggia Porto; vis = visibilita' di Tessera (m). Per lo studio dell'indicatore locale di nebbia.",
@@ -16253,20 +16307,16 @@
    "staz": {
     "160": {
      "vis_km": 16.0,
-     "rh": 71.0,
-     "t": 7.7
+     "rh": 71.0
     },
     "230": {
-     "rh": 62.0,
-     "t": 6.0
+     "rh": 62.0
     },
     "168": {
-     "rh": 75.0,
-     "t": 7.8
+     "rh": 75.0
     },
     "252": {
-     "rh": 67.0,
-     "t": 9.1
+     "rh": 67.0
     }
    }
   }
