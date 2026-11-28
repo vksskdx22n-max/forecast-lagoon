@@ -1,0 +1,1815 @@
+{
+ "versione": "1.43",
+ "provvisoria": false,
+ "ore_fino": "12:00",
+ "area": "nord",
+ "titolo": "Sabato 28/11/2026 · 05:00–12:00",
+ "previsione": "previsione_28-11-2026_0500-1200_nord_v1.58.json · generata 27/11 19:16",
+ "sem_prev": "giallo",
+ "fascia": [
+  300,
+  720
+ ],
+ "zone": [
+  {
+   "zona": "Laguna Nord",
+   "stazione": "Laguna Nord (Saline, interna, 45,4956 N 12,4720 E)",
+   "serie": [
+    [
+     180,
+     13.8,
+     17.9
+    ],
+    [
+     185,
+     13.6,
+     16.9
+    ],
+    [
+     190,
+     13.6,
+     18.7
+    ],
+    [
+     195,
+     13.4,
+     18.7
+    ],
+    [
+     200,
+     13.8,
+     17.7
+    ],
+    [
+     205,
+     14.4,
+     19.6
+    ],
+    [
+     210,
+     14.2,
+     19.6
+    ],
+    [
+     215,
+     13.8,
+     17.1
+    ],
+    [
+     220,
+     13.8,
+     16.5
+    ],
+    [
+     225,
+     13.4,
+     16.5
+    ],
+    [
+     230,
+     13.2,
+     16.3
+    ],
+    [
+     235,
+     12.6,
+     15.9
+    ],
+    [
+     240,
+     12.1,
+     15.4
+    ],
+    [
+     245,
+     11.5,
+     15.4
+    ],
+    [
+     250,
+     10.3,
+     14.4
+    ],
+    [
+     255,
+     9.3,
+     12.8
+    ],
+    [
+     260,
+     8.7,
+     11.5
+    ],
+    [
+     265,
+     9.1,
+     11.9
+    ],
+    [
+     270,
+     9.3,
+     11.9
+    ],
+    [
+     275,
+     9.3,
+     11.7
+    ],
+    [
+     280,
+     9.7,
+     11.7
+    ],
+    [
+     285,
+     9.5,
+     11.7
+    ],
+    [
+     290,
+     9.3,
+     11.7
+    ],
+    [
+     295,
+     8.6,
+     11.1
+    ],
+    [
+     300,
+     8.4,
+     10.1
+    ],
+    [
+     305,
+     8.2,
+     10.1
+    ],
+    [
+     310,
+     8.0,
+     10.1
+    ],
+    [
+     315,
+     8.2,
+     10.7
+    ],
+    [
+     320,
+     8.4,
+     11.1
+    ],
+    [
+     325,
+     8.9,
+     11.3
+    ],
+    [
+     330,
+     8.7,
+     11.3
+    ],
+    [
+     335,
+     8.9,
+     11.7
+    ],
+    [
+     340,
+     9.3,
+     11.7
+    ],
+    [
+     345,
+     8.7,
+     10.9
+    ],
+    [
+     350,
+     8.6,
+     10.7
+    ],
+    [
+     355,
+     8.6,
+     10.7
+    ],
+    [
+     360,
+     8.2,
+     10.9
+    ],
+    [
+     365,
+     8.4,
+     10.9
+    ],
+    [
+     370,
+     8.4,
+     10.7
+    ],
+    [
+     375,
+     8.4,
+     10.9
+    ],
+    [
+     380,
+     8.7,
+     11.3
+    ],
+    [
+     385,
+     9.5,
+     12.1
+    ],
+    [
+     390,
+     9.7,
+     12.1
+    ],
+    [
+     395,
+     9.3,
+     11.7
+    ],
+    [
+     400,
+     8.9,
+     11.1
+    ],
+    [
+     405,
+     8.7,
+     11.1
+    ],
+    [
+     410,
+     8.4,
+     11.1
+    ],
+    [
+     415,
+     7.8,
+     10.7
+    ],
+    [
+     420,
+     7.8,
+     9.7
+    ],
+    [
+     425,
+     7.6,
+     9.5
+    ],
+    [
+     430,
+     7.4,
+     9.5
+    ],
+    [
+     435,
+     7.6,
+     10.1
+    ],
+    [
+     440,
+     7.6,
+     10.7
+    ],
+    [
+     445,
+     7.8,
+     11.1
+    ],
+    [
+     450,
+     8.6,
+     11.1
+    ],
+    [
+     455,
+     8.7,
+     11.1
+    ],
+    [
+     460,
+     8.7,
+     11.1
+    ],
+    [
+     465,
+     8.2,
+     11.1
+    ],
+    [
+     470,
+     7.2,
+     10.5
+    ],
+    [
+     475,
+     6.8,
+     9.5
+    ],
+    [
+     480,
+     7.0,
+     9.7
+    ],
+    [
+     485,
+     7.4,
+     9.7
+    ],
+    [
+     490,
+     7.6,
+     10.3
+    ],
+    [
+     495,
+     7.4,
+     10.3
+    ],
+    [
+     500,
+     7.4,
+     9.9
+    ],
+    [
+     505,
+     7.4,
+     9.9
+    ],
+    [
+     510,
+     7.0,
+     9.7
+    ],
+    [
+     515,
+     7.6,
+     9.7
+    ],
+    [
+     520,
+     7.8,
+     9.5
+    ],
+    [
+     525,
+     7.8,
+     9.7
+    ],
+    [
+     530,
+     7.8,
+     10.3
+    ],
+    [
+     535,
+     8.2,
+     10.5
+    ],
+    [
+     540,
+     8.6,
+     10.7
+    ],
+    [
+     545,
+     8.4,
+     10.7
+    ],
+    [
+     550,
+     8.0,
+     10.1
+    ],
+    [
+     555,
+     8.2,
+     10.7
+    ],
+    [
+     560,
+     8.7,
+     11.1
+    ],
+    [
+     565,
+     8.6,
+     11.1
+    ],
+    [
+     570,
+     8.9,
+     11.7
+    ],
+    [
+     575,
+     9.3,
+     11.7
+    ],
+    [
+     580,
+     9.5,
+     14.2
+    ],
+    [
+     585,
+     10.3,
+     14.2
+    ],
+    [
+     590,
+     10.3,
+     13.8
+    ],
+    [
+     595,
+     10.1,
+     13.0
+    ],
+    [
+     600,
+     9.5,
+     12.4
+    ],
+    [
+     605,
+     8.9,
+     11.7
+    ],
+    [
+     610,
+     8.6,
+     10.7
+    ],
+    [
+     615,
+     8.6,
+     11.1
+    ],
+    [
+     620,
+     8.0,
+     11.1
+    ],
+    [
+     625,
+     7.8,
+     10.9
+    ],
+    [
+     630,
+     8.0,
+     10.3
+    ],
+    [
+     635,
+     7.6,
+     9.5
+    ],
+    [
+     640,
+     7.4,
+     10.5
+    ],
+    [
+     645,
+     7.2,
+     10.5
+    ],
+    [
+     650,
+     7.6,
+     10.5
+    ],
+    [
+     655,
+     8.0,
+     11.1
+    ],
+    [
+     660,
+     7.8,
+     11.1
+    ],
+    [
+     665,
+     7.4,
+     11.1
+    ],
+    [
+     670,
+     7.6,
+     10.1
+    ],
+    [
+     675,
+     8.0,
+     10.1
+    ],
+    [
+     680,
+     8.0,
+     10.7
+    ],
+    [
+     685,
+     8.0,
+     10.7
+    ],
+    [
+     690,
+     7.4,
+     10.7
+    ],
+    [
+     695,
+     7.6,
+     10.3
+    ],
+    [
+     700,
+     8.4,
+     10.7
+    ],
+    [
+     705,
+     8.7,
+     11.7
+    ],
+    [
+     710,
+     9.1,
+     11.7
+    ],
+    [
+     715,
+     8.7,
+     11.1
+    ],
+    [
+     720,
+     8.2,
+     10.7
+    ],
+    [
+     725,
+     7.6,
+     9.7
+    ],
+    [
+     730,
+     6.6,
+     9.1
+    ],
+    [
+     735,
+     6.8,
+     8.6
+    ],
+    [
+     740,
+     7.2,
+     8.6
+    ],
+    [
+     745,
+     6.8,
+     8.6
+    ],
+    [
+     750,
+     6.2,
+     8.4
+    ],
+    [
+     755,
+     5.6,
+     8.2
+    ],
+    [
+     760,
+     5.8,
+     8.0
+    ],
+    [
+     765,
+     5.8,
+     8.0
+    ],
+    [
+     770,
+     5.4,
+     7.2
+    ],
+    [
+     775,
+     5.4,
+     7.0
+    ],
+    [
+     780,
+     5.1,
+     7.0
+    ],
+    [
+     785,
+     4.3,
+     6.4
+    ],
+    [
+     790,
+     3.9,
+     5.1
+    ],
+    [
+     795,
+     3.5,
+     5.1
+    ],
+    [
+     800,
+     3.5,
+     5.4
+    ],
+    [
+     805,
+     4.7,
+     7.0
+    ],
+    [
+     810,
+     5.6,
+     7.6
+    ],
+    [
+     815,
+     6.0,
+     7.6
+    ],
+    [
+     820,
+     5.8,
+     7.0
+    ],
+    [
+     825,
+     5.2,
+     7.0
+    ],
+    [
+     830,
+     5.4,
+     7.4
+    ],
+    [
+     835,
+     6.2,
+     8.2
+    ],
+    [
+     840,
+     6.4,
+     8.2
+    ]
+   ],
+   "sintesi": {
+    "media": 8.3,
+    "raff": 14.2,
+    "sem_mis": "giallo",
+    "sem_prev_zona": "giallo",
+    "ok": 8,
+    "n": 8,
+    "rosse_mis": [],
+    "rosse_prev": []
+   },
+   "ore": [
+    {
+     "ora": "05:00",
+     "mis": 8.8,
+     "raff_mis": 11.9,
+     "dir_mis": "354° N",
+     "nome_mis": "Tramontana",
+     "dir_prev": "21° NNE",
+     "nome_prev": "Tramontana",
+     "set_mis": "Tramontana–Maestrale",
+     "set_prev": "Tramontana–Maestrale",
+     "sem_prev": "giallo",
+     "sem_mis": "giallo",
+     "stima": 9.8,
+     "d2": 8.3,
+     "i2": 9.2,
+     "ec": 8.3,
+     "ar": 9.9,
+     "raff": 16.5,
+     "raff_d2": 16.5,
+     "corr": 1.5,
+     "prudenza": null
+    },
+    {
+     "ora": "06:00",
+     "mis": 8.7,
+     "raff_mis": 12.1,
+     "dir_mis": "353° N",
+     "nome_mis": "Tramontana",
+     "dir_prev": "12° NNE",
+     "nome_prev": "Tramontana",
+     "set_mis": "Tramontana–Maestrale",
+     "set_prev": "Tramontana–Maestrale",
+     "sem_prev": "giallo",
+     "sem_mis": "giallo",
+     "stima": 8.1,
+     "d2": 6.5,
+     "i2": 8.8,
+     "ec": 8.2,
+     "ar": 9.9,
+     "raff": 12.4,
+     "raff_d2": 12.4,
+     "corr": 1.6,
+     "prudenza": null
+    },
+    {
+     "ora": "07:00",
+     "mis": 8.2,
+     "raff_mis": 12.1,
+     "dir_mis": "352° N",
+     "nome_mis": "Tramontana",
+     "dir_prev": "11° N",
+     "nome_prev": "Tramontana",
+     "set_mis": "Tramontana–Maestrale",
+     "set_prev": "Tramontana–Maestrale",
+     "sem_prev": "giallo",
+     "sem_mis": "giallo",
+     "stima": 7.5,
+     "d2": 6.0,
+     "i2": 8.3,
+     "ec": 8.0,
+     "ar": 9.2,
+     "raff": 10.1,
+     "raff_d2": 10.1,
+     "corr": 1.5,
+     "prudenza": null
+    },
+    {
+     "ora": "08:00",
+     "mis": 7.7,
+     "raff_mis": 11.1,
+     "dir_mis": "353° N",
+     "nome_mis": "Tramontana",
+     "dir_prev": "7° N",
+     "nome_prev": "Tramontana",
+     "set_mis": "Tramontana–Maestrale",
+     "set_prev": "Tramontana–Maestrale",
+     "sem_prev": "giallo",
+     "sem_mis": "giallo",
+     "stima": 7.5,
+     "d2": 6.0,
+     "i2": 7.3,
+     "ec": 7.6,
+     "ar": 8.7,
+     "raff": 9.6,
+     "raff_d2": 9.6,
+     "corr": 1.5,
+     "prudenza": null
+    },
+    {
+     "ora": "09:00",
+     "mis": 8.0,
+     "raff_mis": 11.1,
+     "dir_mis": "350° N",
+     "nome_mis": "Tramontana",
+     "dir_prev": "24° NNE",
+     "nome_prev": "Bora",
+     "set_mis": "Tramontana–Maestrale",
+     "set_prev": "Bora",
+     "sem_prev": "giallo",
+     "sem_mis": "giallo",
+     "stima": 7.9,
+     "d2": 6.4,
+     "i2": 6.8,
+     "ec": 7.0,
+     "ar": 8.2,
+     "raff": 10.2,
+     "raff_d2": 10.2,
+     "corr": 1.5,
+     "prudenza": null
+    },
+    {
+     "ora": "10:00",
+     "mis": 9.2,
+     "raff_mis": 14.2,
+     "dir_mis": "346° NNO",
+     "nome_mis": "Tramontana",
+     "dir_prev": "17° NNE",
+     "nome_prev": "Tramontana",
+     "set_mis": "Tramontana–Maestrale",
+     "set_prev": "Tramontana–Maestrale",
+     "sem_prev": "giallo",
+     "sem_mis": "giallo",
+     "stima": 8.1,
+     "d2": 6.6,
+     "i2": 6.4,
+     "ec": 6.5,
+     "ar": 7.6,
+     "raff": 11.2,
+     "raff_d2": 11.2,
+     "corr": 1.5,
+     "prudenza": null
+    },
+    {
+     "ora": "11:00",
+     "mis": 7.7,
+     "raff_mis": 11.1,
+     "dir_mis": "356° N",
+     "nome_mis": "Tramontana",
+     "dir_prev": "16° NNE",
+     "nome_prev": "Tramontana",
+     "set_mis": "Tramontana–Maestrale",
+     "set_prev": "Tramontana–Maestrale",
+     "sem_prev": "giallo",
+     "sem_mis": "giallo",
+     "stima": 8.4,
+     "d2": 6.9,
+     "i2": 6.0,
+     "ec": 6.0,
+     "ar": 6.7,
+     "raff": 11.6,
+     "raff_d2": 11.6,
+     "corr": 1.5,
+     "prudenza": null
+    },
+    {
+     "ora": "12:00",
+     "mis": 7.8,
+     "raff_mis": 11.7,
+     "dir_mis": "14° NNE",
+     "nome_mis": "Tramontana",
+     "dir_prev": "27° NNE",
+     "nome_prev": "Bora",
+     "set_mis": "Tramontana–Maestrale",
+     "set_prev": "Bora",
+     "sem_prev": "giallo",
+     "sem_mis": "giallo",
+     "stima": 9.0,
+     "d2": 7.5,
+     "i2": 5.5,
+     "ec": 5.5,
+     "ar": 5.5,
+     "raff": 12.4,
+     "raff_d2": 12.4,
+     "corr": 1.5,
+     "prudenza": null
+    }
+   ],
+   "errori": [
+    {
+     "nome": "Stima usata",
+     "medio": 0.0,
+     "ass": 0.7
+    },
+    {
+     "nome": "ICON-D2",
+     "medio": -1.5,
+     "ass": 1.5
+    },
+    {
+     "nome": "ICON-2i",
+     "medio": -1.0,
+     "ass": 1.1
+    },
+    {
+     "nome": "ECMWF",
+     "medio": -1.1,
+     "ass": 1.1
+    },
+    {
+     "nome": "AROME HD (in parallelo)",
+     "medio": -0.1,
+     "ass": 1.2
+    },
+    {
+     "nome": "Raffiche ICON-D2",
+     "medio": -0.2,
+     "ass": 1.7
+    }
+   ]
+  }
+ ],
+ "onda": [
+  {
+   "data": "2026-11-28",
+   "ora": "05:00",
+   "prev": 1.02,
+   "mis": 1.56,
+   "prev_app": 1.83,
+   "vento_prev": 21.5,
+   "vento_mis": 19.9,
+   "dir_mis": "NE",
+   "dir_mis_g": 50,
+   "dir_mis_txt": "50° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "06:00",
+   "prev": 1.0,
+   "mis": 1.57,
+   "prev_app": 1.79,
+   "vento_prev": 19.8,
+   "vento_mis": 24.1,
+   "dir_mis": "NE",
+   "dir_mis_g": 50,
+   "dir_mis_txt": "50° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "07:00",
+   "prev": 0.98,
+   "mis": 1.58,
+   "prev_app": 1.75,
+   "vento_prev": 19.5,
+   "vento_mis": 19.8,
+   "dir_mis": "NE",
+   "dir_mis_g": 36,
+   "dir_mis_txt": "36° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "08:00",
+   "prev": 0.98,
+   "mis": 1.41,
+   "prev_app": 1.75,
+   "vento_prev": 17.7,
+   "vento_mis": 15.0,
+   "dir_mis": "NE",
+   "dir_mis_g": 34,
+   "dir_mis_txt": "34° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "09:00",
+   "prev": 0.96,
+   "mis": 1.39,
+   "prev_app": 1.72,
+   "vento_prev": 18.0,
+   "vento_mis": 17.4,
+   "dir_mis": "NE",
+   "dir_mis_g": 42,
+   "dir_mis_txt": "42° NE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "10:00",
+   "prev": 0.96,
+   "mis": 1.35,
+   "prev_app": 1.72,
+   "vento_prev": 16.9,
+   "vento_mis": 9.6,
+   "dir_mis": "NNE",
+   "dir_mis_g": 12,
+   "dir_mis_txt": "12° NNE",
+   "nome_mis": "Tramontana"
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "11:00",
+   "prev": 0.92,
+   "mis": 1.29,
+   "prev_app": 1.65,
+   "vento_prev": 16.9,
+   "vento_mis": 10.8,
+   "dir_mis": "NNE",
+   "dir_mis_g": 26,
+   "dir_mis_txt": "26° NNE",
+   "nome_mis": "Bora"
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "12:00",
+   "prev": 0.88,
+   "mis": 1.17,
+   "prev_app": 1.58,
+   "vento_prev": 15.1,
+   "vento_mis": 13.2,
+   "dir_mis": "NNE",
+   "dir_mis_g": 33,
+   "dir_mis_txt": "33° NNE",
+   "nome_mis": "Bora"
+  }
+ ],
+ "liv": [
+  {
+   "ora": "05:00",
+   "mis": 59,
+   "astro": 40,
+   "scarto": 19,
+   "prev": 54,
+   "scarto_prev": -5
+  },
+  {
+   "ora": "06:00",
+   "mis": 52,
+   "astro": 34,
+   "scarto": 18,
+   "prev": 47,
+   "scarto_prev": -5
+  },
+  {
+   "ora": "07:00",
+   "mis": 46,
+   "astro": 33,
+   "scarto": 13,
+   "prev": 45,
+   "scarto_prev": -1
+  },
+  {
+   "ora": "08:00",
+   "mis": 46,
+   "astro": 37,
+   "scarto": 9,
+   "prev": 49,
+   "scarto_prev": 3
+  },
+  {
+   "ora": "09:00",
+   "mis": 52,
+   "astro": 45,
+   "scarto": 7,
+   "prev": 57,
+   "scarto_prev": 5
+  },
+  {
+   "ora": "10:00",
+   "mis": 58,
+   "astro": 54,
+   "scarto": 4,
+   "prev": 67,
+   "scarto_prev": 9
+  },
+  {
+   "ora": "11:00",
+   "mis": 63,
+   "astro": 62,
+   "scarto": 1,
+   "prev": 73,
+   "scarto_prev": 10
+  },
+  {
+   "ora": "12:00",
+   "mis": 63,
+   "astro": 66,
+   "scarto": -3,
+   "prev": 74,
+   "scarto_prev": 11
+  }
+ ],
+ "press_g": [
+  {
+   "data": "2026-11-28",
+   "ora": "05:00",
+   "prev": 1022.7,
+   "mis": 1021.4
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "06:00",
+   "prev": 1023.0,
+   "mis": 1021.8
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "07:00",
+   "prev": 1023.7,
+   "mis": 1022.4
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "08:00",
+   "prev": 1024.6,
+   "mis": 1023.3
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "09:00",
+   "prev": 1025.0,
+   "mis": 1024.0
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "10:00",
+   "prev": 1025.5,
+   "mis": 1024.5
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "11:00",
+   "prev": 1025.8,
+   "mis": 1024.6
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "12:00",
+   "prev": 1025.9,
+   "mis": 1024.3
+  }
+ ],
+ "press_err": 1.2,
+ "onda_g": [
+  {
+   "ora": "05:00",
+   "prev": 183,
+   "mis": 156
+  },
+  {
+   "ora": "06:00",
+   "prev": 179,
+   "mis": 157
+  },
+  {
+   "ora": "07:00",
+   "prev": 175,
+   "mis": 158
+  },
+  {
+   "ora": "08:00",
+   "prev": 175,
+   "mis": 141
+  },
+  {
+   "ora": "09:00",
+   "prev": 172,
+   "mis": 139
+  },
+  {
+   "ora": "10:00",
+   "prev": 172,
+   "mis": 135
+  },
+  {
+   "ora": "11:00",
+   "prev": 165,
+   "mis": 129
+  },
+  {
+   "ora": "12:00",
+   "prev": 158,
+   "mis": 117
+  }
+ ],
+ "onda_err_cm": 31,
+ "liv_fonte": "previsione CPSM",
+ "liv_eta_h": 19,
+ "aria": [
+  {
+   "data": "2026-11-28",
+   "ora": "05:00",
+   "mare_prev": 9.5,
+   "mestre_prev": 3.2,
+   "acqua_prev": 6.3,
+   "piatt_mis": 8.5,
+   "cavalli_mis": 5.1
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "06:00",
+   "mare_prev": 9.4,
+   "mestre_prev": 2.6,
+   "acqua_prev": 5.9,
+   "piatt_mis": 8.3,
+   "cavalli_mis": 4.8
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "07:00",
+   "mare_prev": 9.2,
+   "mestre_prev": 2.1,
+   "acqua_prev": 5.5,
+   "piatt_mis": 7.7,
+   "cavalli_mis": 4.8
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "08:00",
+   "mare_prev": 8.8,
+   "mestre_prev": 2.0,
+   "acqua_prev": 5.6,
+   "piatt_mis": 7.6,
+   "cavalli_mis": 4.8
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "09:00",
+   "mare_prev": 8.7,
+   "mestre_prev": 2.5,
+   "acqua_prev": 6.0,
+   "piatt_mis": 8.2,
+   "cavalli_mis": 6.6
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "10:00",
+   "mare_prev": 8.5,
+   "mestre_prev": 4.4,
+   "acqua_prev": 6.4,
+   "piatt_mis": 7.2,
+   "cavalli_mis": 7.7
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "11:00",
+   "mare_prev": 8.8,
+   "mestre_prev": 6.5,
+   "acqua_prev": 6.9,
+   "piatt_mis": 7.4,
+   "cavalli_mis": 9.8
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "12:00",
+   "mare_prev": 9.0,
+   "mestre_prev": 8.2,
+   "acqua_prev": 7.9,
+   "piatt_mis": 8.3,
+   "cavalli_mis": 10.7
+  }
+ ],
+ "pioggia_g": {
+  "ore": [
+   {
+    "ora": "05",
+    "p": 0,
+    "piove": false,
+    "mm": null,
+    "col": null,
+    "chiaro": false
+   },
+   {
+    "ora": "06",
+    "p": 0,
+    "piove": false,
+    "mm": null,
+    "col": null,
+    "chiaro": false
+   },
+   {
+    "ora": "07",
+    "p": 0,
+    "piove": false,
+    "mm": null,
+    "col": null,
+    "chiaro": false
+   },
+   {
+    "ora": "08",
+    "p": 0,
+    "piove": false,
+    "mm": null,
+    "col": null,
+    "chiaro": false
+   },
+   {
+    "ora": "09",
+    "p": 0,
+    "piove": false,
+    "mm": null,
+    "col": null,
+    "chiaro": false
+   },
+   {
+    "ora": "10",
+    "p": 0,
+    "piove": false,
+    "mm": null,
+    "col": null,
+    "chiaro": false
+   },
+   {
+    "ora": "11",
+    "p": 0,
+    "piove": false,
+    "mm": null,
+    "col": null,
+    "chiaro": false
+   },
+   {
+    "ora": "12",
+    "p": 0,
+    "piove": false,
+    "mm": null,
+    "col": null,
+    "chiaro": false
+   }
+  ],
+  "misurate": 8,
+  "bagnate": 0,
+  "totale": null,
+  "giuste": 8,
+  "giudicate": 8,
+  "asciutto_previsto": true,
+  "scala": [
+   "#bae6fd",
+   "#60a5fa",
+   "#2f7ff0",
+   "#1d4ed8"
+  ],
+  "fonte": "Misurata a Venezia, Palazzo Cavalli"
+ },
+ "pioggia": [
+  {
+   "data": "2026-11-28",
+   "ora": "05:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "06:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "07:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "08:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "09:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "10:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "11:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  },
+  {
+   "data": "2026-11-28",
+   "ora": "12:00",
+   "prob_D2": 0,
+   "prob_EC": 0,
+   "mm_D2": 0.0,
+   "mm_2i": 0.0,
+   "mm_EC": 0.0,
+   "cavalli_mm": 0.0,
+   "piatt_mm": 0.0,
+   "oss": null
+  }
+ ],
+ "marea_zona": {
+  "data": "2026-11-28",
+  "area": "nord",
+  "stazione": "Laguna Nord",
+  "generato": "2026-11-27 19:16",
+  "config": "1.1",
+  "fonte": "previsione CPSM Punta Salute",
+  "n": 85,
+  "liv_err_medio": 0.9,
+  "liv_err_ass": 4.7,
+  "liv_err_medio_ps": 4.0,
+  "liv_err_ass_ps": 11.0,
+  "mis_medio": 53.7,
+  "estremo": {
+   "tipo": "bassa",
+   "prev_min": 462,
+   "prev_ora": "07:42",
+   "prev_cm": 46,
+   "mis_min": 510,
+   "mis_ora": "08:30",
+   "mis_cm": 46,
+   "err_min": -48,
+   "err_cm": 0,
+   "ps_min": 400,
+   "ps_ora": "06:40",
+   "err_ps_min": -110
+  },
+  "da": 300,
+  "cpsm_n": 85,
+  "cpsm_err_medio": 3.8,
+  "cpsm_err_ass": 6.0
+ },
+ "andamento": {
+  "zona": "Laguna Nord",
+  "stazione": "Laguna Nord (Saline, interna, 45,4956 N 12,4720 E)",
+  "giorni": [
+   {
+    "k": "20/11",
+    "n": 8,
+    "stima": 0.1,
+    "d2": 0.1,
+    "ass_stima": 1.1,
+    "ass_d2": 1.1
+   },
+   {
+    "k": "21/11",
+    "n": 8,
+    "stima": -1.7,
+    "d2": -1.7,
+    "ass_stima": 1.7,
+    "ass_d2": 1.7
+   },
+   {
+    "k": "22/11",
+    "n": 8,
+    "stima": -1.5,
+    "d2": -1.5,
+    "ass_stima": 2.3,
+    "ass_d2": 2.3
+   },
+   {
+    "k": "23/11",
+    "n": 8,
+    "stima": -0.6,
+    "d2": -2.0,
+    "ass_stima": 1.1,
+    "ass_d2": 2.2
+   },
+   {
+    "k": "24/11",
+    "n": 19,
+    "stima": -2.3,
+    "d2": -3.3,
+    "ass_stima": 2.3,
+    "ass_d2": 3.3
+   },
+   {
+    "k": "25/11",
+    "n": 19,
+    "stima": 0.4,
+    "d2": -0.5,
+    "ass_stima": 1.8,
+    "ass_d2": 2.0
+   },
+   {
+    "k": "26/11",
+    "n": 19,
+    "stima": -0.1,
+    "d2": -0.9,
+    "ass_stima": 1.9,
+    "ass_d2": 1.8
+   },
+   {
+    "k": "27/11",
+    "n": 19,
+    "stima": -1.0,
+    "d2": -1.8,
+    "ass_stima": 1.2,
+    "ass_d2": 1.9
+   },
+   {
+    "k": "28/11",
+    "n": 8,
+    "stima": 0.0,
+    "d2": -1.5,
+    "ass_stima": 0.7,
+    "ass_d2": 1.5
+   }
+  ],
+  "ore": [
+   {
+    "k": "05:00",
+    "n": 9,
+    "stima": -0.6,
+    "d2": -1.6,
+    "ass_stima": 1.7,
+    "ass_d2": 2.2
+   },
+   {
+    "k": "06:00",
+    "n": 9,
+    "stima": -0.6,
+    "d2": -1.6,
+    "ass_stima": 1.8,
+    "ass_d2": 2.6
+   },
+   {
+    "k": "07:00",
+    "n": 9,
+    "stima": -0.4,
+    "d2": -1.3,
+    "ass_stima": 1.3,
+    "ass_d2": 1.7
+   },
+   {
+    "k": "08:00",
+    "n": 9,
+    "stima": -0.9,
+    "d2": -1.9,
+    "ass_stima": 1.2,
+    "ass_d2": 1.9
+   },
+   {
+    "k": "09:00",
+    "n": 9,
+    "stima": -1.2,
+    "d2": -2.2,
+    "ass_stima": 1.2,
+    "ass_d2": 2.2
+   },
+   {
+    "k": "10:00",
+    "n": 9,
+    "stima": -1.8,
+    "d2": -2.7,
+    "ass_stima": 1.8,
+    "ass_d2": 2.7
+   },
+   {
+    "k": "11:00",
+    "n": 9,
+    "stima": -1.4,
+    "d2": -2.4,
+    "ass_stima": 1.7,
+    "ass_d2": 2.6
+   },
+   {
+    "k": "12:00",
+    "n": 9,
+    "stima": -0.9,
+    "d2": -1.9,
+    "ass_stima": 2.0,
+    "ass_d2": 2.4
+   },
+   {
+    "k": "13:00",
+    "n": 4,
+    "stima": -1.6,
+    "d2": -1.6,
+    "ass_stima": 2.1,
+    "ass_d2": 2.1
+   },
+   {
+    "k": "14:00",
+    "n": 4,
+    "stima": -1.9,
+    "d2": -1.9,
+    "ass_stima": 1.9,
+    "ass_d2": 1.9
+   },
+   {
+    "k": "15:00",
+    "n": 4,
+    "stima": -1.6,
+    "d2": -1.6,
+    "ass_stima": 1.9,
+    "ass_d2": 1.9
+   },
+   {
+    "k": "16:00",
+    "n": 4,
+    "stima": -0.7,
+    "d2": -0.7,
+    "ass_stima": 1.7,
+    "ass_d2": 1.7
+   },
+   {
+    "k": "17:00",
+    "n": 4,
+    "stima": -0.3,
+    "d2": -0.3,
+    "ass_stima": 1.1,
+    "ass_d2": 1.1
+   },
+   {
+    "k": "18:00",
+    "n": 4,
+    "stima": -0.9,
+    "d2": -0.9,
+    "ass_stima": 1.2,
+    "ass_d2": 1.2
+   },
+   {
+    "k": "19:00",
+    "n": 4,
+    "stima": 0.5,
+    "d2": -0.7,
+    "ass_stima": 2.4,
+    "ass_d2": 2.4
+   },
+   {
+    "k": "20:00",
+    "n": 4,
+    "stima": 1.0,
+    "d2": -0.1,
+    "ass_stima": 2.1,
+    "ass_d2": 1.6
+   },
+   {
+    "k": "21:00",
+    "n": 4,
+    "stima": 1.2,
+    "d2": 0.1,
+    "ass_stima": 1.5,
+    "ass_d2": 1.0
+   },
+   {
+    "k": "22:00",
+    "n": 4,
+    "stima": 0.8,
+    "d2": -0.4,
+    "ass_stima": 1.4,
+    "ass_d2": 1.5
+   },
+   {
+    "k": "23:00",
+    "n": 4,
+    "stima": -0.3,
+    "d2": -1.3,
+    "ass_stima": 1.8,
+    "ass_d2": 2.5
+   }
+  ],
+  "tot": {
+   "k": "tutte",
+   "n": 116,
+   "stima": -0.7,
+   "d2": -1.5,
+   "ass_stima": 1.7,
+   "ass_d2": 2.1
+  }
+ },
+ "archivio": [
+  "Malamocco · Valgrande (224 ore):",
+  "  ICON-D2 sotto 6 nodi: 63 ore · errore ICON-D2 -1,6 · errore stima -0,2 nodi",
+  "  ICON-D2 6–12 nodi: 70 ore · errore ICON-D2 -2,8 · errore stima -0,4 nodi",
+  "  ICON-D2 da 12 nodi: 91 ore · errore ICON-D2 -1,3 · errore stima 0,0 nodi",
+  "  AROME HD in parallelo (92 ore, senza correzione): errore medio / assoluto ICON-D2 -1,7 / 2,8 · AROME HD -0,6 / 2,9 · media dei due -1,1 / 2,3 nodi",
+  "  semaforo orario: colore azzeccato in 174 ore su 224 · previsto più calmo in 25 · più ventoso in 25",
+  "  vento Bora (misurato): 147 ore · errore ICON-D2 -2,2 nodi",
+  "  vento Levante–Scirocco (misurato): 1 ore · errore ICON-D2 -4,7 nodi",
+  "  vento Libeccio–Ponente (misurato): 17 ore · errore ICON-D2 -1,6 nodi",
+  "  vento Tramontana–Maestrale (misurato): 59 ore · errore ICON-D2 -0,9 nodi",
+  "Laguna Nord (116 ore):",
+  "  ICON-D2 sotto 6 nodi: 32 ore · errore ICON-D2 -1,6 · errore stima -1,3 nodi",
+  "  ICON-D2 6–12 nodi: 68 ore · errore ICON-D2 -2,0 · errore stima -1,0 nodi",
+  "  ICON-D2 da 12 nodi: 16 ore · errore ICON-D2 +0,5 · errore stima +1,5 nodi",
+  "  AROME HD in parallelo (92 ore, senza correzione): errore medio / assoluto ICON-D2 -1,7 / 2,2 · AROME HD +1,0 / 2,9 · media dei due -0,3 / 2,0 nodi",
+  "  semaforo orario: colore azzeccato in 89 ore su 116 · previsto più calmo in 18 · più ventoso in 9",
+  "  vento Bora (misurato): 50 ore · errore ICON-D2 -1,9 nodi",
+  "  vento Levante–Scirocco (misurato): 1 ore · errore ICON-D2 -0,5 nodi",
+  "  vento Libeccio–Ponente (misurato): 6 ore · errore ICON-D2 -1,2 nodi",
+  "  vento Tramontana–Maestrale (misurato): 59 ore · errore ICON-D2 -1,3 nodi",
+  "Laguna Sud (115 ore):",
+  "  ICON-D2 sotto 6 nodi: 26 ore · errore ICON-D2 -1,0 · errore stima -0,8 nodi",
+  "  ICON-D2 6–12 nodi: 44 ore · errore ICON-D2 -2,0 · errore stima -1,2 nodi",
+  "  ICON-D2 da 12 nodi: 45 ore · errore ICON-D2 -0,5 · errore stima +0,1 nodi",
+  "  AROME HD in parallelo (91 ore, senza correzione): errore medio / assoluto ICON-D2 -1,2 / 2,7 · AROME HD +0,5 / 4,1 · media dei due -0,3 / 2,7 nodi",
+  "  semaforo orario: colore azzeccato in 83 ore su 115 · previsto più calmo in 21 · più ventoso in 11",
+  "  vento Bora (misurato): 69 ore · errore ICON-D2 -1,9 nodi",
+  "  vento Levante–Scirocco (misurato): 5 ore · errore ICON-D2 +1,6 nodi",
+  "  vento Libeccio–Ponente (misurato): 9 ore · errore ICON-D2 -0,8 nodi",
+  "  vento Tramontana–Maestrale (misurato): 32 ore · errore ICON-D2 -0,2 nodi",
+  "Onda in mare aperto: errore medio 26 cm (19 ore)",
+  "Pressione: errore medio 1,1 hPa (8 ore)",
+  "Aria (previsto − misurato, °C): mare aperto vs Piattaforma +1,0 (209 ore) · Mestre vs Palazzo Cavalli -1,5 (209 ore) · sull'acqua vs Palazzo Cavalli +0,6 (209 ore)",
+  "Pioggia a Palazzo Cavalli (164 ore): ICON-D2 sotto 20%: 101 ore, piovuto in 1 · ICON-D2 20–50%: 15 ore, piovuto in 3 · ICON-D2 da 50%: 48 ore, piovuto in 36 · errore mm ICON-D2 0,0"
+ ],
+ "note": [
+  {
+   "tipo": "dato",
+   "testo": "Misure CPSM ogni 5 min in m/s, convertite in nodi; valore orario = media da −30 a +30 min, raffica = massimo nell'ora."
+  },
+  {
+   "tipo": "dato",
+   "testo": "Stima = ICON-D2 + correzione misurata della zona: fissa (+1,5 nodi, analisi 3 mesi: ICON-D2 del giorno prima contro Laguna Nord Saline, 92 giorni, 733 ore (22/08–21/11/2026)) finché una fascia di ICON-D2 non ha 40 ore verificate, poi calcolata dalle verifiche per fascia e direzione. Le raffiche non sono corrette."
+  },
+  {
+   "tipo": "dato",
+   "testo": "Previsto della zona = media dei punti di calcolo (Burano sud, Sant'Erasmo nord, Murano nord, Giudecca sud), la stessa media che decide il semaforo; misurato = Laguna Nord (Saline, interna, 45,4956 N 12,4720 E)."
+  },
+  {
+   "tipo": "dato",
+   "testo": "Sensore fermo: le letture da 5 min con vento medio 0,0 e raffica 0,0 sono scartate; un'ora vale con almeno 10 letture valide su 12. Nessuna lettura scartata in questa finestra."
+  },
+  {
+   "tipo": "inferenza",
+   "testo": "Una stazione rappresenta un solo punto del bacino: il confronto con la media dei punti di calcolo è indicativo."
+  },
+  {
+   "tipo": "dato",
+   "testo": "Settori del vento (Centro Maree, Comune di Venezia): Bora 23–67°, Tramontana–Maestrale 293–22°, Levante–Scirocco 68–202°, Libeccio–Ponente 203–292°. In archivio il settore di ogni ora viene dalla direzione misurata alla stazione della zona; in previsione dalla direzione di ICON-D2. Sotto la direzione misurata: quella prevista (in rosso se di un altro settore)."
+  }
+ ],
+ "nebbia": [
+  {
+   "ora": "05:00",
+   "cat": 0,
+   "vis_m": 10000,
+   "wx": null
+  },
+  {
+   "ora": "06:00",
+   "cat": 0,
+   "vis_m": 10000,
+   "wx": null
+  },
+  {
+   "ora": "07:00",
+   "cat": 0,
+   "vis_m": 10000,
+   "wx": null
+  },
+  {
+   "ora": "08:00",
+   "cat": 0,
+   "vis_m": 10000,
+   "wx": null
+  },
+  {
+   "ora": "09:00",
+   "cat": 0,
+   "vis_m": 10000,
+   "wx": null
+  },
+  {
+   "ora": "10:00",
+   "cat": 0,
+   "vis_m": 10000,
+   "wx": null
+  },
+  {
+   "ora": "11:00",
+   "cat": 0,
+   "vis_m": 10000,
+   "wx": null
+  },
+  {
+   "ora": "12:00",
+   "cat": 0,
+   "vis_m": null,
+   "wx": null
+  }
+ ],
+ "fonti": "Misure: CPSM Comune di Venezia, dati.venezia.it, CC BY (Laguna Nord, Malamocco Porto, Punta Salute, Piattaforma CNR, Palazzo Cavalli) · visibilità: METAR Venezia Tessera (AviationWeather.gov) · Previsione: fd_previsione (dati meteo Open-Meteo.com, CC BY 4.0) · fd_verifica v1.43",
+ "verde_fino_a": 6,
+ "rosso_da": 13,
+ "generato": "28/11/2026 16:25"
+}

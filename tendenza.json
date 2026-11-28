@@ -1,6 +1,6 @@
 {
  "versione": "1.6",
- "generato": "2026-11-28 08:32",
+ "generato": "2026-11-28 16:26",
  "base": "2026-11-29",
  "finestra": "05:00–12:00",
  "fasce": [
@@ -20,8 +20,8 @@
        "finestra": "05:00–12:00",
        "disponibile": true,
        "colore": "giallo",
-       "vento_min": 6,
-       "vento_max": 14,
+       "vento_min": 9,
+       "vento_max": 12,
        "dir": "NNE",
        "pioggia": 0,
        "marea": {
@@ -29,16 +29,16 @@
         "ora": "05:04",
         "cm": 53
        },
-       "modello": "ICON-2i",
+       "modello": "ICON-D2",
        "corretto": true
       },
       {
        "finestra": "12:00–18:00",
        "disponibile": true,
        "colore": "giallo",
-       "vento_min": 10,
-       "vento_max": 14,
-       "dir": "NE",
+       "vento_min": 7,
+       "vento_max": 13,
+       "dir": "NNE",
        "pioggia": 0,
        "marea": {
         "tipo": "alta",
@@ -46,14 +46,14 @@
         "cm": 46
        },
        "modello": "ICON-2i",
-       "corretto": true
+       "corretto": false
       },
       {
        "finestra": "18:00–24:00",
        "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 12,
-       "vento_max": 14,
+       "colore": "rosso",
+       "vento_min": 11,
+       "vento_max": 13,
        "dir": "NE",
        "pioggia": 0,
        "marea": {
@@ -67,8 +67,8 @@
      ],
      "disponibile": true,
      "colore": "giallo",
-     "vento_min": 6,
-     "vento_max": 14,
+     "vento_min": 9,
+     "vento_max": 12,
      "dir": "NNE",
      "pioggia": 0,
      "marea": {
@@ -76,7 +76,7 @@
       "ora": "05:04",
       "cm": 53
      },
-     "modello": "ICON-2i",
+     "modello": "ICON-D2",
      "corretto": true
     },
     {
@@ -87,8 +87,8 @@
        "finestra": "05:00–12:00",
        "disponibile": true,
        "colore": "rosso",
-       "vento_min": 10,
-       "vento_max": 21,
+       "vento_min": 14,
+       "vento_max": 19,
        "dir": "NNE",
        "pioggia": 0,
        "marea": {
@@ -96,15 +96,15 @@
         "ora": "09:24",
         "cm": 36
        },
-       "modello": "ICON-2i",
+       "modello": "ICON-D2",
        "corretto": true
       },
       {
        "finestra": "12:00–18:00",
        "disponibile": true,
        "colore": "rosso",
-       "vento_min": 17,
-       "vento_max": 20,
+       "vento_min": 13,
+       "vento_max": 18,
        "dir": "NE",
        "pioggia": 0,
        "marea": {
@@ -113,14 +113,14 @@
         "cm": 44
        },
        "modello": "ICON-2i",
-       "corretto": true
+       "corretto": false
       },
       {
        "finestra": "18:00–24:00",
        "disponibile": true,
        "colore": "rosso",
        "vento_min": 16,
-       "vento_max": 20,
+       "vento_max": 21,
        "dir": "NE",
        "pioggia": 0,
        "marea": {
@@ -134,8 +134,8 @@
      ],
      "disponibile": true,
      "colore": "rosso",
-     "vento_min": 10,
-     "vento_max": 21,
+     "vento_min": 14,
+     "vento_max": 19,
      "dir": "NNE",
      "pioggia": 0,
      "marea": {
@@ -143,7 +143,7 @@
       "ora": "09:24",
       "cm": 36
      },
-     "modello": "ICON-2i",
+     "modello": "ICON-D2",
      "corretto": true
     },
     {
@@ -154,8 +154,8 @@
        "finestra": "05:00–12:00",
        "disponibile": true,
        "colore": "rosso",
-       "vento_min": 13,
-       "vento_max": 23,
+       "vento_min": 16,
+       "vento_max": 20,
        "dir": "NE",
        "pioggia": 0,
        "marea": {
@@ -163,15 +163,15 @@
         "ora": "09:12",
         "cm": 39
        },
-       "modello": "ICON-2i",
+       "modello": "ICON-D2",
        "corretto": true
       },
       {
        "finestra": "12:00–18:00",
        "disponibile": true,
        "colore": "rosso",
-       "vento_min": 19,
-       "vento_max": 22,
+       "vento_min": 15,
+       "vento_max": 19,
        "dir": "NE",
        "pioggia": 0,
        "marea": {
@@ -180,13 +180,13 @@
         "cm": 46
        },
        "modello": "ICON-2i",
-       "corretto": true
+       "corretto": false
       },
       {
        "finestra": "18:00–24:00",
        "disponibile": true,
        "colore": "rosso",
-       "vento_min": 19,
+       "vento_min": 18,
        "vento_max": 22,
        "dir": "ENE",
        "pioggia": 0,
@@ -201,8 +201,8 @@
      ],
      "disponibile": true,
      "colore": "rosso",
-     "vento_min": 13,
-     "vento_max": 23,
+     "vento_min": 16,
+     "vento_max": 20,
      "dir": "NE",
      "pioggia": 0,
      "marea": {
@@ -210,7 +210,7 @@
       "ora": "09:12",
       "cm": 39
      },
-     "modello": "ICON-2i",
+     "modello": "ICON-D2",
      "corretto": true
     }
    ]
@@ -226,8 +226,8 @@
        "finestra": "05:00–12:00",
        "disponibile": true,
        "colore": "giallo",
-       "vento_min": 9,
-       "vento_max": 10,
+       "vento_min": 8,
+       "vento_max": 11,
        "dir": "NNE",
        "pioggia": 0,
        "marea": {
@@ -235,15 +235,15 @@
         "ora": "06:08",
         "cm": 56
        },
-       "modello": "ECMWF",
+       "modello": "ICON-2i",
        "corretto": true
       },
       {
        "finestra": "12:00–18:00",
        "disponibile": true,
        "colore": "verde",
-       "vento_min": 3,
-       "vento_max": 9,
+       "vento_min": 2,
+       "vento_max": 11,
        "dir": "N",
        "pioggia": 0,
        "marea": {
@@ -252,15 +252,15 @@
         "cm": 31
        },
        "modello": "ECMWF",
-       "corretto": true
+       "corretto": false
       },
       {
        "finestra": "18:00–24:00",
        "disponibile": true,
        "colore": "verde",
-       "vento_min": 4,
+       "vento_min": 3,
        "vento_max": 6,
-       "dir": "NNO",
+       "dir": "N",
        "pioggia": 0,
        "marea": {
         "tipo": "bassa",
@@ -273,8 +273,8 @@
      ],
      "disponibile": true,
      "colore": "giallo",
-     "vento_min": 9,
-     "vento_max": 10,
+     "vento_min": 8,
+     "vento_max": 11,
      "dir": "NNE",
      "pioggia": 0,
      "marea": {
@@ -282,7 +282,7 @@
       "ora": "06:08",
       "cm": 56
      },
-     "modello": "ECMWF",
+     "modello": "ICON-2i",
      "corretto": true
     },
     {
@@ -292,9 +292,9 @@
       {
        "finestra": "05:00–12:00",
        "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 11,
-       "vento_max": 12,
+       "colore": "rosso",
+       "vento_min": 14,
+       "vento_max": 17,
        "dir": "NNE",
        "pioggia": 0,
        "marea": {
@@ -302,15 +302,15 @@
         "ora": "11:24",
         "cm": 31
        },
-       "modello": "ECMWF",
+       "modello": "ICON-2i",
        "corretto": true
       },
       {
        "finestra": "12:00–18:00",
        "disponibile": true,
-       "colore": "giallo",
+       "colore": "verde",
        "vento_min": 6,
-       "vento_max": 11,
+       "vento_max": 17,
        "dir": "N",
        "pioggia": 0,
        "marea": {
@@ -325,9 +325,9 @@
        "finestra": "18:00–24:00",
        "disponibile": true,
        "colore": "giallo",
-       "vento_min": 7,
+       "vento_min": 6,
        "vento_max": 8,
-       "dir": "NNO",
+       "dir": "N",
        "pioggia": 0,
        "marea": {
         "tipo": "bassa",
@@ -339,9 +339,9 @@
       }
      ],
      "disponibile": true,
-     "colore": "giallo",
-     "vento_min": 11,
-     "vento_max": 12,
+     "colore": "rosso",
+     "vento_min": 14,
+     "vento_max": 17,
      "dir": "NNE",
      "pioggia": 0,
      "marea": {
@@ -349,7 +349,7 @@
       "ora": "11:24",
       "cm": 31
      },
-     "modello": "ECMWF",
+     "modello": "ICON-2i",
      "corretto": true
     },
     {
@@ -359,9 +359,9 @@
       {
        "finestra": "05:00–12:00",
        "disponibile": true,
-       "colore": "giallo",
-       "vento_min": 11,
-       "vento_max": 12,
+       "colore": "rosso",
+       "vento_min": 13,
+       "vento_max": 17,
        "dir": "NNE",
        "pioggia": 0,
        "marea": {
@@ -369,7 +369,7 @@
         "ora": "11:11",
         "cm": 34
        },
-       "modello": "ECMWF",
+       "modello": "ICON-2i",
        "corretto": true
       },
       {
@@ -377,7 +377,7 @@
        "disponibile": true,
        "colore": "giallo",
        "vento_min": 7,
-       "vento_max": 11,
+       "vento_max": 16,
        "dir": "N",
        "pioggia": 0,
        "marea": {
@@ -392,9 +392,9 @@
        "finestra": "18:00–24:00",
        "disponibile": true,
        "colore": "giallo",
-       "vento_min": 8,
-       "vento_max": 9,
-       "dir": "NO",
+       "vento_min": 7,
+       "vento_max": 8,
+       "dir": "NNO",
        "pioggia": 0,
        "marea": {
         "tipo": "bassa",
@@ -406,9 +406,9 @@
       }
      ],
      "disponibile": true,
-     "colore": "giallo",
-     "vento_min": 11,
-     "vento_max": 12,
+     "colore": "rosso",
+     "vento_min": 13,
+     "vento_max": 17,
      "dir": "NNE",
      "pioggia": 0,
      "marea": {
@@ -416,7 +416,7 @@
       "ora": "11:11",
       "cm": 34
      },
-     "modello": "ECMWF",
+     "modello": "ICON-2i",
      "corretto": true
     }
    ]
