@@ -61,6 +61,7 @@ h1 span{color:var(--teal)}
  .h24 .zones{padding:0 12px}
  .h24 .foot{padding:1px 12px calc(env(safe-area-inset-bottom) + 4px);font-size:10px;line-height:14px;text-align:center;white-space:nowrap}
 }
+@media (max-width:345px){.giorno .gs .aggw{display:none}}   /* v3.95: sugli schermi stretti restano solo gli orari */
 @media (max-width:410px){.h24 .giorno .gs{font-size:10.5px!important}.h24 .gbtn{font-size:11px;padding:0 8px}}
 .fsr{display:flex;gap:6px;margin:0 0 6px}.fsb{flex:1;text-align:center;font-size:13px;font-weight:650;padding:4px 2px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--mut);cursor:pointer;white-space:nowrap}.fsb.on{background:var(--teal);color:var(--ink);border-color:var(--teal)}.fsb.off{opacity:.4;cursor:default}   /* v3.49: bottoni delle fasce */
 .corpo .fsr{padding:8px 16px 0;margin:0;column-span:all}
@@ -279,9 +280,8 @@ function titoloGiorno(){   // v3.49: bottoni delle fasce al posto del titolo gra
  const ult=sel.data,d=dataDi(ult),oggi=relativo(ult)==='Oggi';
  const V=D.zone.map(ultima).filter(Boolean),np=V.filter(v=>v.provvisoria).length,prov=np*2>V.length;
  const rif=V.filter(v=>v.provvisoria===prov),em=rif.map(v=>v.emessa).filter(Boolean).sort().pop();
- const s0=(V[0]&&V[0].sintesi)||{},[a]=finMin(sel.fin),sole=a<12*60?(s0.alba?' · alba '+esc(s0.alba):''):(s0.tramonto?' · tramonto '+esc(s0.tramonto):'');
  const O=orari(sel),sp=(t,x)=>x?`<span class="vecchio">⚠ ${t}</span>`:t;
- const st=(oggi?'':prov?'Provvisoria · ':'Definitiva · ')+[O.vento?sp('vento '+esc(O.vento),O.ventoVecchio):null,O.marea?sp('marea '+esc(O.marea),O.mareaVecchia):null].filter(Boolean).join(' · ')+sole;   // v3.64: orari separati
+ const st=(oggi?'':prov?'Provvisoria · ':'Definitiva · ')+(O.vento||O.marea?`<span class="aggw">${oggi?'Aggiornato: ':'agg. '}</span>`:'')+[O.vento?sp('vento '+esc(O.vento),O.ventoVecchio):null,O.marea?sp('marea '+esc(O.marea),O.mareaVecchia):null].filter(Boolean).join(' · ');   // v3.64: orari separati
  const bt=S.map(s=>`<span class="fsb ${s.k===k?'on':''}" role="button" onclick="scegliFascia('${esc(s.k)}')">${esc(etFascia(s))}</span>`).join('');
  const haiProssimi=tendGiorni(slotTutti().map(s=>s.data).sort().pop()).length||D.zone.some(z=>z.attiva);   // v3.55: c'e' sempre almeno domani
  return {rif:prov,data:ult,h:`<div class="giorno"><div class="prevband"><span class="ppill2">Previsione</span></div><div class="fsr">${bt}</div><div class="gd"><span>${esc(GIORNI[d.getDay()])} ${d.getDate()} ${MESI[d.getMonth()]}</span></div><div class="gs"><span>${st}</span>${haiProssimi?'<span class="gbtn" role="button" onclick="location.hash=\'giorni\'">Prossimi giorni ›</span>':''}</div></div>`}}
