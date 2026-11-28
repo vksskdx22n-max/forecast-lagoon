@@ -6,7 +6,7 @@
  "zone": "Laguna Sud · bacino di Chioggia",
  "verdetto": {
   "colore": "rosso",
-  "testo": "Vento da 54° NE · Bora in rotazione a 29° NNE · Bora. Media delle 4 zone di pesca: 14,5–17,7 nodi, raffiche medie fino a 23,6. Per zona: Pellestrina interno 14,6–20,1 nodi, raffiche fino a 25,1; Chioggia · Canale Lombardo 15,2–19,8 nodi, raffiche fino a 25,7; Sud ovest · verso Fogolana 13,0–16,5 nodi, raffiche fino a 21,0; Millecampi 11,2–14,7 nodi, raffiche fino a 22,4. Attenzione: raffiche fino a 25,7 nodi (Chioggia · Canale Lombardo, 21:00); non cambiano il colore, che segue il vento medio. Marea calante dalle 12:55 alla minima delle 20:10. Marea crescente dalle 20:10 alla massima delle 03:45. (Orari marea: previsione CPSM; previsione CPSM emessa 27/11 17:00, 55 h prima della fine della finestra: oltre 48 h, tendenza meno affidabile (astronomica come riferimento).)",
+  "testo": "Vento da 54° NE · Bora in rotazione a 29° NNE · Bora. Media delle 4 zone di pesca: 14,5–17,7 nodi, raffiche medie fino a 23,6. Per zona: Pellestrina interno 14,6–20,1 nodi, raffiche fino a 25,1; Chioggia · Canale Lombardo 15,2–19,8 nodi, raffiche fino a 25,7; Sud ovest · verso Fogolana 13,0–16,5 nodi, raffiche fino a 21,0; Millecampi 11,2–14,7 nodi, raffiche fino a 22,4. Attenzione: raffiche fino a 25,7 nodi (Chioggia · Canale Lombardo, 21:00); non cambiano il colore, che segue il vento medio. Marea calante dalle 12:55 alla minima delle 20:10. Marea crescente dalle 20:10 alla massima delle 03:45. (Orari marea: previsione CPSM.)",
   "andamento": [
    {
     "colore": "rosso",
@@ -36,7 +36,7 @@
     "verso": "esce",
     "incerta": true,
     "forbice": [
-     9.7,
+     10.1,
      15.1
     ]
    },
@@ -51,7 +51,7 @@
     "verso": "esce",
     "incerta": true,
     "forbice": [
-     11.2,
+     11.4,
      17.2
     ]
    },
@@ -61,12 +61,12 @@
     "stima": 17.7,
     "raff": 23.4,
     "marea": "≈",
-    "cm_h": -0.6,
+    "cm_h": -0.8,
     "corr": 0.17,
     "verso": "esce",
     "incerta": true,
     "forbice": [
-     11.9,
+     12.0,
      17.7
     ]
    },
@@ -76,8 +76,8 @@
     "stima": 17.4,
     "raff": 23.6,
     "marea": "↑",
-    "cm_h": 7.0,
-    "corr": 0.15,
+    "cm_h": 6.3,
+    "corr": 0.12,
     "verso": "entra",
     "incerta": true,
     "forbice": [
@@ -91,8 +91,8 @@
     "stima": 16.2,
     "raff": 22.4,
     "marea": "↑",
-    "cm_h": 11.5,
-    "corr": 0.39,
+    "cm_h": 10.9,
+    "corr": 0.37,
     "verso": "entra",
     "incerta": false,
     "forbice": null
@@ -103,8 +103,8 @@
     "stima": 14.5,
     "raff": 20.7,
     "marea": "↑",
-    "cm_h": 15.5,
-    "corr": 0.59,
+    "cm_h": 14.9,
+    "corr": 0.56,
     "verso": "entra",
     "incerta": false,
     "forbice": null
@@ -130,10 +130,10 @@
     "i2": 17.1,
     "raff": 22.2,
     "raff_d2": 22.2,
-    "ec": 5.2,
+    "ec": 5.4,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.3,
+    "ec_c": 9.5,
     "prudenza": false,
     "ar": 19.0,
     "raff_ar": 25.9,
@@ -151,10 +151,10 @@
     "i2": 20.2,
     "raff": 24.7,
     "raff_d2": 24.7,
-    "ec": 6.8,
+    "ec": 6.4,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 11.3,
+    "ec_c": 10.9,
     "prudenza": true,
     "ar": 18.7,
     "raff_ar": 24.1,
@@ -172,10 +172,10 @@
     "i2": 20.6,
     "raff": 24.9,
     "raff_d2": 24.9,
-    "ec": 7.6,
+    "ec": 7.4,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 12.1,
+    "ec_c": 11.9,
     "prudenza": true,
     "ar": 20.5,
     "raff_ar": 25.9,
@@ -193,10 +193,10 @@
     "i2": 18.9,
     "raff": 25.1,
     "raff_d2": 25.1,
-    "ec": 8.1,
+    "ec": 8.2,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 12.6,
+    "ec_c": 12.7,
     "prudenza": true,
     "ar": 20.7,
     "raff_ar": 26.0,
@@ -214,10 +214,10 @@
     "i2": 17.7,
     "raff": 24.5,
     "raff_d2": 24.5,
-    "ec": 8.6,
+    "ec": 9.0,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 13.1,
+    "ec_c": 13.5,
     "prudenza": true,
     "ar": 21.4,
     "raff_ar": 27.2,
@@ -235,10 +235,10 @@
     "i2": 17.3,
     "raff": 22.2,
     "raff_d2": 22.2,
-    "ec": 9.0,
+    "ec": 9.4,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 13.5,
+    "ec_c": 13.9,
     "prudenza": false,
     "ar": 22.1,
     "raff_ar": 28.4,
@@ -258,10 +258,10 @@
     "i2": 17.9,
     "raff": 22.5,
     "raff_d2": 22.5,
-    "ec": 7.9,
+    "ec": 9.1,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 12.0,
+    "ec_c": 13.2,
     "prudenza": false,
     "ar": 18.2,
     "raff_ar": 25.9,
@@ -279,10 +279,10 @@
     "i2": 21.0,
     "raff": 25.1,
     "raff_d2": 25.1,
-    "ec": 8.4,
+    "ec": 9.7,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 12.9,
+    "ec_c": 14.2,
     "prudenza": true,
     "ar": 17.2,
     "raff_ar": 23.7,
@@ -300,10 +300,10 @@
     "i2": 21.6,
     "raff": 25.3,
     "raff_d2": 25.3,
-    "ec": 9.2,
+    "ec": 10.0,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 13.7,
+    "ec_c": 14.5,
     "prudenza": true,
     "ar": 18.7,
     "raff_ar": 24.5,
@@ -342,10 +342,10 @@
     "i2": 18.9,
     "raff": 25.5,
     "raff_d2": 25.5,
-    "ec": 10.9,
+    "ec": 10.4,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 15.4,
+    "ec_c": 14.9,
     "prudenza": true,
     "ar": 20.3,
     "raff_ar": 26.6,
@@ -363,10 +363,10 @@
     "i2": 18.5,
     "raff": 23.9,
     "raff_d2": 23.9,
-    "ec": 11.2,
+    "ec": 10.8,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 15.7,
+    "ec_c": 15.3,
     "prudenza": false,
     "ar": 21.4,
     "raff_ar": 28.2,
@@ -386,10 +386,10 @@
     "i2": 16.1,
     "raff": 16.7,
     "raff_d2": 16.7,
-    "ec": 5.2,
+    "ec": 5.4,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.3,
+    "ec_c": 9.5,
     "prudenza": false,
     "ar": 19.5,
     "raff_ar": 25.9,
@@ -407,10 +407,10 @@
     "i2": 18.1,
     "raff": 19.8,
     "raff_d2": 19.8,
-    "ec": 6.8,
+    "ec": 6.4,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 11.3,
+    "ec_c": 10.9,
     "prudenza": true,
     "ar": 19.3,
     "raff_ar": 24.5,
@@ -428,10 +428,10 @@
     "i2": 20.2,
     "raff": 21.0,
     "raff_d2": 21.0,
-    "ec": 7.6,
+    "ec": 7.4,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 12.1,
+    "ec_c": 11.9,
     "prudenza": true,
     "ar": 20.5,
     "raff_ar": 25.9,
@@ -449,10 +449,10 @@
     "i2": 17.5,
     "raff": 21.0,
     "raff_d2": 21.0,
-    "ec": 8.1,
+    "ec": 8.2,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 12.6,
+    "ec_c": 12.7,
     "prudenza": false,
     "ar": 20.1,
     "raff_ar": 26.0,
@@ -470,10 +470,10 @@
     "i2": 16.3,
     "raff": 19.4,
     "raff_d2": 19.4,
-    "ec": 8.6,
+    "ec": 9.0,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 13.1,
+    "ec_c": 13.5,
     "prudenza": false,
     "ar": 20.8,
     "raff_ar": 26.4,
@@ -491,10 +491,10 @@
     "i2": 17.1,
     "raff": 17.9,
     "raff_d2": 17.9,
-    "ec": 9.0,
+    "ec": 9.4,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 13.5,
+    "ec_c": 13.9,
     "prudenza": false,
     "ar": 21.0,
     "raff_ar": 27.0,
@@ -514,10 +514,10 @@
     "i2": 11.7,
     "raff": 16.9,
     "raff_d2": 16.9,
-    "ec": 4.1,
+    "ec": 4.2,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 8.2,
+    "ec_c": 8.3,
     "prudenza": false,
     "ar": 20.2,
     "raff_ar": 26.4,
@@ -535,10 +535,10 @@
     "i2": 11.9,
     "raff": 20.0,
     "raff_d2": 20.0,
-    "ec": 4.9,
+    "ec": 5.1,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 9.4,
+    "ec_c": 9.6,
     "prudenza": true,
     "ar": 19.5,
     "raff_ar": 25.3,
@@ -598,10 +598,10 @@
     "i2": 12.6,
     "raff": 20.4,
     "raff_d2": 20.4,
-    "ec": 5.7,
+    "ec": 5.5,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 10.2,
+    "ec_c": 10.0,
     "prudenza": false,
     "ar": 21.2,
     "raff_ar": 26.8,
@@ -619,10 +619,10 @@
     "i2": 13.4,
     "raff": 18.7,
     "raff_d2": 18.7,
-    "ec": 6.0,
+    "ec": 5.8,
     "riparo": false,
     "ripiego": null,
-    "ec_c": 10.5,
+    "ec_c": 10.3,
     "prudenza": false,
     "ar": 16.8,
     "raff_ar": 27.0,
@@ -666,10 +666,10 @@
    {
     "tipo": "min",
     "ora": "28/11 19:25",
-    "cm": -20,
+    "cm": -15,
     "astro_ora": "19:22",
     "astro_cm": -14,
-    "diff_cm": -6,
+    "diff_cm": -1,
     "diff_min": 2,
     "min_curva": -275
    },
@@ -716,20 +716,20 @@
    {
     "tipo": "max",
     "ora": "30/11 03:45",
-    "cm": 70,
+    "cm": 65,
     "astro_ora": "03:45",
     "astro_cm": 61,
-    "diff_cm": 9,
+    "diff_cm": 4,
     "diff_min": 0,
     "min_curva": 1665
    }
   ],
-  "cpsm_emessa": "27/11 17:00",
+  "cpsm_emessa": "28/11 10:30",
   "fonte_fase": "previsione CPSM",
-  "cpsm_vecchia": true,
-  "cpsm_eta_h": 55,
+  "cpsm_vecchia": false,
+  "cpsm_eta_h": 37,
   "ferma": false,
-  "vel_max": 15.5,
+  "vel_max": 14.9,
   "sequenza": [
    {
     "da": "28/11 19:22",
@@ -1062,95 +1062,95 @@
    ],
    [
     1220,
-    -9.7
+    -9.8
    ],
    [
     1230,
-    -9.5
+    -9.7
    ],
    [
     1240,
-    -8.7
+    -9.1
    ],
    [
     1250,
-    -7.9
+    -8.4
    ],
    [
     1260,
-    -6.7
+    -7.2
    ],
    [
     1270,
-    -5.4
+    -6.1
    ],
    [
     1280,
-    -4.2
+    -4.9
    ],
    [
     1290,
-    -2.5
+    -3.4
    ],
    [
     1300,
-    -1.2
+    -2.2
    ],
    [
     1310,
-    1.0
+    -0.1
    ],
    [
     1320,
-    3.3
+    2.1
    ],
    [
     1330,
-    4.5
+    3.2
    ],
    [
     1340,
-    6.8
+    5.4
    ],
    [
     1350,
-    9.0
+    7.5
    ],
    [
     1360,
-    11.6
+    10.0
    ],
    [
     1370,
-    14.5
+    12.8
    ],
    [
     1380,
-    16.8
+    14.9
    ],
    [
     1390,
-    19.0
+    17.1
    ],
    [
     1400,
-    22.3
+    20.2
    ],
    [
     1410,
-    24.6
+    22.4
    ],
    [
     1420,
-    27.1
+    24.8
    ],
    [
     1430,
-    30.1
+    27.6
    ],
    [
     1440,
-    32.3
+    29.8
    ]
   ],
   "fonte_livello": "previsione CPSM",
@@ -1169,19 +1169,19 @@
    },
    {
     "ora": "20:00",
-    "cm_h": -0.6
+    "cm_h": -0.8
    },
    {
     "ora": "21:00",
-    "cm_h": 7.0
+    "cm_h": 6.3
    },
    {
     "ora": "22:00",
-    "cm_h": 11.5
+    "cm_h": 10.9
    },
    {
     "ora": "23:00",
-    "cm_h": 15.5
+    "cm_h": 14.9
    }
   ],
   "zona": {
@@ -1257,95 +1257,95 @@
     ],
     [
      1190,
-     -7.6
+     -7.7
     ],
     [
      1200,
-     -7.4
+     -7.6
     ],
     [
      1210,
-     -6.9
+     -7.2
     ],
     [
      1220,
-     -6.1
+     -6.6
     ],
     [
      1230,
-     -5.1
+     -5.6
     ],
     [
      1240,
-     -3.9
+     -4.5
     ],
     [
      1250,
-     -2.7
+     -3.4
     ],
     [
      1260,
-     -1.3
+     -2.1
     ],
     [
      1270,
-     0.1
+     -0.8
     ],
     [
      1280,
-     1.8
+     0.7
     ],
     [
      1290,
-     3.9
+     2.8
     ],
     [
      1300,
-     5.7
+     4.4
     ],
     [
      1310,
-     7.3
+     5.9
     ],
     [
      1320,
-     9.4
+     8.0
     ],
     [
      1330,
-     11.7
+     10.1
     ],
     [
      1340,
-     14.3
+     12.6
     ],
     [
      1350,
-     16.9
+     15.1
     ],
     [
      1360,
-     19.0
+     17.1
     ],
     [
      1370,
-     21.5
+     19.5
     ],
     [
      1380,
-     24.4
+     22.2
     ],
     [
      1390,
-     26.6
+     24.3
     ],
     [
      1400,
-     29.2
+     26.7
     ],
     [
      1410,
-     31.8
+     29.3
     ]
    ],
    "estremi": [
@@ -1391,15 +1391,15 @@
       "verso": "esce"
      },
      {
-      "ms": 0.15,
+      "ms": 0.12,
       "verso": "entra"
      },
      {
-      "ms": 0.39,
+      "ms": 0.37,
       "verso": "entra"
      },
      {
-      "ms": 0.59,
+      "ms": 0.56,
       "verso": "entra"
      }
     ]
@@ -1420,15 +1420,15 @@
       "verso": "esce"
      },
      {
-      "ms": 0.1,
+      "ms": 0.08,
       "verso": "entra"
      },
      {
-      "ms": 0.25,
+      "ms": 0.23,
       "verso": "entra"
      },
      {
-      "ms": 0.37,
+      "ms": 0.35,
       "verso": "entra"
      }
     ]
@@ -1449,15 +1449,15 @@
       "verso": "esce"
      },
      {
-      "ms": 0.04,
+      "ms": 0.03,
       "verso": "entra"
      },
      {
-      "ms": 0.17,
+      "ms": 0.16,
       "verso": "entra"
      },
      {
-      "ms": 0.27,
+      "ms": 0.26,
       "verso": "entra"
      }
     ]
@@ -1478,15 +1478,15 @@
       "verso": "esce"
      },
      {
-      "ms": 0.11,
+      "ms": 0.09,
       "verso": "entra"
      },
      {
-      "ms": 0.33,
+      "ms": 0.3,
       "verso": "entra"
      },
      {
-      "ms": 0.5,
+      "ms": 0.47,
       "verso": "entra"
      }
     ]
@@ -1507,15 +1507,15 @@
       "verso": "esce"
      },
      {
-      "ms": 0.16,
+      "ms": 0.14,
       "verso": "entra"
      },
      {
-      "ms": 0.33,
+      "ms": 0.31,
       "verso": "entra"
      },
      {
-      "ms": 0.48,
+      "ms": 0.46,
       "verso": "entra"
      }
     ]
@@ -1737,13 +1737,13 @@
   "aria_misure": [
    {
     "stazione": "Piattaforma CNR",
-    "ora": "28/11 08:25",
-    "valore": "7,3"
+    "ora": "28/11 11:10",
+    "valore": "7,2"
    },
    {
     "stazione": "Palazzo Cavalli",
-    "ora": "28/11 08:25",
-    "valore": "5,7"
+    "ora": "28/11 11:10",
+    "valore": "10,1"
    }
   ],
   "aria_acqua": [
@@ -1767,7 +1767,7 @@
   },
   {
    "tipo": "inferenza",
-   "testo": "Previsione incerta alle 18:00, 19:00, 20:00, 21:00: ICON-D2 è molto sopra ECMWF corretto (forbice tra 9,7 e 15,1; 11,2 e 17,2; 11,9 e 17,7; 12,5 e 17,4 nodi). Per prudenza la stima segue ICON-D2, il più alto dei due; il vento reale può stare in tutta la forbice. Su 3 mesi, in questi casi l'errore è stato circa il 55% più alto del normale."
+   "testo": "Previsione incerta alle 18:00, 19:00, 20:00, 21:00: ICON-D2 è molto sopra ECMWF corretto (forbice tra 10,1 e 15,1; 11,4 e 17,2; 12,0 e 17,7; 12,5 e 17,4 nodi). Per prudenza la stima segue ICON-D2, il più alto dei due; il vento reale può stare in tutta la forbice. Su 3 mesi, in questi casi l'errore è stato circa il 55% più alto del normale."
   },
   {
    "tipo": "inferenza",
@@ -2018,17 +2018,17 @@
   "nota": "Metri: onda significativa (in grassetto) – onda massima. STIMA calcolata, non misura: vento stimato della zona (C. Petroli · Fusina usa quello di Malamocco · Valgrande), direzione ICON-D2, livello di marea previsto, acqua libera controvento e fondali da batimetria_laguna.bin; formula Young & Verhagen (1996) per acque basse, massima = 1,8 × significativa. Non considera corrente contro vento, scie delle navi e barene che spezzano l'onda. Bocca · Alberoni esclusa: lì conta l'onda dal mare. Da tarare con le osservazioni in barca."
  },
  "fonti": "Fonti: dati meteo e mare aperto Open-Meteo.com, CC BY 4.0 (ICON-D2 e ensemble ICON-D2-EPS DWD, ICON-2i ItaliaMeteo-ARPAE, ECMWF IFS, AROME HD Météo-France in prova, Open-Meteo Marine) · marea astronomica, previsione di marea e misure: CPSM, Comune di Venezia (dati.venezia.it, CC BY) · correnti: modello Laguna Viva · storico: diario 2026 · fd_previsione v1.58",
- "generato": "28/11/2026 08:31",
+ "generato": "28/11/2026 11:16",
  "area": "sud",
  "acqua_misurata": {
-  "valore": 10.4,
+  "valore": 11.4,
   "data": "28/11",
-  "ora": "08:20",
+  "ora": "11:05",
   "stazione": "Punta Salute Canal Grande",
   "fonte": "misura CPSM (Comune di Venezia)",
   "tendenza": {
    "giorni": 5,
-   "diff": -1.7,
+   "diff": -0.7,
    "verso": "in calo"
   }
  }
