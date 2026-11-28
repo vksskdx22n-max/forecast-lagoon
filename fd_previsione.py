@@ -1378,8 +1378,6 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
     if len(acqua) >= 2:
         rifl.append({"tipo": "dato", "testo": f"Acqua a Punta Salute: {num(acqua[0][1])} °C il {dt.date.fromisoformat(acqua[0][0]).strftime('%d/%m')}, "
                      f"{num(acqua[-1][1])} °C il {dt.date.fromisoformat(acqua[-1][0]).strftime('%d/%m')}."})
-    if n_alte and min(n_alte) < (FV.MIN_ORE_CORR if FV else 10):
-        rifl.append({"tipo": "dato", "testo": "Con vento forte Forecast Lagoon è ancora poco verificata: il vento reale può essere più alto o più basso."})
     ore_inc = [(h, inc_ore[h][1]) for h in ore if inc_ore[h][0]]                 # v1.48
     if ore_inc:
         rifl.append({"tipo": "dato", "testo": "Previsione incerta alle " + ", ".join(f"{h:02d}:00" for h, _ in ore_inc)
