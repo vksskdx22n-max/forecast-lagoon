@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.59"   # v1.59: riflessioni solo con dati ("Da sapere"), niente frase sul mare formato; "Forecast Lagoon" al posto di "Stima"; v1.58: segnalate le fonti essenziali mancanti (onda al largo, bollettino marea); v1.57: correnti nei canali come fasce colorate, dentro lo schermo del telefono; v1.56: salvata la pressione prevista ora per ora (per l'app e la verifica); v1.55: nella tabella dell'onda una sola altezza in cm (quella corretta), senza spiegazioni; v1.54: la forbice delle ore incerte comprende sempre la stima; v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
+VERSIONE = "1.60"   # v1.60: salvata per le ore gia' iniziate la previsione emessa prima di quell'ora ("prima"); v1.59: riflessioni solo con dati ("Da sapere"), niente frase sul mare formato; "Forecast Lagoon" al posto di "Stima"; v1.58: segnalate le fonti essenziali mancanti (onda al largo, bollettino marea); v1.57: correnti nei canali come fasce colorate, dentro lo schermo del telefono; v1.56: salvata la pressione prevista ora per ora (per l'app e la verifica); v1.55: nella tabella dell'onda una sola altezza in cm (quella corretta), senza spiegazioni; v1.54: la forbice delle ore incerte comprende sempre la stima; v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
 # v1.50: fasce della giornata (scelta di Ennio 23/11/2026). La fascia della sera finisce a mezzanotte: "24:00" = 23:59 interno.
 FINE_GIORNO = dt.time(23, 59)
 PERIODI = [("mattino", 5, 12), ("pomeriggio", 13, 18), ("sera", 19, 23)]
@@ -1892,6 +1892,26 @@ def ultima_salvata(giorno, da, a):
     return max(scelte, key=lambda x: x[:3])[3] if scelte else None
 
 
+def prima_delle_ore(D, V, giorno, adesso):
+    """v1.60: per ogni ora gia' iniziata, il vento Forecast Lagoon dell'ultima previsione emessa prima di quell'ora.
+    V = ultima previsione salvata: se e' stata generata prima dell'ora vale il suo valore, altrimenti quello che si portava dietro."""
+    try:
+        g = dt.datetime.strptime((V or {}).get("generato") or "", "%d/%m/%Y %H:%M")
+    except ValueError:
+        return {}
+    vecchie = {o.get("ora"): o.get("stima") for o in (V.get("striscia") or {}).get("ore", [])}
+    out = {}
+    for o in D["striscia"]["ore"]:
+        h = o["ora"]
+        inizio = dt.datetime.combine(giorno, dt.time()) + dt.timedelta(hours=int(h))
+        if inizio > adesso:
+            continue
+        x = vecchie.get(h) if g <= inizio else (V.get("prima") or {}).get(h)
+        if x is not None:
+            out[h] = x
+    return out
+
+
 def _quando(P):
     """v1.52: momento dell'ultimo aggiornamento di una previsione (meteo o sola marea)."""
     t = [dt.datetime.min]
@@ -2001,6 +2021,7 @@ def main():
     iniziata = adesso >= dt.datetime.combine(giorno, da, tz_italia(giorno))
     # v1.52: a fascia iniziata si scrive un file a parte (_agg): la previsione fatta prima resta per la verifica
     base = os.path.join("Previsioni", f"previsione_{giorno.strftime('%d-%m-%Y')}_{ora_txt(da).replace(':', '')}-{ora_txt(a).replace(':', '')}{'' if AREA == 'centro' else '_' + AREA}_v{VERSIONE}{'_agg' if iniziata else ''}")
+    D["prima"] = prima_delle_ore(D, ultima_salvata(giorno, da, a), giorno, adesso.replace(tzinfo=None))   # v1.60
     if solo_marea:
         D["generato"] = vecchia.get("generato")               # il vento resta quello di quell'ora
         D["marea"]["aggiornata"] = adesso.strftime("%d/%m/%Y %H:%M")
