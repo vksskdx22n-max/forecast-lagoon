@@ -2525,9 +2525,21 @@
    "visib": "6+",
    "wx": null,
    "raw": "METAR LIPZ 281520Z 02004KT CAVOK 09/M01 Q1025 NOSIG"
+  },
+  {
+   "t": "2026-11-28 15:50",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 281550Z 02003KT 350V060 CAVOK 07/00 Q1025 NOSIG"
+  },
+  {
+   "t": "2026-11-28 16:20",
+   "visib": "6+",
+   "wx": null,
+   "raw": "METAR LIPZ 281620Z 09006KT CAVOK 07/02 Q1026 NOSIG"
   }
  ],
- "versione": "1.58",
+ "versione": "1.59",
  "nota": "METAR di Venezia Tessera (LIPZ) da AviationWeather.gov (NOAA): t in UTC, visib in miglia terrestri come restituito dall'API ('6+' = oltre 6 miglia, circa 10 km; 1 miglio = 1609 m), wx = fenomeni (FG nebbia, BR foschia). Serve a verificare il rischio nebbia stimato.",
  "locale": [
   {
@@ -12161,6 +12173,54 @@
     "ora": "15:50",
     "eta_min": 10
    }
+  },
+  {
+   "t": "2026-11-28T15:30",
+   "aria": {},
+   "vento": {
+    "sud": null,
+    "nord": null,
+    "centro": null
+   },
+   "vento_motivo": {
+    "sud_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "sud": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "nord": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "16:20",
+    "eta_min": 10
+   }
+  },
+  {
+   "t": "2026-11-28T16:00",
+   "aria": {},
+   "vento": {
+    "nord": null,
+    "sud": null,
+    "centro": null
+   },
+   "vento_motivo": {
+    "nord_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "sud_primo_tentativo": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "nord": "nessuna riga letta (841 caratteri): <html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "sud": "nessuna riga letta (838 caratteri): <html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t",
+    "centro_primo_tentativo": "<html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3",
+    "centro": "nessuna riga letta (212 caratteri): <html> <head> <META NAME=\"robots\" CONTENT=\"noindex,nofollow\"> <script src=\"/_Incapsula_Resource?SWJIYLWA=5074a744e2e3"
+   },
+   "vis": {
+    "m": 10000,
+    "oltre": true,
+    "wx": null,
+    "ora": "16:50",
+    "eta_min": 10
+   }
   }
  ],
  "nota_locale": "Registro del Worker (v2.9) ogni 30 minuti, t in UTC: aria = umidita' (rh, %), temperatura (t, °C), punto di rugiada (td) e distanza dal punto di rugiada (spread) delle stazioni CPSM; vento = vento medio misurato (kn) di Saline, Malamocco Porto, Chioggia Porto; vis = visibilita' di Tessera (m). Per lo studio dell'indicatore locale di nebbia.",
@@ -16184,6 +16244,29 @@
     "252": {
      "rh": 57.0,
      "t": 10.3
+    }
+   }
+  },
+  {
+   "ora_solare": "2026-11-28T17:00",
+   "t": "2026-11-28T16:00",
+   "staz": {
+    "160": {
+     "vis_km": 16.0,
+     "rh": 71.0,
+     "t": 7.7
+    },
+    "230": {
+     "rh": 62.0,
+     "t": 6.0
+    },
+    "168": {
+     "rh": 75.0,
+     "t": 7.8
+    },
+    "252": {
+     "rh": 67.0,
+     "t": 9.1
     }
    }
   }

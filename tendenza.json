@@ -1,6 +1,6 @@
 {
  "versione": "1.6",
- "generato": "2026-11-28 16:26",
+ "generato": "2026-11-28 17:30",
  "base": "2026-11-29",
  "finestra": "05:00–12:00",
  "fasce": [
@@ -45,8 +45,8 @@
         "ora": "14:55",
         "cm": 46
        },
-       "modello": "ICON-2i",
-       "corretto": false
+       "modello": "ICON-D2",
+       "corretto": true
       },
       {
        "finestra": "18:00–24:00",
@@ -112,8 +112,8 @@
         "ora": "13:48",
         "cm": 44
        },
-       "modello": "ICON-2i",
-       "corretto": false
+       "modello": "ICON-D2",
+       "corretto": true
       },
       {
        "finestra": "18:00–24:00",
@@ -170,7 +170,7 @@
        "finestra": "12:00–18:00",
        "disponibile": true,
        "colore": "rosso",
-       "vento_min": 15,
+       "vento_min": 13,
        "vento_max": 19,
        "dir": "NE",
        "pioggia": 0,
@@ -179,8 +179,8 @@
         "ora": "13:38",
         "cm": 46
        },
-       "modello": "ICON-2i",
-       "corretto": false
+       "modello": "ICON-D2",
+       "corretto": true
       },
       {
        "finestra": "18:00–24:00",
