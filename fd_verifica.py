@@ -71,7 +71,7 @@ Uscita: verifica_archivio.json e Previsioni/verifica_<gg-mm-aaaa>_<HHMM-HHMM>[_n
 """
 import sys, os, re, json, math, glob, gzip, statistics, subprocess, tempfile, shutil, datetime as dt
 
-VERSIONE = "1.43"   # v1.43: scheda Pioggia nuova (probabilita' tratteggiata, mm in gradazioni di blu; una riga se asciutto come previsto); v1.42: verifica lasciata aperta se manca una stazione, completata ai giri successivi; v1.41: pressione a Palazzo Cavalli, grafico prevista / misurata ed errore medio; v1.40: nel grafico dell'onda indicata la piattaforma CNR-ISMAR; v1.39: onda con grafico prevista (come nell'app) / misurata ed errore medio; in archivio anche "prev_app"; v1.38: sul computer (da 1000 px) la pagina e' su due colonne; telefono e PDF invariati; v1.37: titolo "Errore per ora del giorno"; nei grafici dell'andamento le date e le ore non si sovrappongono; v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
+VERSIONE = "1.44"   # v1.44: note senza etichette e senza ipotesi; "Forecast Lagoon" al posto di "Stima"; v1.43: scheda Pioggia nuova (probabilita' tratteggiata, mm in gradazioni di blu; una riga se asciutto come previsto); v1.42: verifica lasciata aperta se manca una stazione, completata ai giri successivi; v1.41: pressione a Palazzo Cavalli, grafico prevista / misurata ed errore medio; v1.40: nel grafico dell'onda indicata la piattaforma CNR-ISMAR; v1.39: onda con grafico prevista (come nell'app) / misurata ed errore medio; in archivio anche "prev_app"; v1.38: sul computer (da 1000 px) la pagina e' su due colonne; telefono e PDF invariati; v1.37: titolo "Errore per ora del giorno"; nei grafici dell'andamento le date e le ore non si sovrappongono; v1.36: nella scheda della marea la riga su come si ottiene la previsione di zona; v1.35: tabella oraria del livello su Punta Salute (previsione e misura nello stesso punto); su telefono le tabelle stanno nello schermo (sotto i 360 px quella del vento scorre di lato); scheda della marea a due righe (Forecast Lagoon nella zona, CPSM a Punta Salute); v1.34: errore della previsione CPSM a Punta Salute sulle stesse finestre della marea di zona; v1.33: nei grafici la stima sta sopra ICON-D2; dove coincidono si vedono entrambi (anello arancione); v1.32: fasce 05-12, 12-18, 18-24 (l'ora di confine entra in archivio una volta sola); gli aggiornamenti a fascia iniziata (_agg) non si verificano; v1.31: verifica e correzione per fascia della giornata (mattino, pomeriggio, sera)
 # v1.31: fasce della giornata (scelta di Ennio 23/11/2026). Ogni fascia impara la sua correzione dalle sue ore verificate.
 # Finche' le ore non bastano vale la correzione fissa dell'analisi F0 del 23/11/2026 (ICON-D2 del giorno prima, media dei
 # 4 punti di calcolo, contro le misure CPSM orarie, 23/08-22/11/2026, prova meta' giorni / altra meta'):
@@ -1073,9 +1073,7 @@ def report_andamento(cartella=".", stampa_pdf=True):
 
 
 NOTE_ANDAMENTO = [{"tipo": "dato", "testo": "Errore = previsto − misurato a Malamocco Porto (media oraria), in nodi: positivo = previsione troppo alta, negativo = troppo bassa. "
-                                            "Stima = la previsione con la correzione in uso quel giorno (fissa o misurata), come era stata emessa."},
-                  {"tipo": "inferenza", "testo": "Se la correzione funziona, la linea rossa (stima) resta più vicina a zero di quella arancio (ICON-D2 senza correzione). "
-                                                 "Con pochi giorni e quasi solo bora l'andamento è indicativo."}]
+                                            "Forecast Lagoon = la previsione con la correzione in uso quel giorno (fissa o misurata), come era stata emessa."}]
 
 
 # ------------------------------------------------------------------ report di confronto
@@ -1199,7 +1197,7 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
                               "set_mis": settore_ora(o), "set_prev": settore(o["prev"].get("dir_g", 0)),
                               "sem_prev": sem_ore(o)[0], "sem_mis": sem_ore(o)[1],
                               **{k: o["prev"].get(k) for k in ("stima", "d2", "i2", "ec", "ar", "raff", "raff_d2", "corr", "prudenza")}} for o in oz],   # v1.30: AROME HD e prudenza
-                     "errori": [dict(nome=n, **e) for n, e in [("Stima usata", err(oz, "stima")), ("ICON-D2", err(oz, "d2")), ("ICON-2i", err(oz, "i2")),
+                     "errori": [dict(nome=n, **e) for n, e in [("Forecast Lagoon", err(oz, "stima")), ("ICON-D2", err(oz, "d2")), ("ICON-2i", err(oz, "i2")),
                                                                ("ECMWF", err(oz, "ec")), ("AROME HD (in parallelo)", err(oz, "ar") if any(o["prev"].get("ar") is not None for o in oz) else None), ("Raffiche ICON-D2", err(oz, "raff_d2", "raff")),
                                                                ("Raffiche stimate", err(oz, "raff", "raff") if any(o["prev"].get("raff") != o["prev"].get("raff_d2") for o in oz) else None)] if e]})
     liv = []
@@ -1235,7 +1233,7 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
                     "in previsione dalla direzione di ICON-D2. Sotto la direzione misurata: quella prevista (in rosso se di un altro settore).")
     if area == "centro":
         note = [nota_misure,
-                {"tipo": "inferenza", "testo": "San Leonardo · Melison, Fisolo e Bocca · Alberoni: nessuna stazione di verifica valida; non verificate, "
+                {"tipo": "dato", "testo": "San Leonardo · Melison, Fisolo e Bocca · Alberoni: nessuna stazione di verifica valida; non verificate, "
                                                "usano la correzione di Malamocco · Valgrande. Riferimenti validi: Malamocco Porto (vento) e Piattaforma CNR (onda e aria); aria anche Palazzo Cavalli."},
                 {"tipo": "dato", "testo": f"Correzione misurata per zona quando una fascia di ICON-D2 ha almeno {MIN_ORE_CORR} ore verificate; prima vale +{num(CORR_DEFAULT)} nodi (graduale tra 3 e 5 nodi di ICON-D2)."},
                 {"tipo": "dato", "testo": nota_settori}]
@@ -1247,14 +1245,14 @@ def report(cartella, v, risultati, onda_v, M, A, stampa_pdf=True, provvisoria=Fa
         corretta = any(abs(o["prev"].get("corr") or 0) > 0 for _, oz in risultati for o in oz)   # v1.27
         zn = [z for z, _ in risultati]
         note = [nota_misure,
-                ({"tipo": "dato", "testo": f"Stima = ICON-D2 + correzione misurata della zona: fissa (+{num(CORR_ZONA[zn[0]][0])} nodi, {CORR_ZONA[zn[0]][1]}) finché una fascia di ICON-D2 non ha "
+                ({"tipo": "dato", "testo": f"Forecast Lagoon = ICON-D2 + correzione misurata della zona: fissa (+{num(CORR_ZONA[zn[0]][0])} nodi, {CORR_ZONA[zn[0]][1]}) finché una fascia di ICON-D2 non ha "
                                            f"{MIN_ORE_CORR_ZONA.get(zn[0], MIN_ORE_CORR)} ore verificate, poi calcolata dalle verifiche per fascia e direzione. Le raffiche non sono corrette."}
                  if corretta and zn and zn[0] in CORR_ZONA else
-                 {"tipo": "dato", "testo": f"Verifica di controllo: nessuna correzione applicata alla previsione (stima = ICON-D2 così com'è). "
+                 {"tipo": "dato", "testo": f"Verifica di controllo: nessuna correzione applicata alla previsione (Forecast Lagoon = ICON-D2 così com'è). "
                                            f"Le ore verificate servono a decidere in seguito la correzione del vento per {', '.join(zn)}."}),
                 {"tipo": "dato", "testo": f"Previsto della zona = media dei punti di calcolo ({', '.join(punti)}), la stessa media che decide il semaforo; "
                                           f"misurato = {', '.join(ZONE[z][1] for z, _ in risultati)}."},
-                {"tipo": "inferenza", "testo": "Una stazione rappresenta un solo punto del bacino: il confronto con la media dei punti di calcolo è indicativo."},
+                {"tipo": "dato", "testo": "Una stazione rappresenta un solo punto del bacino: il confronto con la media dei punti di calcolo è indicativo."},
                 {"tipo": "dato", "testo": nota_settori}]
         zz = {s_: n_ for s_, n_ in (v.get("zeri") or {}).items() if n_}
         if any(s_ in STAZ_FILTRO_ZERO for s_ in staz_vento):
@@ -1337,17 +1335,17 @@ function grafico(Z){const se=Z.serie;if(!se.length)return null;const W=520,H=210
  const U=Z.ore.filter(o=>o.stima!=null&&o.d2!=null&&Math.abs(o.stima-o.d2)<0.05);
  pt('d2','#f59e0b',3.5);pt('ec','#7c3aed',3.5);pt('stima','#dc2626',4);
  U.forEach(o=>{const m=+o.ora.slice(0,2)*60;s+=`<circle class="uguali" cx="${X(m)}" cy="${Y(o.stima)}" r="6.5" fill="none" stroke="#f59e0b" stroke-width="2.5"/>`;});
- return h('div',{},h('div',{html:s+'</svg>'}),U.length?h('div',{cls:'nota',html:'<b style="color:#dc2626">●</b> con anello <b style="color:#f59e0b">arancione</b>: stima uguale a ICON-D2 (nessuna correzione '+(U.length===Z.ore.length?'in questa fascia':'in quelle ore')+').'}):null);}
+ return h('div',{},h('div',{html:s+'</svg>'}),U.length?h('div',{cls:'nota',html:'<b style="color:#dc2626">●</b> con anello <b style="color:#f59e0b">arancione</b>: Forecast Lagoon uguale a ICON-D2 (nessuna correzione '+(U.length===Z.ore.length?'in questa fascia':'in quelle ore')+').'}):null);}
 D.zone.forEach(Z=>{const S=Z.sintesi,c=h('div',{cls:'card'},h('h2',{},'💨 '+Z.zona),h('div',{cls:'nota',style:'margin:-8px 0 10px'},'Misura: '+Z.stazione));
  if(S.sem_mis)c.append(h('div',{cls:'verd'},h('div',{cls:'dot '+S.sem_mis,html:'misurato<br>'+S.sem_mis}),h('div',{},
    `${Z.zona}: previsto ${S.sem_prev_zona||'–'}, misurato ${S.sem_mis} (colore più frequente nelle ore, stessa regola). Colore azzeccato in ${S.n?S.ok+' ore su '+S.n:'–'}. `
    +`Ore rosse misurate: ${S.rosse_mis.length?S.rosse_mis.join(', '):'nessuna'}; previste: ${S.rosse_prev.length?S.rosse_prev.join(', '):'nessuna'}. `
    +`Vento medio nella finestra ${n(S.media)} nodi, raffica di picco (5 min) ${n(S.raff)}. Verdetto della previsione (media delle zone): ${D.sem_prev}.`)));
- c.append(grafico(Z),h('div',{cls:'leg',html:'<span><i style="background:#1e3a6b"></i>misurato (5 min)</span><span><i style="background:#94a3b8"></i>raffica misurata</span><span style="color:#dc2626">● <b>stima</b></span><span style="color:#f59e0b">● <b>ICON-D2</b></span><span style="color:#7c3aed">● <b>ECMWF</b></span><span>fascia azzurra = finestra prevista · tratteggio: 6 e 12 nodi</span>'}));
- const t=h('table',{},h('tr',{},...['Ora','Misur.','Dir.','Stima','D2','2i','EC','AR','Raff. mis.','Raff. prev.'].map(x=>h('th',{},x))));
+ c.append(grafico(Z),h('div',{cls:'leg',html:'<span><i style="background:#1e3a6b"></i>misurato (5 min)</span><span><i style="background:#94a3b8"></i>raffica misurata</span><span style="color:#dc2626">● <b>Forecast Lagoon</b></span><span style="color:#f59e0b">● <b>ICON-D2</b></span><span style="color:#7c3aed">● <b>ECMWF</b></span><span>fascia azzurra = finestra prevista · tratteggio: 6 e 12 nodi</span>'}));
+ const t=h('table',{},h('tr',{},...['Ora','Misur.','Dir.','Forecast<br>Lagoon','D2','2i','EC','AR','Raff. mis.','Raff. prev.'].map(x=>h('th',{html:x}))));
  Z.ore.forEach(o=>t.append(h('tr',{},h('td',{},o.ora),h('td',{},h('span',{cls:'pill '+sem(o.mis,o.raff_mis)},n(o.mis,0))),h('td',{cls:'dir'},o.dir_mis,h('div',{cls:'dnome'},o.nome_mis),h('div',{cls:'dprev'+(o.set_mis===o.set_prev?'':' fuori')},'prev. '+o.dir_prev,h('br'),o.nome_prev)),
   h('td',{},o.sem_prev?h('span',{cls:'pill '+o.sem_prev},n(o.stima,0)):n(o.stima,0)),h('td',{},n(o.d2)),h('td',{},n(o.i2)),h('td',{},n(o.ec)),h('td',{},n(o.ar)),h('td',{},n(o.raff_mis)),h('td',{},n(o.raff)))));
- c.append(h('h3',{},'Ora per ora (nodi)'),h('div',{cls:'scorri'},t),h('div',{cls:'nota'},'Colori: Misur. = semaforo misurato dell’ora (media oraria), Stima = semaforo previsto per la zona; stessa regola della previsione sul vento medio arrotondato all’intero: verde fino a '+D.verde_fino_a+' nodi, giallo da '+(D.verde_fino_a+1)+' a '+(D.rosso_da-1)+', rosso da '+D.rosso_da+'; le raffiche non cambiano il colore. Raff. prev. = raffica stimata (corretta). AR = AROME HD, in parallelo: non usato nella stima.'));
+ c.append(h('h3',{},'Ora per ora (nodi)'),h('div',{cls:'scorri'},t),h('div',{cls:'nota'},'Colori: Misur. = semaforo misurato dell’ora (media oraria), Forecast Lagoon = semaforo previsto per la zona; stessa regola della previsione sul vento medio arrotondato all’intero: verde fino a '+D.verde_fino_a+' nodi, giallo da '+(D.verde_fino_a+1)+' a '+(D.rosso_da-1)+', rosso da '+D.rosso_da+'; le raffiche non cambiano il colore. Raff. prev. = raffica Forecast Lagoon (corretta). AR = AROME HD, in parallelo: non usato in Forecast Lagoon.'));
  const te=h('table',{},h('tr',{},h('th',{},'Modello'),h('th',{},'Errore medio'),h('th',{},'Errore assoluto')));
  Z.errori.forEach(e=>te.append(h('tr',{},h('td',{},e.nome),h('td',{cls:e.medio>0?'pos':'neg'},sg(e.medio)),h('td',{},n(e.ass)))));
  c.append(h('h3',{},'Errore dei modelli (previsto − misurato, nodi)'),te);app.append(c);});
@@ -1371,7 +1369,7 @@ if(D.aria.length){const ta=h('table',{},h('tr',{},...['Ora','Piattaf. mis.','Mar
  const em=(p,m)=>{const s=D.aria.filter(o=>o[p]!=null&&o[m]!=null);return s.length?sg(Math.round(s.reduce((a,o)=>a+o[p]-o[m],0)/s.length*10)/10)+' °C':'–';};
  const te=h('table',{},h('tr',{},h('th',{},'Confronto (previsto − misurato)'),h('th',{},'Errore medio')),
   ...[['Mare aperto (ICON-D2) − Piattaforma','mare_prev','piatt_mis'],['Mestre (ICON-D2) − Palazzo Cavalli','mestre_prev','cavalli_mis'],['Sull’acqua Malamocco (ICON-D2) − Palazzo Cavalli','acqua_prev','cavalli_mis']].map(([t,p,m])=>h('tr',{},h('td',{},t),h('td',{},em(p,m)))));
- app.append(h('div',{cls:'card'},h('h2',{},'🌡️ Aria'),ta,te,h('div',{cls:'nota'},'°C. Misure CPSM: Piattaforma CNR (mare aperto, 8 miglia al largo) e Palazzo Cavalli (centro città, tetto a 15 m, ~12 km da Malamocco: probabilmente più caldo che in barca). Previsioni: ICON-D2 a 2 m. Nessuna misura dell’aria nelle zone di pesca: confronto indicativo.')));}
+ app.append(h('div',{cls:'card'},h('h2',{},'🌡️ Aria'),ta,te,h('div',{cls:'nota'},'°C. Misure CPSM: Piattaforma CNR (mare aperto, 8 miglia al largo) e Palazzo Cavalli (centro città, tetto a 15 m, ~12 km da Malamocco). Previsioni: ICON-D2 a 2 m. Nessuna misura dell’aria nelle zone di pesca: confronto indicativo.')));}
 if(D.pioggia_g){const G=D.pioggia_g,O=G.ore,N=O.length,blu='#1d4ed8';   // v1.43: scheda essenziale, in linea con onda e pressione
  const titolo=h('h2',{},'🌧 Pioggia');
  if(G.asciutto_previsto)app.append(h('div',{cls:'card'},titolo,h('div',{style:'font-size:18px;font-weight:700;color:#166534'},'✓ Asciutto, come previsto')));
@@ -1424,20 +1422,20 @@ function graf(righe,serie,tipo){const W=520,H=200,L=30,R=10,T=12,B=26,N=righe.le
  if(tipo==='barre'){const bw=Math.min(26,(W-L-R)/N/3);righe.forEach((r,i)=>serie.forEach(([k,c],j)=>{const x=X(i)-bw*1.05+j*bw*1.1,y=Y(Math.max(0,r[k])),hh=Math.abs(Y(r[k])-Y(0));s+=`<rect x="${x}" y="${y}" width="${bw}" height="${hh}" fill="${c}"/>`;}));}
  else serie.forEach(([k,c,w])=>{s+=`<polyline fill="none" stroke="${c}" stroke-width="${w}" points="${righe.map((r,i)=>X(i)+','+Y(r[k])).join(' ')}"/>`;righe.forEach((r,i)=>s+=`<circle cx="${X(i)}" cy="${Y(r[k])}" r="3.5" fill="${c}"/>`);});
  return h('div',{html:s+'</svg>'});}
-function tabAn(righe,col){const t=h('table',{},h('tr',{},...[col,'Ore','Stima','D2','|Stima|','|D2|'].map(x=>h('th',{},x))));
+function tabAn(righe,col){const t=h('table',{},h('tr',{},...[col,'Ore','Forecast<br>Lagoon','D2','|Forecast<br>Lagoon|','|D2|'].map(x=>h('th',{html:x}))));
  righe.forEach(r=>t.append(h('tr',{},h('td',{},r.k),h('td',{},r.n),h('td',{cls:r.stima>0?'pos':'neg'},sg(r.stima)),h('td',{cls:r.d2>0?'pos':'neg'},sg(r.d2)),h('td',{},n(r.ass_stima)),h('td',{},n(r.ass_d2)))));return t;}
-const LEGA='<span><i style="background:#dc2626;height:4px"></i><b>stima</b> (previsione corretta)</span><span><i style="background:#f59e0b"></i>ICON-D2 senza correzione</span>';
+const LEGA='<span><i style="background:#dc2626;height:4px"></i><b>Forecast Lagoon</b> (previsione corretta)</span><span><i style="background:#f59e0b"></i>ICON-D2 senza correzione</span>';
 if(AN&&AN.giorni&&AN.giorni.length){
  app.append(h('div',{cls:'card'},h('h2',{},'📈 Andamento giorno per giorno · '+AN.zona),
   h('h3',{},'Errore assoluto medio (nodi): più basso = previsione migliore'),graf(AN.giorni,[['ass_stima','#dc2626',2.6],['ass_d2','#f59e0b',1.8]],'ass'),h('div',{cls:'leg',html:LEGA}),
   h('h3',{},'Errore medio con segno (nodi): sopra zero previsione troppo alta, sotto troppo bassa'),graf(AN.giorni,[['d2','#f59e0b',3.6],['stima','#dc2626',1.8]],'segno'),h('div',{cls:'leg',html:LEGA}),
   tabAn(AN.giorni,'Giorno'),
-  AN.tot?h('div',{cls:'nota'},`Tutte le ${AN.tot.n} ore: errore assoluto medio stima ${n(AN.tot.ass_stima)} nodi, ICON-D2 ${n(AN.tot.ass_d2)} nodi. Misura: ${AN.stazione}.`):null));
+  AN.tot?h('div',{cls:'nota'},`Tutte le ${AN.tot.n} ore: errore assoluto medio Forecast Lagoon ${n(AN.tot.ass_stima)} nodi, ICON-D2 ${n(AN.tot.ass_d2)} nodi. Misura: ${AN.stazione}.`):null));
  app.append(h('div',{cls:'card'},h('h2',{},'🕐 Errore per ora del giorno'),
   h('h3',{},'Errore medio con segno (nodi), tutte le verifiche'),graf(AN.ore,[['stima','#dc2626'],['d2','#f59e0b']],'barre'),h('div',{cls:'leg',html:LEGA}),
   tabAn(AN.ore,'Ora'),h('div',{cls:'nota'},'Ogni ora = media da −30 a +30 minuti. Le ore con poche verifiche (colonna Ore) sono poco affidabili.')));}
 app.append(h('div',{cls:'card'},h('h2',{},'📚 Archivio verifiche'),h('div',{cls:'arch'},D.archivio.join('\n')||'–')));
-const cr=h('div',{cls:'card'},h('h2',{},'🧭 Note'));D.note.forEach(r=>cr.append(h('div',{cls:'r'},h('span',{cls:'tag '+r.tipo},r.tipo),h('div',{},r.testo))));app.append(cr);
+const cr=h('div',{cls:'card'},h('h2',{},'🧭 Note'));D.note.forEach(r=>cr.append(h('div',{cls:'r'},h('div',{},r.testo))));app.append(cr);
 app.append(h('div',{cls:'fonti'},D.fonti+' · generato '+D.generato));
 const K=[...app.children],HERO=K[0],FONTI=K[K.length-1],CARTE=K.slice(1,-1),tit=e=>e.querySelector('h2').textContent;
 function impagina(larga){app.classList.toggle('larga',larga);

@@ -46,7 +46,7 @@ try:
 except ImportError:
     FV = None
 
-VERSIONE = "1.58"   # v1.58: segnalate le fonti essenziali mancanti (onda al largo, bollettino marea); v1.57: correnti nei canali come fasce colorate, dentro lo schermo del telefono; v1.56: salvata la pressione prevista ora per ora (per l'app e la verifica); v1.55: nella tabella dell'onda una sola altezza in cm (quella corretta), senza spiegazioni; v1.54: la forbice delle ore incerte comprende sempre la stima; v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
+VERSIONE = "1.59"   # v1.59: riflessioni solo con dati ("Da sapere"), niente frase sul mare formato; "Forecast Lagoon" al posto di "Stima"; v1.58: segnalate le fonti essenziali mancanti (onda al largo, bollettino marea); v1.57: correnti nei canali come fasce colorate, dentro lo schermo del telefono; v1.56: salvata la pressione prevista ora per ora (per l'app e la verifica); v1.55: nella tabella dell'onda una sola altezza in cm (quella corretta), senza spiegazioni; v1.54: la forbice delle ore incerte comprende sempre la stima; v1.53: testo delle ore incerte corretto (la stima segue ICON-D2, il piu' alto dei due); v1.52: fasce 05-12, 12-18, 18-24; aggiornamento della fascia in corso (file _agg, esclusi dalla verifica); --solo-marea; storico bollettini CPSM; colmo dell'astronomica al centro del tratto piatto; v1.51: regola di prudenza con la correzione di ECMWF della fascia; v1.50: tre fasce (05-12, 13-18, 19-24), Open-Meteo una volta per giro, PDF sintetico; v1.49: } mancante nel blocco nebbia
 # v1.50: fasce della giornata (scelta di Ennio 23/11/2026). La fascia della sera finisce a mezzanotte: "24:00" = 23:59 interno.
 FINE_GIORNO = dt.time(23, 59)
 PERIODI = [("mattino", 5, 12), ("pomeriggio", 13, 18), ("sera", 19, 23)]
@@ -88,7 +88,6 @@ CPSM_ORE_MAX = 48                    # v1.30: oltre, il bollettino CPSM e' "tend
 SOGLIA_FERMA = 2.0                   # v1.29: cm/h, sotto questa variazione massima nella finestra la marea e' "quasi ferma"
 SOGLIA_QUADRATURA = 5.0             # cm/h: sotto questa velocita' del livello nella finestra il verso delle correnti stimate non e' attendibile
 INIZIO_AUTUNNO = "09-20"            # MM-GG: inizio della stagione usata nelle riflessioni
-SOGLIA_RIFL = 7.0                   # nodi: separa uscite calme / ventose nelle riflessioni
 ZONE_TITOLO = "Malamocco · Valgrande · San Leonardo · Fisolo · Alberoni"
 # Zone di pesca (dal 31/10/2026): Malamocco · Valgrande = stazione CPSM Malamocco Porto (interna, ~3 km dalla bocca lungo il
 # Canale dei Petroli, ~1 km dal Canale Valgrande); San Leonardo · Melison; Fisolo (Valgrande nord); Bocca · Alberoni = tra le dighe (non verificata).
@@ -118,7 +117,7 @@ AREE = {"nord": {"titolo": "Laguna Nord · bacino di Lido",
                            ("Canale Ca Roman", "C. Ca' Roman"), ("Canale di Sottomarina", "C. Sottomarina")]}}
 AREA = "centro"
 BOCCA = "Bocca di Malamocco"
-TESTO_NO_CORR = "nessuna correzione: nella zona non c'è ancora una stazione di misura validata (stima = ICON-D2 così com'è)"
+TESTO_NO_CORR = "nessuna correzione: nella zona non c'è ancora una stazione di misura validata (Forecast Lagoon = ICON-D2 così com'è)"
 
 
 def imposta_area(nome):
@@ -143,7 +142,7 @@ ZONA_VERIFICA = {"nord": "Laguna Nord", "sud": "Laguna Sud"}   # v1.45: zona di 
 # (ECMWF + correzione media della zona, da tendenza_correzioni.json) di SOGLIA_DISACCORDO nodi o piu', in quell'ora
 # niente correzione: in quelle ore FL sovrastimava e ICON-D2 grezzo sbagliava meno. La riga resta marcata "prudenza".
 SOGLIA_DISACCORDO = 3.0
-TESTO_PRUDENZA = "modelli in disaccordo (ICON-D2 molto sopra ECMWF corretto): stima = ICON-D2 senza correzione, per prudenza"
+TESTO_PRUDENZA = "modelli in disaccordo (ICON-D2 molto sopra ECMWF corretto): Forecast Lagoon = ICON-D2 senza correzione, per prudenza"
 CART_CORR = None      # v1.52: cartella delle correzioni congelate (solo ricalcolo della marea)
 
 
@@ -169,7 +168,7 @@ def nota_verifica_nord_sud():
            ". Nessuna stazione di verifica e nessuna correzione"
 
 
-TESTO_RIPARO = "zona riparata dalla bora: stima = ICON-D2 senza correzione; vento reale probabilmente più basso (osservazione di Ennio, non misurata)"
+TESTO_RIPARO = "zona riparata dalla bora: Forecast Lagoon = ICON-D2 senza correzione"
 
 
 # Onda da vento in laguna (v1.19): acqua libera controvento (fetch, km) e fondale medio (m) per 16 direzioni da cui
@@ -439,7 +438,6 @@ def probabilita_nebbia(ENS, ore_txt):
 
 # ------------------------------------------------------------------ onda in mare aperto (Open-Meteo Marine)
 MARE_PUNTO = (45.325, 12.335)          # davanti alla bocca di Malamocco: il modello lo porta sulla cella a ~45,29 N 12,375 E
-SOGLIA_ONDA = 1.0                      # m: oltre questa altezza da NE o SE il report segnala mare formato fuori dalla bocca
 
 
 def scarica_mare(giorno, path=None):
@@ -1080,7 +1078,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
                     sys.exit(f"Nessun modello copre il vento di {z} alle {h:02d}:00: riprova più tardi.")
                 r_m = Rm[mod].get(k(h))
                 stima, corr = round(base, 1), 0.0
-                fonti_corr.setdefault(f"ICON-D2 non disponibile, stima = {NOME_MOD[mod]} senza correzione misurata (meno affidabile)", set()).add("+0,0")
+                fonti_corr.setdefault(f"ICON-D2 non disponibile, Forecast Lagoon = {NOME_MOD[mod]} senza correzione misurata (meno affidabile)", set()).add("+0,0")
                 raff = round(max(stima, r_m), 1) if r_m is not None else None
                 sem = semaforo(stima, raff)
                 if ORD[sem] > ORD[sem_ore[h]]:
@@ -1315,7 +1313,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
     note_meteo = []
     t0e, t0d = Tec.get(k(ore[0])), (T_d2_mestre if aria_punto else T_d2_acqua).get(k(ore[0]))
     if None not in (t0e, t0d) and abs(t0e - t0d) >= 3:
-        note_meteo.append(f"ECMWF dà {num(t0e)} °C alle {ore[0]:02d}:00 contro {num(t0d)} °C di ICON-D2: incertezza sulla temperatura della prima ora.")
+        note_meteo.append(f"ECMWF dà {num(t0e)} °C alle {ore[0]:02d}:00 contro {num(t0d)} °C di ICON-D2.")
     nuv_d2 = media_ok(serie(z0, "cloud_cover", "icon_d2").get(k(h)) for h in ore)
     if None not in (nuv_ec, nuv_d2) and abs(nuv_ec - nuv_d2) >= 40:
         note_meteo.append(f"Nuvolosità: ECMWF {round(nuv_ec)}% contro {round(nuv_d2)}% di ICON-D2.")
@@ -1376,74 +1374,18 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
         if righe_m:
             mare = {"righe": righe_m, "cella": f"{num(MAR.get('latitude'), 3)} N {num(MAR.get('longitude'), 3)} E",
                     "fonte_corr": "; ".join(sorted(fonti_onda))}
-    rifl = []
-    calme = [u for u in usc if u["vento_medio"] < SOGLIA_RIFL]
-    vent = [u for u in usc if u["vento_medio"] >= SOGLIA_RIFL]
-    dal = dt.date.fromisoformat(inizio).strftime("%d/%m")
-    if calme and vent:
-        mc = statistics.mean(u["catture"] for u in calme); mv = statistics.mean(u["catture"] for u in vent)
-        rifl.append({"tipo": "dato", "testo": f"Dal {dal}, vento medio misurato durante l'uscita: sotto i {num(SOGLIA_RIFL, 0)} nodi "
-                     f"{len(calme)} uscite, media {num(mc)} catture; da {num(SOGLIA_RIFL, 0)} nodi in su {len(vent)} uscite, media {num(mv)} catture."})
-    cr = sorted(o for o, f in catt if f == "crescente")
-    if catt:
-        rifl.append({"tipo": "dato", "testo": f"Dal {dal}: {len(cr)} catture su {len(catt)} in marea crescente"
-                     + (f", tra le {cr[0]} e le {cr[-1]}." if cr else ".")})
+    rifl = []                                        # v1.59: solo dati, senza opinioni ne' ipotesi
     if len(acqua) >= 2:
         rifl.append({"tipo": "dato", "testo": f"Acqua a Punta Salute: {num(acqua[0][1])} °C il {dt.date.fromisoformat(acqua[0][0]).strftime('%d/%m')}, "
                      f"{num(acqua[-1][1])} °C il {dt.date.fromisoformat(acqua[-1][0]).strftime('%d/%m')}."})
-    smin, smax = min(stime), max(stime)
-    if calme and vent:
-        fascia = vent if smin >= SOGLIA_RIFL else calme if smax < SOGLIA_RIFL else None
-        if fascia is vent:
-            rifl.append({"tipo": "inferenza", "testo": f"Con la stima di {num(smin)}–{num(smax)} nodi la giornata cade nella fascia ventosa, "
-                         f"dove le uscite dal {dal} hanno reso meno (media {num(statistics.mean(u['catture'] for u in vent))} catture)."})
-        elif fascia is calme:
-            rifl.append({"tipo": "inferenza", "testo": f"Con la stima di {num(smin)}–{num(smax)} nodi la giornata cade nella fascia calma, "
-                         f"quella delle uscite migliori dal {dal}."})
-        else:
-            rifl.append({"tipo": "inferenza", "testo": f"La stima ({num(smin)}–{num(smax)} nodi) attraversa la soglia dei {num(SOGLIA_RIFL, 0)} nodi: "
-                         "conteranno le ore più calme."})
-    if n_alte and min(n_alte) < (FV.MIN_ORE_CORR if FV else 10):
-        n_v, e_d2, e_st = FV.errori_fascia(FV.fascia(SOGLIA_ROSSO), ".") if FV else (0, None, None)
-        rifl.append({"tipo": "inferenza", "testo": f"Con ICON-D2 da {num(SOGLIA_ROSSO, 0)} nodi in su la correzione non è ancora misurata"
-                     + (f": nelle {n_v} ore verificate ICON-D2 ha sbagliato di {'+' if e_d2 > 0 else ''}{num(e_d2)} nodi e la stima di "
-                        f"{'+' if e_st > 0 else ''}{num(e_st)}, quindi il vento reale potrebbe stare tra ICON-D2 e la stima." if n_v else
-                        ": il vento reale potrebbe essere diverso dalla stima in entrambi i sensi.")})
-    if mare:
-        alte = [r for r in mare["righe"] if r.get("h_corr", r["h"]) >= SOGLIA_ONDA]
-        if alte:
-            g_m = statistics.mean(r["dir_g"] for r in alte) % 360
-            tipo = f"da {gradi_card(g_m)}" if g_m < 180 else None   # direzione di provenienza dell'onda
-            if tipo:
-                rifl.append({"tipo": "inferenza", "testo": f"Mare formato {tipo} fuori dalla bocca: fino a {num(max(r.get('h_corr', r['h']) for r in alte))} m "
-                             f"tra le {alte[0]['ora']} e le {alte[-1]['ora']}. {BOCCA} e dighe probabilmente agitate."})
-    if ore_rip:                                             # v1.26
-        rifl.append({"tipo": "inferenza", "testo": f"ICON-D2 non copre ancora le ore {', '.join(f'{x:02d}:00' for x in sorted(ore_rip))}: stima = ICON-2i senza la correzione "
-                     "misurata alle verifiche (che vale per ICON-D2). Rigenerare la previsione quando ICON-D2 copre il giorno."})
     ore_inc = [(h, inc_ore[h][1]) for h in ore if inc_ore[h][0]]                 # v1.48
     if ore_inc:
-        rifl.append({"tipo": "inferenza", "testo": "Previsione incerta alle " + ", ".join(f"{h:02d}:00" for h, _ in ore_inc)
-                     + ": ICON-D2 è molto sopra ECMWF corretto (forbice tra " + "; ".join(f"{num(f[0])} e {num(f[1])}" for _, f in ore_inc)
-                     + " nodi). Per prudenza la stima segue ICON-D2, il più alto dei due; il vento reale può stare in tutta la forbice. "
-                       "Su 3 mesi, in questi casi l'errore è stato circa il 55% più alto del normale."})
-    if incerte:
-        rifl.append({"tipo": "inferenza", "testo": "ICON-D2 e ICON-2i non concordano (oltre 3 nodi o colore diverso) in: " + ", ".join(incerte) + "."})
-    ordine = sorted(ore, key=lambda h: (ORD[sem_ore[h]], -max(c["valori"][ore.index(h)]["ms"] for c in correnti)))
-    migliori = sorted(h for h in ore if sem_ore[h] == sem_ore[ordine[0]])
-    if sem_ore[ordine[0]] == "rosso":
-        rifl.append({"tipo": "opinione", "testo": "Semaforo rosso per tutta la finestra: uscita sconsigliata. Se si esce, zone riparate dal vento "
-                     f"di {dir_txt(g_ini)} e rientro anticipato."})
-    else:
-        zona_calma = min(ZONE_VENTO, key=lambda z: statistics.mean(r["stima"] for r in vento[z]))
-        tratti = []                                   # v1.21: solo ore consecutive (prima univa 08 e 11 in "08–12")
-        for h in migliori:
-            if tratti and h == tratti[-1][1] + 1:
-                tratti[-1][1] = h
-            else:
-                tratti.append([h, h])
-        txt_ore = " e ".join(f"{x:02d}:00" if x == y else f"{x:02d}:00–{y:02d}:00" for x, y in tratti)   # v1.23: ore della tabella
-        rifl.append({"tipo": "opinione", "testo": f"Ore migliori per vento: {txt_ore} (semaforo {sem_ore[ordine[0]]}). "
-                     f"Corrente più forte verso le {ore[statistics.mode(picco_ore)]:02d}:00. Zona meno ventosa: {zona_calma}."})
+        rifl.append({"tipo": "dato", "testo": "Previsione incerta alle " + ", ".join(f"{h:02d}:00" for h, _ in ore_inc)
+                     + f": il vento può stare tra {num(min(f[0] for _, f in ore_inc))} e {num(max(f[1] for _, f in ore_inc))} nodi."})
+    h_min = min(ore, key=lambda h: media_ore[h][0])
+    zona_calma = min(ZONE_VENTO, key=lambda z: statistics.mean(r["stima"] for r in vento[z]))
+    rifl.append({"tipo": "dato", "testo": f"Ora con meno vento: {h_min:02d}:00 ({num(media_ore[h_min][0])} nodi). "
+                 f"Corrente più forte verso le {ore[statistics.mode(picco_ore)]:02d}:00. Zona meno ventosa: {zona_calma}."})
 
     # onda stimata in laguna (v1.19): vento stimato e direzione ICON-D2 della zona, livello di marea previsto
     VENTO_DI = {"C. Petroli · Fusina": "Malamocco · Valgrande"}      # punto senza zona del vento: usa quella piu' vicina
@@ -1486,7 +1428,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
         z_f, r_f = max(forti, key=lambda x: x[1]["raff"])
         verd.append(f"Attenzione: raffiche fino a {num(r_f['raff'])} nodi ({z_f}, {r_f['ora']}); non cambiano il colore, che segue il vento medio.")
     if ore_rip:                                             # v1.26
-        verd.append(f"ICON-D2 non copre le ore {', '.join(f'{x:02d}' for x in sorted(ore_rip))}: lì la stima è ICON-2i senza correzione misurata, meno affidabile.")
+        verd.append(f"ICON-D2 non copre le ore {', '.join(f'{x:02d}' for x in sorted(ore_rip))}: lì Forecast Lagoon è ICON-2i senza correzione misurata, meno affidabile.")
     if ferma:                                         # v1.29
         verd.append(f"Marea quasi ferma (morto d'acqua): nella finestra il livello varia al massimo di {num(vel_max)} cm/h"
                     + (" — fasi: " + "; ".join(t[0].lower() + t[1:] for t in fase_txt) if fase_txt else "") + ".")
@@ -1503,7 +1445,7 @@ def calcola(giorno, da, a, OM, M, MA, C, CP=([], None), MAR=None, ARIA=None, ENS
                              + (f" Ore con semaforo peggiore: {', '.join(peggio)}." if peggio else "")},
         "striscia": striscia,
         "vento": vento, "zone_vento": ZONE_VENTO, "testo_riparo": TESTO_RIPARO, "ore_ripiego": [f"{x:02d}:00" for x in sorted(ore_rip)],
-        "vento_nota": (f"Nodi. D2 = ICON-D2, 2i = ICON-2i, Raff. = raffiche ICON-D2 corrette ({'; '.join(sorted(fonti_raff)) or 'senza correzione'}), EC = ECMWF. Stima = ICON-D2 + correzione — "
+        "vento_nota": (f"Nodi. D2 = ICON-D2, 2i = ICON-2i, Raff. = raffiche ICON-D2 corrette ({'; '.join(sorted(fonti_raff)) or 'senza correzione'}), EC = ECMWF. Forecast Lagoon = ICON-D2 + correzione — "
                        + "; ".join(f"{intervallo_corr(v)} nodi: {k}" for k, v in fonti_corr.items())
                        + (nota_verifica_nord_sud() if AREA != "centro" else
                           (". Misure di verifica: " + "; ".join(f"{z} = {FV.ZONE[z][1]}" for z in ZONE_VENTO if z in FV.ZONE) + "; "
@@ -1627,14 +1569,14 @@ function graficoVento(rr){const W=520,H=200,L=26,R=10,T=10,B=22,N=rr.length;if(!
   s+=`<polyline fill="none" stroke="${c}" stroke-width="${w}" ${da?'stroke-dasharray="'+da+'"':''} points="${p.join(' ')}"/>`;
   if(k==='stima')rr.forEach((r,i)=>s+=`<circle cx="${X(i)}" cy="${Y(r.stima)}" r="3.5" fill="${c}"/>`);});
  return h('div',{html:s+'</svg>'});}
-const LEGV='<span><i style="background:#dc2626;height:4px"></i><b>stima</b></span><span><i style="background:#f59e0b"></i>ICON-D2</span><span><i style="background:#0d9488"></i>ICON-2i</span><span><i style="background:#7c3aed"></i>ECMWF</span><span><i style="background:repeating-linear-gradient(90deg,#64748b 0 4px,transparent 4px 7px)"></i>raffiche (corrette)</span><span>sfondo: verde sotto 6, giallo 6–12, rosso da 12 nodi</span>';
+const LEGV='<span><i style="background:#dc2626;height:4px"></i><b>Forecast Lagoon</b></span><span><i style="background:#f59e0b"></i>ICON-D2</span><span><i style="background:#0d9488"></i>ICON-2i</span><span><i style="background:#7c3aed"></i>ECMWF</span><span><i style="background:repeating-linear-gradient(90deg,#64748b 0 4px,transparent 4px 7px)"></i>raffiche (corrette)</span><span>sfondo: verde sotto 6, giallo 6–12, rosso da 12 nodi</span>';
 const cv=h('div',{cls:'card parte1'},h('h2',{},'💨 Vento'));const tabs=h('div',{cls:'tabs'});cv.append(tabs);
 D.zone_vento.forEach((z,i)=>{const b=h('div',{cls:'tab'+(i?'':' on')},z);tabs.append(b);
-  const t=h('table',{},h('tr',{},...['Ora','Dir.','Stima','D2','2i','Raff.','EC'].map(x=>h('th',{},x))));
+  const t=h('table',{},h('tr',{},...['Ora','Dir.','Forecast<br>Lagoon','D2','2i','Raff.','EC'].map(x=>h('th',{html:x}))));
   D.vento[z].forEach(r=>t.append(h('tr',{},h('td',{},r.ora),h('td',{cls:'dir'},r.dir,h('div',{cls:'dnome'},r.nome||'')),h('td',{},h('span',{cls:'pill '+r.sem},n(r.stima,0)),r.riparo?' *':'',r.ripiego?' †':''),h('td',{},n(r.d2)),h('td',{},n(r.i2)),h('td',{},n(r.raff)),h('td',{},n(r.ec)))));
   const box=h('div',{cls:'zbox',style:i?'display:none':''},h('div',{cls:'zona-t'},z),graficoVento(D.vento[z]),h('div',{cls:'leg',html:LEGV}),t);
   if(D.vento[z].some(r=>r.riparo))box.append(h('div',{cls:'nota'},'* Bora, '+D.testo_riparo+'.'));
-  if(D.vento[z].some(r=>r.ripiego))box.append(h('div',{cls:'nota'},'† ICON-D2 non disponibile: stima = '+D.vento[z].find(r=>r.ripiego).ripiego+' senza correzione misurata, raffiche dello stesso modello (meno affidabile).'));cv.append(box);
+  if(D.vento[z].some(r=>r.ripiego))box.append(h('div',{cls:'nota'},'† ICON-D2 non disponibile: Forecast Lagoon = '+D.vento[z].find(r=>r.ripiego).ripiego+' senza correzione misurata, raffiche dello stesso modello (meno affidabile).'));cv.append(box);
   b.onclick=()=>{[...tabs.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');cv.querySelectorAll('.zbox').forEach((x,j)=>x.style.display=j===i?'':'none');};});
 cv.append(h('div',{cls:'nota'},D.vento_nota));
 if(false&&D.onda_laguna&&D.onda_laguna.ore.length){const OL=D.onda_laguna;   // v1.46: nascosta (stima circa 3 volte la misura di Fusina, 22/11/2026)
@@ -1712,10 +1654,10 @@ if(D.mare){const cv=D.mare.righe.some(r=>r.vento!=null);
   const tm=h('table',{},h('tr',{},...['Ora','Onda','Dir.','Periodo'].concat(cv?['Vento','Raff.','Dir.']:[]).map(x=>h('th',{},x))));
   D.mare.righe.forEach(r=>tm.append(h('tr',{},h('td',{},r.ora),h('td',{html:ob(om(r))}),h('td',{cls:'dir'},r.dir),h('td',{},n(r.per)+' s'),
     ...(cv?[h('td',{},n(r.vento)),h('td',{},n(r.raff_v)),h('td',{cls:'dir'},r.dir_v||'–',h('div',{cls:'dnome'},r.nome_v||''))]:[]))));
-  MARE=h('div',{cls:'card parte2'},h('h2',{},'〰️ Onda in mare aperto'),tm,h('div',{cls:'nota'},'Al largo, fuori dalla bocca.'+(cv?' Vento in nodi.':'')));}
+  MARE=h('div',{cls:'card parte2'},h('h2',{},'〰️ Onda in mare aperto'),tm,cv?h('div',{cls:'nota'},'Vento in nodi.'):null);}
 if(MARE)add(MARE);add(cmt);
-const cr=h('div',{cls:'card parte2'},h('h2',{},'🧭 Riflessioni'));
-D.riflessioni.forEach(r=>cr.append(h('div',{cls:'r'},h('span',{cls:'tag '+r.tipo},r.tipo),h('div',{},r.testo))));add(cr);
+const cr=h('div',{cls:'card parte2'},h('h2',{},'🧭 Da sapere'));
+D.riflessioni.forEach(r=>cr.append(h('div',{cls:'r'},h('div',{},r.testo))));if(D.riflessioni.length)add(cr);
 add(h('div',{cls:'fonti parte2'},D.fonti+' · generata '+D.generato));
 /* impaginazione: una colonna (iPhone, PDF, PNG) o due colonne su schermo largo (Mac) */
 const STRISCIA=(D.striscia&&D.striscia.ore.length)?K[2]:null,o0=STRISCIA?1:0;
@@ -2077,7 +2019,7 @@ def main():
     for q in D["marea"]["sequenza"]:
         print(f"  Marea {q['da']} -> {q['a']}: {q['fase']}")
     for r in D["riflessioni"]:
-        print(f"  [{r['tipo']}] {r['testo']}")
+        print(f"  {r['testo']}")
     chrome = None if "--no-pdf" in sys.argv else trova_chrome()     # v1.50: le fasce non hanno PDF (c'e' la sintesi)
     if not chrome:
         print("Creata solo la pagina HTML" + (" (--no-pdf)." if "--no-pdf" in sys.argv else ": Google Chrome non trovato."))
